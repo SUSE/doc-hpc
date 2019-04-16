@@ -23,15 +23,15 @@
    <date><?dbtimestamp format="B d, Y"?></date>
    <xi:include href="common_copyright_gfdl.xml"/>
    <abstract>
-    <para>
-     What is this book about?
-    </para>
+     <para>
+       &shpc;
+     </para>
    </abstract>
    <dm:docmanager xmlns:dm="urn:x-suse:ns:docmanager">
     <dm:bugtracker>
      <dm:url>https://bugzilla.suse.com/enter_bug.cgi</dm:url>
      <dm:component>Documentation</dm:component>
-     <dm:product>Product Name</dm:product>
+     <dm:product>&hpc;</dm:product>
      <dm:assignee>assignee@suse.com</dm:assignee>
     </dm:bugtracker>
    </dm:docmanager>
@@ -39,14 +39,54 @@
 
  <xi:include href="preface_hpc-guide.xml"/>
 
- <part xml:id="part.one">
-  <title>One</title>
-  <xi:include href="cha_example_one.xml"/>
+ <part xml:id="part.inst">
+  <title>Installation</title>
+  <xi:include href="installation.xml"/>
  </part>
 
- <part xml:id="part.two">
-  <title>Two</title>
-  <xi:include href="cha_example_two.xml"/>
+ <part xml:id="part.dep">
+  <title>Deployment</title>
+  <xi:include href="deployment.xml"/>
+ </part>
+
+ <part xml:id="part.remote">
+  <title>Remote Administration</title>
+  <xi:include href="remote_administration.xml"/>
+ </part>
+
+ <part xml:id="part.nodes">
+  <title>Nodes</title>
+  <xi:include href="nodes.xml"/>
+ </part>
+
+ <part xml:id="part.sched">
+  <title>Scheduler</title>
+  <xi:include href="scheduler.xml"/>
+ </part>
+
+ <part xml:id="part.monitoring">
+  <title>Monitoring</title>
+  <xi:include href="monitoring.xml"/>
+ </part>
+
+ <part xml:id="part.compute">
+  <title>Compute</title>
+  <xi:include href="compute.xml"/>
+ </part>
+
+ <part xml:id="part.compilation">
+  <title>Compilation</title>
+  <xi:include href="compilation.xml"/>
+ </part>
+
+ <part xml:id="part.testing">
+  <title>Testing</title>
+  <xi:include href="testing.xml"/>
+ </part>
+
+ <part xml:id="part.buildsource">
+  <title>Build Source</title>
+  <xi:include href="buildsource.xml"/>
  </part>
 
  <xi:include href="example_doc_updates.xml"/>

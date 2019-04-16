@@ -11,3 +11,11 @@
 <!-- START YEAR OF COPYRIGHT -->
 <!ENTITY copyrightstart "2019">
 <!ENTITY copyrightholder "SUSE LLC">
+
+<!ENTITY suse "SUSE">
+
+<!ENTITY hpc "High Performance Computing">
+<!ENTITY shpc "&sle; &hpc;">
+<!ENTITY product "&shpc;">
+<!ENTITY sle "&suse; Linux Enterprise">
+
