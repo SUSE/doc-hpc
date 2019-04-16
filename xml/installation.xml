@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This file originates from the project https://github.com/openSUSE/doc-kit -->
+<!-- This file can be edited downstream. -->
+
+<?xml-stylesheet href="urn:x-suse:xslt:profiling:docbook51-profile.xsl"
+ type="text/xml"
+ title="Profiling step"?>
+<!DOCTYPE chapter
+[
+  <!ENTITY % entities SYSTEM "generic-entities.ent">
+    %entities;
+]>
+
+<chapter xml:id="installation" xml:lang="en"
+ xmlns="http://docbook.org/ns/docbook" version="5.1"
+ xmlns:xi="http://www.w3.org/2001/XInclude"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+ <title>Installation</title>
+ <info>
+  <abstract>
+   <para>
+    Installatin an HPC cluster.
+   </para>
+  </abstract>
+  <dm:docmanager xmlns:dm="urn:x-suse:ns:docmanager">
+   <dm:bugtracker></dm:bugtracker>
+   <dm:translation>yes</dm:translation>
+  </dm:docmanager>
+ </info>
+ <sect1 xml:id="sec.installation.systemrole">
+  <title>Sytem Role</title>
+  <para>
+   A paragraph of text.
+  </para>
+  <procedure>
+   <step>
+    <para>
+     A step.
+    </para>
+   </step>
+   <step>
+    <para>
+     A second step.
+    </para>
+   </step>
+   <step>
+    <para>
+     A third step.
+    </para>
+   </step>
+  </procedure>
+  <warning>
+   <title>A Warning</title>
+   <para>
+    A paragraph of text.
+   </para>
+  </warning>
+ </sect1>
+ <sect1 xml:id="sec.installation.postprocess">
+  <title>Post installation Process</title>
+  <para>
+   A paragraph of text.
+  </para>
+  <variablelist>
+   <varlistentry>
+    <term>A Definition</term>
+    <listitem>
+     <para>
+      A paragraph of text.
+     </para>
+    </listitem>
+   </varlistentry>
+   <varlistentry>
+    <term>Another Definition</term>
+    <listitem>
+     <para>
+      Another paragraph of text.
+     </para>
+    </listitem>
+   </varlistentry>
+  </variablelist>
+<screen>&prompt.user;a-long-command --with-options</screen>
+ </sect1>
+</chapter>
