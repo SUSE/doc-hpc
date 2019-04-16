@@ -1,0 +1,57 @@
+- Defining HPC product
+Cluster topology Overview
+HPC Server
+HPC compute nodes
+Hardware considerations
+
+
+- Installation
+System role
+post installation process
+
+
+- Deploiment
+clustduct
+slurm user / group ID 
+
+
+- Remote administration
+ConMan
+Genders
+pdsh
+PowerMan
+memkind
+munge
+mrsh/mrlogin
+sshd config
+
+- Nodes
+cpuid
+hwloc
+
+- Scheduler
+slurm: setup / scontrol / sinfo / sbatch
+
+- Monitoring 
+Ganglia
+rasdaemon
+
+
+- Compute
+Lmod
+HPC libraries
+
+- Compilation
+GNU Compiler
+
+
+- Testing your HPC cluster
+pdsh / ssh
+ENV (module load)
+slurm
+ganglia
+mpi
+
+
+- Build from Source
+ohpc macros
