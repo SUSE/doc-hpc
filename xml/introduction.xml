@@ -11,15 +11,17 @@
     %entities;
 ]>
 
-<chapter xml:id="cha.example.one" xml:lang="en"
+<chapter xml:id="cha.introduction" xml:lang="en"
  xmlns="http://docbook.org/ns/docbook" version="5.1"
  xmlns:xi="http://www.w3.org/2001/XInclude"
  xmlns:xlink="http://www.w3.org/1999/xlink">
- <title>Chapter One</title>
+ <title>&product; &this-version;</title>
  <info>
   <abstract>
    <para>
-    What is this chapter about?
+     &product; is a highly scalable, high performance open-source operating
+     system designed to utilize the power of parallel computing for modeling,
+     simulation and advanced analytics workloads.                          
    </para>
   </abstract>
   <dm:docmanager xmlns:dm="urn:x-suse:ns:docmanager">
@@ -27,58 +29,138 @@
    <dm:translation>yes</dm:translation>
   </dm:docmanager>
  </info>
- <sect1 xml:id="sec.example.one.one">
-  <title>Section One</title>
+ <sect1 xml:id="sec.intro.provides">
+  <title>Provides</title>
   <para>
-   A paragraph of text.
+    &product; &this-version; provides
+    tools and libraries related to High Performance Computing.
+    This includes:
   </para>
-  <procedure>
-   <step>
-    <para>
-     A step.
+  <itemizedlist>
+    <listitem>
+      <para>
+	Workload manager
     </para>
-   </step>
-   <step>
+   </listitem>
+   <listitem>
     <para>
-     A second step.
+      Remote and parallel shells
     </para>
-   </step>
-   <step>
-    <para>
-     A third step.
-    </para>
-   </step>
-  </procedure>
-  <warning>
-   <title>A Warning</title>
-   <para>
-    A paragraph of text.
-   </para>
-  </warning>
+   </listitem>
+   <listitem>
+     <para>
+       Performance monitoring and measuring tools
+     </para>
+   </listitem>
+   <listitem>
+     <para>
+       Serial console monitoring tool
+     </para>
+   </listitem>
+   <listitem>
+     <para>
+       Cluster power management tool
+     </para>
+   </listitem>
+   <listitem>
+     <para>
+       A tool for discovering the machine hardware topology
+     </para>
+   </listitem>
+   <listitem>
+     <para>
+       System monitoring
+     </para>
+   </listitem>
+   <listitem>
+     <para>
+       A tool for monitoring memory errors
+     </para>
+   </listitem>
+   <listitem>
+     <para>
+       A tool for determining the CPU model and its capabilities (x86-64 only)
+     </para>
+   </listitem>
+   <listitem>
+     <para>
+       User-extensible heap manager capable of distinguishing between different kinds
+       of memory (x86-64 only)
+     </para>
+   </listitem>
+   <listitem>
+     <para>
+       Serial and parallel computational libraries providing the common standards
+       BLAS, LAPACK, ...
+     </para>
+   </listitem>
+   <listitem>
+     <para>
+       Various MPI implementations
+     </para>
+   </listitem>
+   <listitem>
+     <para>
+       Serial and parallel libraries for the HDF5 file format
+     </para>
+   </listitem>
+  </itemizedlist>
  </sect1>
- <sect1 xml:id="sec.example.one.two">
-  <title>Section Two</title>
+ <sect1 xml:id="sec.introduction.hw">
+  <title>Hardware Platform Support</title>
   <para>
-   A paragraph of text.
+   &product; &this-version; is available for the
+   Intel 64/AMD64 (x86-64) and AArch64 platforms.
   </para>
-  <variablelist>
-   <varlistentry>
-    <term>A Definition</term>
-    <listitem>
-     <para>
-      A paragraph of text.
-     </para>
-    </listitem>
-   </varlistentry>
-   <varlistentry>
-    <term>Another Definition</term>
-    <listitem>
-     <para>
-      Another paragraph of text.
-     </para>
-    </listitem>
-   </varlistentry>
-  </variablelist>
-<screen>&prompt.user;a-long-command --with-options</screen>
+ </sect1>
+  <sect1 xml:id="sec.introduction.life">
+   <title>Support and Life Cycle</title>
+   <para>
+    &product; &this-version; is supported throughout the life cycle of
+    &slea; &this-version;. ESPOS (Extended Service Overlap Support) as well
+    as Long Term Support Service are also available for this product. Any
+    release package is fully maintained and supported until the availability
+    of the next release.
+   </para>
+   <para>
+    For more information, see the Support Policy page
+    <link xlink:href="https://www.suse.com/support/policy.html" xlink:show="new"/>.
+   </para>
+  </sect1>
+ <sect1 xml:id="sec.introduction.documentation">
+   <title>Documentation and Other Information</title>
+   <para/>
+   <para>
+     Accessing the documentation on the product media:
+   </para>
+   <itemizedlist>
+     <listitem>
+       <para>Read the READMEs on the media.</para>
+     </listitem>
+     <listitem>
+       <para>
+	 Get the detailed change log information about a particular package
+	 from the RPM (where
+	 <filename><replaceable>FILENAME</replaceable>.rpm</filename>
+	 is the name of the RPM):
+       </para>
+       <screen>rpm --changelog -qp
+       <replaceable>FILENAME</replaceable>.rpm</screen>
+     </listitem>
+     <listitem>
+       <para>
+	 Check the <filename>ChangeLog</filename> file in the top level of the
+	 media for a chronological log of all changes made to the updated
+	 packages.
+       </para>
+     </listitem>
+     <listitem>
+       <para>
+	 These documentation are identical across all architectures, and the most
+	 recent version is always available online at
+	 <link xlink:href="https://www.suse.com/documentation/" xlink:show="new"/>.
+       </para>
+     </listitem>
+   </itemizedlist>
  </sect1>
 </chapter>

@@ -39,6 +39,11 @@
 
  <xi:include href="preface_hpc-guide.xml"/>
 
+ <part xml:id="part.intro">
+  <title>Introduction</title>
+  <xi:include href="introduction.xml"/>
+ </part>
+
  <part xml:id="part.inst">
   <title>Installation</title>
   <xi:include href="installation.xml"/>
