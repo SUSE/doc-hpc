@@ -16,7 +16,9 @@
 <!ENTITY suse "SUSE">
 
 <!ENTITY hpc "High Performance Computing">
+<!ENTITY hpca "HPC">
 <!ENTITY shpc "&sle; &hpc;">
 <!ENTITY product "&shpc;">
 <!ENTITY sle "&suse; Linux Enterprise">
+<!ENTITY shpca "&slea; &hpca;">
 

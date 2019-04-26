@@ -28,53 +28,54 @@
   </dm:docmanager>
  </info>
  <sect1 xml:id="sec.nodes.cpuid">
-  <title>Cpuid</title>
+  <title>cpuid</title>
   <para>
-   A paragraph of text.
+   <literal>cpuid</literal> executes the x86 CPUID instruction and decodes
+   and prints the results to stdout. Its knowledge of Intel, AMD and Cyrix
+   CPUs is fairly complete. It also supports Intel Knights Mill CPUs (x86-64).
   </para>
-  <itemizedlist>
-   <listitem>
-    <para>
-     An
-    </para>
-   </listitem>
-   <listitem>
-    <para>
-     Unordered
-    </para>
-   </listitem>
-   <listitem>
-    <para>
-     List
-    </para>
-   </listitem>
-  </itemizedlist>
   <para>
-   Another paragraph of text.
+   To install <literal>cpuid</literal>, run: <literal>zypper in
+   cpuid</literal>.
+  </para>
+  <para>
+   For information about runtime options for <literal>cpuid</literal>, see the
+   man page <literal>cpuid(1)</literal>.
+  </para>
+  <para>
+   Note that this tool is only available for x86-64.
   </para>
  </sect1>
  <sect1 xml:id="sec.nodes.hwloc">
-  <title>hwloc</title>
+  <title>hwloc &mdash; Portable Abstraction of Hierarchical Architectures for High-Performance Computing</title>
   <para>
-   A paragraph of text.
+   <literal>hwloc</literal> provides command-line tools and a C API to
+   obtain the hierarchical map of key computing elements, such as: NUMA
+   memory nodes, shared caches, processor packages, processor cores,
+   processing units (logical processors or "threads") and even I/O devices.
+   <literal>hwloc</literal> also gathers various attributes such as cache
+   and memory information, and is portable across a variety of different
+   operating systems and platforms. Additionally it may assemble the
+   topologies of multiple machines into a single one, to let
+   applications consult the topology of an entire fabric or cluster at
+   once.
   </para>
-  <orderedlist>
-   <listitem>
-    <para>
-     An
-    </para>
-   </listitem>
-   <listitem>
-    <para>
-     Ordered
-    </para>
-   </listitem>
-   <listitem>
-    <para>
-     List
-    </para>
-   </listitem>
-  </orderedlist>
-
+  <para>
+   In graphical mode (X11), <literal>hwloc</literal> can display the
+   topology in a human-readable format. Alternatively, it can export to one
+   of several formats, including plain text, PDF, PNG, and FIG. For more
+   information, see the man pages provided by <literal>hwloc</literal>.
+  </para>
+  <para>
+   It also features full support for import and export of XML-formatted
+   topology files via the <literal>libxml2</literal> library.
+  </para>
+  <para>
+   The package <literal>hwloc-devel</literal> offers a library that can be
+   directly included into external programs. This requires that the
+   <literal>libxml2</literal> development library (package
+   <literal>libxml2-devel</literal>) is available when compiling
+   <literal>hwloc</literal>.
+   </para>
  </sect1>
 </chapter>
