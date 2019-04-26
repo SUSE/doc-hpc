@@ -21,7 +21,7 @@
    <para>
      &product; is a highly scalable, high performance open-source operating
      system designed to utilize the power of parallel computing for modeling,
-     simulation and advanced analytics workloads.                          
+     simulation and advanced analytics workloads.
    </para>
   </abstract>
   <dm:docmanager xmlns:dm="urn:x-suse:ns:docmanager">
@@ -39,7 +39,7 @@
   <itemizedlist>
     <listitem>
       <para>
-	Workload manager
+        Workload manager
     </para>
    </listitem>
    <listitem>
@@ -139,26 +139,26 @@
      </listitem>
      <listitem>
        <para>
-	 Get the detailed change log information about a particular package
-	 from the RPM (where
-	 <filename><replaceable>FILENAME</replaceable>.rpm</filename>
-	 is the name of the RPM):
+         Get the detailed change log information about a particular package
+         from the RPM (where
+         <filename><replaceable>FILENAME</replaceable>.rpm</filename>
+         is the name of the RPM):
        </para>
        <screen>rpm --changelog -qp
        <replaceable>FILENAME</replaceable>.rpm</screen>
      </listitem>
      <listitem>
        <para>
-	 Check the <filename>ChangeLog</filename> file in the top level of the
-	 media for a chronological log of all changes made to the updated
-	 packages.
+         Check the <filename>ChangeLog</filename> file in the top level of the
+         media for a chronological log of all changes made to the updated
+         packages.
        </para>
      </listitem>
      <listitem>
        <para>
-	 These documentation are identical across all architectures, and the most
-	 recent version is always available online at
-	 <link xlink:href="https://www.suse.com/documentation/" xlink:show="new"/>.
+         These documentation are identical across all architectures, and the most
+         recent version is always available online at
+         <link xlink:href="https://www.suse.com/documentation/" xlink:show="new"/>.
        </para>
      </listitem>
    </itemizedlist>

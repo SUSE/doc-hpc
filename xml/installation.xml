@@ -30,144 +30,185 @@
       <dm:translation>yes</dm:translation>
     </dm:docmanager>
   </info>
-  <sect1 xml:id="sec.installation.systemrole">
-    <title>Sytem Role for &product; &this-version;</title>
-    <para>
-      With &product; &this-version;, it is possible to choose specific roles
-      for the system based on modules selected during the installation process.
-      When the HPC Module is enabled, these three roles are available:
-    </para>
-    <variablelist>
-      <varlistentry>
-	<term>HPC Management Server (Head Node)</term>
-	<listitem>
-	  <para>
-	    This role includes the following features:
-	  </para>
-	  <itemizedlist>
-	    <listitem>
-              <para>
-		Uses XFS as the default root file system
-              </para>
-	    </listitem>
-	    <listitem>
-              <para>
-		Includes HPC-enabled libraries
-              </para>
-	    </listitem>
-	    <listitem>
-              <para>
-		Disables firewall and Kdump services
-              </para>
-	    </listitem>
-	    <listitem>
-              <para>
-		Installs controller for the Slurm Workload Manager
-              </para>
-	    </listitem>
-	    <listitem>
-              <para>
-		Mounts a large scratch partition to <filename>/var/tmp</filename>
-              </para>
-	    </listitem>
-	  </itemizedlist>
-	</listitem>
-      </varlistentry>
-      <varlistentry>
-	<term>HPC Compute Node</term>
-	<listitem>
-	  <para>
-	    This role includes the following features:
-	  </para>
-	  <itemizedlist>
-	    <listitem>
-              <para>
-		Uses XFS as the default root file system
-              </para>
-	    </listitem>
-	    <listitem>
-              <para>
-		Includes HPC-enabled libraries
-              </para>
-	    </listitem>
-	    <listitem>
-              <para>
-		Disables firewall and Kdump services
-              </para>
-	    </listitem>
-	    <listitem>
-              <para>
-		Based from minimal setup configuration
-              </para>
-	    </listitem>
-	    <listitem>
-              <para>
-		Installs client for the Slurm Workload Manager
-              </para>
-	    </listitem>
-	    <listitem>
-              <para>
-		Does not create a separate home partition
-              </para>
-	    </listitem>
-	    <listitem>
-              <para>
-		Mounts a large scratch partition to <filename>/var/tmp</filename>
-              </para>
-	    </listitem>
-	  </itemizedlist>
-	</listitem>
-      </varlistentry>
-      <varlistentry>
-	<term>HPC Development Node</term>
-	<listitem>
-	  <para>
-	    This role includes the following features:
-	  </para>
-	  <itemizedlist>
-	    <listitem>
-	      <para>
-		Includes HPC-enabled libraries
-	      </para>
-	    </listitem>
-	    <listitem>
-	      <para>
-		Adds compilers and development toolchain
-	      </para>
-	    </listitem>
-	  </itemizedlist>
-	</listitem>
-      </varlistentry>
-    </variablelist>
-    <para>
-      The scratch partition <literal>/var/tmp/</literal> will only be created if
-      there is sufficient space available on the installation medium (minimum
-      32 GB).
-    </para>
-    <para>
-      The Environment Module <literal>Lmod</literal> will be installed for all
-      roles. It is required at build time and run time of the system.
-    </para>
-    <para>
-      All libraries specifically build for HPC will be installed under
-      <literal>/usr/lib/hpc</literal>. They are not part of the standard search
-      path, thus the <literal>Lmod</literal> environment module system is
-      required.
-    </para>
-    <para>
-      <literal>Munge</literal> authentication is installed for all roles. This
-      requires to copy the same generated munge keys to all nodes of a cluster.
-      For more information, see <xref linkend="sec.remote.munge"/>.
-    </para>
-    <para>
-      From the Ganglia monitoring system, the data collector
-      <package>ganglia-gmod</package> is installed for every role, while the
-      data aggregator <package>ganglia-gmetad</package> needs to be installed
-      manually on the system which is expected to collect the data.
-    </para>
-    <para>
-      The system roles are only available for new installations of &product;.
-    </para>
+  <sect1 id="sec.installation">
+    <title>Installation and Upgrade</title>
+    This section includes information related to the installation and the
+    upgrade of the &product; &this-version;.
+    <sect2 xml:id="sec2.installation.systemrole">
+      <title>Sytem Role for &product; &this-version;</title>
+      <para>
+	With &product; &this-version;, it is possible to choose specific roles
+	for the system based on modules selected during the installation process.
+	When the HPC Module is enabled, these three roles are available:
+      </para>
+      <variablelist>
+	<varlistentry>
+	  <term>HPC Management Server (Head Node)</term>
+	  <listitem>
+	    <para>
+	      This role includes the following features:
+	    </para>
+	    <itemizedlist>
+	      <listitem>
+		<para>
+		  Uses XFS as the default root file system
+		</para>
+	      </listitem>
+	      <listitem>
+		<para>
+		  Includes HPC-enabled libraries
+		</para>
+	      </listitem>
+	      <listitem>
+		<para>
+		  Disables firewall and Kdump services
+		</para>
+	      </listitem>
+	      <listitem>
+		<para>
+		  Installs controller for the Slurm Workload Manager
+		</para>
+	      </listitem>
+	      <listitem>
+		<para>
+		  Mounts a large scratch partition to <filename>/var/tmp</filename>
+		</para>
+	      </listitem>
+	    </itemizedlist>
+	  </listitem>
+	</varlistentry>
+	<varlistentry>
+	  <term>HPC Compute Node</term>
+	  <listitem>
+	    <para>
+	      This role includes the following features:
+	    </para>
+	    <itemizedlist>
+	      <listitem>
+		<para>
+		  Uses XFS as the default root file system
+		</para>
+	      </listitem>
+	      <listitem>
+		<para>
+		  Includes HPC-enabled libraries
+		</para>
+	      </listitem>
+	      <listitem>
+		<para>
+		  Disables firewall and Kdump services
+		</para>
+	      </listitem>
+	      <listitem>
+		<para>
+		  Based from minimal setup configuration
+		</para>
+	      </listitem>
+	      <listitem>
+		<para>
+		  Installs client for the Slurm Workload Manager
+		</para>
+	      </listitem>
+	      <listitem>
+		<para>
+		  Does not create a separate home partition
+		</para>
+	      </listitem>
+	      <listitem>
+		<para>
+		  Mounts a large scratch partition to <filename>/var/tmp</filename>
+		</para>
+	      </listitem>
+	    </itemizedlist>
+	  </listitem>
+	</varlistentry>
+	<varlistentry>
+	  <term>HPC Development Node</term>
+	  <listitem>
+	    <para>
+	      This role includes the following features:
+	    </para>
+	    <itemizedlist>
+	      <listitem>
+		<para>
+		  Includes HPC-enabled libraries
+		</para>
+	      </listitem>
+	      <listitem>
+		<para>
+		  Adds compilers and development toolchain
+		</para>
+	      </listitem>
+	    </itemizedlist>
+	  </listitem>
+	</varlistentry>
+      </variablelist>
+      <para>
+	The scratch partition <literal>/var/tmp/</literal> will only be created if
+	there is sufficient space available on the installation medium (minimum
+	32 GB).
+      </para>
+      <para>
+	The Environment Module <literal>Lmod</literal> will be installed for all
+	roles. It is required at build time and run time of the system.
+      </para>
+      <para>
+	All libraries specifically build for HPC will be installed under
+	<literal>/usr/lib/hpc</literal>. They are not part of the standard search
+	path, thus the <literal>Lmod</literal> environment module system is
+	required.
+      </para>
+      <para>
+	<literal>Munge</literal> authentication is installed for all roles. This
+	requires to copy the same generated munge keys to all nodes of a cluster.
+	For more information, see <xref linkend="sec.remote.munge"/>.
+      </para>
+      <para>
+	From the Ganglia monitoring system, the data collector
+	<package>ganglia-gmod</package> is installed for every role, while the
+	data aggregator <package>ganglia-gmetad</package> needs to be installed
+	manually on the system which is expected to collect the data.
+      </para>
+      <para>
+	The system roles are only available for new installations of &product;.
+      </para>
+    </sect2>
+    <sect2 id="sec2.upgrade">
+      <title>Upgrade-Related Notes</title>
+      <para>
+	This section includes upgrade-related information for the &product; &this-version;.
+      </para>
+      <para>
+	You can upgrade to &product; &this-version; from &slsa; 12 SP3 or &shpca;
+	12 SP3. When upgrading from &slsa; 12 SP3, the upgrade will only be
+	performed if the &shpca; module has been registered prior to upgrading.
+	Otherwise, the system will instead be upgraded to &slsa; 15.
+      </para>
+      <para>
+	To upgrade from &slsa; 12 to &slsa; 15, make sure to unregister the
+	&shpca; module prior to upgrading. To do so, open a root shell and
+	execute:
+      </para>
+      <screen>SUSEConnect -d -p
+      sle-module-hpc/12/<replaceable>ARCH</replaceable></screen>
+      <para>
+	Replace <replaceable>ARCH</replaceable> with the architecture used
+	(<literal>x86_64</literal>, <literal>aarch64</literal>).
+      </para>
+      <para>
+	When migrating to &product; &this-version;, all modules not supported by
+	the migration target need to be deregistered. This can be done by
+	executing:
+      </para>
+      <screen>SUSEConnect -d -p
+      sle-module-<replaceable>MODULE_NAME</replaceable>/12/<replaceable>ARCH</replaceable></screen>
+      <para>
+	Replace <replaceable>MODULE_NAME</replaceable> by the name of the module
+	and <replaceable>ARCH</replaceable> with the architecture used
+	(<literal>x86_64</literal>, <literal>aarch64</literal>).
+      </para>
+    </sect2>
+
   </sect1>
   <sect1 xml:id="sec.installation.postprocess">
     <title>Post installation Process</title>
