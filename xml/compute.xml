@@ -12,9 +12,9 @@
 ]>
 
 <chapter xml:id="cha.compute" xml:lang="en"
- xmlns="http://docbook.org/ns/docbook" version="5.1"
- xmlns:xi="http://www.w3.org/2001/XInclude"
- xmlns:xlink="http://www.w3.org/1999/xlink">
+         xmlns="http://docbook.org/ns/docbook" version="5.1"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:xlink="http://www.w3.org/1999/xlink">
  <title>Compute</title>
  <info>
   <abstract>
@@ -52,22 +52,22 @@
     are available:
    </para>
    <screen>/usr/share/lmod/&lt;lmod_version&gt;/init/bash
-/usr/share/lmod/&lt;lmod_version&gt;/init/ksh
-/usr/share/lmod/&lt;lmod_version&gt;/init/tcsh
-/usr/share/lmod/&lt;lmod_version&gt;/init/zsh
-/usr/share/lmod/&lt;lmod_version&gt;/init/sh</screen>
-<para>
- Pick the one appropriate for your shell. Then add the following to the
- init file of your shell:
-</para>
-<screen>. /usr/share/lmod/&lt;LMOD_VERSION&gt;/init/&lt;INIT-FILE&gt;</screen>
-<para>
- To obtain <literal>&lt;lmod_version&gt;</literal>, run:
-</para>
-<screen>rpm -q lua-lmod | sed "s/.*-\([^-]\+\)-.*/\1/"</screen>
-<para>
- The init script adds the command <command>module</command>.
-</para>
+   /usr/share/lmod/&lt;lmod_version&gt;/init/ksh
+   /usr/share/lmod/&lt;lmod_version&gt;/init/tcsh
+   /usr/share/lmod/&lt;lmod_version&gt;/init/zsh
+   /usr/share/lmod/&lt;lmod_version&gt;/init/sh</screen>
+   <para>
+    Pick the one appropriate for your shell. Then add the following to the
+    init file of your shell:
+   </para>
+   <screen>. /usr/share/lmod/&lt;LMOD_VERSION&gt;/init/&lt;INIT-FILE&gt;</screen>
+   <para>
+    To obtain <literal>&lt;lmod_version&gt;</literal>, run:
+   </para>
+   <screen>rpm -q lua-lmod | sed "s/.*-\([^-]\+\)-.*/\1/"</screen>
+   <para>
+    The init script adds the command <command>module</command>.
+   </para>
   </sect2>
   <sect2 xml:id="sec2.compute.lmod.lista">
    <title>Listing Available Modules</title>
@@ -95,61 +95,700 @@
     only when you log in after installing <literal>lua-lmod</literal>.
    </para>
   </sect2>
-   <sect2 xml:id="sec2.compute.lmod.info">
-    <title>Gathering Information About a Module</title>
-    <para>
-     To get information about a particular module, run: <command>module
-     whatis <replaceable>MODULE-NAME</replaceable></command> To load a module,
-     run:
-     <command>module load <replaceable>MODULE-NAME</replaceable></command>. This
-     will ensure
-     that your environment is modified (that is, the <literal>PATH</literal> and
-     <literal>LD_LIBRARY_PATH</literal> and other environment variables are
-     prepended) such that binaries and libraries provided by the respective
-     modules are found. To run a program compiled against this library, the
-     appropriate <command>module load</command> commands must be issued
-     beforehand.
-    </para>
-   </sect2>
-   <sect2 xml:id="sec2.compute.lmod.load">
-    <title>Loading Modules</title>
-    <para>
-     The <command>module load <replaceable>MODULE</replaceable></command>
-     command needs to be
-     run in the shell from which the module is to be used. Some modules
-     require a compiler toolchain or MPI flavor module to be loaded before
-     they are available for loading.
-    </para>
-   </sect2>
-   <sect2 xml:id="sec2.compute.lmod.env">
-     <title>Environment Variables</title>
-     <para>
-      If the respective development packages are installed, build time
-      environment variables like <literal>LIBRARY_PATH</literal>,
-      <literal>CPATH</literal>, <literal>C_INCLUDE_PATH</literal> and
-      <literal>CPLUS_INCLUDE_PATH</literal> will be set up to include the
-      directories containing the appropriate header and library files.
-      However, some compiler and linker commands may not honor these. In this
-      case, use the appropriate options together with the environment
-      variables <literal>-I <replaceable>PACKAGE_NAME</replaceable>_INC</literal>
-      and <literal>-L <replaceable>PACKAGE_NAME</replaceable>_LIB</literal>
-      to add the include and library paths
-      to the command lines of the compiler and linker.
-      </para>
-   </sect2>
-   <sect2 xml:id="sec2.compute.lmod.moreinfo">
-    <title>For More Information</title>
-    <para>
-     For more information on Lmod, see
-     <link xlink:href="https://lmod.readthedocs.org"/>.
-    </para>
-   </sect2>
-  </sect1>
+  <sect2 xml:id="sec2.compute.lmod.info">
+   <title>Gathering Information About a Module</title>
+   <para>
+    To get information about a particular module, run: <command>module
+    whatis <replaceable>MODULE-NAME</replaceable></command> To load a module,
+    run:
+    <command>module load <replaceable>MODULE-NAME</replaceable></command>. This
+    will ensure
+    that your environment is modified (that is, the <literal>PATH</literal> and
+    <literal>LD_LIBRARY_PATH</literal> and other environment variables are
+    prepended) such that binaries and libraries provided by the respective
+    modules are found. To run a program compiled against this library, the
+    appropriate <command>module load</command> commands must be issued
+    beforehand.
+   </para>
+  </sect2>
+  <sect2 xml:id="sec2.compute.lmod.load">
+   <title>Loading Modules</title>
+   <para>
+    The <command>module load <replaceable>MODULE</replaceable></command>
+    command needs to be
+    run in the shell from which the module is to be used. Some modules
+    require a compiler toolchain or MPI flavor module to be loaded before
+    they are available for loading.
+   </para>
+  </sect2>
+  <sect2 xml:id="sec2.compute.lmod.env">
+   <title>Environment Variables</title>
+   <para>
+    If the respective development packages are installed, build time
+    environment variables like <literal>LIBRARY_PATH</literal>,
+    <literal>CPATH</literal>, <literal>C_INCLUDE_PATH</literal> and
+    <literal>CPLUS_INCLUDE_PATH</literal> will be set up to include the
+    directories containing the appropriate header and library files.
+    However, some compiler and linker commands may not honor these. In this
+    case, use the appropriate options together with the environment
+    variables <literal>-I <replaceable>PACKAGE_NAME</replaceable>_INC</literal>
+    and <literal>-L <replaceable>PACKAGE_NAME</replaceable>_LIB</literal>
+    to add the include and library paths
+    to the command lines of the compiler and linker.
+   </para>
+  </sect2>
+  <sect2 xml:id="sec2.compute.lmod.moreinfo">
+   <title>For More Information</title>
+   <para>
+    For more information on Lmod, see
+    <link xlink:href="https://lmod.readthedocs.org"/>.
+   </para>
+  </sect2>
+ </sect1>
  <sect1 xml:id="sec.compute.lib">
-  <title>Libraries</title>
+  <title>HPC Libraries</title>
   <para>
-   A paragraph of text.
+   Library packages which support environment modules follow a distinctive
+   naming scheme: all packages have the compiler suite and, if built with
+   MPI support, the MPI flavor in their name:
+   <literal>*-[<replaceable>MPI_FLAVOR</replaceable>]-<replaceable>COMPILER</replaceable>-hpc*</literal>. To
+   support a parallel installation of multiple versions of a library
+   package, the package name contains the version number (with dots
+   <literal>.</literal> replaced by underscores <literal>_</literal>). To
+   simplify the installation of a library, <literal>master</literal>
+   -packages are supplied which will ensure that the latest version of a
+   package is installed. When these <literal>master</literal> packages are
+   updated, the latest
+   version of the respective library packages will be installed while
+   leaving previous versions installed. Library packages are split between
+   runtime and compile time packages. The compile time packages typically
+   supply include files and .so-files for shared libraries. Compile time
+   package names end with <literal>-devel</literal>. For some libraries
+   static (<literal>.a</literal>) libraries are supplied as well, package
+   names for these end with <literal>-devel-static</literal>.
   </para>
-
+  <para>
+   As an example: Package names of the ScaLAPACK library version 2.0.2 built
+   with GCC for Open MPI v1:
+  </para>
+  <itemizedlist>
+   <listitem>
+    <para>
+     library package:
+     <package>libscalapack2_2_0_2-gnu-openmpi1-hpc</package>
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+     library master package: <package>libscalapack2-gnu-openmpi1-hpc</package>
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+     development package:
+     <package>libscalapack2_2_0_2-gnu-openmpi1-hpc-devel</package>
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+     development master package:
+     <package>libscalapack2-gnu-openmpi1-hpc-devel</package>
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+     static library package:
+     <package>libscalapack2_2_0_2-gnu-openmpi1-hpc-devel-static</package>
+    </para>
+   </listitem>
+  </itemizedlist>
+  <para>
+   (Note that the digit <literal>2</literal> appended to the library name
+   denotes the <literal>.so</literal> version of the library).
+  </para>
+  <para>
+   To install a library packages run <command>zypper in
+   <replaceable>LIBRARY-MASTER-PACKAGE</replaceable></command>. To install a
+   development file,
+   run <command>zypper in <replaceable>LIBRARY-DEVEL-MASTER-PACKAGE</replaceable></command>.
+  </para>
+  <para>
+   Presently, the GNU compiler collection version 4.8 as provided with SUSE
+   Linux Enterprise 15 and the MPI flavors Open MPI v.2 and MVAPICH2 are
+   supported.
+  </para>
+  <sect2 xml:id="sec2.lib.fftw">
+   <!-- href="https://fate.novell.com/321716" -->
+   <title>FFTW HPC Library &mdash; Discrete Fourier Transforms</title>
+   <para>
+    <literal>FFTW</literal> is a C subroutine library for computing the
+    Discrete Fourier Transform (DFT) in one or more dimensions, of both real
+    and complex data, and of arbitrary input size.
+   </para>
+   <para>
+    This library is available as both a serial and an MPI-enabled variant.
+    This module requires a compiler toolchain module loaded. To select an
+    MPI variant, the respective MPI module needs to be loaded beforehand. To
+    load this module, run:
+   </para>
+   <screen>module load fftw3</screen>
+   <para>
+    List of master packages:
+    <itemizedlist>
+     <listitem>
+      <para>
+       <literal>libfftw3-gnu-hpc</literal>
+      </para>
+     </listitem>
+     <listitem>
+      <para>
+       <literal>fftw3-gnu-hpc-devel</literal>
+      </para>
+     </listitem>
+     <listitem>
+      <para>
+       <literal>libfftw3-gnu-openmpi1-hpc</literal>
+      </para>
+     </listitem>
+     <listitem>
+      <para>
+       <literal>fftw3-gnu-openmpi1-hpc-devel</literal>
+      </para>
+     </listitem>
+     <listitem>
+      <para>
+       <literal>libfftw3-gnu-mvapich2-hpc</literal>
+      </para>
+     </listitem>
+     <listitem>
+      <para>
+       <literal>fftw3-gnu-mvapich2-hpc-devel</literal>
+      </para>
+     </listitem>
+    </itemizedlist>
+   </para>
+   <para>
+    For general information about Lmod and modules, see
+    <xref linkend="sec.compute.lmod"/>.
+   </para>
+  </sect2>
+  <sect2 xml:id="sec2.lib.hdf5">
+   <!-- href="https://fate.novell.com/321710" -->
+   <title>HDF5 HPC Library &mdash; Model, Library, File Format for Storing and Managing Data</title>
+   <para>
+    HDF5 is a data model, library, and file format for storing and managing
+    data. It supports an unlimited variety of data types, and is designed for
+    flexible and efficient I/O and for high volume and complex data. HDF5 is
+    portable and extensible, allowing applications to evolve in their use of
+    HDF5.
+   </para>
+   <para>
+    There are serial and MPI variants of this library available. All flavors
+    require loading a compiler toolchain module beforehand. The MPI variants
+    also require loading the correct MPI flavor module.
+   </para>
+   <para>
+    To load the highest available serial version of this module run:
+   </para>
+   <screen>module load hdf5</screen>
+   <para>
+    When an MPI flavor is loaded, the MPI version of this module can be
+    loaded by:
+   </para>
+   <screen>module load phpdf5</screen>
+   <para>
+    List of master packages:
+   </para>
+   <itemizedlist>
+    <listitem>
+     <para>
+      <package>hdf5-examples</package>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <package>hdf5-gnu-hpc-devel</package>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <package>libhdf5-gnu-hpc</package>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <package>libhdf5_cpp-gnu-hpc</package>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <package>libhdf5_fortran-gnu-hpc</package>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <package>libhdf5_hl_cpp-gnu-hpc</package>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <package>libhdf5_hl_fortran-gnu-hpc</package>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <package>hdf5-gnu-openmpi1-hpc-devel</package>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <package>libhdf5-gnu-openmpi1-hpc</package>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <package>libhdf5_fortran-gnu-openmpi1-hpc</package>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <package>libhdf5_hl_fortran-gnu-openmpi1-hpc</package>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <package>hdf5-gnu-mvapich2-hpc-devel</package>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <package>libhdf5-gnu-mvapich2-hpc</package>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <package>libhdf5_fortran-gnu-mvapich2-hpc</package>
+     </para>
+    </listitem>
+   </itemizedlist>
+   <para>
+    For general information about Lmod and modules, see <xref linkend="sec.compute.lmod"/>
+   </para>
+  </sect2>
+  <!-- href="https://fate.novell.com/321719" -->
+  <sect2 xml:id="sec2.lib.netcdf">
+   <title>NetCDF HPC Library &mdash; Implementation of Self-Describing Data Formats</title>
+   <para>
+    The NetCDF software libraries for C, C++, FORTRAN, and Perl are a set of
+    software libraries and self-describing, machine-independent data formats
+    that support the creation, access, and sharing of array-oriented
+    scientific data.
+   </para>
+   <bridgehead renderas="sect5"><literal>netcdf</literal> Packages</bridgehead>
+   <para>
+    The packages with names starting with <literal>netcdf</literal> provide
+    C bindings for the NetCDF API. These are available with and without MPI
+    support.
+   </para>
+   <para>
+    There are serial and MPI variants of this library available. All flavors
+    require loading a compiler toolchain module beforehand. The MPI variants
+    also require loading the correct MPI flavor module.
+   </para>
+   <para>
+    The MPI variant becomes available when the MPI module is loaded. Both
+    variants require loading a compiler toolchain module beforehand. To
+    load the highest version of the non-MPI <literal>netcdf</literal> module,
+    run:
+   </para>
+   <screen>module load netcdf</screen>
+   <para>
+    To load the highest available MPI version of this module, run:
+   </para>
+   <screen>module load pnetcdf</screen>
+   <para>
+    List of master packages:
+   </para>
+   <itemizedlist>
+    <listitem>
+     <para>
+      <package>netcdf-gnu-hpc</package>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <package>netcdf-gnu-hpc-devel</package>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <package>netcdf-gnu-hpc</package>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <package>netcdf-gnu-hpc-devel</package>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <package>netcdf-gnu-openmpi1-hpc</package>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <package>netcdf-gnu-openmpi1-hpc-devel</package>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <package>netcdf-gnu-mvapich2-hpc</package>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <package>netcdf-gnu-mvapich2-hpc-devel</package>
+     </para>
+    </listitem>
+   </itemizedlist>
+   <bridgehead renderas="sect5"><literal>netcdf-cxx</literal> Packages</bridgehead>
+   <para>
+    <package>netcdf-cxx4</package> provides a C++ binding for the NetCDF
+    API.
+   </para>
+   <para>
+    This module requires loading a compiler toolchain module beforehand. To
+    load this module, run:
+   </para>
+   <screen>module load netcdf-cxx4</screen>
+   <para>
+    List of master packages:
+    <itemizedlist>
+     <listitem>
+      <para>
+       <literal>libnetcdf-cxx4-gnu-hpc</literal>
+      </para>
+     </listitem>
+     <listitem>
+      <para>
+       <literal>libnetcdf-cxx4-gnu-hpc-devel</literal>
+      </para>
+     </listitem>
+     <listitem>
+      <para>
+       <literal>netcdf-cxx4-gnu-hpc-tools</literal>
+      </para>
+     </listitem>
+    </itemizedlist>
+   </para>
+   <bridgehead renderas="sect5"><literal>netcdf-fortran</literal> Packages</bridgehead>
+   <para>
+    The <literal>netcdf-fortran</literal> packages provide FORTRAN bindings
+    for the NetCDF API, with and without MPI support.
+   </para>
+   <bridgehead renderas="sect5">For More Information</bridgehead>
+   <para>
+    For general information about Lmod and modules, see
+    <xref linkend="sec.compute.lmod"/>.
+   </para>
+  </sect2>
+  <sect2 xml:id="sec2.lib.numpy">
+   <!-- href="https://fate.novell.com/321709" -->
+   <title>NumPy Python Library</title>
+   <para>
+    NumPy is a general-purpose array-processing package designed to
+    efficiently manipulate large multi-dimensional arrays of arbitrary
+    records without sacrificing too much speed for small multi-dimensional
+    arrays.
+   </para>
+   <para>
+    NumPy is built on the Numeric code base and adds features introduced by
+    numarray as well as an extended C API and the ability to create arrays
+    of arbitrary type which also makes NumPy suitable for interfacing with
+    general-purpose data-base applications.
+   </para>
+   <para>
+    There are also basic facilities for discrete Fourier transform, basic
+    linear algebra and random number generation.
+   </para>
+   <para>
+    This package is available both for Python 2 and Python 3. The specific
+    compiler toolchain and MPI library flavor modules must be loaded for this
+    library. The correct library module for the Python version used needs to be
+    specified when loading this module. To load this module, run:
+   </para>
+   <itemizedlist>
+    <listitem>
+     <para>
+      for Python 2: <literal>module load python2-numpy</literal>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      for Python 3: <literal>module load python3-numpy</literal>
+     </para>
+    </listitem>
+   </itemizedlist>
+   <para>
+    List of master packages:
+   </para>
+   <itemizedlist>
+    <listitem>
+     <para>
+      <literal>python2-numpy-gnu-hpc</literal>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <literal>python2-numpy-gnu-hpc-devel</literal>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <literal>python3-numpy-gnu-hpc</literal>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <literal>python3-numpy-gnu-hpc-devel</literal>
+     </para>
+    </listitem>
+   </itemizedlist>
+  </sect2>
+  <sect2 xml:id="sec2.lib.blas">
+   <!-- href="https://fate.novell.com/321708" -->
+   <title>OpenBLAS Library &mdash; Optimized BLAS Library</title>
+   <para>
+    OpenBLAS is an optimized BLAS (Basic Linear Algebra Subprograms) library
+    based on GotoBLAS2 1.3, BSD version. It provides the BLAS API. It is
+    shipped as a package enabled for environment modules and thus requires
+    using Lmod to select a version. There are two variants of this library,
+    an OpenMP-enabled variant and a pthreads variant.
+   </para>
+   <bridgehead renderas="sect5">OpenMP-Enabled Variant</bridgehead>
+   <para>
+    The OpenMP variant covers all use cases:
+   </para>
+   <itemizedlist>
+    <listitem>
+     <para>
+      <emphasis role="bold">Programs using OpenMP.</emphasis> This requires
+      the OpenMP-enabled library version to function correctly.
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <emphasis role="bold">Programs using pthreads.</emphasis> This
+      requires an OpenBLAS library without pthread support. This can be
+      achieved with the OpenMP-version. We recommend limiting the number of
+      threads that are used to 1 by setting the environment variable
+      <literal>OMP_NUM_THREADS=1</literal>.
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <emphasis role="bold">Programs without pthreads and without
+      OpenMP.</emphasis> Such programs can still take advantage of the
+      OpenMP optimization in the library by linking against the OpenMP
+      variant of the library.
+     </para>
+    </listitem>
+   </itemizedlist>
+   <para>
+    When linking statically, ensure that <literal>libgomp.a</literal> is
+    included by adding the linker flag <literal>-lgomp</literal>.
+   </para>
+   <bridgehead renderas="sect5">pthreads Variant</bridgehead>
+   <para>
+    The pthreads variant of the OpenBLAS library can improve the performance
+    of single-threaded programs. The number of threads used can be
+    controlled with the environment variable
+    <literal>OPENBLAS_NUM_THREADS</literal>.
+   </para>
+   <bridgehead renderas="sect5">Installation and Usage</bridgehead>
+   <para>
+    This module requires loading a compiler toolchain beforehand. To select
+    the latest version of this module provided, run:
+   </para>
+   <itemizedlist>
+    <listitem>
+     <para>
+      OpenMP version:
+     </para>
+     <screen>module load openblas-pthreads</screen>
+    </listitem>
+    <listitem>
+     <para>
+      pthreads version:
+     </para>
+     <screen>module load openblas</screen>
+    </listitem>
+   </itemizedlist>
+   <para>
+    List of master package for:
+    <itemizedlist>
+     <listitem>
+      <para>
+       <literal>libopenblas-gnu-hpc</literal>
+      </para>
+     </listitem>
+     <listitem>
+      <para>
+       <literal>libopenblas-gnu-hpc-devel</literal>
+      </para>
+     </listitem>
+     <listitem>
+      <para>
+       <literal>libopenblas-pthreads-gnu-hpc</literal>
+      </para>
+     </listitem>
+     <listitem>
+      <para>
+       <literal>libopenblas-pthreads-gnu-hpc-devel</literal>
+      </para>
+     </listitem>
+    </itemizedlist>
+   </para>
+   <para>
+    For general information about Lmod and modules, see
+    <xref linkend="sec.compute.lmod"/>.
+   </para>
+  </sect2>
+  <sect2 xml:id="sec2.lib.papi">
+   <title>PAPI HPC Library &mdash; Consistent Interface for Hardware Performance Counters</title>
+   <para>
+    PAPI (package <package>papi</package>) provides a tool with a
+    consistent interface and methodology for use of the performance counter
+    hardware found in most major microprocessors.
+   </para>
+   <para>
+    This package serves all compiler toolchains and does not require a
+    compiler toolchain to be selected. The latest version provided can be
+    selected by running:
+   </para>
+   <screen>module load papi</screen>
+   <para>
+    List of master packages:
+   </para>
+   <itemizedlist>
+    <listitem>
+     <para>
+      <package>papi-hpc</package>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <package>papi-hpc-devel</package>
+     </para>
+    </listitem>
+   </itemizedlist>
+   <para>
+    For general information about Lmod and modules, see
+    <xref linkend="sec.compute.lmod"/>.
+   </para>
+  </sect2>
+  <sect2 xml:id="sec2.lib.petsc">
+   <title>PETSc HPC Library &mdash; Solver for Partial Differential Equations</title>
+   <para>
+    PETSc is a suite of data structures and routines for the scalable
+    (parallel) solution of scientific applications modeled by partial
+    differential equations.
+   </para>
+   <para>
+    This module requires loading a compiler toolchain as well as an MPI
+    library flavor beforehand. To load this module, run:
+   </para>
+   <screen>module load petsc</screen>
+   <para>
+    List of master packages:
+    <itemizedlist>
+     <listitem>
+      <para>
+       <literal>libpetsc-gnu-openmpi1-hpc</literal>
+      </para>
+     </listitem>
+     <listitem>
+      <para>
+       <literal>petsc-gnu-openmpi1-hpc-devel</literal>
+      </para>
+     </listitem>
+     <listitem>
+      <para>
+       <literal>libpetsc-gnu-mvapich2-hpc</literal>
+      </para>
+     </listitem>
+     <listitem>
+      <para>
+       <literal>petsc-gnu-mvapich2-hpc-devel</literal>
+      </para>
+     </listitem>
+    </itemizedlist>
+   </para>
+   <para>
+    For general information about Lmod and modules, see
+    <xref linkend="sec.compute.lmod"/>.
+   </para>
+  </sect2>
+  <sect2 xml:id="sec2.lib.scala">
+   <title>ScaLAPACK HPC Library &mdash; LAPACK Routines</title>
+   <para>
+    The library ScaLAPACK (short for "Scalable LAPACK") includes a subset of
+    LAPACK routines designed for distributed memory MIMD-parallel computers.
+   </para>
+   <para>
+    This library requires loading both a compiler toolchain and an MPI
+    library flavor beforehand. To load this library, run:
+   </para>
+   <screen>module load scalapack</screen>
+   <para>
+    List of master packages:
+    <itemizedlist>
+     <listitem>
+      <para>
+       <literal>libblacs2-gnu-openmpi1-hpc</literal>
+      </para>
+     </listitem>
+     <listitem>
+      <para>
+       <literal>libblacs2-gnu-openmpi1-hpc-devel</literal>
+      </para>
+     </listitem>
+     <listitem>
+      <para>
+       <literal>libscalapack2-gnu-openmpi1-hpc</literal>
+      </para>
+     </listitem>
+     <listitem>
+      <para>
+       <literal>libscalapack2-gnu-openmpi1-hpc-devel</literal>
+      </para>
+     </listitem>
+     <listitem>
+      <para>
+       <literal>libblacs2-gnu-mvapich2-hpc</literal>
+      </para>
+     </listitem>
+     <listitem>
+      <para>
+       <literal>libblacs2-gnu-mvapich2-hpc-devel</literal>
+      </para>
+     </listitem>
+     <listitem>
+      <para>
+       <literal>libscalapack2-gnu-mvapich2-hpc</literal>
+      </para>
+     </listitem>
+     <listitem>
+      <para>
+       <literal>libscalapack2-gnu-mvapich2-hpc-devel</literal>
+      </para>
+     </listitem>
+    </itemizedlist>
+   </para>
+   <para>
+    For general information about Lmod and modules, see
+    <xref linkend="sec.compute.lmod"/>.
+   </para>
+  </sect2>
  </sect1>
 </chapter>

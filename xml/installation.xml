@@ -217,23 +217,5 @@
   <para>
    A paragraph of text.
   </para>
-  <variablelist>
-   <varlistentry>
-    <term>A Definition</term>
-    <listitem>
-     <para>
-      A paragraph of text.
-     </para>
-    </listitem>
-   </varlistentry>
-   <varlistentry>
-    <term>Another Definition</term>
-    <listitem>
-     <para>
-      Another paragraph of text.
-     </para>
-    </listitem>
-   </varlistentry>
-  </variablelist>
  </sect1>
 </chapter>
