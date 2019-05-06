@@ -28,53 +28,128 @@
   </dm:docmanager>
  </info>
  <sect1 xml:id="sec.compute.lmod">
-  <title>Lmod</title>
+  <title>Lmod &mdash; Lua-based Environment Modules</title>
   <para>
-   A paragraph of text.
+   Lmod is an advanced environment module system which allows the
+   installation of multiple versions of a program or shared library, and
+   helps configure the system environment for the use of a specific
+   version. It
+   supports hierarchical library dependencies and makes sure that the
+   correct version of dependent libraries are selected. Environment
+   Modules-enabled library packages supplied with the HPC module support
+   parallel installation of different versions and flavors of the same
+   library or binary and are supplied with appropriate
+   <literal>lmod</literal> module files.
   </para>
-  <itemizedlist>
-   <listitem>
+  <sect2 xml:id="sec2.compute.lmod.basic">
+   <title>Installation and Basic Usage</title>
+   <para>
+    To install Lmod, run: <command>zypper in lua-lmod</command>.
+   </para>
+   <para>
+    Before Lmod can be used, an init file needs to be sourced from the
+    initialization file of your interactive shell. The following init files
+    are available:
+   </para>
+   <screen>/usr/share/lmod/&lt;lmod_version&gt;/init/bash
+/usr/share/lmod/&lt;lmod_version&gt;/init/ksh
+/usr/share/lmod/&lt;lmod_version&gt;/init/tcsh
+/usr/share/lmod/&lt;lmod_version&gt;/init/zsh
+/usr/share/lmod/&lt;lmod_version&gt;/init/sh</screen>
+<para>
+ Pick the one appropriate for your shell. Then add the following to the
+ init file of your shell:
+</para>
+<screen>. /usr/share/lmod/&lt;LMOD_VERSION&gt;/init/&lt;INIT-FILE&gt;</screen>
+<para>
+ To obtain <literal>&lt;lmod_version&gt;</literal>, run:
+</para>
+<screen>rpm -q lua-lmod | sed "s/.*-\([^-]\+\)-.*/\1/"</screen>
+<para>
+ The init script adds the command <command>module</command>.
+</para>
+  </sect2>
+  <sect2 xml:id="sec2.compute.lmod.lista">
+   <title>Listing Available Modules</title>
+   <para>
+    To list the available all available modules, run: <command>module
+    spider</command>. To show all modules which can be loaded with the
+    currently loaded modules, run: <command>module avail</command>. A
+    module name consists of a name and a version string separated by a
+    <literal>/</literal> character. If more than one version is available
+    for a certain module name, the default version (marked by
+    <literal>*</literal>) or (if this is not set) the one with the highest
+    version number is loaded. To refer to a specific module version, the
+    full string <literal><replaceable>NAME</replaceable>/<replaceable>VERSION</replaceable></literal>
+    may be used.
+   </para>
+  </sect2>
+  <sect2 xml:id="sec2.compute.lmod.listl">
+   <title>Listing Loaded Modules</title>
+   <para>
+    <command>module list</command> shows all currently loaded modules. Refer
+    to <command>module help</command> for a short help on the module command
+    and <command>module help <replaceable>MODULE-NAME</replaceable></command>
+    for a help on the
+    particular module. Note that the <command>module</command> command is available
+    only when you log in after installing <literal>lua-lmod</literal>.
+   </para>
+  </sect2>
+   <sect2 xml:id="sec2.compute.lmod.info">
+    <title>Gathering Information About a Module</title>
     <para>
-     An
+     To get information about a particular module, run: <command>module
+     whatis <replaceable>MODULE-NAME</replaceable></command> To load a module,
+     run:
+     <command>module load <replaceable>MODULE-NAME</replaceable></command>. This
+     will ensure
+     that your environment is modified (that is, the <literal>PATH</literal> and
+     <literal>LD_LIBRARY_PATH</literal> and other environment variables are
+     prepended) such that binaries and libraries provided by the respective
+     modules are found. To run a program compiled against this library, the
+     appropriate <command>module load</command> commands must be issued
+     beforehand.
     </para>
-   </listitem>
-   <listitem>
+   </sect2>
+   <sect2 xml:id="sec2.compute.lmod.load">
+    <title>Loading Modules</title>
     <para>
-     Unordered
+     The <command>module load <replaceable>MODULE</replaceable></command>
+     command needs to be
+     run in the shell from which the module is to be used. Some modules
+     require a compiler toolchain or MPI flavor module to be loaded before
+     they are available for loading.
     </para>
-   </listitem>
-   <listitem>
+   </sect2>
+   <sect2 xml:id="sec2.compute.lmod.env">
+     <title>Environment Variables</title>
+     <para>
+      If the respective development packages are installed, build time
+      environment variables like <literal>LIBRARY_PATH</literal>,
+      <literal>CPATH</literal>, <literal>C_INCLUDE_PATH</literal> and
+      <literal>CPLUS_INCLUDE_PATH</literal> will be set up to include the
+      directories containing the appropriate header and library files.
+      However, some compiler and linker commands may not honor these. In this
+      case, use the appropriate options together with the environment
+      variables <literal>-I <replaceable>PACKAGE_NAME</replaceable>_INC</literal>
+      and <literal>-L <replaceable>PACKAGE_NAME</replaceable>_LIB</literal>
+      to add the include and library paths
+      to the command lines of the compiler and linker.
+      </para>
+   </sect2>
+   <sect2 xml:id="sec2.compute.lmod.moreinfo">
+    <title>For More Information</title>
     <para>
-     List
+     For more information on Lmod, see
+     <link xlink:href="https://lmod.readthedocs.org"/>.
     </para>
-   </listitem>
-  </itemizedlist>
-  <para>
-   Another paragraph of text.
-  </para>
- </sect1>
+   </sect2>
+  </sect1>
  <sect1 xml:id="sec.compute.lib">
   <title>Libraries</title>
   <para>
    A paragraph of text.
   </para>
-  <orderedlist>
-   <listitem>
-    <para>
-     An
-    </para>
-   </listitem>
-   <listitem>
-    <para>
-     Ordered
-    </para>
-   </listitem>
-   <listitem>
-    <para>
-     List
-    </para>
-   </listitem>
-  </orderedlist>
 
  </sect1>
 </chapter>

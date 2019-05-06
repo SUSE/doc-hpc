@@ -12,9 +12,9 @@
 ]>
 
 <chapter xml:id="cha.remote" xml:lang="en"
- xmlns="http://docbook.org/ns/docbook" version="5.1"
- xmlns:xi="http://www.w3.org/2001/XInclude"
- xmlns:xlink="http://www.w3.org/1999/xlink">
+         xmlns="http://docbook.org/ns/docbook" version="5.1"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:xlink="http://www.w3.org/1999/xlink">
  <title>Remote Administration</title>
  <info>
   <abstract>
@@ -28,192 +28,418 @@
   </dm:docmanager>
  </info>
  <sect1 xml:id="sec.remote.conman">
-  <title>ConMan</title>
+  <title>ConMan &mdash; The Console Manager</title>
   <para>
-   A paragraph of text.
+   ConMan is a serial console management program designed to support a
+   large number of console devices and simultaneous users. It supports:
   </para>
   <itemizedlist>
    <listitem>
     <para>
-     An
+     local serial devices
     </para>
    </listitem>
    <listitem>
     <para>
-     Unordered
+     remote terminal servers (via the telnet protocol)
     </para>
    </listitem>
    <listitem>
     <para>
-     List
+     IPMI Serial-Over-LAN (via FreeIPMI)
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+     Unix domain sockets
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+     external processes (for example, using 'expect' scripts for telnet,
+     ssh, or ipmi-sol connections)
     </para>
    </listitem>
   </itemizedlist>
   <para>
-   Another paragraph of text.
+   ConMan can be used for monitoring, logging and optionally timestamping
+   console device output.
+  </para>
+  <para>
+   To install ConMan, run <literal>zypper in conman</literal>.
+  </para>
+  <important>
+   <title><systemitem class="daemon">conmand</systemitem> Sends Unencrypted Data</title>
+   <para>
+    The daemon <systemitem class="daemon">conmand</systemitem> sends
+    unencrypted data over the
+    network and its connections are not authenticated. Therefore, it should
+    be used locally only: Listening to the port
+    <literal>localhost</literal>. However, the IPMI console does offer
+    encryption. This makes <literal>conman</literal> a good tool for
+    monitoring a large number of such consoles.
+   </para>
+  </important>
+  <para>
+   Usage:
+  </para>
+  <itemizedlist>
+   <listitem>
+    <para>
+     ConMan comes with a number of expect-scripts. They can be found in the
+     directory <filename>/usr/lib/conman/exec</filename>.
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+     Input to <literal>conman</literal> is not echoed in interactive mode.
+     This can be changed by entering the escape sequence
+     <literal>&amp;E</literal>.
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+     When pressing <keycap function="enter"/> in interactive mode, no line
+     feed is generated. To generate a line feed, press
+     <keycombo><keycap function="control"/><keycap>L</keycap></keycombo>.
+    </para>
+   </listitem>
+  </itemizedlist>
+  <para>
+   For more information about options, see the man page of ConMan.
   </para>
  </sect1>
  <sect1 xml:id="sec.remote.genders">
-  <title>Genders</title>
+  <title>Genders &mdash; Static Cluster Configuration Database</title>
   <para>
-   A paragraph of text.
+   Support for Genders has been added to the HPC module.
   </para>
-  <orderedlist>
+  <para>
+   Genders is a static cluster configuration database used for
+   configuration management. It allows grouping and addressing sets of
+   hosts by attributes and is used by a variety of tools. The Genders
+   database is a text file which is usually replicated on each node in a
+   cluster.
+  </para>
+  <para>
+   Perl, Python, C, and C++ bindings are supplied with Genders, the
+   respective packages provide man pages or other documentation describing
+   the APIs.
+  </para>
+  <para>
+   To create the Genders database, follow the instructions and examples in
+   <filename>/etc/genders</filename> and check
+   <filename>/usr/share/doc/packages/genders-base/TUTORIAL</filename>.
+   Testing a configuration can be done with <literal>nodeattr</literal>
+   (for more information, see <command>man 1 nodeattr</command>).
+  </para>
+  <para>
+   List of packages:
+  </para>
+  <itemizedlist>
    <listitem>
     <para>
-     An
+     <package>genders</package>
     </para>
    </listitem>
    <listitem>
     <para>
-     Ordered
+     <package>genders-base</package>
     </para>
    </listitem>
    <listitem>
     <para>
-     List
+     <package>genders-devel</package>
     </para>
    </listitem>
-  </orderedlist>
+   <listitem>
+    <para>
+     <package>python-genders</package>
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+     <package>genders-perl-compat</package>
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+     <package>libgenders0</package>
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+     <package>libgendersplusplus2</package>
+    </para>
+   </listitem>
+  </itemizedlist>
  </sect1>
-
  <sect1 xml:id="sec.remote.pdsh">
-  <title>pdsh</title>
+  <title>pdsh &mdash; Parallel Remote Shell Program</title>
   <para>
-   A paragraph of text.
+   <literal>pdsh</literal> is a parallel remote shell which can be used
+   with multiple back-ends for remote connections. It can run a command on
+   multiple machines in parallel.
   </para>
-  <orderedlist>
-   <listitem>
-    <para>
-     An
-    </para>
-   </listitem>
-   <listitem>
-    <para>
-     Ordered
-    </para>
-   </listitem>
-   <listitem>
-    <para>
-     List
-    </para>
-   </listitem>
-  </orderedlist>
+  <para>
+   To install pdsh, run <command>zypper in pdsh</command>.
+  </para>
+  <para>
+   On &slsa; 12, the back-ends <literal>ssh</literal>,
+   <literal>mrsh</literal>, and <literal>exec</literal> are supported. The
+   <literal>ssh</literal> back-end is the default. Non-default login methods
+   can be used by either setting the <literal>PDSH_RCMD_TYPE</literal>
+   environment variable or by using the <literal>-R</literal> command
+   argument.
+  </para>
+  <para>
+   When using the <literal>ssh</literal> back-end, it is important that a
+   non-interactive (that is, passwordless) login method is used.
+  </para>
+  <para>
+   The <literal>mrsh</literal> back-end requires the
+   <literal>mrshd</literal> to be running on the client. The
+   <literal>mrsh</literal> back-end does not require the use of reserved
+   sockets. Therefore, it does not suffer from port exhaustion when
+   executing commands on many machines in parallel. For information about
+   setting up the system to use this back-end, see
+  </para>
+  <para>
+   Remote machines can either be specified on the command line or
+   <command>pdsh</command> can use a <filename>machines</filename> file
+   (<filename>/etc/pdsh/machines</filename>), dsh (Dancer's shell) style
+   groups or netgroups. Also, it can target nodes based on the currently
+   running Slurm jobs.
+  </para>
+  <para>
+   The different ways to select target hosts are realized by modules. Some
+   of these modules provide identical options to <command>pdsh</command>.
+   The module loaded first will win and consume the option. Therefore, we
+   recommend limiting yourself to a single method and specifying this with
+   the <literal>-M</literal> option.
+  </para>
+  <para>
+   The <filename>machines</filename> file lists all target hosts one per
+   line. The appropriate netgroup can be selected with the
+   <literal>-g</literal> command line option.
+  </para>
+  <para>
+   The following host-list plugins for <command>pdsh</command> are supported:
+   <literal>machines</literal>, <literal>slurm</literal>,
+   <literal>netgroup</literal> and <literal>dshgroup</literal>.
+   Each host-list plugin is provided in a separate package. This avoids
+   conflicts between command line options for different plugins which
+   happen to be identical and helps to keep installations small and free
+   of unneeded dependencies. Package dependencies have been set to prevent
+   installing plugins with conflicting command options. To install one of
+   the plugins, run:
+  </para>
+  <screen>zypper in pdsh-<replaceable>PLUGIN_NAME</replaceable></screen>
+  <para>
+   For more information, see the man page <command>pdsh</command>.
+  </para>
  </sect1>
  <sect1 xml:id="sec.remote.powerman">
-  <title>PowerMan</title>
+  <title>PowerMan &mdash; Centralized Power Control for Clusters</title>
   <para>
-   A paragraph of text.
+   PowerMan allows manipulating remote power control devices (RPC) from a
+   central location. It can control:
   </para>
-  <orderedlist>
+  <itemizedlist>
    <listitem>
     <para>
-     An
+     local devices connected to a serial port
     </para>
    </listitem>
    <listitem>
     <para>
-     Ordered
+     RPCs listening on a TCP socket
     </para>
    </listitem>
    <listitem>
     <para>
-     List
+     RPCs which are accessed through an external program
     </para>
    </listitem>
-  </orderedlist>
+  </itemizedlist>
+  <para>
+   The communication to RPCs is controlled by <quote>expect</quote>-like
+   scripts. For a
+   list of currently supported devices, see the configuration file
+   <filename>/etc/powerman/powerman.conf</filename>.
+  </para>
+  <para>
+   To install PowerMan, run <command>zypper in powerman</command>.
+  </para>
+  <para>
+   To configure it, include the appropriate device file for your RPC
+   (<filename>/etc/powerman/*.dev</filename>) in
+   <filename>/etc/powerman/powerman.conf</filename> and add devices and
+   nodes. The device <quote>type</quote> needs to match the
+   <quote>specification</quote> name in one
+   of the included device files. The list of <quote>plugs</quote> used for
+   nodes need to
+   match an entry in the <quote>plug name</quote> list.
+  </para>
+  <para>
+   After configuring PowerMan, start its service by:
+  </para>
+  <screen>systemctl start powerman.service</screen>
+  <para>
+   To start PowerMan automatically after every boot, run:
+  </para>
+  <screen>systemctl enable powerman.service</screen>
+  <para>
+   Optionally, PowerMan can connect to a remote PowerMan instance. To
+   enable this, add the option <literal>listen</literal> to
+   <filename>/etc/powerman/powerman.conf</filename>.
+  </para>
+  <important>
+   <title>Unencrypted Transfer</title>
+   <para>
+    When connecting to a remote PowerMan instance, data is transferred
+    unencrypted. Therefore, use this feature only if the network is
+    appropriately secured.
+   </para>
+  </important>
  </sect1>
  <sect1 xml:id="sec.remote.memkind">
-  <title>memkind</title>
+  <title>memkind &mdash; Heap Manager for Heterogeneous Memory Platforms and Mixed Memory Policies</title>
   <para>
-   A paragraph of text.
+   The <literal>memkind</literal> library is a user-extensible heap manager
+   built on top of <literal>jemalloc</literal> which enables control of
+   memory characteristics and a partitioning of the heap between kinds of
+   memory. The kinds of memory are defined by operating system memory
+   policies that have been applied to virtual address ranges. Memory
+   characteristics supported by <literal>memkind</literal> without user
+   extension include control of NUMA and page size features.
   </para>
-  <orderedlist>
+  <para>
+   For more information, see:
+  </para>
+  <itemizedlist>
    <listitem>
     <para>
-     An
+     the man pages <literal>memkind</literal> and
+     <literal>hbwallow</literal>
     </para>
    </listitem>
    <listitem>
     <para>
-     Ordered
+     <link xlink:href="https://github.com/memkind/memkind"/>
     </para>
    </listitem>
    <listitem>
     <para>
-     List
+     <link xlink:href="https://memkind.github.io/memkind/"/>
     </para>
    </listitem>
-  </orderedlist>
+  </itemizedlist>
+  <note role="compact">
+   <para>
+    This tool is only available for x86-64.
+   </para>
+  </note>
  </sect1>
  <sect1 xml:id="sec.remote.munge">
-  <title>Munge</title>
+  <title><emphasis>munge</emphasis> Authentication</title>
   <para>
-   A paragraph of text.
+   <emphasis>munge</emphasis>
+   allows users to connect as the same user from a machine to any other
+   machine which shares the same secret key. This can be used to set up a
+   cluster of machines between which the user can connect and execute
+   commands without any additional authentication.
   </para>
-  <orderedlist>
-   <listitem>
-    <para>
-     An
-    </para>
-   </listitem>
-   <listitem>
-    <para>
-     Ordered
-    </para>
-   </listitem>
-   <listitem>
-    <para>
-     List
-    </para>
-   </listitem>
-  </orderedlist>
+  <para>
+   The <emphasis>munge</emphasis> authentication is based on a single shared key.
+   This key is
+   located under <filename>/etc/munge/munge.key</filename>. At the installation
+   time of the <package>munge</package> package an individual munge key is
+   created from the random
+   source <filename>/dev/urandom</filename>. This key has to be the same on
+   all systems that should allow login to each other:
+   To set up <literal>munge</literal> authentication on these machines copy
+   the <emphasis>munge</emphasis> key from one machine (ideally a head node of
+   the cluster)
+   to the other machines within this cluster:
+  </para>
+  <screen>scp /etc/munge/munge.key root@<replaceable>NODE_N</replaceable>:/etc/munge/munge.key</screen>
+  <para>
+   Then enable and start the service munge on each machine that users are
+   expected to log in to:
+  </para>
+  <screen>systemctl enable munge.service
+  systemctl start munge.service</screen>
+  <para>
+   If several nodes are installed, you must select and synchronize one key
+   to all other nodes in the cluster. This key file should belong to the
+   <systemitem class="username">munge</systemitem> user and must have the
+   access rights <literal>0400</literal>.
+  </para>
  </sect1>
  <sect1 xml:id="sec.remote.mrsh">
-  <title>Mrsh / mrlogin</title>
+  <title>mrsh/mrlogin &mdash; Remote Login Using <emphasis>munge</emphasis> Authentication</title>
   <para>
-   A paragraph of text.
+   <emphasis>mrsh</emphasis> is a set of remote shell programs using the
+   <emphasis>munge</emphasis> authentication system instead of reserved ports
+   for security.
   </para>
-  <orderedlist>
+  <para>
+   It can be used as a drop-in replacement for <literal>rsh</literal> and
+   <literal>rlogin</literal>.
+  </para>
+  <para>
+   To install <emphasis>mrsh</emphasis>, do the following:
+  </para>
+  <itemizedlist>
    <listitem>
     <para>
-     An
+     If only the mrsh client is required (without allowing remote login to
+     this machine), use: <command>zypper in mrsh</command>.
     </para>
    </listitem>
    <listitem>
     <para>
-     Ordered
+     To allow logging in to a machine, the server needs to be installed:
+     <literal>zypper in mrsh-server</literal>.
     </para>
    </listitem>
    <listitem>
     <para>
-     List
+     To get a drop-in replacement for <command>rsh</command> and
+     <command>rlogin</command>, run: <command>zypper in
+     mrsh-rsh-server-compat</command> or <command>zypper in
+     mrsh-rsh-compat</command>.
     </para>
    </listitem>
-  </orderedlist>
+  </itemizedlist>
+  <para>
+   To set up a cluster of machines allowing remote login from each other,
+   first follow the instructions for setting up and starting
+   <emphasis>munge</emphasis> authentication in <xref linkend="sec2.installation.systemrole"/>.
+   After <emphasis>munge</emphasis> has been successfully
+   started, enable and start <command>mrlogin</command> on each machine on
+   which the user will log in:
+  </para>
+  <screen>systemctl enable mrlogind.socket mrshd.socket
+  systemctl start mrlogind.socket mrshd.socket</screen>
+  <para>
+   To start mrsh support at boot, run:
+  </para>
+  <screen>systemctl enable munge.service
+  systemctl enable mrlogin.service</screen>
+  <para>
+   We do not recommend using <emphasis>mrsh</emphasis> when logged in as the
+   user <systemitem class="username">root</systemitem>. This is disabled by
+   default. To enable it anyway, run:
+  </para>
+  <screen>echo "mrsh" &gt;&gt; /etc/securetty
+  echo "mrlogin" &gt;&gt; /etc/securetty</screen>
  </sect1>
  <sect1 xml:id="sec.remote.ssh">
   <title>sshd config</title>
   <para>
    A paragraph of text.
   </para>
-  <orderedlist>
-   <listitem>
-    <para>
-     An
-    </para>
-   </listitem>
-   <listitem>
-    <para>
-     Ordered
-    </para>
-   </listitem>
-   <listitem>
-    <para>
-     List
-    </para>
-   </listitem>
-  </orderedlist>
  </sect1>
-
 </chapter>
