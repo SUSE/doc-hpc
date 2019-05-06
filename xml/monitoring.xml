@@ -28,53 +28,100 @@
   </dm:docmanager>
  </info>
  <sect1 xml:id="sec.monitoring.ganglia">
-  <title>Ganglia</title>
+  <title>Ganglia &mdash; System Monitoring</title>
   <para>
-   A paragraph of text.
+   Ganglia is a scalable distributed monitoring system for high-performance
+   computing systems, such as clusters and grids. It is based on a
+   hierarchical design targeted at federations of clusters.
   </para>
-  <itemizedlist>
-   <listitem>
-    <para>
-     An
-    </para>
-   </listitem>
-   <listitem>
-    <para>
-     Unordered
-    </para>
-   </listitem>
-   <listitem>
-    <para>
-     List
-    </para>
-   </listitem>
-  </itemizedlist>
   <para>
-   Another paragraph of text.
+   To use Ganglia, make sure to install <package>ganglia-gmetad</package>
+   on the management serve then start the Ganglia meta-daemon:
+   <command>rcgmead start</command>. To make sure the service is started
+   after a reboot, run: <command>systemctl enable gmetad</command>. On
+   each cluster node which you want to monitor, install
+   <package>ganglia-gmond</package>, start the service <command>rcgmond
+   start</command> and make sure it is enabled to be started automatically
+   after a reboot: <command>systemctl enable gmond</command>. To test
+   whether the <systemitem class="daemon">gmond</systemitem> daemon has
+   connected to the
+   meta-daemon, run <command>gstat -a</command> and check that each node to
+   be monitored is present in the output.
+  </para>
+  <para>
+   When using the Btrfs file system, the monitoring data will be lost after
+   a rollback and the service <systemitem class="daemon">gmetad</systemitem>. To be able to
+   start it again, either install the package
+   <package>ganglia-gmetad-skip-bcheck</package> or create the file
+   <filename>/etc/ganglia/no_btrfs_check</filename>.
+  </para>
+  <para>
+   To use the Ganglia Web interface, it is required to add the "Web and
+   Scripting Module" first. This can be done by running
+   <command>SUSEConnect -p sle-module-web-scripting/15/x86_64</command>.
+   Install <package>ganglia-web</package> on the management server.
+   Depending on which PHP version is used (default is PHP 5), enable it in
+   Apache2: <command>a2enmod php5</command> or <command>a2enmod
+   php7</command>. Then start Apache2 on this machine: <command>rcapache2
+   start</command> and make sure it is started automatically after a
+   reboot: <command>systemctl enable apache2</command>. The Ganglia Web
+   interface should be accessible from
+   <literal>http://<replaceable>MANAGEMENT_SERVER</replaceable>/ganglia</literal>.
   </para>
  </sect1>
  <sect1 xml:id="sec.monitoring.ras">
-  <title>Rasdaemon</title>
+  <title>rasdaemon &mdash; Utility to Log RAS Error Tracings</title>
   <para>
-   A paragraph of text.
+   <systemitem class="daemon">rasdaemon</systemitem> is a RAS
+   (Reliability, Availability and
+   Serviceability) logging tool. It records memory errors using the EDAC
+   tracing events. EDAC drivers in the Linux kernel handle detection of ECC
+   errors from memory controllers.
   </para>
-  <orderedlist>
-   <listitem>
-    <para>
-     An
-    </para>
-   </listitem>
-   <listitem>
-    <para>
-     Ordered
-    </para>
-   </listitem>
-   <listitem>
-    <para>
-     List
-    </para>
-   </listitem>
-  </orderedlist>
-
+  <para>
+   <systemitem class="daemon">rasdaemon</systemitem> can be used on large
+   memory systems to
+   track, record and localize memory errors and how they evolve over time
+   to detect hardware degradation. Furthermore, it can be used to localize
+   a faulty DIMM on the board.
+  </para>
+  <para>
+   To check whether the EDAC drivers are loaded, execute:
+  </para>
+  <screen>ras-mc-ctl --status</screen>
+  <para>
+   The command should return <literal>ras-mc-ctl: drivers are
+   loaded</literal>. If it indicates that the drivers are not loaded, EDAC
+   may not be supported on your board.
+  </para>
+  <para>
+   To start <systemitem class="daemon">rasdaemon</systemitem>, run
+   <command>systemctl start rasdaemon.service</command>.
+   To start <systemitem class="daemon">rasdaemon</systemitem>
+   automatically at boot time, execute <command>systemctl enable
+   rasdaemon.service</command>. The daemon will log information to
+   <filename>/var/log/messages</filename> and to an internal database. A
+   summary of the stored errors can be obtained with:
+  </para>
+  <screen>ras-mc-ctl --summary</screen>
+  <para>
+   The errors stored in the database can be viewed with
+  </para>
+  <screen>ras-mc-ctl --errors</screen>
+  <para>
+   Optionally, you can load the DIMM labels silk-screened on the system
+   board to more easily identify the faulty DIMM. To do so, before starting
+   <systemitem class="daemon">rasdaemon</systemitem>, run:
+  </para>
+  <screen>systemctl start ras-mc-ctl start</screen>
+  <para>
+   For this to work, you need to set up a layout description for the board.
+   There are no descriptions supplied by default. To add a layout
+   description, create a file with an arbitrary name in the directory
+   <filename>/etc/ras/dimm_labels.d/</filename>. The format is:
+  </para>
+  <screen>Vendor: <replaceable>VENDOR-NAME</replaceable>
+  Model: <replaceable>MODEL-NAME</replaceable>
+  <replaceable>LABEL</replaceable>: <replaceable>MC</replaceable>.<replaceable>TOP</replaceable>.<replaceable>MID</replaceable>.<replaceable>LOW</replaceable></screen>
  </sect1>
 </chapter>
