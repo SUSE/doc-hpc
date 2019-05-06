@@ -369,7 +369,7 @@
    expected to log in to:
   </para>
   <screen>systemctl enable munge.service
-  systemctl start munge.service</screen>
+systemctl start munge.service</screen>
   <para>
    If several nodes are installed, you must select and synchronize one key
    to all other nodes in the cluster. This key file should belong to the
@@ -422,12 +422,12 @@
    which the user will log in:
   </para>
   <screen>systemctl enable mrlogind.socket mrshd.socket
-  systemctl start mrlogind.socket mrshd.socket</screen>
+systemctl start mrlogind.socket mrshd.socket</screen>
   <para>
    To start mrsh support at boot, run:
   </para>
   <screen>systemctl enable munge.service
-  systemctl enable mrlogin.service</screen>
+systemctl enable mrlogin.service</screen>
   <para>
    We do not recommend using <emphasis>mrsh</emphasis> when logged in as the
    user <systemitem class="username">root</systemitem>. This is disabled by

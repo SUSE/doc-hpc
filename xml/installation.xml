@@ -192,8 +192,7 @@
     &shpca; module prior to upgrading. To do so, open a root shell and
     execute:
    </para>
-   <screen>SUSEConnect -d -p
-   sle-module-hpc/12/<replaceable>ARCH</replaceable></screen>
+   <screen>SUSEConnect -d -p sle-module-hpc/12/<replaceable>ARCH</replaceable></screen>
    <para>
     Replace <replaceable>ARCH</replaceable> with the architecture used
     (<literal>x86_64</literal>, <literal>aarch64</literal>).
@@ -203,8 +202,7 @@
     the migration target need to be deregistered. This can be done by
     executing:
    </para>
-   <screen>SUSEConnect -d -p
-   sle-module-<replaceable>MODULE_NAME</replaceable>/12/<replaceable>ARCH</replaceable></screen>
+   <screen>SUSEConnect -d -p sle-module-<replaceable>MODULE_NAME</replaceable>/12/<replaceable>ARCH</replaceable></screen>
    <para>
     Replace <replaceable>MODULE_NAME</replaceable> by the name of the module
     and <replaceable>ARCH</replaceable> with the architecture used

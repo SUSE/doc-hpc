@@ -52,10 +52,10 @@
     are available:
    </para>
    <screen>/usr/share/lmod/&lt;lmod_version&gt;/init/bash
-   /usr/share/lmod/&lt;lmod_version&gt;/init/ksh
-   /usr/share/lmod/&lt;lmod_version&gt;/init/tcsh
-   /usr/share/lmod/&lt;lmod_version&gt;/init/zsh
-   /usr/share/lmod/&lt;lmod_version&gt;/init/sh</screen>
+ /usr/share/lmod/&lt;lmod_version&gt;/init/ksh
+ /usr/share/lmod/&lt;lmod_version&gt;/init/tcsh
+ /usr/share/lmod/&lt;lmod_version&gt;/init/zsh
+ /usr/share/lmod/&lt;lmod_version&gt;/init/sh</screen>
    <para>
     Pick the one appropriate for your shell. Then add the following to the
     init file of your shell:
