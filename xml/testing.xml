@@ -11,6 +11,8 @@
     %entities;
 ]>
 
+
+
 <chapter xml:id="cha.testing" xml:lang="en"
  xmlns="http://docbook.org/ns/docbook" version="5.1"
  xmlns:xi="http://www.w3.org/2001/XInclude"
@@ -32,120 +34,73 @@
   <para>
    A paragraph of text.
   </para>
-  <itemizedlist>
-   <listitem>
-    <para>
-     An
-    </para>
-   </listitem>
-   <listitem>
-    <para>
-     Unordered
-    </para>
-   </listitem>
-   <listitem>
-    <para>
-     List
-    </para>
-   </listitem>
-  </itemizedlist>
-  <para>
-   Another paragraph of text.
-  </para>
  </sect1>
  <sect1 xml:id="sec.testing.env">
   <title>ENV</title>
   <para>
    A paragraph of text.
   </para>
-  <orderedlist>
-   <listitem>
-    <para>
-     An
-    </para>
-   </listitem>
-   <listitem>
-    <para>
-     Ordered
-    </para>
-   </listitem>
-   <listitem>
-    <para>
-     List
-    </para>
-   </listitem>
-  </orderedlist>
  </sect1>
  <sect1 xml:id="sec.testing.slurm">
   <title>slurm</title>
   <para>
    A paragraph of text.
   </para>
-  <orderedlist>
-   <listitem>
-    <para>
-     An
-    </para>
-   </listitem>
-   <listitem>
-    <para>
-     Ordered
-    </para>
-   </listitem>
-   <listitem>
-    <para>
-     List
-    </para>
-   </listitem>
-  </orderedlist>
  </sect1>
-
  <sect1 xml:id="sec.testing.ganglia">
   <title>ganglia</title>
   <para>
    A paragraph of text.
   </para>
-  <orderedlist>
-   <listitem>
-    <para>
-     An
-    </para>
-   </listitem>
-   <listitem>
-    <para>
-     Ordered
-    </para>
-   </listitem>
-   <listitem>
-    <para>
-     List
-    </para>
-   </listitem>
-  </orderedlist>
+ </sect1>
+ <sect1 xml:id="sec.testing.mpi">
+  <title>How to quickly test MPI</title>
+  <para>
+   This section describes how to quickly test MPI on your cluster.
+  </para>
+  <procedure>
+   <step>
+    <para>Install all needed components</para>
+   </step>
+   <step>
+    <para>Create an NFS export directory for the <literal>mpiuser</literal>
+    to get access from all nodes to a share dir (<literal>/export</literal>)</para>
+   </step>
+   <step>
+    <para>create the <literal>mpiuser</literal></para>
+   </step>
+   <step>
+    <para>build a mpi test code</para>
+   </step>
+   <step>
+    <para>test the mpi code over all nodes</para>
+   </step>
+  </procedure>
  </sect1>
 
- <sect1 xml:id="sec.testing.mpi">
-  <title>mpi</title>
+ <sect1 xml:id="sec.testing.install">
+  <title>Installation</title>
   <para>
-   A paragraph of text.
+   To be able to test MPI on your cluster you need to install different component
+   to get the expected services.
   </para>
-  <orderedlist>
-   <listitem>
-    <para>
-     An
-    </para>
-   </listitem>
-   <listitem>
-    <para>
-     Ordered
-    </para>
-   </listitem>
-   <listitem>
-    <para>
-     List
-    </para>
-   </listitem>
-  </orderedlist>
+  <para>
+   All nodes needs to access the NFS server, so on all nodes install
+   <literal>nfs-utils</literal> and enable the service:
+   <screen>zypper in -y nfs-utils
+systemctl enable nfs
+systemctl start nfs</screen>
+  </para>
+ </sect1>
+
+ <sect1 xml:id="sec.testing.buildmpi">
+  <title></title>
+  <para>
+   <screen>#!/bin/sh
+module load gnu
+module load openmpi
+mpicc -o mpi_hello_world mpi_hello_world.c</screen>
+  </para>
  </sect1>
 
 </chapter>
