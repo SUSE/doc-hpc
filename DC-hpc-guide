@@ -1,5 +1,4 @@
-# This file originates from the project https://github.com/openSUSE/doc-kit
-# This file can be edited downstream.
+# DC file for SLE HPC guide
 
 MAIN="MAIN.hpc-guide.xml"
 ROOTID="book.hpc"
