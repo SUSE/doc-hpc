@@ -35,7 +35,7 @@
    upgrade of the &product; &this-version;.
   </para>
   <sect2 xml:id="sec2.installation.systemrole">
-   <title>Sytem Role for &product; &this-version;</title>
+   <title>System Role for &product; &this-version;</title>
    <para>
     With &product; &this-version;, it is possible to choose specific roles
     for the system based on modules selected during the installation process.
@@ -185,7 +185,7 @@
     Otherwise, the system will instead be upgraded to &slsa; 15.
    </para>
    <para>
-    To upgrade from &slsa; 12 to &slsa; 15, make sure to unregister the
+    To upgrade from &slsa; 12 to &slsa; 15, make sure to deregister the
     &shpca; module prior to upgrading. To do so, open a root shell and
     execute:
    </para>
