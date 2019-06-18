@@ -234,39 +234,39 @@
    <screen>module load fftw3</screen>
    <para>
     List of master packages:
-    <itemizedlist>
-     <listitem>
-      <para>
-       <literal>libfftw3-gnu-hpc</literal>
-      </para>
-     </listitem>
-     <listitem>
-      <para>
-       <literal>fftw3-gnu-hpc-devel</literal>
-      </para>
-     </listitem>
-     <listitem>
-      <para>
-       <literal>libfftw3-gnu-openmpi1-hpc</literal>
-      </para>
-     </listitem>
-     <listitem>
-      <para>
-       <literal>fftw3-gnu-openmpi1-hpc-devel</literal>
-      </para>
-     </listitem>
-     <listitem>
-      <para>
-       <literal>libfftw3-gnu-mvapich2-hpc</literal>
-      </para>
-     </listitem>
-     <listitem>
-      <para>
-       <literal>fftw3-gnu-mvapich2-hpc-devel</literal>
-      </para>
-     </listitem>
-    </itemizedlist>
    </para>
+   <itemizedlist>
+    <listitem>
+     <para>
+      <literal>libfftw3-gnu-hpc</literal>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <literal>fftw3-gnu-hpc-devel</literal>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <literal>libfftw3-gnu-openmpi1-hpc</literal>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <literal>fftw3-gnu-openmpi1-hpc-devel</literal>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <literal>libfftw3-gnu-mvapich2-hpc</literal>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <literal>fftw3-gnu-mvapich2-hpc-devel</literal>
+     </para>
+    </listitem>
+   </itemizedlist>
    <para>
     For general information about Lmod and modules, see
     <xref linkend="sec.compute.lmod"/>.
@@ -463,24 +463,24 @@
    <screen>module load netcdf-cxx4</screen>
    <para>
     List of master packages:
-    <itemizedlist>
-     <listitem>
-      <para>
-       <literal>libnetcdf-cxx4-gnu-hpc</literal>
-      </para>
-     </listitem>
-     <listitem>
-      <para>
-       <literal>libnetcdf-cxx4-gnu-hpc-devel</literal>
-      </para>
-     </listitem>
-     <listitem>
-      <para>
-       <literal>netcdf-cxx4-gnu-hpc-tools</literal>
-      </para>
-     </listitem>
-    </itemizedlist>
    </para>
+   <itemizedlist>
+    <listitem>
+     <para>
+      <literal>libnetcdf-cxx4-gnu-hpc</literal>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <literal>libnetcdf-cxx4-gnu-hpc-devel</literal>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <literal>netcdf-cxx4-gnu-hpc-tools</literal>
+     </para>
+    </listitem>
+   </itemizedlist>
    <bridgehead renderas="sect5"><literal>netcdf-fortran</literal> Packages</bridgehead>
    <para>
     The <literal>netcdf-fortran</literal> packages provide FORTRAN bindings
@@ -626,29 +626,29 @@
    </itemizedlist>
    <para>
     List of master package for:
-    <itemizedlist>
-     <listitem>
-      <para>
-       <literal>libopenblas-gnu-hpc</literal>
-      </para>
-     </listitem>
-     <listitem>
-      <para>
-       <literal>libopenblas-gnu-hpc-devel</literal>
-      </para>
-     </listitem>
-     <listitem>
-      <para>
-       <literal>libopenblas-pthreads-gnu-hpc</literal>
-      </para>
-     </listitem>
-     <listitem>
-      <para>
-       <literal>libopenblas-pthreads-gnu-hpc-devel</literal>
-      </para>
-     </listitem>
-    </itemizedlist>
    </para>
+   <itemizedlist>
+    <listitem>
+     <para>
+      <literal>libopenblas-gnu-hpc</literal>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <literal>libopenblas-gnu-hpc-devel</literal>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <literal>libopenblas-pthreads-gnu-hpc</literal>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <literal>libopenblas-pthreads-gnu-hpc-devel</literal>
+     </para>
+    </listitem>
+   </itemizedlist>
    <para>
     For general information about Lmod and modules, see
     <xref linkend="sec.compute.lmod"/>.
@@ -701,29 +701,29 @@
    <screen>module load petsc</screen>
    <para>
     List of master packages:
-    <itemizedlist>
-     <listitem>
-      <para>
-       <literal>libpetsc-gnu-openmpi1-hpc</literal>
-      </para>
-     </listitem>
-     <listitem>
-      <para>
-       <literal>petsc-gnu-openmpi1-hpc-devel</literal>
-      </para>
-     </listitem>
-     <listitem>
-      <para>
-       <literal>libpetsc-gnu-mvapich2-hpc</literal>
-      </para>
-     </listitem>
-     <listitem>
-      <para>
-       <literal>petsc-gnu-mvapich2-hpc-devel</literal>
-      </para>
-     </listitem>
-    </itemizedlist>
    </para>
+   <itemizedlist>
+    <listitem>
+     <para>
+      <literal>libpetsc-gnu-openmpi1-hpc</literal>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <literal>petsc-gnu-openmpi1-hpc-devel</literal>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <literal>libpetsc-gnu-mvapich2-hpc</literal>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <literal>petsc-gnu-mvapich2-hpc-devel</literal>
+     </para>
+    </listitem>
+   </itemizedlist>
    <para>
     For general information about Lmod and modules, see
     <xref linkend="sec.compute.lmod"/>.
@@ -742,49 +742,49 @@
    <screen>module load scalapack</screen>
    <para>
     List of master packages:
-    <itemizedlist>
-     <listitem>
-      <para>
-       <literal>libblacs2-gnu-openmpi1-hpc</literal>
-      </para>
-     </listitem>
-     <listitem>
-      <para>
-       <literal>libblacs2-gnu-openmpi1-hpc-devel</literal>
-      </para>
-     </listitem>
-     <listitem>
-      <para>
-       <literal>libscalapack2-gnu-openmpi1-hpc</literal>
-      </para>
-     </listitem>
-     <listitem>
-      <para>
-       <literal>libscalapack2-gnu-openmpi1-hpc-devel</literal>
-      </para>
-     </listitem>
-     <listitem>
-      <para>
-       <literal>libblacs2-gnu-mvapich2-hpc</literal>
-      </para>
-     </listitem>
-     <listitem>
-      <para>
-       <literal>libblacs2-gnu-mvapich2-hpc-devel</literal>
-      </para>
-     </listitem>
-     <listitem>
-      <para>
-       <literal>libscalapack2-gnu-mvapich2-hpc</literal>
-      </para>
-     </listitem>
-     <listitem>
-      <para>
-       <literal>libscalapack2-gnu-mvapich2-hpc-devel</literal>
-      </para>
-     </listitem>
-    </itemizedlist>
    </para>
+   <itemizedlist>
+    <listitem>
+     <para>
+      <literal>libblacs2-gnu-openmpi1-hpc</literal>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <literal>libblacs2-gnu-openmpi1-hpc-devel</literal>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <literal>libscalapack2-gnu-openmpi1-hpc</literal>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <literal>libscalapack2-gnu-openmpi1-hpc-devel</literal>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <literal>libblacs2-gnu-mvapich2-hpc</literal>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <literal>libblacs2-gnu-mvapich2-hpc-devel</literal>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <literal>libscalapack2-gnu-mvapich2-hpc</literal>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <literal>libscalapack2-gnu-mvapich2-hpc-devel</literal>
+     </para>
+    </listitem>
+   </itemizedlist>
    <para>
     For general information about Lmod and modules, see
     <xref linkend="sec.compute.lmod"/>.

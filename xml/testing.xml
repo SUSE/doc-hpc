@@ -43,8 +43,8 @@
  </sect1>
  <sect1 xml:id="sec.testing.slurm">
   <title>slurm</title>
-  <para>
-   <screen>#!/usr/bin/env bash
+
+<screen>#!/usr/bin/env bash
 #Job name
 #SBATCH -J TEST_Slurm
 # Asking for one node
@@ -62,8 +62,7 @@ echo 'submit directory:' $SLURM_SUBMIT_DIR
 echo 'submit host:' $SLURM_SUBMIT_HOST
 echo 'In the directory: `pwd`'
 echo 'As the user: `whoami`'</screen>
-  </para>
-<para>
+
 <screen>#!/usr/bin/env bash
 #Job name
 #S -J plop
@@ -72,10 +71,9 @@ echo 'As the user: `whoami`'</screen>
 module load gnu
 module load openmpi
 mpirun -n 8 /export/mpi_hello_world</screen>
-</para>
-<para>
+
 <screen>sbatch -n 8 run_mpi_test.sh</screen>
-</para>
+
  </sect1>
  <sect1 xml:id="sec.testing.ganglia">
   <title>ganglia</title>
@@ -117,56 +115,52 @@ mpirun -n 8 /export/mpi_hello_world</screen>
   <para>
    All nodes needs to access the NFS server, so on all nodes install
    <literal>nfs-utils</literal> and enable the service:
-   <screen>zypper in -y nfs-utils
+  </para>
+
+<screen>zypper in -y nfs-utils
 systemctl enable nfs
 systemctl start nfs</screen>
-  </para>
+
   <para>
    You should install if this is not yet done needed libraries:
-   <screen>zypper in -y patterns-hpc-compute_node patterns-hpc-libraries</screen>
   </para>
+
+<screen>zypper in -y patterns-hpc-compute_node patterns-hpc-libraries</screen>
+
  </sect1>
 
  <sect1 xml:id="sec.testing.buildmpi">
   <title>Build MPI test</title>
-  <para>
-   <screen>module load gnu &amp;&amp; module load openmpi &amp;&amp; mpirun --hostfile /etc/nodes -n 8 /export/mpi_hello_world</screen>
-  </para>
+
+<screen>module load gnu &amp;&amp; module load openmpi &amp;&amp; mpirun --hostfile /etc/nodes -n 8 /export/mpi_hello_world</screen>
+
  </sect1>
 
  <sect1 xml:id="sec.testing.nfsserver">
   <title>Setup the NFS server</title>
-  <para>
-   <screen>mkdir /export
+
+<screen>mkdir /export
 echo '/export    *(rw,root_squash,sync,no_subtree_check)' > /etc/exports
 systemctl enable nfs-server.service
 systemctl restart nfs-server.service
 exportfs</screen>
-  </para>
-  <para>
-   <screen>useradd -d /export -g users -G slurm -M -p \"PASSWORD\" -u 666 mpitest</screen>
-  </para>
 
-  <para>
-   <screen>mkdir -p /export/.ssh
+<screen>useradd -d /export -g users -G slurm -M -p \"PASSWORD\" -u 666 mpitest</screen>
+
+<screen>mkdir -p /export/.ssh
 ${NODENAME}1:/export/.ssh/authorized_keys
 chown mpitest.users -R /export/
 ssh-keygen -t rsa -f ~/.ssh/id_rsa -N ''
 cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
 cat > ~/.ssh/config</screen>
-  </para>
 
-  <para>
-   <screen>mount ${NODENAME}1:/export /export
-   </screen>
-  </para>
+<screen>mount ${NODENAME}1:/export /export</screen>
 
-  <para>
-   <screen>#!/bin/sh
+<screen>#!/bin/sh
 module load gnu
 module load openmpi
 mpicc -o mpi_hello_world mpi_hello_world.c</screen>
-  </para>
+
  </sect1>
 
 </chapter>
