@@ -28,13 +28,13 @@
   </dm:docmanager>
  </info>
 
- <sect1 xml:id="sec.installation">
+ <sect1 xml:id="sec-installation">
   <title>Installation and Upgrade</title>
   <para>
    This section includes information related to the installation and the
    upgrade of the &product; &this-version;.
   </para>
-  <sect2 xml:id="sec2.installation.systemrole">
+  <sect2 xml:id="sec2-installation-systemrole">
    <title>System Role for &product; &this-version;</title>
    <para>
     With &product; &this-version;, it is possible to choose specific roles
@@ -161,7 +161,7 @@
    <para>
     <literal>Munge</literal> authentication is installed for all roles. This
     requires to copy the same generated munge keys to all nodes of a cluster.
-    For more information, see <xref linkend="sec.remote.munge"/>.
+    For more information, see <xref linkend="sec-remote-munge"/>.
    </para>
    <para>
     From the Ganglia monitoring system, the data collector
@@ -173,7 +173,7 @@
     The system roles are only available for new installations of &product;.
    </para>
   </sect2>
-  <sect2 xml:id="sec2.upgrade">
+  <sect2 xml:id="sec2-upgrade">
    <title>Upgrade-Related Notes</title>
    <para>
     This section includes upgrade-related information for the &product; &this-version;.
@@ -207,7 +207,7 @@
    </para>
   </sect2>
  </sect1>
- <sect1 xml:id="sec.installation.postprocess">
+ <sect1 xml:id="sec-installation-postprocess">
   <title>Post installation Process</title>
   <para>
    A paragraph of text.

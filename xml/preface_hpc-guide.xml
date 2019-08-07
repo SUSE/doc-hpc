@@ -8,7 +8,7 @@
     %entities;
 ]>
 
-<preface xml:id="preface.example" xml:lang="en"
+<preface xml:id="preface-example" xml:lang="en"
  xmlns="http://docbook.org/ns/docbook" version="5.1"
  xmlns:xi="http://www.w3.org/2001/XInclude"
  xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -22,27 +22,27 @@
  <variablelist>
  <!--
   <varlistentry>
-   <term><xref linkend="part.inst"/></term>
+   <term><xref linkend="part-inst"/></term>
    <listitem>
     <para>
-     Description of <xref linkend="part.inst"/>.
+     Description of <xref linkend="part-inst"/>.
     </para>
    </listitem>
   </varlistentry>
   -->
   <varlistentry>
-   <term><xref linkend="part.dep"/></term>
+   <term><xref linkend="part-dep"/></term>
    <listitem>
     <para>
-     Description of <xref linkend="part.dep"/>.
+     Description of <xref linkend="part-dep"/>.
     </para>
    </listitem>
   </varlistentry>
  <varlistentry>
-   <term><xref linkend="part.remote"/></term>
+   <term><xref linkend="part-remote"/></term>
    <listitem>
     <para>
-     Description of <xref linkend="part.remote"/>.
+     Description of <xref linkend="part-remote"/>.
     </para>
    </listitem>
   </varlistentry>
