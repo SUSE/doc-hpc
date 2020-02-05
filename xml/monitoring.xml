@@ -8,7 +8,7 @@
     %entities;
 ]>
 
-<chapter xml:id="cha.monitoring" xml:lang="en"
+<chapter xml:id="cha-monitoring" xml:lang="en"
  xmlns="http://docbook.org/ns/docbook" version="5.1"
  xmlns:xi="http://www.w3.org/2001/XInclude"
  xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -24,7 +24,7 @@
    <dm:translation>yes</dm:translation>
   </dm:docmanager>
  </info>
- <sect1 xml:id="sec.monitoring.ganglia">
+ <sect1 xml:id="sec-monitoring-ganglia">
   <title>Ganglia &mdash; System Monitoring</title>
   <para>
    Ganglia is a scalable distributed monitoring system for high-performance
@@ -66,7 +66,7 @@
    <literal>http://<replaceable>MANAGEMENT_SERVER</replaceable>/ganglia</literal>.
   </para>
  </sect1>
- <sect1 xml:id="sec.monitoring.ras">
+ <sect1 xml:id="sec-monitoring-ras">
   <title>rasdaemon &mdash; Utility to Log RAS Error Tracings</title>
   <para>
    <systemitem class="daemon">rasdaemon</systemitem> is a RAS

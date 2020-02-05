@@ -8,7 +8,7 @@
     %entities;
 ]>
 
-<chapter xml:id="cha.nodes" xml:lang="en"
+<chapter xml:id="cha-nodes" xml:lang="en"
  xmlns="http://docbook.org/ns/docbook" version="5.1"
  xmlns:xi="http://www.w3.org/2001/XInclude"
  xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -24,7 +24,7 @@
    <dm:translation>yes</dm:translation>
   </dm:docmanager>
  </info>
- <sect1 xml:id="sec.nodes.cpuid">
+ <sect1 xml:id="sec-nodes-cpuid">
   <title>cpuid</title>
   <para>
    <literal>cpuid</literal> executes the x86 CPUID instruction and decodes
@@ -43,7 +43,7 @@
    Note that this tool is only available for x86-64.
   </para>
  </sect1>
- <sect1 xml:id="sec.nodes.hwloc">
+ <sect1 xml:id="sec-nodes-hwloc">
   <title>hwloc &mdash; Portable Abstraction of Hierarchical Architectures for High-Performance Computing</title>
   <para>
    <literal>hwloc</literal> provides command-line tools and a C API to

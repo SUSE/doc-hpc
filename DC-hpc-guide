@@ -1,7 +1,7 @@
 # DC file for SLE HPC guide
 
 MAIN="MAIN.hpc-guide.xml"
-ROOTID="book.hpc"
+ROOTID=book-hpc
 
 PROFOS="sles"
 

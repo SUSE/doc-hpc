@@ -8,7 +8,7 @@
     %entities;
 ]>
 
-<chapter xml:id="cha.remote" xml:lang="en"
+<chapter xml:id="cha-remote" xml:lang="en"
          xmlns="http://docbook.org/ns/docbook" version="5.1"
          xmlns:xi="http://www.w3.org/2001/XInclude"
          xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -24,7 +24,7 @@
    <dm:translation>yes</dm:translation>
   </dm:docmanager>
  </info>
- <sect1 xml:id="sec.remote.conman">
+ <sect1 xml:id="sec-remote-conman">
   <title>ConMan &mdash; The Console Manager</title>
   <para>
    ConMan is a serial console management program designed to support a
@@ -106,7 +106,7 @@
    For more information about options, see the man page of ConMan.
   </para>
  </sect1>
- <sect1 xml:id="sec.remote.genders">
+ <sect1 xml:id="sec-remote-genders">
   <title>Genders &mdash; Static Cluster Configuration Database</title>
   <para>
    Support for Genders has been added to the HPC module.
@@ -171,7 +171,7 @@
    </listitem>
   </itemizedlist>
  </sect1>
- <sect1 xml:id="sec.remote.pdsh">
+ <sect1 xml:id="sec-remote-pdsh">
   <title>pdsh &mdash; Parallel Remote Shell Program</title>
   <para>
    <literal>pdsh</literal> is a parallel remote shell which can be used
@@ -236,7 +236,7 @@
    For more information, see the man page <command>pdsh</command>.
   </para>
  </sect1>
- <sect1 xml:id="sec.remote.powerman">
+ <sect1 xml:id="sec-remote-powerman">
   <title>PowerMan &mdash; Centralized Power Control for Clusters</title>
   <para>
    PowerMan allows manipulating remote power control devices (RPC) from a
@@ -300,7 +300,7 @@
    </para>
   </important>
  </sect1>
- <sect1 xml:id="sec.remote.memkind">
+ <sect1 xml:id="sec-remote-memkind">
   <title>memkind &mdash; Heap Manager for Heterogeneous Memory Platforms and Mixed Memory Policies</title>
   <para>
    The <literal>memkind</literal> library is a user-extensible heap manager
@@ -338,7 +338,7 @@
    </para>
   </note>
  </sect1>
- <sect1 xml:id="sec.remote.munge">
+ <sect1 xml:id="sec-remote-munge">
   <title><emphasis>munge</emphasis> Authentication</title>
   <para>
    <emphasis>munge</emphasis>
@@ -374,7 +374,7 @@ systemctl start munge.service</screen>
    access rights <literal>0400</literal>.
   </para>
  </sect1>
- <sect1 xml:id="sec.remote.mrsh">
+ <sect1 xml:id="sec-remote-mrsh">
   <title>mrsh/mrlogin &mdash; Remote Login Using <emphasis>munge</emphasis> Authentication</title>
   <para>
    <emphasis>mrsh</emphasis> is a set of remote shell programs using the
@@ -413,7 +413,7 @@ systemctl start munge.service</screen>
   <para>
    To set up a cluster of machines allowing remote login from each other,
    first follow the instructions for setting up and starting
-   <emphasis>munge</emphasis> authentication in <xref linkend="sec2.installation.systemrole"/>.
+   <emphasis>munge</emphasis> authentication in <xref linkend="sec2-installation-systemrole"/>.
    After <emphasis>munge</emphasis> has been successfully
    started, enable and start <command>mrlogin</command> on each machine on
    which the user will log in:
@@ -433,7 +433,7 @@ systemctl enable mrlogin.service</screen>
   <screen>echo "mrsh" &gt;&gt; /etc/securetty
   echo "mrlogin" &gt;&gt; /etc/securetty</screen>
  </sect1>
- <sect1 xml:id="sec.remote.ssh">
+ <sect1 xml:id="sec-remote-ssh">
   <title>sshd config</title>
   <para>
    A paragraph of text.

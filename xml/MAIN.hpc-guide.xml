@@ -8,7 +8,7 @@
     %entities;
 ]>
 
-<book xml:id="book.hpc" xml:lang="en"
+<book xml:id="book-hpc" xml:lang="en"
  xmlns="http://docbook.org/ns/docbook" version="5.1"
  xmlns:xi="http://www.w3.org/2001/XInclude"
  xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -36,56 +36,56 @@
 
  <xi:include href="preface_hpc-guide.xml"/>
 
- <part xml:id="part.intro">
+ <part xml:id="part-intro">
   <title>Introduction</title>
   <xi:include href="introduction.xml"/>
  </part>
- <part xml:id="part.inst">
+ <part xml:id="part-inst">
   <title>Installation</title>
   <xi:include href="installation.xml"/>
  </part>
 
- <part xml:id="part.dep">
+ <part xml:id="part-dep">
   <title>Deployment</title>
   <xi:include href="deployment.xml"/>
  </part>
 
- <part xml:id="part.remote">
+ <part xml:id="part-remote">
   <title>Remote Administration</title>
   <xi:include href="remote_administration.xml"/>
  </part>
 
- <part xml:id="part.nodes">
+ <part xml:id="part-nodes">
   <title>Nodes</title>
   <xi:include href="nodes.xml"/>
  </part>
 
- <part xml:id="part.sched">
+ <part xml:id="part-sched">
   <title>Scheduler</title>
   <xi:include href="scheduler.xml"/>
  </part>
 
- <part xml:id="part.monitoring">
+ <part xml:id="part-monitoring">
   <title>Monitoring</title>
   <xi:include href="monitoring.xml"/>
  </part>
 
- <part xml:id="part.compute">
+ <part xml:id="part-compute">
   <title>Compute</title>
   <xi:include href="compute.xml"/>
  </part>
 
- <part xml:id="part.compilation">
+ <part xml:id="part-compilation">
   <title>Compilation</title>
   <xi:include href="compilation.xml"/>
  </part>
 
- <part xml:id="part.testing">
+ <part xml:id="part-testing">
   <title>Testing</title>
   <xi:include href="testing.xml"/>
  </part>
 
- <part xml:id="part.buildsource">
+ <part xml:id="part-buildsource">
   <title>Build Source</title>
   <xi:include href="buildsource.xml"/>
  </part>
