@@ -179,10 +179,10 @@
     This section includes upgrade-related information for the &product; &this-version;.
    </para>
    <para>
-    You can upgrade to &product; &this-version; from &slsa; 12 SP3 or &shpca;
-    12 SP3. When upgrading from &slsa; 12 SP3, the upgrade will only be
+    You can upgrade to &product; &this-version; from &slsa; 15 SP1 or &shpca;
+    15 SP1. When upgrading from &slsa; 15 SP1, the upgrade will only be
     performed if the &shpca; module has been registered prior to upgrading.
-    Otherwise, the system will instead be upgraded to &slsa; 15.
+    <!--Otherwise, the system will instead be upgraded to &slsa; 15.-->
    </para>
    <para>
     To upgrade from &slsa; 12 to &slsa; 15, make sure to deregister the
@@ -207,10 +207,12 @@
    </para>
   </sect2>
  </sect1>
+ <!--
  <sect1 xml:id="sec-installation-postprocess">
   <title>Post installation Process</title>
   <para>
-   A paragraph of text.
+   TOFIX
   </para>
  </sect1>
+ -->
 </chapter>

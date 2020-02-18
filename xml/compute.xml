@@ -166,36 +166,36 @@
   </para>
   <para>
    As an example: Package names of the ScaLAPACK library version 2.0.2 built
-   with GCC for Open MPI v1:
+   with GCC for Open MPI v2:
   </para>
   <itemizedlist>
    <listitem>
     <para>
      library package:
-     <package>libscalapack2_2_0_2-gnu-openmpi1-hpc</package>
+     <package>libscalapack2_2_1_0-gnu-openmpi2-hpc</package>
     </para>
    </listitem>
    <listitem>
     <para>
-     library master package: <package>libscalapack2-gnu-openmpi1-hpc</package>
+     library master package: <package>libscalapack2-gnu-openmpi2-hpc</package>
     </para>
    </listitem>
    <listitem>
     <para>
      development package:
-     <package>libscalapack2_2_0_2-gnu-openmpi1-hpc-devel</package>
+     <package>libscalapack2_2_1_0-gnu-openmpi2-hpc-devel</package>
     </para>
    </listitem>
    <listitem>
     <para>
      development master package:
-     <package>libscalapack2-gnu-openmpi1-hpc-devel</package>
+     <package>libscalapack2-gnu-openmpi2-hpc-devel</package>
     </para>
    </listitem>
    <listitem>
     <para>
      static library package:
-     <package>libscalapack2_2_0_2-gnu-openmpi1-hpc-devel-static</package>
+     <package>libscalapack2_2_1_0-gnu-openmpi2-hpc-devel-static</package>
     </para>
    </listitem>
   </itemizedlist>

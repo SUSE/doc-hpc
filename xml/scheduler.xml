@@ -176,10 +176,11 @@ systemctl enable slurmd.service</screen>
     documentation page</link>.
    </para>
  </sect1>
+ <!--
  <sect1 xml:id="sec-scheduler-conf">
   <title>Configuration</title>
   <para>
-   A paragraph of text.
+   TOFIX
   </para>
   <orderedlist>
    <listitem>
@@ -198,6 +199,6 @@ systemctl enable slurmd.service</screen>
     </para>
    </listitem>
   </orderedlist>
-
  </sect1>
+  -->
 </chapter>

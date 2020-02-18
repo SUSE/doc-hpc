@@ -20,7 +20,6 @@
   This guide contains the following:
  </para>
  <variablelist>
- <!--
   <varlistentry>
    <term><xref linkend="part-inst"/></term>
    <listitem>
@@ -29,16 +28,17 @@
     </para>
    </listitem>
   </varlistentry>
+  <!--
+      <varlistentry>
+      <term><xref linkend="part-dep"/></term>
+      <listitem>
+      <para>
+      Description of <xref linkend="part-dep"/>.
+      </para>
+      </listitem>
+      </varlistentry>
   -->
   <varlistentry>
-   <term><xref linkend="part-dep"/></term>
-   <listitem>
-    <para>
-     Description of <xref linkend="part-dep"/>.
-    </para>
-   </listitem>
-  </varlistentry>
- <varlistentry>
    <term><xref linkend="part-remote"/></term>
    <listitem>
     <para>
@@ -46,8 +46,68 @@
     </para>
    </listitem>
   </varlistentry>
- </variablelist>
 
+  <varlistentry>
+   <term><xref linkend="part-nodes"/></term>
+   <listitem>
+    <para>
+     Descescription of <xref linkend="part-nodes"/>
+    </para>
+   </listitem>
+  </varlistentry>
+  <varlistentry>
+   <term><xref linkend="part-sched"/></term>
+   <listitem>
+    <para>
+     Descescription of <xref linkend="part-sched"/>
+    </para>
+   </listitem>
+  </varlistentry>
+  <varlistentry>
+   <term><xref linkend="part-monitoring"/></term>
+   <listitem>
+    <para>
+     Descescription of <xref linkend="part-monitoring"/>
+    </para>
+   </listitem>
+  </varlistentry>
+  <varlistentry>
+   <term><xref linkend="part-compute"/></term>
+   <listitem>
+    <para>
+     Descescription of <xref linkend="part-compute"/>
+    </para>
+   </listitem>
+  </varlistentry>
+  <!--
+      <varlistentry>
+      <term><xref linkend="part-compilation"/></term>
+      <listitem>
+      <para>
+      Descescription of <xref linkend="part-compilation"/>
+      </para>
+      </listitem>
+      </varlistentry>
+  -->
+  <varlistentry>
+   <term><xref linkend="part-testing"/></term>
+   <listitem>
+    <para>
+     Descescription of <xref linkend="part-testing"/>
+    </para>
+   </listitem>
+  </varlistentry>
+  <!--
+      <varlistentry>
+      <term><xref linkend="part-buildsource"/></term>
+      <listitem>
+      <para>
+      Description of <xref linkend="part-buildsource"/>
+      </para>
+      </listitem>
+      </varlistentry>
+  -->
+ </variablelist>
  <xi:include href="common_intro_available_doc.xml"/>
  <xi:include href="common_intro_feedback.xml"/>
  <xi:include href="common_intro_convention.xml"/>

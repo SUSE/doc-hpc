@@ -44,14 +44,12 @@
   <title>Installation</title>
   <xi:include href="installation.xml"/>
  </part>
-
  <!--
  <part xml:id="part-dep">
   <title>Deployment</title>
   <xi:include href="deployment.xml"/>
  </part>
  -->
-
  <part xml:id="part-remote">
   <title>Remote Administration</title>
   <xi:include href="remote_administration.xml"/>
