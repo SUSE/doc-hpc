@@ -24,7 +24,7 @@
    <term><xref linkend="part-inst"/></term>
    <listitem>
     <para>
-     Description of <xref linkend="part-inst"/>.
+        How to install your cluster.
     </para>
    </listitem>
   </varlistentry>
@@ -33,7 +33,7 @@
       <term><xref linkend="part-dep"/></term>
       <listitem>
       <para>
-      Description of <xref linkend="part-dep"/>.
+        How to deploy your cluster using clusduct
       </para>
       </listitem>
       </varlistentry>
@@ -42,7 +42,7 @@
    <term><xref linkend="part-remote"/></term>
    <listitem>
     <para>
-     Description of <xref linkend="part-remote"/>.
+    Remote administraton of the cluster nodes.
     </para>
    </listitem>
   </varlistentry>
@@ -50,8 +50,8 @@
   <varlistentry>
    <term><xref linkend="part-nodes"/></term>
    <listitem>
-    <para>
-     Descescription of <xref linkend="part-nodes"/>
+       <para>
+     Get information about the nodes.
     </para>
    </listitem>
   </varlistentry>
@@ -59,7 +59,7 @@
    <term><xref linkend="part-sched"/></term>
    <listitem>
     <para>
-     Descescription of <xref linkend="part-sched"/>
+        The Slurm scheduler.
     </para>
    </listitem>
   </varlistentry>
@@ -67,7 +67,7 @@
    <term><xref linkend="part-monitoring"/></term>
    <listitem>
     <para>
-     Descescription of <xref linkend="part-monitoring"/>
+    Tools to monitor your cluster.
     </para>
    </listitem>
   </varlistentry>
@@ -75,7 +75,7 @@
    <term><xref linkend="part-compute"/></term>
    <listitem>
     <para>
-     Descescription of <xref linkend="part-compute"/>
+        How to use your cluster to do some computation.
     </para>
    </listitem>
   </varlistentry>
@@ -93,7 +93,7 @@
    <term><xref linkend="part-testing"/></term>
    <listitem>
     <para>
-     Descescription of <xref linkend="part-testing"/>
+        Some examples of how to test your cluster.
     </para>
    </listitem>
   </varlistentry>
@@ -101,8 +101,8 @@
       <varlistentry>
       <term><xref linkend="part-buildsource"/></term>
       <listitem>
-      <para>
-      Description of <xref linkend="part-buildsource"/>
+          <para>
+              How to rebuild from source !
       </para>
       </listitem>
       </varlistentry>
