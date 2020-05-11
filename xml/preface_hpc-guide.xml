@@ -20,34 +20,94 @@
   This guide contains the following:
  </para>
  <variablelist>
- <!--
   <varlistentry>
    <term><xref linkend="part-inst"/></term>
    <listitem>
     <para>
-     Description of <xref linkend="part-inst"/>.
+        How to install your cluster.
     </para>
    </listitem>
   </varlistentry>
+  <!--
+      <varlistentry>
+      <term><xref linkend="part-dep"/></term>
+      <listitem>
+      <para>
+        How to deploy your cluster using clusduct
+      </para>
+      </listitem>
+      </varlistentry>
   -->
   <varlistentry>
-   <term><xref linkend="part-dep"/></term>
-   <listitem>
-    <para>
-     Description of <xref linkend="part-dep"/>.
-    </para>
-   </listitem>
-  </varlistentry>
- <varlistentry>
    <term><xref linkend="part-remote"/></term>
    <listitem>
     <para>
-     Description of <xref linkend="part-remote"/>.
+    Remote administraton of the cluster nodes.
     </para>
    </listitem>
   </varlistentry>
- </variablelist>
 
+  <varlistentry>
+   <term><xref linkend="part-nodes"/></term>
+   <listitem>
+       <para>
+     Get information about the nodes.
+    </para>
+   </listitem>
+  </varlistentry>
+  <varlistentry>
+   <term><xref linkend="part-sched"/></term>
+   <listitem>
+    <para>
+        The Slurm scheduler.
+    </para>
+   </listitem>
+  </varlistentry>
+  <varlistentry>
+   <term><xref linkend="part-monitoring"/></term>
+   <listitem>
+    <para>
+    Tools to monitor your cluster.
+    </para>
+   </listitem>
+  </varlistentry>
+  <varlistentry>
+   <term><xref linkend="part-compute"/></term>
+   <listitem>
+    <para>
+        How to use your cluster to do some computation.
+    </para>
+   </listitem>
+  </varlistentry>
+  <!--
+      <varlistentry>
+      <term><xref linkend="part-compilation"/></term>
+      <listitem>
+      <para>
+      Descescription of <xref linkend="part-compilation"/>
+      </para>
+      </listitem>
+      </varlistentry>
+  -->
+  <varlistentry>
+   <term><xref linkend="part-testing"/></term>
+   <listitem>
+    <para>
+        Some examples of how to test your cluster.
+    </para>
+   </listitem>
+  </varlistentry>
+  <!--
+      <varlistentry>
+      <term><xref linkend="part-buildsource"/></term>
+      <listitem>
+          <para>
+              How to rebuild from source !
+      </para>
+      </listitem>
+      </varlistentry>
+  -->
+ </variablelist>
  <xi:include href="common_intro_available_doc.xml"/>
  <xi:include href="common_intro_feedback.xml"/>
  <xi:include href="common_intro_convention.xml"/>

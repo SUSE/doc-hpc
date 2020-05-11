@@ -3,14 +3,14 @@
 
 <!-- PRODUCT NAME AND VERSIONS -->
 <!ENTITY productname   "&slehpc;">
-<!ENTITY productnumber "15 SP1">
-<!ENTITY this-version "15 SP1">
+<!ENTITY productnumber "15 SP2">
+<!ENTITY this-version "15 SP2">
 
 <!-- PROJECT REPOSITORY URL -->
 <!ENTITY repourl "https://github.com/SUSE/doc-hpc">
 
 <!-- START YEAR OF COPYRIGHT -->
-<!ENTITY copyrightstart "2019">
+<!ENTITY copyrightstart "2020">
 <!ENTITY copyrightholder "SUSE LLC">
 <!ENTITY mdash "—">
 

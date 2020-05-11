@@ -44,12 +44,12 @@
   <title>Installation</title>
   <xi:include href="installation.xml"/>
  </part>
-
+ <!--
  <part xml:id="part-dep">
   <title>Deployment</title>
   <xi:include href="deployment.xml"/>
  </part>
-
+ -->
  <part xml:id="part-remote">
   <title>Remote Administration</title>
   <xi:include href="remote_administration.xml"/>
@@ -74,22 +74,22 @@
   <title>Compute</title>
   <xi:include href="compute.xml"/>
  </part>
-
+ <!--
  <part xml:id="part-compilation">
   <title>Compilation</title>
   <xi:include href="compilation.xml"/>
  </part>
-
+ -->
  <part xml:id="part-testing">
   <title>Testing</title>
   <xi:include href="testing.xml"/>
  </part>
-
+ <!--
  <part xml:id="part-buildsource">
   <title>Build Source</title>
   <xi:include href="buildsource.xml"/>
  </part>
-
+ -->
  <xi:include href="example_doc_updates.xml"/>
  <xi:include href="common_legal.xml"/>
 </book>
