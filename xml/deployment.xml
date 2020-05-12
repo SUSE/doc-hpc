@@ -72,16 +72,5 @@
     </para>
    </listitem>
   </orderedlist>
-  <figure xml:id="fig-two">
-   <title>A Figure</title>
-   <mediaobject>
-    <imageobject role="html">
-     <imagedata fileref="example.png"/>
-    </imageobject>
-    <imageobject role="fo">
-     <imagedata fileref="example.png" width="85%"/>
-    </imageobject>
-   </mediaobject>
-  </figure>
  </sect1>
 </chapter>
