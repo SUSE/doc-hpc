@@ -14,7 +14,7 @@
  xmlns:xlink="http://www.w3.org/1999/xlink">
 
  <info>
-   <title>Example Guide</title>
+   <title>High-Performance Computing Guide</title>
    <productname>&productname;</productname>
    <productnumber>&productnumber;</productnumber>
    <date><?dbtimestamp format="B d, Y"?></date>
@@ -27,9 +27,9 @@
    <dm:docmanager xmlns:dm="urn:x-suse:ns:docmanager">
     <dm:bugtracker>
      <dm:url>https://bugzilla.suse.com/enter_bug.cgi</dm:url>
-     <dm:component>Documentation</dm:component>
-     <dm:product>&hpc;</dm:product>
-     <dm:assignee>assignee@suse.com</dm:assignee>
+     <dm:component>Other</dm:component>
+     <dm:product>SUSE Linux Enterprise HPC 15 SP2</dm:product>
+     <dm:assignee>taroth@suse.com</dm:assignee>
     </dm:bugtracker>
    </dm:docmanager>
  </info>
@@ -90,6 +90,6 @@
   <xi:include href="buildsource.xml"/>
  </part>
  -->
- <xi:include href="example_doc_updates.xml"/>
+ <!-- <xi:include href="example_doc_updates.xml"/>-->
  <xi:include href="common_legal.xml"/>
 </book>
