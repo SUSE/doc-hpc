@@ -16,90 +16,86 @@
  <info>
   <abstract>
    <para>
-     &product; is a highly scalable, high performance open-source operating
-     system designed to utilize the power of parallel computing for modeling,
-     simulation and advanced analytics workloads.
+    &product; is a highly scalable, high performance open-source operating
+    system designed to utilize the power of parallel computing for modeling,
+    simulation and advanced analytics workloads.
    </para>
   </abstract>
-  <dm:docmanager xmlns:dm="urn:x-suse:ns:docmanager">
-   <dm:bugtracker></dm:bugtracker>
-   <dm:translation>yes</dm:translation>
-  </dm:docmanager>
  </info>
  <sect1 xml:id="sec-intro-provides">
   <title>Provides</title>
   <para>
-    &product; &this-version; provides
-    tools and libraries related to High Performance Computing.
-    This includes:
+   &product; &this-version; provides tools and libraries related to
+   High-Performance Computing.
+   This includes:
   </para>
   <itemizedlist>
-    <listitem>
-      <para>
-        Workload manager
+   <listitem>
+    <para>
+     Workload manager
     </para>
    </listitem>
    <listitem>
     <para>
-      Remote and parallel shells
+     Remote and parallel shells
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+     Performance monitoring and measuring tools
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+     Serial console monitoring tool
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+     Cluster power management tool
     </para>
    </listitem>
    <listitem>
      <para>
-       Performance monitoring and measuring tools
+      A tool for discovering the machine hardware topology
      </para>
    </listitem>
    <listitem>
      <para>
-       Serial console monitoring tool
+      System monitoring
      </para>
    </listitem>
    <listitem>
      <para>
-       Cluster power management tool
+      A tool for monitoring memory errors
      </para>
    </listitem>
    <listitem>
      <para>
-       A tool for discovering the machine hardware topology
+      A tool for determining the CPU model and its capabilities (x86-64 only)
      </para>
    </listitem>
    <listitem>
-     <para>
-       System monitoring
-     </para>
+    <para>
+     User-extensible heap manager capable of distinguishing between different kinds
+     of memory (x86-64 only)
+    </para>
    </listitem>
    <listitem>
-     <para>
-       A tool for monitoring memory errors
-     </para>
+    <para>
+     Serial and parallel computational libraries providing the common standards
+     BLAS, LAPACK, ...
+    </para>
    </listitem>
    <listitem>
-     <para>
-       A tool for determining the CPU model and its capabilities (x86-64 only)
-     </para>
+    <para>
+     Various MPI implementations
+    </para>
    </listitem>
    <listitem>
-     <para>
-       User-extensible heap manager capable of distinguishing between different kinds
-       of memory (x86-64 only)
-     </para>
-   </listitem>
-   <listitem>
-     <para>
-       Serial and parallel computational libraries providing the common standards
-       BLAS, LAPACK, ...
-     </para>
-   </listitem>
-   <listitem>
-     <para>
-       Various MPI implementations
-     </para>
-   </listitem>
-   <listitem>
-     <para>
-       Serial and parallel libraries for the HDF5 file format
-     </para>
+    <para>
+     Serial and parallel libraries for the HDF5 file format
+    </para>
    </listitem>
   </itemizedlist>
  </sect1>
@@ -110,54 +106,55 @@
    Intel 64/AMD64 (x86-64) and AArch64 platforms.
   </para>
  </sect1>
-  <sect1 xml:id="sec-introduction-life">
-   <title>Support and Life Cycle</title>
-   <para>
-    &product; &this-version; is supported throughout the life cycle of
-    &slea; &this-version;. ESPOS (Extended Service Overlap Support) as well
-    as Long Term Support Service are also available for this product. Any
-    release package is fully maintained and supported until the availability
-    of the next release.
-   </para>
-   <para>
-    For more information, see the Support Policy page
-    <link xlink:href="https://www.suse.com/support/policy.html" xlink:show="new"/>.
-   </para>
-  </sect1>
+ <sect1 xml:id="sec-introduction-life">
+  <title>Support and Life Cycle</title>
+  <para>
+   &product; &this-version; is supported throughout the life cycle of
+   &slea; &this-version;. ESPOS (Extended Service Overlap Support) as well
+   as Long Term Support Service are also available for this product. Any
+   release package is fully maintained and supported until the availability
+   of the next release.
+  </para>
+  <para>
+   For more information, see the Support Policy page
+   <link xlink:href="https://www.suse.com/support/policy.html"/>.
+  </para>
+ </sect1>
  <sect1 xml:id="sec-introduction-documentation">
-   <title>Documentation and Other Information</title>
-   <para/>
-   <para>
-     Accessing the documentation on the product media:
-   </para>
-   <itemizedlist>
-     <listitem>
-       <para>Read the READMEs on the media.</para>
-     </listitem>
-     <listitem>
-       <para>
-         Get the detailed change log information about a particular package
-         from the RPM (where
-         <filename><replaceable>FILENAME</replaceable>.rpm</filename>
-         is the name of the RPM):
-       </para>
-       <screen>rpm --changelog -qp
-       <replaceable>FILENAME</replaceable>.rpm</screen>
-     </listitem>
-     <listitem>
-       <para>
-         Check the <filename>ChangeLog</filename> file in the top level of the
-         media for a chronological log of all changes made to the updated
-         packages.
-       </para>
-     </listitem>
-     <listitem>
-       <para>
-         These documentation are identical across all architectures, and the most
-         recent version is always available online at
-         <link xlink:href="https://www.suse.com/documentation/" xlink:show="new"/>.
-       </para>
-     </listitem>
-   </itemizedlist>
+  <title>Documentation and Other Information</title>
+  <itemizedlist>
+   <listitem>
+    <para>Read the READMEs on the media.</para>
+   </listitem>
+   <listitem>
+    <para>
+      Get the detailed change log information about a particular package
+      from the RPM (where
+      <filename><replaceable>FILENAME</replaceable>.rpm</filename>
+      is the name of the RPM):
+    </para>
+    <screen>rpm --changelog -qp <replaceable>FILENAME</replaceable>.rpm</screen>
+   </listitem>
+   <listitem>
+    <para>
+     Check the <filename>ChangeLog</filename> file in the top level of the
+     media for a chronological log of all changes made to the updated
+     packages.
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+     The most recent version of the release notes are always available at
+     <link xlink:href="https://www.suse.com/releasenotes"/>.
+    </para>
+   </listitem>
+   <listitem>
+    <!-- FIXME: Below sentence is a lie. -->
+    <para>
+     The most recent version of this documentation is always available at
+     <link xlink:href="https://documentation.suse.com/"/>.
+    </para>
+   </listitem>
+  </itemizedlist>
  </sect1>
 </chapter>
