@@ -4,7 +4,7 @@
 # sudo zypper in --no-recommends daps
 #
 
-PHONY: validate html single-html pdf
+PHONY: validate html single-html pdf clean
 
 validate: DC-hpc-guide xml/MAIN.hpc-guide.xml
 	daps -d DC-hpc-guide validate
@@ -14,7 +14,6 @@ html: DC-hpc-guide xml/MAIN.hpc-guide.xml
 
 single-html: DC-hpc-guide xml/MAIN.hpc-guide.xml
 	daps -d DC-hpc-guide html --single
-
 
 pdf: DC-hpc-guide xml/MAIN.hpc-guide.xml
 	daps -d DC-hpc-guide pdf
