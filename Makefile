@@ -4,6 +4,8 @@
 # sudo zypper in --no-recommends daps
 #
 
+all: pdf
+
 PHONY: validate html single-html pdf clean
 
 validate: DC-hpc-guide xml/MAIN.hpc-guide.xml
