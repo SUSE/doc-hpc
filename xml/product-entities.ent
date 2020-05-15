@@ -7,7 +7,9 @@
 <!ENTITY this-version "15 SP2">
 
 <!-- PROJECT REPOSITORY URL -->
-<!ENTITY repourl "https://github.com/SUSE/doc-hpc">
+<!ENTITY repo-url "https://github.com/SUSE/doc-hpc">
+
+<!ENTITY rn-url "https://www.suse.com/releasenotes/x86_64/SLE-HPC/15-SP2">
 
 <!-- START YEAR OF COPYRIGHT -->
 <!ENTITY copyrightstart "2020">

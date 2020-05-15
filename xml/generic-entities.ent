@@ -50,7 +50,6 @@
 
 <!-- COMPANY -->
 
-<!ENTITY novell        "Novell">
 <!ENTITY opensuse      "openSUSE">
 <!ENTITY opensusereg   "openSUSE&reg;">
 <!ENTITY suse          "SUSE">
@@ -61,61 +60,85 @@
 <!-- SUSE PRODUCTS -->
 
 <!-- SLE -->
-<!ENTITY allmodules    "SLE-15-Packages">
 <!ENTITY jeos          "JeOS"><!-- Just enough OS -->
 <!ENTITY leanos        "Installer">
-<!ENTITY s4s           "&sles4sap;">
-<!ENTITY s4sa          "&sles4sapa;">
-<!ENTITY sdk           "&suse; Software Development Kit">
 <!ENTITY sle           "&suse; Linux Enterprise">
-<!ENTITY slea          "SLE">
-<!ENTITY sled          "&suse; Linux Enterprise Desktop">
-<!ENTITY sleda         "SLED">
-<!ENTITY sledreg       "&suse;&reg; Linux Enterprise Desktop">
+<!ENTITY sled          "&sle; Desktop">
 <!ENTITY slehpc        "&sle; High Performance Computing">
-<!ENTITY slehpcreg     "&slereg; High Performance Computing">
-<!ENTITY slereg        "&suse;&reg; Linux Enterprise">
+<!ENTITY slepos        "&sle; Point of Service">
+<!ENTITY slewe         "&sle; Workstation Extension">
+<!ENTITY vmdp          "&sle; Virtual Machine Driver Pack">
+<!ENTITY slelp         "&sle; Live Patching">
 <!ENTITY slert         "&sle; Real Time">
-<!ENTITY slerta        "&slea; RT">
-<!ENTITY slertreg      "&slereg; Real Time">
+<!ENTITY sdk           "&sle; Software Development Kit">
+<!ENTITY sles          "&sle; Server">
+<!ENTITY sls           "&sles;">
 <!ENTITY sles4sap      "&sls; for &sap; Applications">
-<!ENTITY sles4sapa     "&slsa; for &sap;">
-<!ENTITY sles4sapreg   "&slsreg; for &sap; Applications">
-<!ENTITY sls           "&suse; Linux Enterprise Server">
-<!ENTITY slsa          "SLES">
-<!ENTITY slsreg        "&suse;&reg; Linux Enterprise Server">
+<!ENTITY s4s           "&sles4sap;">
 
-<!-- SOC -->
+<!-- Cloud & Storage & Emerging Stuff -->
 <!ENTITY cloud         "&suse; &ostack; Cloud">
-
-<!-- SES -->
 <!ENTITY ses           "&suse; Enterprise Storage">
+<!ENTITY caasp         "&suse; CaaS Platform">
+<!ENTITY cap           "&suse; Cloud Application Platform">
 
 <!-- SLE HA -->
 <!ENTITY hasi          "High Availability Extension">
-<!ENTITY hageo         "GEO Clustering for &sle; &hasi;">
+<!ENTITY sleha         "&sle; &hasi;">
+<!ENTITY hageo         "GEO Clustering for &sleha;">
 
 <!-- SUSE Manager -->
 <!ENTITY susemgr       "&suse; Manager">
-<!ENTITY susemgrreg    "&suse;&reg; Manager">
+<!ENTITY suma          "&susemgr;">
 <!ENTITY susemgrdb     "&suse; Manager with Database">
 <!ENTITY susemgrproxy  "&susemgr; Proxy">
+<!ENTITY smr           "&susemgr; for Retail">
 
-<!-- Studio -->
-<!ENTITY susestudio     "&suse; Studio">
-<!ENTITY studioexpress  "&susestudio; Express">
-<!ENTITY suseonsite     "&susestudio; Onsite">
 
+
+<!-- SUSE PRODUCT ACRONYMS (Scott Corfield via news@suse.com, 2019-03-25) -->
+
+<!ENTITY slea          "SLE">
+<!ENTITY sleda         "SLED">
+<!ENTITY slsa          "SLES">
+<!ENTITY slehaa        "SLE-HA">
+<!ENTITY slehaga       "SLE-HA-GEO"> <!-- This one is not officially defined. -->
+<!ENTITY slehpca       "SLE-HPC">
+<!ENTITY sles4sapa     "SLES-SAP">
+<!ENTITY s4sa          "&sles4sapa;">
+<!ENTITY sleposa       "SLE-POS">
+<!ENTITY slerta        "SLE-RT">
+<!ENTITY slewea        "SLE-WE">
+<!ENTITY slelpa        "SLE-LP">
+<!ENTITY vmdpa         "SLE-VMDP">
+<!ENTITY sesa          "SES">
+<!ENTITY soca          "SOC">
+<!ENTITY capa          "SUSE-CAP">
+<!ENTITY caaspa        "SUSE-CaaSP">
+<!ENTITY caspa         "&caaspa;">
+<!ENTITY sumaa         "SUMA">
+<!ENTITY smra          "SUMA-Retail">
+
+
+<!-- PRODUCT NAMES WITH (R) SIGN (incomplete) -->
+
+<!ENTITY slereg        "&suse;&reg; Linux Enterprise">
+<!ENTITY sledreg       "&slereg; Desktop">
+<!ENTITY slehpcreg     "&slereg; High Performance Computing">
+<!ENTITY slertreg      "&slereg; Real Time">
+<!ENTITY slsreg        "&slereg; Server">
+<!ENTITY sles4sapreg   "&slsreg; for &sap; Applications">
+<!ENTITY susemgrreg    "&suse;&reg; Manager">
 
 
 <!-- SUSE SERVICES -->
 
-<!ENTITY ncc           "&scc;">
 <!ENTITY scc           "&suse; Customer Center">
 <!ENTITY sccreg        "&suse;&reg; Customer Center">
 <!ENTITY obs           "Open Build Service">
 <!ENTITY osbs          "openSUSE Build Service">
 <!ENTITY obsa          "OBS">
+<!ENTITY ph            "PackageHub">
 <!ENTITY soliddriver   "SUSE SolidDriver">
 
 
@@ -132,13 +155,32 @@
 <!ENTITY powerlinux   "PowerLinux">
 
 
+<!-- SLE DVD IMAGE NAMES -->
+
+<!ENTITY allmodules    "SLE-15-Packages">
+
 
 <!-- URLS -->
 
+<!ENTITY dsc            "https://documentation.suse.com">
+<!ENTITY dsc-sles       "&dsc;/sles">
+<!ENTITY dsc-sled       "&dsc;/sled">
+<!ENTITY dsc-ha         "&dsc;/sle-ha">
+<!ENTITY dsc-sap        "&dsc;/sles-sap">
+<!ENTITY dsc-ses        "&dsc;/ses">
+<!ENTITY dsc-suma       "&dsc;/suma">
+<!ENTITY dsc-caasp      "&dsc;/suse-caasp">
+<!ENTITY dsc-cap        "&dsc;/suse-cap">
+<!ENTITY dsc-soc        "&dsc;/soc">
+
+
+<!ENTITY beta-www       "https://susedoc.github.io">
+
+<!ENTITY doo            "https://doc.opensuse.org">
+
+<!ENTITY sc-rn          "https://www.suse.com/releasenotes">
+
 <!ENTITY sccurl         "https://scc.suse.com/">
-<!ENTITY suse-onlinedoc "http://www.suse.com/documentation">
-
-
 
 <!-- PLATFORMS -->
 
@@ -148,20 +190,15 @@
 <!ENTITY amd64          "AMD64">
 <!ENTITY x86-64         "&intel64;/&amd64;">
 
-<!ENTITY arm            "ARM">
+<!ENTITY arm            "Arm">
 <!ENTITY aarch64        "AArch64">
 <!ENTITY arm64          "&arm;&nbsp;&aarch64;">
 
-
-<!ENTITY ipf            "Itanium">
-
 <!ENTITY power          "POWER">
-<!ENTITY ipseries       "&power;">
-<!ENTITY ppc            "&power;">
 <!ENTITY ppc64le        "ppc64le">
 
 <!ENTITY zseries        "IBM&nbsp;Z">
-<!ENTITY zsystems       "&zsystems;">
+<!ENTITY zsystems       "&zseries;">
 
 
 
@@ -194,12 +231,8 @@
 <!ENTITY rmt               "RMT">
 <!ENTITY rmtool            "Repository Management Tool">
 <!ENTITY selnx             "SELinux">
-<!ENTITY smt               "&rmt;">
-<!ENTITY smtool            "&rmtool;">
 <!ENTITY sudo              "<command xmlns='http://docbook.org/ns/docbook'>sudo</command>">
 <!ENTITY suseconnect       "SUSEConnect">
-<!ENTITY susefirewall      "SuSEfirewall2">
-<!ENTITY susefirewallfiles "SuSEfirewall2">
 <!ENTITY xgeneric          "X Window System">
 <!ENTITY xvendor           "X.Org">
 <!ENTITY yast              "YaST">
@@ -273,7 +306,6 @@
 <!ENTITY cpufreq       "CPUfreq">
 <!ENTITY gpg           "GPG"> <!-- or GnuGP -->
 <!ENTITY mariadb       "MariaDB">
-<!ENTITY mysql         "&mariadb;">
 <!ENTITY nautilus      "&gnome; Files">
 <!ENTITY oprof         "OProfile">
 <!ENTITY postgresql    "PostgreSQL">
@@ -293,7 +325,6 @@
 
 <!-- BOOK NAMES -->
 
-<!-- FIXME: Not sure if these should better go into the product-specific files -->
 <!-- SUSE Linux Enterprise -->
 <!ENTITY admin         "<citetitle xmlns='http://docbook.org/ns/docbook'>Administration Guide</citetitle>">
 <!ENTITY auditguide    "<citetitle xmlns='http://docbook.org/ns/docbook'>The Linux Audit Framework</citetitle>">
@@ -308,19 +339,12 @@
 <!ENTITY storage_guide "<citetitle xmlns='http://docbook.org/ns/docbook'>Storage Administration Guide</citetitle>">
 <!ENTITY tuning        "<citetitle xmlns='http://docbook.org/ns/docbook'>System Analysis and Tuning Guide</citetitle>">
 <!ENTITY virtual       "<citetitle xmlns='http://docbook.org/ns/docbook'>Virtualization Guide</citetitle>">
+<!ENTITY upgrade_guide  "<emphasis xmlns='http://docbook.org/ns/docbook'>Upgrade Guide</emphasis>">
 
 <!-- HA -->
 <!ENTITY haguide       "<citetitle xmlns='http://docbook.org/ns/docbook'>High Availability Guide</citetitle>">
 
 <!-- SUSE Manager -->
-<!-- old -->
-<!ENTITY mgrclientconfguide "<citetitle xmlns='http://docbook.org/ns/docbook'>Client Configuration Guide</citetitle>">
-<!ENTITY mgrinstguide       "<citetitle xmlns='http://docbook.org/ns/docbook'>Installation &amp; Troubleshooting Guide</citetitle>">
-<!ENTITY mgrproxyquick      "<citetitle xmlns='http://docbook.org/ns/docbook'>Proxy Quick Start</citetitle>">
-<!ENTITY mgrquick           "<citetitle xmlns='http://docbook.org/ns/docbook'>Quick Start</citetitle>">
-<!ENTITY mgrrefguide        "<citetitle xmlns='http://docbook.org/ns/docbook'>Reference Guide</citetitle>">
-<!ENTITY mgruserguide       "<citetitle xmlns='http://docbook.org/ns/docbook'>User Guide</citetitle>">
-<!-- new -->
 <!ENTITY mgradvtop          "<citetitle xmlns='http://docbook.org/ns/docbook'>Advanced Topics Guide</citetitle>">
 <!ENTITY mgrbestpract       "<citetitle xmlns='http://docbook.org/ns/docbook'>Best Practices Guide</citetitle>">
 <!ENTITY mgrgetstart        "<citetitle xmlns='http://docbook.org/ns/docbook'>Getting Started Guide</citetitle>">
@@ -342,3 +366,33 @@
 <!ENTITY % xml.features "INCLUDE">
 <!ENTITY % dbcent PUBLIC "-//OASIS//ENTITIES DocBook Character Entities V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/dbcentx.mod">
   %dbcent;
+
+
+<!-- LEGACY COMPATIBILITY ENTITIES -->
+<!-- Do not use in new documentation. -->
+
+<!ENTITY novell        "Novell">
+
+
+<!ENTITY susestudio     "&suse; Studio">
+<!ENTITY studioexpress  "&susestudio; Express">
+<!ENTITY suseonsite     "&susestudio; Onsite">
+
+<!ENTITY ncc           "&scc;">
+
+<!ENTITY ipseries       "&power;">
+<!ENTITY ppc            "&power;">
+
+<!ENTITY smt               "&rmt;">
+<!ENTITY smtool            "&rmtool;">
+<!ENTITY susefirewall      "SuSEfirewall2">
+<!ENTITY susefirewallfiles "SuSEfirewall2">
+<!ENTITY mysql         "&mariadb;">
+
+<!--SUSE Manager, old guide names -->
+<!ENTITY mgrclientconfguide "<citetitle xmlns='http://docbook.org/ns/docbook'>Client Configuration Guide</citetitle>">
+<!ENTITY mgrinstguide       "<citetitle xmlns='http://docbook.org/ns/docbook'>Installation &amp; Troubleshooting Guide</citetitle>">
+<!ENTITY mgrproxyquick      "<citetitle xmlns='http://docbook.org/ns/docbook'>Proxy Quick Start</citetitle>">
+<!ENTITY mgrquick           "<citetitle xmlns='http://docbook.org/ns/docbook'>Quick Start</citetitle>">
+<!ENTITY mgrrefguide        "<citetitle xmlns='http://docbook.org/ns/docbook'>Reference Guide</citetitle>">
+<!ENTITY mgruserguide       "<citetitle xmlns='http://docbook.org/ns/docbook'>User Guide</citetitle>">
