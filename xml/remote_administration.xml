@@ -119,57 +119,92 @@
    cluster.
   </para>
   <para>
-   Perl, Python, C, and C++ bindings are supplied with Genders, the
+   Perl, Python, Lua, C, and C++ bindings are supplied with Genders, the
    respective packages provide man pages or other documentation describing
    the APIs.
   </para>
+  <sect2 xml:id="sec-genders-db">
+    <title>Genders database format</title>
   <para>
-   To create the Genders database, follow the instructions and examples in
-   <filename>/etc/genders</filename> and check
-   <filename>/usr/share/doc/packages/genders-base/TUTORIAL</filename>.
-   Testing a configuration can be done with <literal>nodeattr</literal>
-   (for more information, see <command>man 1 nodeattr</command>).
+    The Genders databaes in &slsa; is the file <filename>/etc/genders</filename> 
+    and contains a list of nodenames with their attributes. Each line of 
+    the genders file may have one of the following formats.
+  </para>
+    <screen>
+nodename                attr[=value],attr[=value],...
+nodename1,nodename2,... attr[=value],attr[=value],...
+nodenames[A-B]          attr[=value],attr[=value],...
+    </screen>
+  <para>
+    The nodename(s) are without their domain and followed by any number of 
+    spaces or tabs, and then the comma-separated list of attributes. Every 
+    attribute can optionally have a value.  The substitution string "%n" can
+    be used in an attribute value to represent the nodename.  Nodenames can be
+    listed on multiple lines, so a node's attributes can be specified on multiple
+    lines.  However, no single node may have duplicate attributes.
   </para>
   <para>
-   List of packages:
+    There must be no spaces embedded in the attribute list and there is
+    no provision for continuation lines.  Commas and equal characters are special
+    and cannot appear in attribute names or their values.  Comments are prefixed 
+    with the hash character (#) and can appear anywhere in the file.
   </para>
-  <itemizedlist>
-   <listitem>
-    <para>
-     <package>genders</package>
-    </para>
-   </listitem>
-   <listitem>
-    <para>
-     <package>genders-base</package>
-    </para>
-   </listitem>
-   <listitem>
-    <para>
-     <package>genders-devel</package>
-    </para>
-   </listitem>
-   <listitem>
-    <para>
-     <package>python-genders</package>
-    </para>
-   </listitem>
-   <listitem>
-    <para>
-     <package>genders-perl-compat</package>
-    </para>
-   </listitem>
-   <listitem>
-    <para>
-     <package>libgenders0</package>
-    </para>
-   </listitem>
-   <listitem>
-    <para>
-     <package>libgendersplusplus2</package>
-    </para>
-   </listitem>
-  </itemizedlist>
+  <para>
+    Ranges for nodenames can be specified in the form: 
+    <inlineequation><mathphrase>prefix[n-m,l-k,...],</mathphrase></inlineequation> where 
+    <inlineequation><mathphrase>n &gt; m and l &gt; k,</mathphrase></inlineequation> etc., as an alternative 
+    to explicit lists of nodenames.
+  </para>
+  </sect2>
+  <sect2 xml:id="sec-nodeattr">
+    <title>Nodeattr usage</title>
+  <para> 
+    The command line utitlity <literal>nodeaddr</literal> can be used to query data 
+    in the genders file. When the genders file is replicated on all nodes, a qery 
+    can be done wihtout network access. It can be called like followed
+  </para>
+  <screen>
+nodeattr [-q | -n | -s] [-r] attr[=val]
+  </screen>
+  <para>
+    where <literal>-q</literal> is the default option and prints a list nodes
+    with <literal>attr[=val]</literal> as hostrange. 
+  </para>
+  <para>
+    The <literal>-c</literal> options will give a comma separated, the 
+    <literal>-s</literal> option a space seperated list of nodes with 
+    <literal>attr[=val]</literal>.
+  </para>
+  <para>
+    If none of the formatting options are specified, nodeattr returns a zero
+    value if the local node has the specified attribute, else nonzero.  The 
+    <literal>-v</literal> option causes any value associated with the attribute 
+    to go to stdout. If a node name is specified before the attribute, it is 
+    queried instead of the
+    local node.
+  </para>
+  <para> 
+    When <literal>nodeattr</literal> is called with the <literal>-l</literal>
+    parameter like
+  </para>
+    <screen>
+nodeattr -l [node]
+    </screen>
+      <para>
+        all attributes for a particular node are printed out. If no node paramteter is
+        is given, all attributes of the local node are printed out.
+      </para>
+      <para>
+        With the command
+       </para>
+        <screen>
+nodeattr [-f genders] -k
+        </screen>
+        <para>
+          a syntax check of the genders database is performed, where with the switch
+          <literal>-f</literal> an alternative datanbase location can be specified.
+        </para>
+  </sect2>
  </sect1>
  <sect1 xml:id="sec-remote-pdsh">
   <title>pdsh &mdash; Parallel Remote Shell Program</title>
