@@ -375,11 +375,11 @@ nodeattr [-f genders] -k
  <sect1 xml:id="sec-remote-munge">
   <title><emphasis>munge</emphasis> Authentication</title>
   <para>
-   <emphasis>munge</emphasis>
-   allows users to connect as the same user from a machine to any other
-   machine which shares the same secret key. This can be used to set up a
-   cluster of machines between which the user can connect and execute
-   commands without any additional authentication.
+    <emphasis>munge</emphasis> allows a secure communication between different 
+      machines which share the same secret key. The most common usecase is the 
+      <emphasis>slurm</emphasis> workload mangager which uses <emphasis>munge</emphasis>
+        for the encryption of its messages. Another usecase is authentification for the
+        parallel shell <emphasis>mrsh</emphasis>.
   </para>
   <para>
    The <emphasis>munge</emphasis> authentication is based on a single shared key.
