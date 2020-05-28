@@ -151,8 +151,7 @@ nodenames[A-B]          attr[=value],attr[=value],...
   </para>
   <para>
     Ranges for nodenames can be specified in the form: 
-    <inlineequation><mathphrase>prefix[n-m,l-k,...],</mathphrase></inlineequation> where 
-    <inlineequation><mathphrase>n &gt; m and l &gt; k,</mathphrase></inlineequation> etc., as an alternative 
+    prefix[n-m,l-k,...], where n &gt; m and l &gt; k, etc., as an alternative 
     to explicit lists of nodenames.
   </para>
   </sect2>
