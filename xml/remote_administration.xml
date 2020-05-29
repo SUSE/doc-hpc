@@ -381,6 +381,12 @@ nodeattr [-f genders] -k
         for the encryption of its messages. Another usecase is authentification for the
         parallel shell <emphasis>mrsh</emphasis>.
   </para>
+    <sect2>
+      <title xml:id="sec-munge-inst">Install <emphasis>munge</emphasis></title>
+        <para>
+foobaar
+         </para>
+    </sect2>
   <para>
    The <emphasis>munge</emphasis> authentication is based on a single shared key.
    This key is
