@@ -8,7 +8,7 @@
     %entities;
 ]>
 
-<chapter xml:id="cha-scheduler" xml:lang="en"
+<chapter xml:id="cha-slurm" xml:lang="en"
  xmlns="http://docbook.org/ns/docbook" version="5.1"
  xmlns:xi="http://www.w3.org/2001/XInclude"
  xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -16,7 +16,10 @@
  <info>
   <abstract>
    <para>
-    What is this chapter about?
+     <emphasis>Slurm</emphasis> is a workload manager for managing compute jobs on
+       high performance computing cluster. It can start multiple jobs on a single
+       node or a single job on multiple nodes. Additional components can be used for 
+       advanced scheduling and accounting.
    </para>
   </abstract>
   <dm:docmanager xmlns:dm="urn:x-suse:ns:docmanager">
@@ -27,22 +30,9 @@
  <sect1 xml:id="sec-scheduler-slurm">
    <title>Slurm &mdash; Utility for HPC Workload Management</title>
    <para>
-    Slurm is an open-source, fault-tolerant, and highly scalable cluster
-    management and job scheduling system for Linux clusters containing up to
-    65,536 nodes. Components include machine status, partition management,
-    job management, scheduling and accounting modules.
+     For a minimal setup to run <emphasis>Slurm</emphasis> with <emphasis>munge</emphasis> 
+     support on one controll node and multiple cmpute nodes, follow these instructions:
    </para>
-   <para>
-    For a minimal setup to run Slurm with <emphasis>munge</emphasis> support on
-    one compute
-    node and multiple control nodes, follow these instructions:
-   </para>
-   <procedure>
-    <step>
-     <para>
-      Before installing Slurm, create a user and a group called
-      <literal>slurm</literal>.
-     </para>
      <important>
       <title>Make Sure of Consistent UIDs and GIDs for Slurm's Accounts</title>
       <para>
@@ -68,7 +58,7 @@
        user/group as well.
       </para>
      </important>
-    </step>
+   <procedure>
     <step>
      <para>
       Install <package>slurm-munge</package> on the control and compute
@@ -77,7 +67,7 @@
     </step>
     <step>
      <para>
-      Configure, enable and start "munge" on the control and compute nodes.
+       Configure, enable and start <emphasis>munge</emphasis> on the control and compute nodes.
       as described in <xref linkend="sec-remote-munge"/>.
      </para>
     </step>
