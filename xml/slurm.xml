@@ -12,7 +12,7 @@
  xmlns="http://docbook.org/ns/docbook" version="5.1"
  xmlns:xi="http://www.w3.org/2001/XInclude"
  xmlns:xlink="http://www.w3.org/1999/xlink">
- <title>Scheduler</title>
+ <title>Slurm</title>
  <info>
   <abstract>
    <para>
@@ -21,6 +21,18 @@
        node or a single job on multiple nodes. Additional components can be used for 
        advanced scheduling and accounting.
    </para>
+   <para>
+      The mandatory components of <emphasis>Slurm</emphasis> is the controll daemon 
+      <emphasis>slurmctld</emphasis> taking care of job scheduling and the slurm 
+      daemon <emphasis>slurmd</emphasis> reposible for launching compute jobs. Subsequently
+      nodes running the controll daemon are called master nodes and nodes running the
+      <emphasis>slurmd</emphasis> are called compute nodes.
+   </para>
+      <para>
+        Additional components are a secondary <emphasis>slurmctld</emphasis> acting 
+        as standby server for a failover and the slurm database daemon 
+        <emphasis>slurmdbd</emphasis> which stores the job history and user hirachy.
+      </para>
   </abstract>
   <dm:docmanager xmlns:dm="urn:x-suse:ns:docmanager">
    <dm:bugtracker></dm:bugtracker>
@@ -30,13 +42,13 @@
  <sect1 xml:id="sec-scheduler-slurm">
    <title>Slurm &mdash; Utility for HPC Workload Management</title>
    <para>
-     For a minimal setup to run <emphasis>Slurm</emphasis> with <emphasis>munge</emphasis> 
-     support on one controll node and multiple cmpute nodes, follow these instructions:
+     For a minimal setup of <emphasis>Slurm</emphasis>
+     with a controll node and multiple cmpute nodes, follow these instructions:
    </para>
      <important>
       <title>Make Sure of Consistent UIDs and GIDs for Slurm's Accounts</title>
       <para>
-       For security reasons, Slurm does not run as the user
+        For security reasons, <emphasis>Slurm</emphasis> does not run as the user
        <systemitem class="username">root</systemitem> but under its own
        user. It is important that the user
        <systemitem class="username">slurm</systemitem> has the
@@ -89,31 +101,28 @@
       </step>
       <step>
        <para>
-        Additionally add:
+        In order to define the compute nodes add:
        </para>
 <screen>NodeName=<replaceable>NODE_LIST</replaceable> Sockets=<replaceable>SOCKETS</replaceable> \
   CoresPerSocket=<replaceable>CORES_PER_SOCKET</replaceable> \
   ThreadsPerCore=<replaceable>THREADS_PER_CORE</replaceable> \
   State=UNKNOWN</screen>
+    <para>
+        where the actual parameters for compute node can be obtained by running 
+<screen>slurmd -c</screen>
+      on the compute node.
+  </para>
        <para>
-        and
+       Additionally the line 
        </para>
 <screen>PartitionName=normal Nodes=<replaceable>NODE_LIST</replaceable> \
   Default=YES MaxTime=24:00:00 State=UP</screen>
        <para>
-        where <replaceable>NODE_LIST</replaceable> is the list of compute
+        has to be added, where <replaceable>NODE_LIST</replaceable> is the list of compute
         nodes (that is, the output of <command>hostname -s</command> run on
         each compute node (either comma-separated or as ranges:
-        <literal>foo[1-100]</literal>). Additionally,
-        <replaceable>SOCKETS</replaceable> denotes the number of sockets,
-        <replaceable>CORES_PER_SOCKET</replaceable> the number of cores per
-        socket, <replaceable>THREADS_PER_CORE</replaceable> the number of
-        threads for CPUs which can execute more than one thread at a time.
-        (Make sure that <replaceable>SOCKETS</replaceable> *
-        <replaceable>CORES_PER_SOCKET</replaceable> *
-        <replaceable>THREADS_PER_CORE</replaceable> does not exceed the
-        number of system cores on the compute node).
-       </para>
+          <literal>foo[1-100]</literal>). 
+        </para>
       </step>
       <step>
        <para>
