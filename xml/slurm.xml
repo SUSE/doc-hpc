@@ -44,7 +44,9 @@
    <para>
      For a minimal setup of <emphasis>Slurm</emphasis>
      with a controll node and multiple cmpute nodes, follow these instructions:
-   </para>
+       </para>
+         <sect2 xml:id="sec-slurm-minimal">
+           <title>Minimal installation</title>
      <important>
       <title>Make Sure of Consistent UIDs and GIDs for Slurm's Accounts</title>
       <para>
@@ -73,8 +75,9 @@
    <procedure>
     <step>
      <para>
-      Install <package>slurm-munge</package> on the control and compute
-      nodes: <command>zypper in slurm-munge</command>
+      Install <package>slurm-node</package> on the compute
+        nodes with <command>zypper in slurm-node</command> and <package>slurm</package> on 
+          the controll node with <command>zypper in slurm</command>. The package <package>munge</package>will be installed as dependence automatically.
      </para>
     </step>
     <step>
@@ -84,8 +87,9 @@
      </para>
     </step>
     <step>
+     <title>Create <filename>slurm.conf</filename></title>
      <para>
-      On the compute node, edit <filename>/etc/slurm/slurm.conf</filename>:
+      Edit the main configuration file <filename>/etc/slurm/slurm.conf</filename>:
      </para>
      <substeps>
       <step>
@@ -103,14 +107,11 @@
        <para>
         In order to define the compute nodes add:
        </para>
-<screen>NodeName=<replaceable>NODE_LIST</replaceable> Sockets=<replaceable>SOCKETS</replaceable> \
-  CoresPerSocket=<replaceable>CORES_PER_SOCKET</replaceable> \
-  ThreadsPerCore=<replaceable>THREADS_PER_CORE</replaceable> \
-  State=UNKNOWN</screen>
+<screen>NodeName=<replaceable>NODE_LIST</replaceable>  State=UNKNOWN</screen>
     <para>
-        where the actual parameters for compute node can be obtained by running 
-<screen>slurmd -c</screen>
-      on the compute node.
+      where the actual parameters like <literal>CPUs</literal> for compute node can be obtained by running 
+<screen>slurmd -C</screen>
+  on the compute node. 
   </para>
        <para>
        Additionally the line 
@@ -121,15 +122,17 @@
         has to be added, where <replaceable>NODE_LIST</replaceable> is the list of compute
         nodes (that is, the output of <command>hostname -s</command> run on
         each compute node (either comma-separated or as ranges:
-          <literal>foo[1-100]</literal>). 
+          <literal>node[1-100]</literal>). 
         </para>
       </step>
       <step>
        <para>
-        On the control node, copy <filename>/etc/slurm/slurm.conf</filename>
-        to all compute nodes:
+        Now copy the modified configuration file <filename>/etc/slurm/slurm.conf</filename>
+        to the control node and all compute nodes:
        </para>
 <screen>scp /etc/slurm/slurm.conf <replaceable>COMPUTE_NODE</replaceable>:/etc/slurm/</screen>
+      </step>
+     </substeps>
       </step>
       <step>
        <para>
@@ -153,10 +156,33 @@ systemctl enable slurmd.service</screen>
         to be started on
         every boot automatically.
        </para>
-      </step>
-     </substeps>
     </step>
+      <step>
+        <title>Test installation</title>
+          <substeps>
+            <step>
+              <title>Check node status</title>
+                <para>
+                  The status and availability of the compute nodes can be tested with the comand
+                  <command>sinfo</command>
+                    and the output should give you in this example
+<screen>
+PARTITION AVAIL  TIMELIMIT  NODES  STATE NODELIST 
+normal*      up 1-00:00:00      2   idle sle15sp2-node[1-2] 
+</screen>
+                  </para>
+            </step>
+          </substeps>
+        </step>
    </procedure>
+ </sect2>
+   <sect2 xml:id="sec-slurm-test">
+    <title>Testing slurm installation</title>
+      <para>
+          For test
+        </para>
+     </sect2>
+   <!--
    <note>
     <title>Epilog Script</title>
     <para>
@@ -165,6 +191,9 @@ systemctl enable slurmd.service</screen>
      script.
     </para>
    </note>
+     -->
+     <sect2 xml:id="sec-slurm-additional">
+       <title>Additional Documentation</title>
    <para>
     For further documentation, see the
     <link xlink:href="https://slurm.schedmd.com/quickstart_admin.html">Quick Start
@@ -173,8 +202,9 @@ systemctl enable slurmd.service</screen>
     Guide</link>. There is further in-depth documentation on the
 <link xlink:href="https://slurm.schedmd.com/documentation.html">Slurm
     documentation page</link>.
-   </para>
- </sect1>
+      </para>
+        </sect2>
+     </sect1>
  <!--
  <sect1 xml:id="sec-scheduler-conf">
   <title>Configuration</title>
