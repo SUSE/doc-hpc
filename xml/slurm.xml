@@ -170,6 +170,7 @@ systemctl enable slurmd.service</screen>
 PARTITION AVAIL  TIMELIMIT  NODES  STATE NODELIST 
 normal*      up 1-00:00:00      2   idle sle15sp2-node[1-2] 
 </screen>
+If the node state is not <literal>idle</literal> see <xref linkend="sec-slurm-faq"/>.
                   </para>
             </step>
           </substeps>
@@ -192,8 +193,23 @@ normal*      up 1-00:00:00      2   idle sle15sp2-node[1-2]
     </para>
    </note>
      -->
-     <sect2 xml:id="sec-slurm-additional">
-       <title>Additional Documentation</title>
+     </sect1>
+    <sect1  xml:id="sec-slurm-commands">
+      <title>Slurm commands</title>
+      <para>
+        To be added
+      </para>
+    </sect1>
+     <sect1 xml:id="sec-slurm-additional-res">
+       <title>Additional Ressources</title>
+     <sect2 xml:id="sec-slurm-faq">
+       <title>Frequently asked questions</title>
+       <para>
+          Faq
+        </para>
+     </sect2>
+     <sect2 xml:id="sec-slurm-ext-doc">
+       <title>External documentaion</title>
    <para>
     For further documentation, see the
     <link xlink:href="https://slurm.schedmd.com/quickstart_admin.html">Quick Start
@@ -203,8 +219,8 @@ normal*      up 1-00:00:00      2   idle sle15sp2-node[1-2]
 <link xlink:href="https://slurm.schedmd.com/documentation.html">Slurm
     documentation page</link>.
       </para>
-        </sect2>
-     </sect1>
+    </sect2>
+        </sect1>
  <!--
  <sect1 xml:id="sec-scheduler-conf">
   <title>Configuration</title>
