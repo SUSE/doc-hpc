@@ -173,15 +173,88 @@ normal*      up 1-00:00:00      2   idle sle15sp2-node[1-2]
 If the node state is not <literal>idle</literal> see <xref linkend="sec-slurm-faq"/>.
                   </para>
             </step>
+            <step>
+              <title>Run command</title>
+                <para>
+                  Now the slurm installation can be tested by running
+<screen>srun sleep 30</screen>
+  which will try to immediatelly run the  <command>sleep</command> on a free compute node. In another shell you can now <footnote><para>at least within 30 seconds</para></footnote>run the command 
+    <screen>squeue</screen> 
+      which will show you the running compute job in an output like
+<screen>
+    JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON) 
+        1    normal    sleep     root  R       0:05      1 node02 
+</screen>
+                  </para>
+            </step>
+            <step>
+              <title>Run shell script</title>
+                <para>
+                Now you can create the simple shell script
+<screen>
+#!/bin/bash
+echo "started at $(date)"
+sleep 30
+echo "finished at $(date)"
+</screen>
+  save it as <filename>sleeper.sh</filename> and run the shell script in the queue with 
+    <screen>
+sbatch sleeper.sh
+      </screen>
+        so that the shell script is executed as soon as enough ressources are available. After the execution the output of the shell script is stored in the output file <filename>slurm-${JOBNR}.out</filename>.
+          </para>
+            </step>
+
           </substeps>
         </step>
    </procedure>
  </sect2>
-   <sect2 xml:id="sec-slurm-test">
-    <title>Testing slurm installation</title>
+   <sect2 xml:id="sec-slurm-slurmdbd">
+    <title>Install slurm database</title>
       <para>
-          For test
-        </para>
+       With the minimal installaion slurm will only store pending and running jobs. In order to store to finished and failed job data, the storage plugin has to be installed and enabled. Additionaly so called completely fair scheduling can be enable, which replaces the FIFO<footnote><para>><emphasis>f</emphasis>irst <emphasis>i</emphasis>n <emphasis>f</emphasis>irst <emphasis>o</emphasis>ut.</para></footnote> scheduling with algorithms which calculate the job priority in a queue in dependence of the job which a user has run in the history.
+         </para>
+           <para>
+             The slurm database has two components which is the daemon <literal>slurmdbd</literal> itself and a mysql database, where <literal>mariab</literal> is recommended. The database can be on the same node which runs <literal>slurmdbd</literal> or another node. For this simple setup all these services run on the same node.
+            </para>
+              <procedure>
+                <title>Install <package>slurmdbd</package></title>
+                  <step>
+                    <title>Install mariadb</title>
+                      <para>
+                        If a external SQL database should be used or such database is allready installed on the controll node, this step can be skipped.
+                      </para>
+                      <para>
+                            The mariabd SQL database can be installed with the command
+                            <screen>zypper in mariadb</screen>
+                            after the installtion the database should be started and enabled with commands
+                            <screen>
+systemctl start mariadb
+systemctl enable mariadb
+                            </screen>
+                              Now the database should be secure with the command <command>mysql_secure_installation</command>.
+                        </para>
+                    </step>
+                    <step><title>Create database for slurm</title>
+                      <para>
+                        In this step the database and the user for the slurm database has to be created. This is done by connecting to the SQL database with e.g. the command <command>mysql -u root -p</command>. After a succesful connection the database and the creation of secure password<footnote><para>You can use the command <command>openssl rand -base64 32</command> to create a secure random password</para></footnote>, the slurm user and the datbase is created with the commands
+                          <screen>
+create user 'slurm'@'localhost' identified by 'password';
+grant all on slurm_acct_db.* TO 'slurm'@'localhost';
+create database slurm_acct_db;
+                            </screen>
+                      </para>
+                    </step>
+                      <step><title>Install <literal>slurmdbd</literal></title>
+                        <para>
+                          The package <package>slurmdbd</package> can be installed with the command
+                        <screen>
+zypper in slurm-slurmdbd
+                        </screen>
+                          Now the configuration file for <literal>slurmdbd</literal> has to be modified:w
+                        </para>
+                    </step>
+                </procedure>
      </sect2>
    <!--
    <note>
