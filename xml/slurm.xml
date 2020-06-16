@@ -22,10 +22,10 @@
        advanced scheduling and accounting.
    </para>
    <para>
-      The mandatory components of <emphasis>Slurm</emphasis> is the controll daemon 
+      The mandatory components of <emphasis>Slurm</emphasis> is the control daemon 
       <emphasis>slurmctld</emphasis> taking care of job scheduling and the slurm 
-      daemon <emphasis>slurmd</emphasis> reposible for launching compute jobs. Subsequently
-      nodes running the controll daemon are called master nodes and nodes running the
+      daemon <emphasis>slurmd</emphasis> responsible for launching compute jobs. Subsequently
+      nodes running the control daemon are called master nodes and nodes running the
       <emphasis>slurmd</emphasis> are called compute nodes.
    </para>
       <para>
@@ -201,7 +201,7 @@ echo "finished at $(date)"
     <screen>
 sbatch sleeper.sh
       </screen>
-        so that the shell script is executed as soon as enough ressources are available. After the execution the output of the shell script is stored in the output file <filename>slurm-${JOBNR}.out</filename>.
+        so that the shell script is executed as soon as enough resources are available. After the execution the output of the shell script is stored in the output file <filename>slurm-${JOBNR}.out</filename>.
           </para>
             </step>
 
@@ -212,7 +212,7 @@ sbatch sleeper.sh
    <sect2 xml:id="sec-slurm-slurmdbd">
     <title>Install slurm database</title>
       <para>
-       With the minimal installaion slurm will only store pending and running jobs. In order to store to finished and failed job data, the storage plugin has to be installed and enabled. Additionaly so called completely fair scheduling can be enable, which replaces the FIFO<footnote><para>><emphasis>f</emphasis>irst <emphasis>i</emphasis>n <emphasis>f</emphasis>irst <emphasis>o</emphasis>ut.</para></footnote> scheduling with algorithms which calculate the job priority in a queue in dependence of the job which a user has run in the history.
+       With the minimal installation slurm will only store pending and running jobs. In order to store to finished and failed job data, the storage plugin has to be installed and enabled. Additionally so called completely fair scheduling can be enable, which replaces the FIFO<footnote><para>><emphasis>f</emphasis>irst <emphasis>i</emphasis>n <emphasis>f</emphasis>irst <emphasis>o</emphasis>ut.</para></footnote> scheduling with algorithms which calculate the job priority in a queue in dependence of the job which a user has run in the history.
          </para>
            <para>
              The slurm database has two components which is the daemon <literal>slurmdbd</literal> itself and a mysql database, where <literal>mariab</literal> is recommended. The database can be on the same node which runs <literal>slurmdbd</literal> or another node. For this simple setup all these services run on the same node.
@@ -222,12 +222,12 @@ sbatch sleeper.sh
                   <step>
                     <title>Install mariadb</title>
                       <para>
-                        If a external SQL database should be used or such database is allready installed on the controll node, this step can be skipped.
+                        If a external SQL database should be used or such database is already installed on the control node, this step can be skipped.
                       </para>
                       <para>
                             The mariabd SQL database can be installed with the command
                             <screen>zypper in mariadb</screen>
-                            after the installtion the database should be started and enabled with commands
+                            after the installation the database should be started and enabled with commands
                             <screen>
 systemctl start mariadb
 systemctl enable mariadb
@@ -235,9 +235,9 @@ systemctl enable mariadb
                               Now the database should be secure with the command <command>mysql_secure_installation</command>.
                         </para>
                     </step>
-                    <step><title>Create database for slurm</title>
+                    <step xml:id="sec-sum-sqldb"><title>Create database for slurm</title>
                       <para>
-                        In this step the database and the user for the slurm database has to be created. This is done by connecting to the SQL database with e.g. the command <command>mysql -u root -p</command>. After a succesful connection the database and the creation of secure password<footnote><para>You can use the command <command>openssl rand -base64 32</command> to create a secure random password</para></footnote>, the slurm user and the datbase is created with the commands
+                        In this step the database and the user for the slurm database has to be created. This is done by connecting to the SQL database with e.g. the command <command>mysql -u root -p</command>. After a successful connection the database and the creation of secure password<footnote><para>You can use the command <command>openssl rand -base64 32</command> to create a secure random password</para></footnote>, the slurm user and the database is created with the commands
                           <screen>
 create user 'slurm'@'localhost' identified by 'password';
 grant all on slurm_acct_db.* TO 'slurm'@'localhost';
@@ -251,7 +251,61 @@ create database slurm_acct_db;
                         <screen>
 zypper in slurm-slurmdbd
                         </screen>
-                          Now the configuration file for <literal>slurmdbd</literal> has to be modified:w
+                          Now the configuration file <filename>/etc/slurm/slurmdbd.conf</filename> for <literal>slurmdbd</literal> has to be modified so that the daemon can access the database. Change the following lines
+<screen>
+StoragePass=password
+  </screen>
+    to the password which you use in <xref linkend="sec-sum-sqldb"/>. When another location or user for the SQL database was chosen, also the entries for 
+<screen>
+StorageUser=slurm
+DbdAddr=localhost
+DbdHost=localhost
+</screen>
+  have to be modified.
+                        </para>
+                    </step>
+                    <step> <title>Start and enable <literal>slurmdbd</literal></title>
+                      <para>
+                        The daemon <literal>slurmdbd</literal> should now be started and enabled with the commands
+<screen>
+systemctl start slurmdbd
+systemctl enable slurmdbd
+</screen>
+  , please note that the first start of <literal>slurmdbd</literal> will take some time.
+    </para>
+                    </step>
+                      <step><title>Enable accounting</title>
+                        <para>
+                          For the connection between the <literal>slurmctld</literal> and the <literal>slurmdbd</literal> daemon you have change/add following lines 
+                            <screen>
+JobAcctGatherType=jobacct_gather/linux
+JobAcctGatherFrequency=30
+AccountingStorageType=accounting_storage/slurmdbd
+AccountingStorageHost=localhost
+                            </screen>
+                              assuming that <literal>slurmdbd</literal> is running on the same host as <literal>slurmctld</literal>. After this step restart the <literal>slurmctld</literal> with
+                                <screen>
+systemctl restart slurmctld
+                               </screen>
+                        </para>
+                    </step>
+                    <step performance="optional">
+                      <title>Enable accounring per group</title>
+                        <para>
+                          Per default <literal>slurm</literal> does not take any group membership into account and it is not possible to map the system groups to <literal>slurm</literal>. The creation and group membership have to managed via the commandline tool <command>sacctmgr</command>. Its also possible to have a group hierarchy and users can be part of several groups. 
+                        </para>
+                        <para>
+                          To create an umbrella group <literal>bavaria</literal> for two subgroups called <literal>nuremberg</literal> and <literal>munich</literal> use following commads
+<screen>
+sacctmgr add account bavaria \
+  Description="umbrella group for subgroups" Organization=bavaria
+sacctmgr add account nuremberg,munich parent=bavaria 
+  Description="subgroup" Organization=bavaria
+</screen>
+                          With the similar syntax you can add now users to the accounts
+<screen>
+sacctmgr add user tux Account=nuremberg
+</screen>
                         </para>
                     </step>
                 </procedure>
