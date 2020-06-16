@@ -321,12 +321,27 @@ sacctmgr add user tux Account=nuremberg
    </note>
      -->
      </sect1>
-    <sect1  xml:id="sec-slurm-commands">
-      <title>Slurm commands</title>
-      <para>
-        To be added
-      </para>
+     <sect1 xml:id="sec-slurm-adm-commands">
+     <title>Slurm administration commands</title>
+     <sect2 xml:id="sec-slurm-sconfigure">
+       <title>scontrol</title>
+       <para>
+         The command <command>scontrol</command> is used to show and update the dynamic variables  of <literal>slurm</literal> like the state of the compute nodes or compute jobs. It can also be used to reboot or propagate configuration changes to the compute nodes.
+       </para>
+       <variablelist>
+         <varlistentry>
+           <listitem>
+             <term><command>scontrol show</command></term>
+            <para>
+              foobaar
+            </para>
+          </listitem>
+         </varlistentry>
+
+        </variablelist>
+      </sect2>
     </sect1>
+
      <sect1 xml:id="sec-slurm-additional-res">
        <title>Additional Ressources</title>
      <sect2 xml:id="sec-slurm-faq">
