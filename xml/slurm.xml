@@ -2,16 +2,7 @@
 <?xml-stylesheet href="urn:x-suse:xslt:profiling:docbook51-profile.xsl"
  type="text/xml"
  title="Profiling step"?>
-<!DOCTYPE chapter
-[
-  <!ENTITY % entities SYSTEM "generic-entities.ent">
-    %entities;
-]>
-
-<chapter xml:id="cha-slurm" xml:lang="en"
- xmlns="http://docbook.org/ns/docbook" version="5.1"
- xmlns:xi="http://www.w3.org/2001/XInclude"
- xmlns:xlink="http://www.w3.org/1999/xlink">
+<chapter xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xlink="http://www.w3.org/1999/xlink" xml:base="slurm.xml" xml:id="cha-slurm" xml:lang="en" version="5.1">
  <title>Slurm</title>
  <info>
   <abstract>
@@ -35,12 +26,12 @@
       </para>
   </abstract>
   <dm:docmanager xmlns:dm="urn:x-suse:ns:docmanager">
-   <dm:bugtracker></dm:bugtracker>
+   <dm:bugtracker/>
    <dm:translation>yes</dm:translation>
   </dm:docmanager>
  </info>
  <sect1 xml:id="sec-scheduler-slurm">
-   <title>Slurm &mdash; Utility for HPC Workload Management</title>
+   <title>Slurm — Utility for HPC Workload Management</title>
    <para>
      For a minimal setup of <emphasis>Slurm</emphasis>
      with a controll node and multiple cmpute nodes, follow these instructions:
@@ -212,7 +203,7 @@ sbatch sleeper.sh
    <sect2 xml:id="sec-slurm-slurmdbd">
     <title>Install slurm database</title>
       <para>
-       With the minimal installation slurm will only store pending and running jobs. In order to store to finished and failed job data, the storage plugin has to be installed and enabled. Additionally so called completely fair scheduling can be enable, which replaces the FIFO<footnote><para>><emphasis>f</emphasis>irst <emphasis>i</emphasis>n <emphasis>f</emphasis>irst <emphasis>o</emphasis>ut.</para></footnote> scheduling with algorithms which calculate the job priority in a queue in dependence of the job which a user has run in the history.
+       With the minimal installation slurm will only store pending and running jobs. In order to store to finished and failed job data, the storage plugin has to be installed and enabled. Additionally so called completely fair scheduling can be enable, which replaces the FIFO<footnote><para>&gt;<emphasis>f</emphasis>irst <emphasis>i</emphasis>n <emphasis>f</emphasis>irst <emphasis>o</emphasis>ut.</para></footnote> scheduling with algorithms which calculate the job priority in a queue in dependence of the job which a user has run in the history.
          </para>
            <para>
              The slurm database has two components which is the daemon <literal>slurmdbd</literal> itself and a mysql database, where <literal>mariab</literal> is recommended. The database can be on the same node which runs <literal>slurmdbd</literal> or another node. For this simple setup all these services run on the same node.
@@ -310,16 +301,7 @@ sacctmgr add user tux Account=nuremberg
                     </step>
                 </procedure>
      </sect2>
-   <!--
-   <note>
-    <title>Epilog Script</title>
-    <para>
-     The standard epilog script will kill all remaining processes of a user
-     on a node. If this behavior is not wanted, disable the standard epilog
-     script.
-    </para>
-   </note>
-     -->
+   
      </sect1>
      <sect1 xml:id="sec-slurm-adm-commands">
      <title>Slurm administration commands</title>
@@ -328,12 +310,36 @@ sacctmgr add user tux Account=nuremberg
        <para>
          The command <command>scontrol</command> is used to show and update the entities of <literal>slurm</literal> like the state of the compute nodes or compute jobs. It can also be used to reboot or propagate configuration changes to the compute nodes.
        </para>
+       <para>
+         Useful options to this command are <literal>--details</literal> which will print a more verbose output and <literal>--oneliner</literal> forcing the output to a single what is useful for scripts.
+       </para>
        <variablelist>
-         <varlistentry>
-             <term><command>scontrol show <replaceable>ENTITY</replaceable></command></term>
-            <para>
-              will display the state of the specified <replaceable>ENTITY</replaceable>. 
-            </para>
+        <varlistentry>
+          <term><command>scontrol show <replaceable>ENTITY</replaceable></command></term>
+          <listitem>
+                <para>
+                  will display the state of the specified <replaceable>ENTITY</replaceable>. 
+               </para>
+            </listitem>
+         </varlistentry>
+          <term><command>scontrol update <replaceable>SPECIFICATION</replaceable></command></term>
+          <listitem>
+                <para>
+                  can be used to update the <replaceable>SPECIFICATION</replaceable> like the compute node or compute node state.
+               </para>
+               <para> Useful states for compute nodes which can be set are:
+               <variablelist>
+                  <varlistentry>
+                    <term>drain</term>
+                    <listitem>
+                      <para>
+                        will drain the compute node so that no <emphasis>new</emphasis> jobs can be scheduled on the compute node, but will node end compute jobs running on the compute node.
+                      </para>
+                    </listitem>
+                  </varlistentry>
+               </variablelist>
+               </para>
+            </listitem>
          </varlistentry>
 
         </variablelist>
@@ -361,29 +367,5 @@ sacctmgr add user tux Account=nuremberg
       </para>
     </sect2>
         </sect1>
- <!--
- <sect1 xml:id="sec-scheduler-conf">
-  <title>Configuration</title>
-  <para>
-   TOFIX
-  </para>
-  <orderedlist>
-   <listitem>
-    <para>
-     An
-    </para>
-   </listitem>
-   <listitem>
-    <para>
-     Ordered
-    </para>
-   </listitem>
-   <listitem>
-    <para>
-     List
-    </para>
-   </listitem>
-  </orderedlist>
- </sect1>
-  -->
+ 
 </chapter>
