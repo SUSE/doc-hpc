@@ -330,12 +330,10 @@ sacctmgr add user tux Account=nuremberg
        </para>
        <variablelist>
          <varlistentry>
-           <listitem>
              <term><command>scontrol show <replaceable>ENTITY</replaceable></command></term>
             <para>
               will display the state of the specified <replaceable>ENTITY</replaceable>. 
             </para>
-          </listitem>
          </varlistentry>
 
         </variablelist>
