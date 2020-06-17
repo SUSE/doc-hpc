@@ -326,14 +326,14 @@ sacctmgr add user tux Account=nuremberg
      <sect2 xml:id="sec-slurm-sconfigure">
        <title>scontrol</title>
        <para>
-         The command <command>scontrol</command> is used to show and update the dynamic variables  of <literal>slurm</literal> like the state of the compute nodes or compute jobs. It can also be used to reboot or propagate configuration changes to the compute nodes.
+         The command <command>scontrol</command> is used to show and update the entities of <literal>slurm</literal> like the state of the compute nodes or compute jobs. It can also be used to reboot or propagate configuration changes to the compute nodes.
        </para>
        <variablelist>
          <varlistentry>
            <listitem>
-             <term><command>scontrol show</command></term>
+             <term><command>scontrol show <replaceable>ENTITY</replaceable></command></term>
             <para>
-              foobaar
+              will display the state of the specified <replaceable>ENTITY</replaceable>. 
             </para>
           </listitem>
          </varlistentry>
