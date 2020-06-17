@@ -64,17 +64,19 @@
       </para>
      </important>
    <procedure>
+      <step>
+       <para>
+         It is strongly recommended that all compute nodes share a common home directory.
+       </para>
+     <para>
+       Configure, enable and start <emphasis>munge</emphasis> on the control and compute nodes as described in <xref linkend="sec-remote-munge"/>.
+     </para>
+    </step>
     <step>
      <para>
       Install <package>slurm-node</package> on the compute
         nodes with <command>zypper in slurm-node</command> and <package>slurm</package> on 
           the controll node with <command>zypper in slurm</command>. The package <package>munge</package>will be installed as dependence automatically.
-     </para>
-    </step>
-    <step>
-     <para>
-       Configure, enable and start <emphasis>munge</emphasis> on the control and compute nodes.
-      as described in <xref linkend="sec-remote-munge"/>.
      </para>
     </step>
     <step>
@@ -281,7 +283,7 @@ systemctl restart slurmctld
                         </para>
                     </step>
                     <step performance="optional">
-                      <title>Enable accounring per group</title>
+                      <title>Enable accounting per group</title>
                         <para>
                           Per default <literal>slurm</literal> does not take any group membership into account and it is not possible to map the system groups to <literal>slurm</literal>. The creation and group membership have to managed via the commandline tool <command>sacctmgr</command>. Its also possible to have a group hierarchy and users can be part of several groups. 
                         </para>
@@ -322,25 +324,140 @@ sacctmgr add user tux Account=nuremberg
                </para>
             </listitem>
          </varlistentry>
+         <varlistentry>
           <term><command>scontrol update <replaceable>SPECIFICATION</replaceable></command></term>
           <listitem>
                 <para>
                   can be used to update the <replaceable>SPECIFICATION</replaceable> like the compute node or compute node state.
                </para>
-               <para> Useful states for compute nodes which can be set are:
+                 <para> 
+                   Useful <replaceable>SPECIFICATION</replaceable> states for compute nodes which can be set are:
+               </para>
                <variablelist>
                   <varlistentry>
-                    <term>drain</term>
+                    <term>nodename=<replaceable>NODE</replaceable> state=drain reason=<replaceable>REASON</replaceable></term>
                     <listitem>
                       <para>
-                        will drain the compute node so that no <emphasis>new</emphasis> jobs can be scheduled on the compute node, but will node end compute jobs running on the compute node.
+                        will drain the compute node so that no <emphasis>new</emphasis> jobs can be scheduled on the compute node, but will node end compute jobs running on the compute node. <replaceable>REASON</replaceable> could be any string.
+                      </para>
+                    </listitem>
+                  </varlistentry>
+                  <varlistentry>
+                    <term>nodename=<replaceable>NODE</replaceable> state=down reason=<replaceable>REASON</replaceable></term>
+                    <listitem>
+                      <para>
+                        is removing all jobs from the compute node <replaceable>NODE</replaceable>, any jobs on the node will be aborted. 
+                      </para>
+                    </listitem>
+                  </varlistentry>
+                  <varlistentry>
+                    <term>nodename=<replaceable>NODE</replaceable> state=drain reason=<replaceable>REASON</replaceable></term>
+                    <listitem>
+                      <para>
+                        will drain the compute node so that no <emphasis>new</emphasis> jobs can be scheduled on the compute node, but will node end compute jobs running on the compute node. <replaceable>REASON</replaceable> could be any string.
+                      </para>
+                      <para>
+                        The compute node will stay in <literal>drained</literal> state and must be put back to the idle state with the next listed command.
+
+                      </para>
+                    </listitem>
+                  </varlistentry>
+                  <varlistentry>
+                    <term>nodename=<replaceable>NODE</replaceable> state=resume</term>
+                    <listitem>
+                      <para>
+                        marks the compute node <replaceable>NODE</replaceable> to be ready for a return to the <literal>idle</literal> state.
+                      </para>
+                    </listitem>
+                  </varlistentry>
+                  <varlistentry>
+                    <term>jobid=<replaceable>JOBID</replaceable><replaceable>REQUIREMENT</replaceable>=<replaceable>VALUE</replaceable></term>
+                    <listitem>
+                      <para>
+                        will update the given requirement like <literal>NumNodes</literal> with a new value. This command can also be executed as normal user.
                       </para>
                     </listitem>
                   </varlistentry>
                </variablelist>
-               </para>
             </listitem>
          </varlistentry>
+          <varlistentry>
+            <term>reconfigure</term>
+            <listitem>
+              <para>
+                will trigger a reload of the configuration <filename>slurm.conf</filename> on all compute nodes.
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>reboot <replaceable>NODELIST</replaceable></term>
+            <listitem>
+              <para>
+                can be used to reboot a compute node, as soon as the jobs on it have finished. The option <literal>RebootProgram="/sbin/reboot"</literal> have to be set in <filename>slurm.conf</filename> to use this command.
+              </para>
+                <para>
+                  When the reboot of a compute node takes more than 60s, you set set an higher value for the parameter like <literal>ResumeTimeout=300</literal> in <filename>slurm.conf</filename>.
+                 </para>
+            </listitem>
+          </varlistentry>
+        <varlistentry>
+          <term><command>sacctmgr</command></term>
+          <listitem>
+            <para>
+              is used for job accounting within slurm. The service <literal>slurmdbd</literal> has to be setup in order to use this command. Follow the steps in  <xref linkend="sec-sum-sqldb"/> to setup <literal>slurmdbd</literal>. 
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><command>sinfo</command></term>
+          <listitem>
+            <para>
+              retrieves information about the state of the compute nodes and can be used for a fast overview of the cluster health. Following commandline switches are available
+            </para>
+            <variablelist>
+              <varlistentry>
+                <term><command>--dead</command></term>
+                <listitem>
+                  <para>
+                    displays information about not responding nodes.
+                  </para>
+                </listitem>
+              </varlistentry>
+              <varlistentry>
+                <term><command>--long</command></term>
+                <listitem>
+                  <para>
+                    use this switch for more detailed information.
+                  </para>
+                </listitem>
+              </varlistentry>
+              <varlistentry>
+                <term><command>--reservation</command></term>
+                <listitem>
+                  <para>
+                    print information about advanced reservations.
+                  </para>
+                </listitem>
+              </varlistentry>
+              <varlistentry>
+                <term><command>-R</command></term>
+                <listitem>
+                  <para>
+                    displays the reason why a node is in the <literal>down</literal>, <literal>drained</literal> or <literal>failing</literal> state.
+                  </para>
+                </listitem>
+              </varlistentry>
+              <varlistentry>
+                <term><command>--state=<replaceable>STATE</replaceable></command></term>
+                <listitem>
+                  <para>
+                    limit the output only to computes with the given state <replaceable>STATE</replaceable>.
+                  </para>
+                </listitem>
+              </varlistentry>
+            </variablelist>
+          </listitem>
+        </varlistentry>
 
         </variablelist>
       </sect2>
