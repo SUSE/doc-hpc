@@ -482,20 +482,45 @@ sacctmgr add user tux Account=nuremberg
               </listitem>
             </varlistentry>
             <varlistentry>
-              <term><command>--startitme</command>=<replaceable>MM/DD[/YY]-HH:MM[:SS]</replaceable></term>
+              <term><command>--starttime</command>=<replaceable>MM/DD[/YY]-HH:MM[:SS]</replaceable></term>
               <listitem>
                   <para>
-                    only jobs after starttime will be showed. It also possible to have just <replaceable>MM/DD</replaceable> or <replaceable>HH:MM</replaceable>.
+                    only jobs after starttime will be showed. It also possible to have just <replaceable>MM/DD</replaceable> or <replaceable>HH:MM</replaceable>. If not time is given <literal>00:00</literal>, what means that only job from this day are showed.
                   </para>
               </listitem>
             </varlistentry>
-              <term><command>name</command>=<replaceable>NAME</replaceable></term>
+            <varlistentry>
+              <term><command>--endtime</command>=<replaceable>MM/DD[/YY]-HH:MM[:SS]</replaceable></term>
+              <listitem>
+                  <para>
+                    same option as for <command>--starttime</command>. If not set, the time when the command was issued is used.
+                  </para>
+              </listitem>
+            </varlistentry>
+            <varlistentry>
+              <term><command>--name</command>=<replaceable>NAME</replaceable></term>
               <listitem>
                   <para>
                     limit output to jobs with the given <replaceable>NAME</replaceable>
                   </para>
               </listitem>
-            </varlistentry>entry>
+            </varlistentry>
+            <varlistentry>
+              <term><command>--partition</command>=<replaceable>PARTITION</replaceable></term>
+              <listitem>
+                  <para>
+                    show only job which run <replaceable>PARTITION</replaceable>.
+                  </para>
+              </listitem>
+            </varlistentry>
+            <varlistentry>
+              <term><command>sbatch</command>, <command>salloc</command> and <command>srun</command></term>
+              <listitem>
+                  <para>
+                    this commands are used schedule a compute job, which is a batch script for <command>sbatch</command>, a interactive session for <command>salloc</command> and a binary for <command>srun</command>. Please note that only the command <command>sbatch</command> will place the submitted job script to the queue if it can't scheduled immediately.
+                  </para>
+              </listitem>
+            </varlistentry>
           </variablelist>
           </listitem>
         </varlistentry>
