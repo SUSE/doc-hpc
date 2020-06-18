@@ -458,6 +458,47 @@ sacctmgr add user tux Account=nuremberg
             </variablelist>
           </listitem>
         </varlistentry>
+        <varlistentry>
+          <term><command>sacct</command></term>
+          <listitem>
+            <para>
+              displays, when accounting is enabled, the accounting data. Following options are available
+            </para>
+          <variablelist>
+            <varlistentry>
+              <term><command>--allusers</command></term>
+              <listitem>
+                  <para>
+                    show accounting data for all users.
+                  </para>
+              </listitem>
+            </varlistentry>
+            <varlistentry>
+              <term><command>--accounts</command>=<replaceable>NAME</replaceable></term>
+              <listitem>
+                  <para>
+                    only specified user(s) are shown
+                  </para>
+              </listitem>
+            </varlistentry>
+            <varlistentry>
+              <term><command>--startitme</command>=<replaceable>MM/DD[/YY]-HH:MM[:SS]</replaceable></term>
+              <listitem>
+                  <para>
+                    only jobs after starttime will be showed. It also possible to have just <replaceable>MM/DD</replaceable> or <replaceable>HH:MM</replaceable>.
+                  </para>
+              </listitem>
+            </varlistentry>
+              <term><command>name</command>=<replaceable>NAME</replaceable></term>
+              <listitem>
+                  <para>
+                    limit output to jobs with the given <replaceable>NAME</replaceable>
+                  </para>
+              </listitem>
+            </varlistentry>entry>
+          </variablelist>
+          </listitem>
+        </varlistentry>
 
         </variablelist>
       </sect2>
