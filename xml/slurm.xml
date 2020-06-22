@@ -513,18 +513,38 @@ sacctmgr add user tux Account=nuremberg
                   </para>
               </listitem>
             </varlistentry>
+            </variablelist>
+            </listitem>
+            </varlistentry>
             <varlistentry>
               <term><command>sbatch</command>, <command>salloc</command> and <command>srun</command></term>
               <listitem>
                   <para>
                     this commands are used schedule a compute job, which is a batch script for <command>sbatch</command>, a interactive session for <command>salloc</command> and a binary for <command>srun</command>. Please note that only the command <command>sbatch</command> will place the submitted job script to the queue if it can't scheduled immediately.
                   </para>
-              </listitem>
-            </varlistentry>
-          </variablelist>
-          </listitem>
+                  <para>
+                    Frequently used options for this commands are:
+                  </para>
+              <variablelist>
+                <varlistentry>
+                  <term><command>-n <replaceable>COUNT</replaceable></command></term>
+                  <listitem>
+                    <para>
+                      specifies the number of threas needed by the job. The theads can be allocated on different nodes.
+                    </para>
+                  </listitem>
+                </varlistentry>
+                <varlistentry>
+                  <term><command>-N <replaceable>COUNT</replaceable></command></term>
+                  <listitem>
+                    <para>
+                      sets the number of compute nodes which are required for a job.
+                    </para>
+                  </listitem>
+                </varlistentry>
+              </variablelist>
+            </listitem>
         </varlistentry>
-
         </variablelist>
       </sect2>
     </sect1>
