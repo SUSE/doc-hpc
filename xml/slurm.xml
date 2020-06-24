@@ -205,7 +205,7 @@ sbatch sleeper.sh
    <sect2 xml:id="sec-slurm-slurmdbd">
     <title>Install slurm database</title>
       <para>
-       With the minimal installation slurm will only store pending and running jobs. In order to store to finished and failed job data, the storage plugin has to be installed and enabled. Additionally so called completely fair scheduling can be enable, which replaces the FIFO<footnote><para>&gt;<emphasis>f</emphasis>irst <emphasis>i</emphasis>n <emphasis>f</emphasis>irst <emphasis>o</emphasis>ut.</para></footnote> scheduling with algorithms which calculate the job priority in a queue in dependence of the job which a user has run in the history.
+       With the minimal installation slurm will only store pending and running jobs. In order to store to finished and failed job data, the storage plugin has to be installed and enabled. Additionally so called completely fair scheduling can be enable, which replaces the FIFO<footnote><para><emphasis>f</emphasis>irst <emphasis>i</emphasis>n <emphasis>f</emphasis>irst <emphasis>o</emphasis>ut.</para></footnote> scheduling with algorithms which calculate the job priority in a queue in dependence of the job which a user has run in the history.
          </para>
            <para>
              The slurm database has two components which is the daemon <literal>slurmdbd</literal> itself and a mysql database, where <literal>mariab</literal> is recommended. The database can be on the same node which runs <literal>slurmdbd</literal> or another node. For this simple setup all these services run on the same node.
@@ -535,10 +535,34 @@ sacctmgr add user tux Account=nuremberg
                   </listitem>
                 </varlistentry>
                 <varlistentry>
-                  <term><command>-N <replaceable>COUNT</replaceable></command></term>
+                  <term><command>-N <replaceable>MINCOUNT[-MAXCOUNT]</replaceable></command></term>
                   <listitem>
                     <para>
-                      sets the number of compute nodes which are required for a job.
+                      sets the number of compute nodes which are required for a job. The <replaceable>MAXCOUNT</replaceable> number can be omitted.
+                    </para>
+                  </listitem>
+                </varlistentry>
+                <varlistentry>
+                  <term><command>--time<replaceable>TIME</replaceable></command></term>
+                  <listitem>
+                    <para>
+                      specifies the maximal walltime (runtime) after which a job is killed. The format of <replaceable>TIME</replaceable> is either seconds or <replaceable>[HH:]MM:SS</replaceable>
+                    </para>
+                  </listitem>
+                </varlistentry>
+                <varlistentry>
+                  <term><command>--signal<replaceable>[B:]NUMBER[@TIME]</replaceable></command></term>
+                  <listitem>
+                    <para>
+                      selects the signal with the <replaceable>NUMBER</replaceable> to be sent 60 seconds before job end if not <replaceable>TIME</replaceable> is specified. The signal will be sent to every process on every node. When only a signal should be sent to the controlling batch job, you have to specify the <command>B:</command> flag.
+                    </para>
+                  </listitem>
+                </varlistentry>
+                <varlistentry>
+                  <term><command>--job-name<replaceable>NAME</replaceable></command></term>
+                  <listitem>
+                    <para>
+                      set the name of the job to <replaceable>NAME</replaceable> in the queue.
                     </para>
                   </listitem>
                 </varlistentry>
