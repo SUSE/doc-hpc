@@ -527,26 +527,26 @@ sacctmgr add user tux Account=nuremberg
                   </para>
               <variablelist>
                 <varlistentry>
-                  <term><command>-n <replaceable>COUNT</replaceable></command></term>
+                  <term><command>-n <replaceable>COUNT_THREADS</replaceable></command></term>
                   <listitem>
                     <para>
-                      specifies the number of threas needed by the job. The theads can be allocated on different nodes.
+                      specifies the number of threads needed by the job. The threads can be allocated on different nodes.
                     </para>
                   </listitem>
                 </varlistentry>
                 <varlistentry>
-                  <term><command>-N <replaceable>MINCOUNT[-MAXCOUNT]</replaceable></command></term>
+                  <term><command>-N <replaceable>MINCOUNT_NODES[-MAXCOUNT_NODES]</replaceable></command></term>
                   <listitem>
                     <para>
-                      sets the number of compute nodes which are required for a job. The <replaceable>MAXCOUNT</replaceable> number can be omitted.
+                      sets the number of compute nodes which are required for a job. The <replaceable>MAXCOUNT_NODES</replaceable> number can be omitted.
                     </para>
                   </listitem>
                 </varlistentry>
                 <varlistentry>
-                  <term><command>--time<replaceable>TIME</replaceable></command></term>
+                  <term><command>--time <replaceable>TIME</replaceable></command></term>
                   <listitem>
                     <para>
-                      specifies the maximal walltime (runtime) after which a job is killed. The format of <replaceable>TIME</replaceable> is either seconds or <replaceable>[HH:]MM:SS</replaceable>
+                      specifies the maximal clocktime (runtime) after which a job is killed. The format of <replaceable>TIME</replaceable> is either seconds or <replaceable>[HH:]MM:SS</replaceable>. No to be confused with the walltime which is the <literal>clocktime &#215; threads</literal>.
                     </para>
                   </listitem>
                 </varlistentry>
