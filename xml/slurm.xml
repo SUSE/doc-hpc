@@ -551,7 +551,7 @@ sacctmgr add user tux Account=nuremberg
                   </listitem>
                 </varlistentry>
                 <varlistentry>
-                  <term><command>--signal<replaceable>[B:]NUMBER[@TIME]</replaceable></command></term>
+                  <term><command>--signal <replaceable>[B:]NUMBER[@TIME]</replaceable></command></term>
                   <listitem>
                     <para>
                       selects the signal with the <replaceable>NUMBER</replaceable> to be sent 60 seconds before job end if not <replaceable>TIME</replaceable> is specified. The signal will be sent to every process on every node. When only a signal should be sent to the controlling batch job, you have to specify the <command>B:</command> flag.
@@ -559,10 +559,58 @@ sacctmgr add user tux Account=nuremberg
                   </listitem>
                 </varlistentry>
                 <varlistentry>
-                  <term><command>--job-name<replaceable>NAME</replaceable></command></term>
+                  <term><command>--job-name <replaceable>NAME</replaceable></command></term>
                   <listitem>
                     <para>
                       set the name of the job to <replaceable>NAME</replaceable> in the queue.
+                    </para>
+                  </listitem>
+                </varlistentry>
+                <varlistentry>
+                  <term><command>--array=<replaceable>RANGEINDEX</replaceable></command></term>
+                  <listitem>
+                    <para>
+                      execute the given script via <command>sbatch</command> for indexes given by <replaceable>RANGEINDEX</replaceable> with the same parameters.
+                    </para>
+                  </listitem>
+                </varlistentry>
+                <varlistentry>
+                  <term><command>--dependency=<replaceable>STATE:JOBID</replaceable></command></term>
+                  <listitem>
+                    <para>
+                      defer job until specified <replaceable>STATE</replaceable> of job <replaceable>JOBID</replaceable> has been reached.
+                    </para>
+                  </listitem>
+                </varlistentry>
+                <varlistentry>
+                  <term><command>--gres=<replaceable>GRES</replaceable></command></term>
+                  <listitem>
+                    <para>
+                      run job only on node with the give <replaceable>GRES</replaceable> available. A generic resource is a GPU for example.
+                    </para>
+                  </listitem>
+                </varlistentry>
+                <varlistentry>
+                  <term><command>--licenses=<replaceable>NAME[:COUNT]</replaceable></command></term>
+                  <listitem>
+                    <para>
+                      the job needs the number <replaceable>COUNT</replaceable> of licenses with the name <replaceable>NAME</replaceable>. In opposite to a gres, a license is not tight to a compute, but is a cluster wide variable.
+                    </para>
+                  </listitem>
+                </varlistentry>
+                <varlistentry>
+                  <term><command>--mem=<replaceable>MEMORY</replaceable></command></term>
+                  <listitem>
+                    <para>
+                      sets the real memory <replaceable>MEMORY</replaceable> needed by a job per node, memory control has to be enabled in order to use this option. The default unit for <replaceable>MEMORY</replaceable>, but also <literal>K</literal> for kilobyte, <literal>M</literal> for megabyte, <literal>G</literal> for gigabyte and <literal>T</literal> for terabyte can be used.
+                    </para>
+                  </listitem>
+                </varlistentry>
+                <varlistentry>
+                  <term><command>--mem-per-cpu=<replaceable>MEMORY</replaceable></command></term>
+                  <listitem>
+                    <para>
+                      same options as for <command>--mem</command>, but defines memory per used CPU.
                     </para>
                   </listitem>
                 </varlistentry>
