@@ -79,8 +79,9 @@
           the controll node with <command>zypper in slurm</command>. The package <package>munge</package>will be installed as dependence automatically.
      </para>
     </step>
+   </procedure>
+   <procedure><title>Creating <filename>slurm.conf</filename></title>        
     <step>
-     <title>Create <filename>slurm.conf</filename></title>
      <para>
       Edit the main configuration file <filename>/etc/slurm/slurm.conf</filename>:
      </para>
@@ -102,10 +103,10 @@
        </para>
 <screen>NodeName=<replaceable>NODE_LIST</replaceable>  State=UNKNOWN</screen>
     <para>
-      where the actual parameters like <literal>CPUs</literal> for compute node can be obtained by running 
+      where the actual parameters like <literal>CPUs</literal> for compute node
+      can be obtained by running the following command on the compute node:
+    </para>
 <screen>slurmd -C</screen>
-  on the compute node. 
-  </para>
        <para>
        Additionally the line 
        </para>
@@ -149,57 +150,52 @@ systemctl enable slurmd.service</screen>
         to be started on
         every boot automatically.
        </para>
-    </step>
-      <step>
-        <title>Test installation</title>
-          <substeps>
-            <step>
-              <title>Check node status</title>
-                <para>
-                  The status and availability of the compute nodes can be tested with the comand
-                  <command>sinfo</command>
-                    and the output should give you in this example
+      </step>
+   </procedure>
+   <procedure>
+     <title>Testing the Installation</title>
+        <step>
+          <para>
+                  Check the status and availability of the compute nodes with
+                  the <command>sinfo</command> command.
+                  It should give you the following output in this example:
+                  </para>
 <screen>
 PARTITION AVAIL  TIMELIMIT  NODES  STATE NODELIST 
 normal*      up 1-00:00:00      2   idle sle15sp2-node[1-2] 
 </screen>
-If the node state is not <literal>idle</literal> see <xref linkend="sec-slurm-faq"/>.
+<para>If the node state is not <literal>idle</literal> see <xref linkend="sec-slurm-faq"/>.
                   </para>
             </step>
             <step>
-              <title>Run command</title>
-                <para>
-                  Now the slurm installation can be tested by running
+              <para>
+                  Now the slurm installation can be tested by running:</para>
 <screen>srun sleep 30</screen>
-  which will try to immediatelly run the  <command>sleep</command> on a free compute node. In another shell you can now <footnote><para>at least within 30 seconds</para></footnote>run the command 
-    <screen>squeue</screen> 
-      which will show you the running compute job in an output like
+  <para>This will try to immediatelly run the  <command>sleep</command> on a
+    free compute node. In another shell you can now <footnote><para>at least within 30 seconds</para></footnote>run the command</para>
+    <screen>squeue</screen>
+              <para>It which will show you the running compute job in an output like</para>
 <screen>
     JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON) 
         1    normal    sleep     root  R       0:05      1 node02 
 </screen>
-                  </para>
             </step>
             <step>
-              <title>Run shell script</title>
                 <para>
-                Now you can create the simple shell script
+                Now you can create the simple shell script</para>
 <screen>
 #!/bin/bash
 echo "started at $(date)"
 sleep 30
 echo "finished at $(date)"
-</screen>
-  save it as <filename>sleeper.sh</filename> and run the shell script in the queue with 
+</screen>              
+  <para>save it as <filename>sleeper.sh</filename> and run the shell script in the queue with</para>
     <screen>
 sbatch sleeper.sh
       </screen>
-        so that the shell script is executed as soon as enough resources are available. After the execution the output of the shell script is stored in the output file <filename>slurm-${JOBNR}.out</filename>.
+        <para>The shell script is executed as soon as enough resources are available. After the execution the output of the shell script is stored in the output file <filename>slurm-${JOBNR}.out</filename>.
           </para>
             </step>
-
-          </substeps>
-        </step>
    </procedure>
  </sect2>
    <sect2 xml:id="sec-slurm-slurmdbd">
@@ -212,94 +208,102 @@ sbatch sleeper.sh
             </para>
               <procedure>
                 <title>Install <package>slurmdbd</package></title>
-                  <step>
-                    <title>Install mariadb</title>
-                      <para>
-                        If a external SQL database should be used or such database is already installed on the control node, this step can be skipped.
-                      </para>
-                      <para>
-                            The mariabd SQL database can be installed with the command
-                            <screen>zypper in mariadb</screen>
-                            after the installation the database should be started and enabled with commands
-                            <screen>
-systemctl start mariadb
-systemctl enable mariadb
-                            </screen>
-                              Now the database should be secure with the command <command>mysql_secure_installation</command>.
-                        </para>
-                    </step>
-                    <step xml:id="sec-sum-sqldb"><title>Create database for slurm</title>
+                <note>
+                  <title>Mariadb</title>
+                  <para>
+                    If you want to use an external SQL database (or such a
+                    database is already installed on the control node), you can
+                    skip the Mariadb-related steps.
+                   </para>
+                </note>
+                <step>
+                  <para>
+                    Install the Mariabd SQL database with <command>zypper in
+                  mariadb</command>.
+                  </para>
+                </step>
+                <step>
+                  <para>
+                    Start and enable Mariadb with the following commands:
+                  </para>
+<screen>systemctl start mariadb
+systemctl enable mariadb</screen>
+                </step>
+                <step>
+                  <para>
+                    Now the database should be secure with the command <command>mysql_secure_installation</command>.
+                  </para>
+                 </step>
+                    <step xml:id="sec-sum-sqldb">
                       <para>
                         In this step the database and the user for the slurm database has to be created. This is done by connecting to the SQL database with e.g. the command <command>mysql -u root -p</command>. After a successful connection the database and the creation of secure password<footnote><para>You can use the command <command>openssl rand -base64 32</command> to create a secure random password</para></footnote>, the slurm user and the database is created with the commands
+                        </para>
                           <screen>
 create user 'slurm'@'localhost' identified by 'password';
 grant all on slurm_acct_db.* TO 'slurm'@'localhost';
-create database slurm_acct_db;
-                            </screen>
-                      </para>
-                    </step>
-                      <step><title>Install <literal>slurmdbd</literal></title>
+create database slurm_acct_db;</screen>
+                      </step>
+                      <step>
                         <para>
-                          The package <package>slurmdbd</package> can be installed with the command
-                        <screen>
-zypper in slurm-slurmdbd
-                        </screen>
-                          Now the configuration file <filename>/etc/slurm/slurmdbd.conf</filename> for <literal>slurmdbd</literal> has to be modified so that the daemon can access the database. Change the following lines
-<screen>
-StoragePass=password
-  </screen>
-    to the password which you use in <xref linkend="sec-sum-sqldb"/>. When another location or user for the SQL database was chosen, also the entries for 
-<screen>
-StorageUser=slurm
+                          The package <package>slurmdbd</package> can be
+                          installed with the command</para>
+<screen>zypper in slurm-slurmdbd</screen>
+                        <para>
+                          Now the configuration file
+                          <filename>/etc/slurm/slurmdbd.conf</filename> for
+                          <literal>slurmdbd</literal> has to be modified so that
+                          the daemon can access the database. Change the following lines</para>
+<screen>StoragePass=password</screen>
+<para>to the password which you use in <xref linkend="sec-sum-sqldb"/>. When
+  another location or user for the SQL database was chosen, you also need to
+  modify the following entries:</para>
+<screen>StorageUser=slurm
 DbdAddr=localhost
-DbdHost=localhost
-</screen>
-  have to be modified.
-                        </para>
-                    </step>
-                    <step> <title>Start and enable <literal>slurmdbd</literal></title>
+DbdHost=localhost</screen>
+                      </step>
+                    <step>
                       <para>
-                        The daemon <literal>slurmdbd</literal> should now be started and enabled with the commands
-<screen>
-systemctl start slurmdbd
-systemctl enable slurmdbd
-</screen>
-  , please note that the first start of <literal>slurmdbd</literal> will take some time.
+                        The daemon <literal>slurmdbd</literal> should now be
+                        started and enabled with the commands</para>
+<screen>systemctl start slurmdbd
+systemctl enable slurmdbd</screen>
+                        <para>The first start of <literal>slurmdbd</literal> will take some time.
     </para>
                     </step>
-                      <step><title>Enable accounting</title>
+                      <step>
                         <para>
-                          For the connection between the <literal>slurmctld</literal> and the <literal>slurmdbd</literal> daemon you have change/add following lines 
-                            <screen>
-JobAcctGatherType=jobacct_gather/linux
+                          To enable accounting, you have to have change/add the
+                          following lines for the connection between the
+                          <literal>slurmctld</literal> and the
+                          <literal>slurmdbd</literal> daemon:</para> 
+<screen>JobAcctGatherType=jobacct_gather/linux
 JobAcctGatherFrequency=30
 AccountingStorageType=accounting_storage/slurmdbd
-AccountingStorageHost=localhost
-                            </screen>
-                              assuming that <literal>slurmdbd</literal> is running on the same host as <literal>slurmctld</literal>. After this step restart the <literal>slurmctld</literal> with
-                                <screen>
-systemctl restart slurmctld
-                               </screen>
-                        </para>
-                    </step>
-                    <step performance="optional">
-                      <title>Enable accounting per group</title>
-                        <para>
+AccountingStorageHost=localhost</screen>
+                        <para>In the example above, we assume that
+                          <literal>slurmdbd</literal> is running on the same
+                          host as <literal>slurmctld</literal>.</para>
+                      </step>
+                <step>
+                  <para>Restart the <literal>slurmctld</literal> with:
+                    </para>
+<screen>systemctl restart slurmctld</screen></step>
+                <step performance="optional">
+                  <para>
                           Per default <literal>slurm</literal> does not take any group membership into account and it is not possible to map the system groups to <literal>slurm</literal>. The creation and group membership have to managed via the commandline tool <command>sacctmgr</command>. Its also possible to have a group hierarchy and users can be part of several groups. 
                         </para>
                         <para>
-                          To create an umbrella group <literal>bavaria</literal> for two subgroups called <literal>nuremberg</literal> and <literal>munich</literal> use following commads
-<screen>
-sacctmgr add account bavaria \
+                          To create an umbrella group <literal>bavaria</literal>
+                          for two subgroups called <literal>nuremberg</literal>
+                          and <literal>munich</literal> use following commands</para>
+<screen>sacctmgr add account bavaria \
   Description="umbrella group for subgroups" Organization=bavaria
 sacctmgr add account nuremberg,munich parent=bavaria 
-  Description="subgroup" Organization=bavaria
-</screen>
-                          With the similar syntax you can add now users to the accounts
-<screen>
-sacctmgr add user tux Account=nuremberg
-</screen>
-                        </para>
+Description="subgroup" Organization=bavaria</screen>
+                  <para>
+                    With the similar syntax you can add now users to the
+                    accounts:</para>
+<screen>sacctmgr add user tux Account=nuremberg</screen>
                     </step>
                 </procedure>
      </sect2>
