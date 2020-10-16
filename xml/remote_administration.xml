@@ -383,7 +383,13 @@ nodeattr [-f genders] -k
   </para>
     <sect2>
       <title xml:id="sec-munge-inst">Install <emphasis>munge</emphasis></title>
-  <para>
+        <para>
+foobaar
+         </para>
+    </sect2>
+  <sect2>
+   <title>Setting Up <emphasis>munge</emphasis> Authentication</title>
+   <para>
    The <emphasis>munge</emphasis> authentication is based on a single shared key.
    This key is
    located under <filename>/etc/munge/munge.key</filename>. At the installation
@@ -409,7 +415,7 @@ systemctl start munge.service</screen>
    <systemitem class="username">munge</systemitem> user and must have the
    access rights <literal>0400</literal>.
   </para>
-    </sect2>
+  </sect2>
  </sect1>
  <sect1 xml:id="sec-remote-mrsh">
   <title>mrsh/mrlogin &mdash; Remote Login Using <emphasis>munge</emphasis> Authentication</title>
