@@ -1,0 +1,781 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="urn:x-suse:xslt:profiling:docbook51-profile.xsl"
+ type="text/xml"
+ title="Profiling step"?>
+<chapter xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xlink="http://www.w3.org/1999/xlink" xml:base="slurm.xml" xml:id="cha-slurm" xml:lang="en" version="5.1">
+ <title>Slurm</title>
+ <info>
+  <abstract>
+   <para>
+    <emphasis>Slurm</emphasis> is a workload manager for managing compute jobs
+    on high performance computing cluster. It can start multiple jobs on a
+    single node or a single job on multiple nodes. Additional components can be
+    used for advanced scheduling and accounting.
+   </para>
+
+   <para>
+    The mandatory components of <emphasis>Slurm</emphasis> is the control
+    daemon <emphasis>slurmctld</emphasis> taking care of job scheduling and the
+    slurm daemon <emphasis>slurmd</emphasis> responsible for launching compute
+    jobs. Subsequently nodes running the control daemon are called master nodes
+    and nodes running the <emphasis>slurmd</emphasis> are called compute nodes.
+   </para>
+
+   <para>
+    Additional components are a secondary <emphasis>slurmctld</emphasis> acting
+    as standby server for a failover and the slurm database daemon
+    <emphasis>slurmdbd</emphasis> which stores the job history and user
+    hirachy.
+   </para>
+  </abstract>
+  <dm:docmanager xmlns:dm="urn:x-suse:ns:docmanager">
+   <dm:bugtracker/>
+   <dm:translation>yes</dm:translation>
+  </dm:docmanager>
+ </info>
+ <sect1 xml:id="sec-scheduler-slurm">
+  <title>Slurm — Utility for HPC Workload Management</title>
+
+  <para>
+   For a minimal setup of <emphasis>Slurm</emphasis> with a controll node and
+   multiple cmpute nodes, follow these instructions:
+  </para>
+
+  <sect2 xml:id="sec-slurm-minimal">
+   <title>Minimal installation</title>
+   <important>
+    <title>Make Sure of Consistent UIDs and GIDs for Slurm's Accounts</title>
+    <para>
+     For security reasons, <emphasis>Slurm</emphasis> does not run as the user
+     <systemitem class="username">root</systemitem> but under its own user. It
+     is important that the user <systemitem class="username">slurm</systemitem>
+     has the same UID/GID across all nodes of the cluster.
+    </para>
+    <para>
+     If this user/group does not exist, the package <package>slurm</package>
+     creates this user and group when it is installed. However, this does not
+     guarantee that the generated UIDs/GIDs will be identical on all systems.
+    </para>
+    <para>
+     Therefore, we strongly advise you to create the user/group
+     <systemitem class="username">slurm</systemitem> before installing
+     <package>slurm</package>. If you are using a network directory service
+     such as LDAP for user and group management, you can use it to provide the
+     <systemitem class="username">slurm</systemitem> user/group as well.
+    </para>
+   </important>
+   <procedure>
+    <step>
+     <para>
+      It is strongly recommended that all compute nodes share a common home
+      directory.
+     </para>
+     <para>
+      Configure, enable and start <emphasis>munge</emphasis> on the control and
+      compute nodes as described in <xref linkend="sec-remote-munge"/>.
+     </para>
+    </step>
+    <step>
+     <para>
+      Install <package>slurm-node</package> on the compute nodes with
+      <command>zypper in slurm-node</command> and <package>slurm</package> on
+      the controll node with <command>zypper in slurm</command>. The package
+      <package>munge</package>will be installed as dependence automatically.
+     </para>
+    </step>
+   </procedure>
+   <procedure>
+    <title>Creating <filename>slurm.conf</filename></title>
+    <step>
+     <para>
+      Edit the main configuration file
+      <filename>/etc/slurm/slurm.conf</filename>:
+     </para>
+     <substeps>
+      <step>
+       <para>
+        Configure the parameter
+        <literal>ControlMachine=<replaceable>CONTROL_MACHINE</replaceable></literal>
+        with the host name of the control node.
+       </para>
+       <para>
+        To find out the correct host name, run <command>hostname -s</command>
+        on the control node.
+       </para>
+      </step>
+      <step>
+       <para>
+        In order to define the compute nodes add:
+       </para>
+<screen>NodeName=<replaceable>NODE_LIST</replaceable>  State=UNKNOWN</screen>
+       <para>
+        where the actual parameters like <literal>CPUs</literal> for compute
+        node can be obtained by running the following command on the compute
+        node:
+       </para>
+<screen>slurmd -C</screen>
+       <para>
+        Additionally the line
+       </para>
+<screen>PartitionName=normal Nodes=<replaceable>NODE_LIST</replaceable> \
+  Default=YES MaxTime=24:00:00 State=UP</screen>
+       <para>
+        has to be added, where <replaceable>NODE_LIST</replaceable> is the list
+        of compute nodes (that is, the output of <command>hostname -s</command>
+        run on each compute node (either comma-separated or as ranges:
+        <literal>node[1-100]</literal>).
+       </para>
+      </step>
+      <step>
+       <para>
+        Now copy the modified configuration file
+        <filename>/etc/slurm/slurm.conf</filename> to the control node and all
+        compute nodes:
+       </para>
+<screen>scp /etc/slurm/slurm.conf <replaceable>COMPUTE_NODE</replaceable>:/etc/slurm/</screen>
+      </step>
+     </substeps>
+    </step>
+    <step>
+     <para>
+      On the control node, start
+      <systemitem class="daemon">slurmctld</systemitem>:
+     </para>
+<screen>systemctl start slurmctld.service</screen>
+     <para>
+      Also enable it so that it starts on every boot:
+     </para>
+<screen>systemctl enable slurmctld.service</screen>
+    </step>
+    <step>
+     <para>
+      On the compute nodes, start and enable
+      <systemitem class="daemon">slurmd</systemitem>:
+     </para>
+<screen>systemctl start slurmd.service
+systemctl enable slurmd.service</screen>
+     <para>
+      The last line causes <systemitem class="daemon">slurmd</systemitem> to be
+      started on every boot automatically.
+     </para>
+    </step>
+   </procedure>
+   <procedure>
+    <title>Testing the Installation</title>
+    <step>
+     <para>
+      Check the status and availability of the compute nodes with the
+      <command>sinfo</command> command. It should give you the following output
+      in this example:
+     </para>
+<screen>
+PARTITION AVAIL  TIMELIMIT  NODES  STATE NODELIST 
+normal*      up 1-00:00:00      2   idle sle15sp2-node[1-2] 
+</screen>
+     <para>
+      If the node state is not <literal>idle</literal> see
+      <xref linkend="sec-slurm-faq"/>.
+     </para>
+    </step>
+    <step>
+     <para>
+      Now the slurm installation can be tested by running:
+     </para>
+<screen>srun sleep 30</screen>
+     <para>
+      This will try to immediatelly run the <command>sleep</command> on a free
+      compute node. In another shell you can now
+      <footnote>
+       <para>
+        at least within 30 seconds
+       </para>
+      </footnote>
+      run the command
+     </para>
+<screen>squeue</screen>
+     <para>
+      It which will show you the running compute job in an output like
+     </para>
+<screen>
+    JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON) 
+        1    normal    sleep     root  R       0:05      1 node02 
+</screen>
+    </step>
+    <step>
+     <para>
+      Now you can create the simple shell script
+     </para>
+<screen>
+#!/bin/bash
+echo "started at $(date)"
+sleep 30
+echo "finished at $(date)"
+</screen>
+     <para>
+      save it as <filename>sleeper.sh</filename> and run the shell script in
+      the queue with
+     </para>
+<screen>
+sbatch sleeper.sh
+      </screen>
+     <para>
+      The shell script is executed as soon as enough resources are available.
+      After the execution the output of the shell script is stored in the
+      output file <filename>slurm-${JOBNR}.out</filename>.
+     </para>
+    </step>
+   </procedure>
+  </sect2>
+
+  <sect2 xml:id="sec-slurm-slurmdbd">
+   <title>Install slurm database</title>
+   <para>
+    With the minimal installation slurm will only store pending and running
+    jobs. In order to store to finished and failed job data, the storage plugin
+    has to be installed and enabled. Additionally so called completely fair
+    scheduling can be enable, which replaces the FIFO
+    <footnote>
+     <para>
+      <emphasis>f</emphasis>irst <emphasis>i</emphasis>n
+      <emphasis>f</emphasis>irst <emphasis>o</emphasis>ut.
+     </para>
+    </footnote>
+    scheduling with algorithms which calculate the job priority in a queue in
+    dependence of the job which a user has run in the history.
+   </para>
+   <para>
+    The slurm database has two components which is the daemon
+    <literal>slurmdbd</literal> itself and a mysql database, where
+    <literal>mariab</literal> is recommended. The database can be on the same
+    node which runs <literal>slurmdbd</literal> or another node. For this
+    simple setup all these services run on the same node.
+   </para>
+   <procedure>
+    <title>Install <package>slurmdbd</package></title>
+    <note>
+     <title>Mariadb</title>
+     <para>
+      If you want to use an external SQL database (or such a database is
+      already installed on the control node), you can skip the Mariadb-related
+      steps.
+     </para>
+    </note>
+    <step>
+     <para>
+      Install the Mariabd SQL database with <command>zypper in
+      mariadb</command>.
+     </para>
+    </step>
+    <step>
+     <para>
+      Start and enable Mariadb with the following commands:
+     </para>
+<screen>systemctl start mariadb
+systemctl enable mariadb</screen>
+    </step>
+    <step>
+     <para>
+      Now the database should be secure with the command
+      <command>mysql_secure_installation</command>.
+     </para>
+    </step>
+    <step xml:id="sec-sum-sqldb">
+     <para>
+      In this step the database and the user for the slurm database has to be
+      created. This is done by connecting to the SQL database with e.g. the
+      command <command>mysql -u root -p</command>. After a successful
+      connection the database and the creation of secure password
+      <footnote>
+       <para>
+        You can use the command <command>openssl rand -base64 32</command> to
+        create a secure random password
+       </para>
+      </footnote>
+      , the slurm user and the database is created with the commands
+     </para>
+<screen>
+create user 'slurm'@'localhost' identified by 'password';
+grant all on slurm_acct_db.* TO 'slurm'@'localhost';
+create database slurm_acct_db;</screen>
+    </step>
+    <step>
+     <para>
+      The package <package>slurmdbd</package> can be installed with the command
+     </para>
+<screen>zypper in slurm-slurmdbd</screen>
+     <para>
+      Now the configuration file <filename>/etc/slurm/slurmdbd.conf</filename>
+      for <literal>slurmdbd</literal> has to be modified so that the daemon can
+      access the database. Change the following lines
+     </para>
+<screen>StoragePass=password</screen>
+     <para>
+      to the password which you use in <xref linkend="sec-sum-sqldb"/>. When
+      another location or user for the SQL database was chosen, you also need
+      to modify the following entries:
+     </para>
+<screen>StorageUser=slurm
+DbdAddr=localhost
+DbdHost=localhost</screen>
+    </step>
+    <step>
+     <para>
+      The daemon <literal>slurmdbd</literal> should now be started and enabled
+      with the commands
+     </para>
+<screen>systemctl start slurmdbd
+systemctl enable slurmdbd</screen>
+     <para>
+      The first start of <literal>slurmdbd</literal> will take some time.
+     </para>
+    </step>
+    <step>
+     <para>
+      To enable accounting, you have to have change/add the following lines for
+      the connection between the <literal>slurmctld</literal> and the
+      <literal>slurmdbd</literal> daemon:
+     </para>
+<screen>JobAcctGatherType=jobacct_gather/linux
+JobAcctGatherFrequency=30
+AccountingStorageType=accounting_storage/slurmdbd
+AccountingStorageHost=localhost</screen>
+     <para>
+      In the example above, we assume that <literal>slurmdbd</literal> is
+      running on the same host as <literal>slurmctld</literal>.
+     </para>
+    </step>
+    <step>
+     <para>
+      Restart the <literal>slurmctld</literal> with:
+     </para>
+<screen>systemctl restart slurmctld</screen>
+    </step>
+    <step performance="optional">
+     <para>
+      Per default <literal>slurm</literal> does not take any group membership
+      into account and it is not possible to map the system groups to
+      <literal>slurm</literal>. The creation and group membership have to
+      managed via the commandline tool <command>sacctmgr</command>. Its also
+      possible to have a group hierarchy and users can be part of several
+      groups.
+     </para>
+     <para>
+      To create an umbrella group <literal>bavaria</literal> for two subgroups
+      called <literal>nuremberg</literal> and <literal>munich</literal> use
+      following commands
+     </para>
+<screen>sacctmgr add account bavaria \
+  Description="umbrella group for subgroups" Organization=bavaria
+sacctmgr add account nuremberg,munich parent=bavaria 
+Description="subgroup" Organization=bavaria</screen>
+     <para>
+      With the similar syntax you can add now users to the accounts:
+     </para>
+<screen>sacctmgr add user tux Account=nuremberg</screen>
+    </step>
+   </procedure>
+  </sect2>
+ </sect1>
+ <sect1 xml:id="sec-slurm-adm-commands">
+  <title>Slurm administration commands</title>
+
+  <sect2 xml:id="sec-slurm-sconfigure">
+   <title>scontrol</title>
+   <para>
+    The command <command>scontrol</command> is used to show and update the
+    entities of <literal>slurm</literal> like the state of the compute nodes or
+    compute jobs. It can also be used to reboot or propagate configuration
+    changes to the compute nodes.
+   </para>
+   <para>
+    Useful options to this command are <literal>--details</literal> which will
+    print a more verbose output and <literal>--oneliner</literal> forcing the
+    output to a single what is useful for scripts.
+   </para>
+   <variablelist>
+    <varlistentry>
+     <term><command>scontrol show <replaceable>ENTITY</replaceable></command></term>
+     <listitem>
+      <para>
+       will display the state of the specified
+       <replaceable>ENTITY</replaceable>.
+      </para>
+     </listitem>
+    </varlistentry>
+    <varlistentry>
+     <term><command>scontrol update <replaceable>SPECIFICATION</replaceable></command></term>
+     <listitem>
+      <para>
+       can be used to update the <replaceable>SPECIFICATION</replaceable> like
+       the compute node or compute node state.
+      </para>
+      <para>
+       Useful <replaceable>SPECIFICATION</replaceable> states for compute nodes
+       which can be set are:
+      </para>
+      <variablelist>
+       <varlistentry>
+        <term>nodename=<replaceable>NODE</replaceable> state=drain reason=<replaceable>REASON</replaceable></term>
+        <listitem>
+         <para>
+          will drain the compute node so that no <emphasis>new</emphasis> jobs
+          can be scheduled on the compute node, but will node end compute jobs
+          running on the compute node. <replaceable>REASON</replaceable> could
+          be any string.
+         </para>
+        </listitem>
+       </varlistentry>
+       <varlistentry>
+        <term>nodename=<replaceable>NODE</replaceable> state=down reason=<replaceable>REASON</replaceable></term>
+        <listitem>
+         <para>
+          is removing all jobs from the compute node
+          <replaceable>NODE</replaceable>, any jobs on the node will be
+          aborted.
+         </para>
+        </listitem>
+       </varlistentry>
+       <varlistentry>
+        <term>nodename=<replaceable>NODE</replaceable> state=drain reason=<replaceable>REASON</replaceable></term>
+        <listitem>
+         <para>
+          will drain the compute node so that no <emphasis>new</emphasis> jobs
+          can be scheduled on the compute node, but will node end compute jobs
+          running on the compute node. <replaceable>REASON</replaceable> could
+          be any string.
+         </para>
+         <para>
+          The compute node will stay in <literal>drained</literal> state and
+          must be put back to the idle state with the next listed command.
+         </para>
+        </listitem>
+       </varlistentry>
+       <varlistentry>
+        <term>nodename=<replaceable>NODE</replaceable> state=resume</term>
+        <listitem>
+         <para>
+          marks the compute node <replaceable>NODE</replaceable> to be ready
+          for a return to the <literal>idle</literal> state.
+         </para>
+        </listitem>
+       </varlistentry>
+       <varlistentry>
+        <term>jobid=<replaceable>JOBID</replaceable><replaceable>REQUIREMENT</replaceable>=<replaceable>VALUE</replaceable></term>
+        <listitem>
+         <para>
+          will update the given requirement like <literal>NumNodes</literal>
+          with a new value. This command can also be executed as normal user.
+         </para>
+        </listitem>
+       </varlistentry>
+      </variablelist>
+     </listitem>
+    </varlistentry>
+    <varlistentry>
+     <term>reconfigure</term>
+     <listitem>
+      <para>
+       will trigger a reload of the configuration
+       <filename>slurm.conf</filename> on all compute nodes.
+      </para>
+     </listitem>
+    </varlistentry>
+    <varlistentry>
+     <term>reboot <replaceable>NODELIST</replaceable></term>
+     <listitem>
+      <para>
+       can be used to reboot a compute node, as soon as the jobs on it have
+       finished. The option <literal>RebootProgram="/sbin/reboot"</literal>
+       have to be set in <filename>slurm.conf</filename> to use this command.
+      </para>
+      <para>
+       When the reboot of a compute node takes more than 60s, you set set an
+       higher value for the parameter like <literal>ResumeTimeout=300</literal>
+       in <filename>slurm.conf</filename>.
+      </para>
+     </listitem>
+    </varlistentry>
+    <varlistentry>
+     <term><command>sacctmgr</command></term>
+     <listitem>
+      <para>
+       is used for job accounting within slurm. The service
+       <literal>slurmdbd</literal> has to be setup in order to use this
+       command. Follow the steps in <xref linkend="sec-sum-sqldb"/> to setup
+       <literal>slurmdbd</literal>.
+      </para>
+     </listitem>
+    </varlistentry>
+    <varlistentry>
+     <term><command>sinfo</command></term>
+     <listitem>
+      <para>
+       retrieves information about the state of the compute nodes and can be
+       used for a fast overview of the cluster health. Following commandline
+       switches are available
+      </para>
+      <variablelist>
+       <varlistentry>
+        <term><command>--dead</command></term>
+        <listitem>
+         <para>
+          displays information about not responding nodes.
+         </para>
+        </listitem>
+       </varlistentry>
+       <varlistentry>
+        <term><command>--long</command></term>
+        <listitem>
+         <para>
+          use this switch for more detailed information.
+         </para>
+        </listitem>
+       </varlistentry>
+       <varlistentry>
+        <term><command>--reservation</command></term>
+        <listitem>
+         <para>
+          print information about advanced reservations.
+         </para>
+        </listitem>
+       </varlistentry>
+       <varlistentry>
+        <term><command>-R</command></term>
+        <listitem>
+         <para>
+          displays the reason why a node is in the <literal>down</literal>,
+          <literal>drained</literal> or <literal>failing</literal> state.
+         </para>
+        </listitem>
+       </varlistentry>
+       <varlistentry>
+        <term><command>--state=<replaceable>STATE</replaceable></command></term>
+        <listitem>
+         <para>
+          limit the output only to computes with the given state
+          <replaceable>STATE</replaceable>.
+         </para>
+        </listitem>
+       </varlistentry>
+      </variablelist>
+     </listitem>
+    </varlistentry>
+    <varlistentry>
+     <term><command>sacct</command></term>
+     <listitem>
+      <para>
+       displays, when accounting is enabled, the accounting data. Following
+       options are available
+      </para>
+      <variablelist>
+       <varlistentry>
+        <term><command>--allusers</command></term>
+        <listitem>
+         <para>
+          show accounting data for all users.
+         </para>
+        </listitem>
+       </varlistentry>
+       <varlistentry>
+        <term><command>--accounts</command>=<replaceable>NAME</replaceable></term>
+        <listitem>
+         <para>
+          only specified user(s) are shown
+         </para>
+        </listitem>
+       </varlistentry>
+       <varlistentry>
+        <term><command>--starttime</command>=<replaceable>MM/DD[/YY]-HH:MM[:SS]</replaceable></term>
+        <listitem>
+         <para>
+          only jobs after starttime will be showed. It also possible to have
+          just <replaceable>MM/DD</replaceable> or
+          <replaceable>HH:MM</replaceable>. If not time is given
+          <literal>00:00</literal>, what means that only job from this day are
+          showed.
+         </para>
+        </listitem>
+       </varlistentry>
+       <varlistentry>
+        <term><command>--endtime</command>=<replaceable>MM/DD[/YY]-HH:MM[:SS]</replaceable></term>
+        <listitem>
+         <para>
+          same option as for <command>--starttime</command>. If not set, the
+          time when the command was issued is used.
+         </para>
+        </listitem>
+       </varlistentry>
+       <varlistentry>
+        <term><command>--name</command>=<replaceable>NAME</replaceable></term>
+        <listitem>
+         <para>
+          limit output to jobs with the given <replaceable>NAME</replaceable>
+         </para>
+        </listitem>
+       </varlistentry>
+       <varlistentry>
+        <term><command>--partition</command>=<replaceable>PARTITION</replaceable></term>
+        <listitem>
+         <para>
+          show only job which run <replaceable>PARTITION</replaceable>.
+         </para>
+        </listitem>
+       </varlistentry>
+      </variablelist>
+     </listitem>
+    </varlistentry>
+    <varlistentry>
+     <term><command>sbatch</command>, <command>salloc</command> and <command>srun</command></term>
+     <listitem>
+      <para>
+       this commands are used schedule a compute job, which is a batch script
+       for <command>sbatch</command>, a interactive session for
+       <command>salloc</command> and a binary for <command>srun</command>.
+       Please note that only the command <command>sbatch</command> will place
+       the submitted job script to the queue if it can't scheduled immediately.
+      </para>
+      <para>
+       Frequently used options for this commands are:
+      </para>
+      <variablelist>
+       <varlistentry>
+        <term><command>-n <replaceable>COUNT_THREADS</replaceable></command></term>
+        <listitem>
+         <para>
+          specifies the number of threads needed by the job. The threads can be
+          allocated on different nodes.
+         </para>
+        </listitem>
+       </varlistentry>
+       <varlistentry>
+        <term><command>-N <replaceable>MINCOUNT_NODES[-MAXCOUNT_NODES]</replaceable></command></term>
+        <listitem>
+         <para>
+          sets the number of compute nodes which are required for a job. The
+          <replaceable>MAXCOUNT_NODES</replaceable> number can be omitted.
+         </para>
+        </listitem>
+       </varlistentry>
+       <varlistentry>
+        <term><command>--time <replaceable>TIME</replaceable></command></term>
+        <listitem>
+         <para>
+          specifies the maximal clocktime (runtime) after which a job is
+          killed. The format of <replaceable>TIME</replaceable> is either
+          seconds or <replaceable>[HH:]MM:SS</replaceable>. No to be confused
+          with the walltime which is the <literal>clocktime &#215;
+          threads</literal>.
+         </para>
+        </listitem>
+       </varlistentry>
+       <varlistentry>
+        <term><command>--signal <replaceable>[B:]NUMBER[@TIME]</replaceable></command></term>
+        <listitem>
+         <para>
+          selects the signal with the <replaceable>NUMBER</replaceable> to be
+          sent 60 seconds before job end if not <replaceable>TIME</replaceable>
+          is specified. The signal will be sent to every process on every node.
+          When only a signal should be sent to the controlling batch job, you
+          have to specify the <command>B:</command> flag.
+         </para>
+        </listitem>
+       </varlistentry>
+       <varlistentry>
+        <term><command>--job-name <replaceable>NAME</replaceable></command></term>
+        <listitem>
+         <para>
+          set the name of the job to <replaceable>NAME</replaceable> in the
+          queue.
+         </para>
+        </listitem>
+       </varlistentry>
+       <varlistentry>
+        <term><command>--array=<replaceable>RANGEINDEX</replaceable></command></term>
+        <listitem>
+         <para>
+          execute the given script via <command>sbatch</command> for indexes
+          given by <replaceable>RANGEINDEX</replaceable> with the same
+          parameters.
+         </para>
+        </listitem>
+       </varlistentry>
+       <varlistentry>
+        <term><command>--dependency=<replaceable>STATE:JOBID</replaceable></command></term>
+        <listitem>
+         <para>
+          defer job until specified <replaceable>STATE</replaceable> of job
+          <replaceable>JOBID</replaceable> has been reached.
+         </para>
+        </listitem>
+       </varlistentry>
+       <varlistentry>
+        <term><command>--gres=<replaceable>GRES</replaceable></command></term>
+        <listitem>
+         <para>
+          run job only on node with the give <replaceable>GRES</replaceable>
+          available. A generic resource is a GPU for example.
+         </para>
+        </listitem>
+       </varlistentry>
+       <varlistentry>
+        <term><command>--licenses=<replaceable>NAME[:COUNT]</replaceable></command></term>
+        <listitem>
+         <para>
+          the job needs the number <replaceable>COUNT</replaceable> of licenses
+          with the name <replaceable>NAME</replaceable>. In opposite to a gres,
+          a license is not tight to a compute, but is a cluster wide variable.
+         </para>
+        </listitem>
+       </varlistentry>
+       <varlistentry>
+        <term><command>--mem=<replaceable>MEMORY</replaceable></command></term>
+        <listitem>
+         <para>
+          sets the real memory <replaceable>MEMORY</replaceable> needed by a
+          job per node, memory control has to be enabled in order to use this
+          option. The default unit for <replaceable>MEMORY</replaceable>, but
+          also <literal>K</literal> for kilobyte, <literal>M</literal> for
+          megabyte, <literal>G</literal> for gigabyte and <literal>T</literal>
+          for terabyte can be used.
+         </para>
+        </listitem>
+       </varlistentry>
+       <varlistentry>
+        <term><command>--mem-per-cpu=<replaceable>MEMORY</replaceable></command></term>
+        <listitem>
+         <para>
+          same options as for <command>--mem</command>, but defines memory per
+          used CPU.
+         </para>
+        </listitem>
+       </varlistentry>
+      </variablelist>
+     </listitem>
+    </varlistentry>
+   </variablelist>
+  </sect2>
+ </sect1>
+ <sect1 xml:id="sec-slurm-additional-res">
+  <title>Additional Ressources</title>
+
+  <sect2 xml:id="sec-slurm-faq">
+   <title>Frequently asked questions</title>
+   <para>
+    Faq
+   </para>
+  </sect2>
+
+  <sect2 xml:id="sec-slurm-ext-doc">
+   <title>External documentaion</title>
+   <para>
+    For further documentation, see the
+    <link xlink:href="https://slurm.schedmd.com/quickstart_admin.html">Quick
+    Start Administrator Guide</link> and
+    <link xlink:href="https://slurm.schedmd.com/quickstart.html"> Quick Start
+    User Guide</link>. There is further in-depth documentation on the
+    <link xlink:href="https://slurm.schedmd.com/documentation.html">Slurm
+    documentation page</link>.
+   </para>
+  </sect2>
+ </sect1>
+</chapter>

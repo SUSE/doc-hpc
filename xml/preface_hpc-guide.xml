@@ -56,7 +56,7 @@
    </listitem>
   </varlistentry>
   <varlistentry>
-   <term><xref linkend="part-sched"/></term>
+   <term><xref linkend="part-slurm"/></term>
    <listitem>
     <para>
         The Slurm scheduler.

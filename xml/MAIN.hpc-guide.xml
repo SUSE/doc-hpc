@@ -60,9 +60,9 @@
   <xi:include href="nodes.xml"/>
  </part>
 
- <part xml:id="part-sched">
+ <part xml:id="part-slurm">
   <title>Scheduler</title>
-  <xi:include href="scheduler.xml"/>
+  <xi:include href="slurm.xml"/>
  </part>
 
  <part xml:id="part-monitoring">
