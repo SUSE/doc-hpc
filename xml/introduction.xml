@@ -110,10 +110,10 @@
   <title>Support and Life Cycle</title>
   <para>
    &product; &this-version; is supported throughout the life cycle of
-   &slea; &this-version;. ESPOS (Extended Service Overlap Support) as well
-   as Long Term Support Service are also available for this product. Any
-   release package is fully maintained and supported until the availability
-   of the next release.
+   &slea; &this-version;. Two live-cycle extensions, 'Extended Service
+   Overlap Support' (ESPOS) and 'Long Term Support Service' (LTSS), are also
+   available for this product. Any released package is fully maintained
+   and supported until the availability of the next release.
   </para>
   <para>
    For more information, see the Support Policy page
