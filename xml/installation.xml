@@ -51,7 +51,7 @@
       <itemizedlist>
        <listitem>
         <para>
-         Uses XFS as the default root file system
+         Uses BTRFS as the default root file system
         </para>
        </listitem>
        <listitem>
@@ -176,17 +176,17 @@
   <sect2 xml:id="sec2-upgrade">
    <title>Upgrade-Related Notes</title>
    <para>
-    This section includes upgrade-related information for the &product; &this-version;.
+    <!--
+        #if <= 15SP2
+    You can upgrade to &product; &this-version; from &slsa; 12 SP4 or SP5
+    as well as &shpca; &prev-version; or &shpca; 15. When upgrading from
+    &slsa; 12 SP4/SP5, the upgrade will only be performed if the HPC
+    module has been registered prior to upgrading.
+
    </para>
    <para>
-    You can upgrade to &product; &this-version; from &slsa; 15 SP1 or &shpca;
-    15 SP1. When upgrading from &slsa; 15 SP1, the upgrade will only be
-    performed if the &shpca; module has been registered prior to upgrading.
-    <!--Otherwise, the system will instead be upgraded to &slsa; 15.-->
-   </para>
-   <para>
-    To upgrade from &slsa; 12 to &slsa; 15, make sure to deregister the
-    &shpca; module prior to upgrading. To do so, open a root shell and
+    To upgrade from &slsa; 12 to &shpca; 15, make sure to deregister the
+    HPC module prior to upgrading. To do so, open a root shell and
     execute:
    </para>
    <screen>SUSEConnect -d -p sle-module-hpc/12/<replaceable>ARCH</replaceable></screen>
@@ -204,6 +204,10 @@
     Replace <replaceable>MODULE_NAME</replaceable> by the name of the module
     and <replaceable>ARCH</replaceable> with the architecture used
     (<literal>x86_64</literal>, <literal>aarch64</literal>).
+    #else
+    -->
+    You can upgrade to &shpca; &this-version; from &shpca;_&prev-version;.
+ <!-- #endif -->
    </para>
   </sect2>
  </sect1>

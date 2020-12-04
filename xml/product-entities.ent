@@ -25,3 +25,13 @@
 <!ENTITY sle "&suse; Linux Enterprise">
 <!ENTITY shpca "&slea; &hpca;">
 
+
+<!-- Prompts used in 15 SP2 RN -->
+<!-- Prompts used in 15 SP2 RN -->
+<!ENTITY prompt           "<prompt xmlns='http://docbook.org/ns/docbook'># </prompt>">
+<!ENTITY prompt_master    "<prompt xmlns='http://docbook.org/ns/docbook'>master: # </prompt>">
+<!ENTITY prompt_backup    "<prompt xmlns='http://docbook.org/ns/docbook'>backup: # </prompt>">
+<!ENTITY prompt_node1     "<prompt xmlns='http://docbook.org/ns/docbook'>node1: # </prompt>">
+<!ENTITY prev-sp "SP2">
+<!ENTITY this-ga "15">
+<!ENTITY prev-version     "&this-ga; &prev-sp;">

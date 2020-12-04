@@ -83,13 +83,13 @@
    </listitem>
    <listitem>
     <para>
-     Serial and parallel computational libraries providing the common standards
-     BLAS, LAPACK, ...
+     Various MPI implementations
     </para>
    </listitem>
    <listitem>
     <para>
-     Various MPI implementations
+     Serial and parallel computational libraries providing the common standards
+     BLAS, LAPACK, ...
     </para>
    </listitem>
    <listitem>

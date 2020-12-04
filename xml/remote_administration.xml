@@ -16,7 +16,11 @@
  <info>
   <abstract>
    <para>
-    What is this chapter about?
+    HPC clusters usually consist of a small set of identical compute
+    nodes. Each set of nodes may consist from a mere handful to thousands
+    of machines.
+    Managing such compute nodes may be challanging. This chaper
+    descibes a number of tools which aid this task.
    </para>
   </abstract>
   <dm:docmanager xmlns:dm="urn:x-suse:ns:docmanager">
@@ -24,93 +28,8 @@
    <dm:translation>yes</dm:translation>
   </dm:docmanager>
  </info>
- <sect1 xml:id="sec-remote-conman">
-  <title>ConMan &mdash; The Console Manager</title>
-  <para>
-   ConMan is a serial console management program designed to support a
-   large number of console devices and simultaneous users. It supports:
-  </para>
-  <itemizedlist>
-   <listitem>
-    <para>
-     local serial devices
-    </para>
-   </listitem>
-   <listitem>
-    <para>
-     remote terminal servers (via the telnet protocol)
-    </para>
-   </listitem>
-   <listitem>
-    <para>
-     IPMI Serial-Over-LAN (via FreeIPMI)
-    </para>
-   </listitem>
-   <listitem>
-    <para>
-     Unix domain sockets
-    </para>
-   </listitem>
-   <listitem>
-    <para>
-     external processes (for example, using 'expect' scripts for telnet,
-     ssh, or ipmi-sol connections)
-    </para>
-   </listitem>
-  </itemizedlist>
-  <para>
-   ConMan can be used for monitoring, logging and optionally timestamping
-   console device output.
-  </para>
-  <para>
-   To install ConMan, run <literal>zypper in conman</literal>.
-  </para>
-  <important>
-   <title><systemitem class="daemon">conmand</systemitem> Sends Unencrypted Data</title>
-   <para>
-    The daemon <systemitem class="daemon">conmand</systemitem> sends
-    unencrypted data over the
-    network and its connections are not authenticated. Therefore, it should
-    be used locally only: Listening to the port
-    <literal>localhost</literal>. However, the IPMI console does offer
-    encryption. This makes <literal>conman</literal> a good tool for
-    monitoring a large number of such consoles.
-   </para>
-  </important>
-  <para>
-   Usage:
-  </para>
-  <itemizedlist>
-   <listitem>
-    <para>
-     ConMan comes with a number of expect-scripts. They can be found in the
-     directory <filename>/usr/lib/conman/exec</filename>.
-    </para>
-   </listitem>
-   <listitem>
-    <para>
-     Input to <literal>conman</literal> is not echoed in interactive mode.
-     This can be changed by entering the escape sequence
-     <literal>&amp;E</literal>.
-    </para>
-   </listitem>
-   <listitem>
-    <para>
-     When pressing <keycap function="enter"/> in interactive mode, no line
-     feed is generated. To generate a line feed, press
-     <keycombo><keycap function="control"/><keycap>L</keycap></keycombo>.
-    </para>
-   </listitem>
-  </itemizedlist>
-  <para>
-   For more information about options, see the man page of ConMan.
-  </para>
- </sect1>
  <sect1 xml:id="sec-remote-genders">
   <title>Genders &mdash; Static Cluster Configuration Database</title>
-  <para>
-   Support for Genders has been added to the HPC module.
-  </para>
   <para>
    Genders is a static cluster configuration database used for
    configuration management. It allows grouping and addressing sets of
@@ -126,8 +45,8 @@
   <sect2 xml:id="sec-genders-db">
     <title>Genders database format</title>
   <para>
-    The Genders databaes in &slsa; is the file <filename>/etc/genders</filename> 
-    and contains a list of nodenames with their attributes. Each line of 
+    The Genders database in &shpca; is the plain-text file <filename>/etc/genders</filename>.
+    It contains a list of nodenames with their attributes. Each line of
     the genders file may have one of the following formats.
   </para>
     <screen>
@@ -136,8 +55,8 @@ nodename1,nodename2,... attr[=value],attr[=value],...
 nodenames[A-B]          attr[=value],attr[=value],...
     </screen>
   <para>
-    The nodename(s) are without their domain and followed by any number of 
-    spaces or tabs, and then the comma-separated list of attributes. Every 
+    The nodename(s) are without their domain and followed by any number of
+    spaces or tabs, and then the comma-separated list of attributes. Every
     attribute can optionally have a value.  The substitution string "%n" can
     be used in an attribute value to represent the nodename.  Nodenames can be
     listed on multiple lines, so a node's attributes can be specified on multiple
@@ -146,20 +65,20 @@ nodenames[A-B]          attr[=value],attr[=value],...
   <para>
     There must be no spaces embedded in the attribute list and there is
     no provision for continuation lines.  Commas and equal characters are special
-    and cannot appear in attribute names or their values.  Comments are prefixed 
+    and cannot appear in attribute names or their values.  Comments are prefixed
     with the hash character (#) and can appear anywhere in the file.
   </para>
   <para>
-    Ranges for nodenames can be specified in the form: 
-    prefix[n-m,l-k,...], where n &gt; m and l &gt; k, etc., as an alternative 
+    Ranges for nodenames can be specified in the form:
+    prefix[n-m,l-k,...], where n &gt; m and l &gt; k, etc., as an alternative
     to explicit lists of nodenames.
   </para>
   </sect2>
   <sect2 xml:id="sec-nodeattr">
     <title>Nodeattr usage</title>
-  <para> 
-    The command line utitlity <literal>nodeaddr</literal> can be used to query data 
-    in the genders file. When the genders file is replicated on all nodes, a qery 
+  <para>
+    The command line utitlity <literal>nodeaddr</literal> can be used to query data
+    in the genders file. When the genders file is replicated on all nodes, a qery
     can be done wihtout network access. It can be called like followed
   </para>
   <screen>
@@ -167,22 +86,22 @@ nodeattr [-q | -n | -s] [-r] attr[=val]
   </screen>
   <para>
     where <literal>-q</literal> is the default option and prints a list nodes
-    with <literal>attr[=val]</literal> as hostrange. 
+    with <literal>attr[=val]</literal> as hostrange.
   </para>
   <para>
-    The <literal>-c</literal> options will give a comma separated, the 
-    <literal>-s</literal> option a space seperated list of nodes with 
+    The <literal>-c</literal> options will give a comma separated, the
+    <literal>-s</literal> option a space seperated list of nodes with
     <literal>attr[=val]</literal>.
   </para>
   <para>
     If none of the formatting options are specified, nodeattr returns a zero
-    value if the local node has the specified attribute, else nonzero.  The 
-    <literal>-v</literal> option causes any value associated with the attribute 
-    to go to stdout. If a node name is specified before the attribute, it is 
+    value if the local node has the specified attribute, else nonzero.  The
+    <literal>-v</literal> option causes any value associated with the attribute
+    to go to stdout. If a node name is specified before the attribute, it is
     queried instead of the
     local node.
   </para>
-  <para> 
+  <para>
     When <literal>nodeattr</literal> is called with the <literal>-l</literal>
     parameter like
   </para>
@@ -216,7 +135,7 @@ nodeattr [-f genders] -k
    To install pdsh, run <command>zypper in pdsh</command>.
   </para>
   <para>
-   On &slsa; 12, the back-ends <literal>ssh</literal>,
+   On &shpca; the back-ends <literal>ssh</literal>,
    <literal>mrsh</literal>, and <literal>exec</literal> are supported. The
    <literal>ssh</literal> back-end is the default. Non-default login methods
    can be used by either setting the <literal>PDSH_RCMD_TYPE</literal>
@@ -234,6 +153,7 @@ nodeattr [-f genders] -k
    sockets. Therefore, it does not suffer from port exhaustion when
    executing commands on many machines in parallel. For information about
    setting up the system to use this back-end, see
+   <xref linkend="sec-remote-mrsh"/>
   </para>
   <para>
    Remote machines can either be specified on the command line or
@@ -245,8 +165,8 @@ nodeattr [-f genders] -k
   <para>
    The different ways to select target hosts are realized by modules. Some
    of these modules provide identical options to <command>pdsh</command>.
-   The module loaded first will win and consume the option. Therefore, we
-   recommend limiting yourself to a single method and specifying this with
+   The module loaded first will win and consume the option. Therefore, it is
+   recommended to limit yourself to a single method and specifying this with
    the <literal>-M</literal> option.
   </para>
   <para>
@@ -334,87 +254,79 @@ nodeattr [-f genders] -k
    </para>
   </important>
  </sect1>
- <sect1 xml:id="sec-remote-memkind">
-  <title>memkind &mdash; Heap Manager for Heterogeneous Memory Platforms and Mixed Memory Policies</title>
-  <para>
-   The <literal>memkind</literal> library is a user-extensible heap manager
-   built on top of <literal>jemalloc</literal> which enables control of
-   memory characteristics and a partitioning of the heap between kinds of
-   memory. The kinds of memory are defined by operating system memory
-   policies that have been applied to virtual address ranges. Memory
-   characteristics supported by <literal>memkind</literal> without user
-   extension include control of NUMA and page size features.
-  </para>
-  <para>
-   For more information, see:
-  </para>
-  <itemizedlist>
-   <listitem>
-    <para>
-     the man pages <literal>memkind</literal> and
-     <literal>hbwallow</literal>
-    </para>
-   </listitem>
-   <listitem>
-    <para>
-     <link xlink:href="https://github.com/memkind/memkind"/>
-    </para>
-   </listitem>
-   <listitem>
-    <para>
-     <link xlink:href="https://memkind.github.io/memkind/"/>
-    </para>
-   </listitem>
-  </itemizedlist>
-  <note role="compact">
-   <para>
-    This tool is only available for x86-64.
-   </para>
-  </note>
- </sect1>
  <sect1 xml:id="sec-remote-munge">
   <title><emphasis>munge</emphasis> Authentication</title>
   <para>
-    <emphasis>munge</emphasis> allows a secure communication between different 
-      machines which share the same secret key. The most common usecase is the 
-      <emphasis>slurm</emphasis> workload mangager which uses <emphasis>munge</emphasis>
-        for the encryption of its messages. Another usecase is authentification for the
-        parallel shell <emphasis>mrsh</emphasis>.
+   <emphasis>munge</emphasis> allows for a secure communication between
+   different machines which share the same secret key. The most common
+   usecase is the <emphasis>slurm</emphasis> workload mangager which
+   uses <emphasis>munge</emphasis> for the encryption of its messages.
+   Another usecase is authentification for the parallel shell
+   <emphasis>mrsh</emphasis>.
   </para>
-    <sect2>
-      <title xml:id="sec-munge-inst">Install <emphasis>munge</emphasis></title>
-        <para>
-foobaar
-         </para>
-    </sect2>
   <sect2>
    <title>Setting Up <emphasis>munge</emphasis> Authentication</title>
    <para>
-   The <emphasis>munge</emphasis> authentication is based on a single shared key.
-   This key is
-   located under <filename>/etc/munge/munge.key</filename>. At the installation
-   time of the <package>munge</package> package an individual munge key is
-   created from the random
-   source <filename>/dev/urandom</filename>. This key has to be the same on
-   all systems that should allow login to each other:
-   To set up <literal>munge</literal> authentication on these machines copy
-   the <emphasis>munge</emphasis> key from one machine (ideally a head node of
-   the cluster)
-   to the other machines within this cluster:
-  </para>
-  <screen>scp /etc/munge/munge.key root@<replaceable>NODE_N</replaceable>:/etc/munge/munge.key</screen>
-  <para>
-   Then enable and start the service munge on each machine that users are
-   expected to log in to:
-  </para>
-  <screen>systemctl enable munge.service
-systemctl start munge.service</screen>
-  <para>
-   If several nodes are installed, you must select and synchronize one key
-   to all other nodes in the cluster. This key file should belong to the
-   <systemitem class="username">munge</systemitem> user and must have the
-   access rights <literal>0400</literal>.
-  </para>
+    <emphasis>Munge</emphasis> uses the UID/GID to uniquely identify
+    and authenciate users. This care must be taken that the users who
+    are to be authenicated across a network have unified UIDs and GIDs.
+   </para>
+   <para>
+    <emphasis>Munge</emphasis> credentials have a limited time-to-live.
+    Therefore it must be ensured  that the time is synchronized across
+    the entire cluster.
+   </para>
+   <para>
+    <emphasis>Munge</emphasis> is installed by <command>zypper</command>
+    in munge'. This will install all packages required at runtime. A
+    'munge-devel' package is available to build applications that require
+    munge authentication.
+   </para>
+   <para>
+    When installing <emphasis>munge</emphasis> a new key is generated on
+    every system. The <emphasis>munge</emphasis> key needs to be uniform
+    across the entire cluster, however. Therefore a key of one system
+    needs to be copied in a secure way to all other nodes in the cluster.
+    Care must be taken that the key is only readable by the
+    <emphasis>'munge'</emphasis> user (permissions mask
+    <literal>0400</literal>).
+   </para>
+   <para>
+    <emphasis>pdsh</emphasis> (with ssh) may be used to do this:
+   </para>
+   <para>
+    Check permissions, owner and file type of the key file located under
+    <filename>/etc/munge/munge.key</filename> on the local system:
+   </para>
+   <screen># stat --format "%F %a %G %U %n" /etc/munge/munge.key</screen>
+   <para>The settings should be:</para>
+   <screen>400 regular file munge munge /etc/munge/munge.key</screen>
+   <para>Get md5sum of munge.key:</para>
+   <screen># md5sum /etc/munge/munge.key</screen>
+   <para>Copy key to list of nodes:</para>
+   <screen># pdcp -R ssh -w &lt;hostlist&gt; /etc/munge/munge.key
+   /etc/munge/munge.key </screen>
+   <para>Check key settings in remote host:</para>
+   <screen>pdsh -R ssh -w &lt;hostlist&gt; stat --format \"%F %a %G %U %n\"
+   /etc/munge/munge.key
+   pdsh -R ssh -w &lt;hostlist&gt; md5sum /etc/munge/munge.key
+   </screen>
+   <para>make sure they match.</para>
+  </sect2>
+  <sect2>
+   <title>Enabling and Starting <emphasis>munge</emphasis></title>
+   <para>
+    <emphasis>munged</emphasis> needs to be run on all nodes where munge
+    authentication is to take place. If munge is used for authentication
+    across the network it needs to run on each side of the communication.
+   </para>
+   <para>
+    To start the service and make sure it is started after every reboot, run
+    <screen>systemctl enable munge.service
+    systemctl start munge.service</screen>
+    on each node. To perform the same on multiple nodes, pdsh may be employed
+    as well.
+   </para>
   </sect2>
  </sect1>
  <sect1 xml:id="sec-remote-mrsh">
@@ -434,14 +346,15 @@ systemctl start munge.service</screen>
   <itemizedlist>
    <listitem>
     <para>
-     If only the mrsh client is required (without allowing remote login to
-     this machine), use: <command>zypper in mrsh</command>.
+     If only the <emphasis>mrsh</emphasis> client is required (without
+     allowing remote login to this machine), use:
+     <command>zypper in mrsh</command>.
     </para>
    </listitem>
    <listitem>
     <para>
      To allow logging in to a machine, the server needs to be installed:
-     <literal>zypper in mrsh-server</literal>.
+     <command>zypper in mrsh-server</command>.
     </para>
    </listitem>
    <listitem>
@@ -456,8 +369,8 @@ systemctl start munge.service</screen>
   <para>
    To set up a cluster of machines allowing remote login from each other,
    first follow the instructions for setting up and starting
-   <emphasis>munge</emphasis> authentication in <xref linkend="sec2-installation-systemrole"/>.
-   After <emphasis>munge</emphasis> has been successfully
+   <emphasis>munge</emphasis> authentication in <xref linkend="sec-remote-munge"/>.
+   After <emphasis>munge</emphasis> service has been successfully
    started, enable and start <command>mrlogin</command> on each machine on
    which the user will log in:
   </para>
@@ -471,15 +384,9 @@ systemctl enable mrlogin.service</screen>
   <para>
    We do not recommend using <emphasis>mrsh</emphasis> when logged in as the
    user <systemitem class="username">root</systemitem>. This is disabled by
-   default. To enable it anyway, run:
+   default. To enable it regardless, run:
   </para>
   <screen>echo "mrsh" &gt;&gt; /etc/securetty
   echo "mrlogin" &gt;&gt; /etc/securetty</screen>
- </sect1>
- <sect1 xml:id="sec-remote-ssh">
-  <title>sshd config</title>
-  <para>
-   A paragraph of text.
-  </para>
  </sect1>
 </chapter>
