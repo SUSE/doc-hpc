@@ -12,11 +12,13 @@
  xmlns="http://docbook.org/ns/docbook" version="5.1"
  xmlns:xi="http://www.w3.org/2001/XInclude"
  xmlns:xlink="http://www.w3.org/1999/xlink">
- <title>Nodes</title>
+ <title>Hardware</title>
  <info>
   <abstract>
    <para>
-    What is this chapter about?
+    Here tools are describes which may be used to obtain information
+    about the hardware infrastucture of components of interest for HPC
+    applications.
    </para>
   </abstract>
   <dm:docmanager xmlns:dm="urn:x-suse:ns:docmanager">
@@ -29,7 +31,8 @@
   <para>
    <literal>cpuid</literal> executes the x86 CPUID instruction and decodes
    and prints the results to stdout. Its knowledge of Intel, AMD and Cyrix
-   CPUs is fairly complete. It also supports Intel Knights Mill CPUs (x86-64).
+   CPUs is fairly complete. It specifically targets the Intel XeonPhi
+   architecture.
   </para>
   <para>
    To install <literal>cpuid</literal>, run: <literal>zypper in
@@ -46,7 +49,7 @@
  <sect1 xml:id="sec-nodes-hwloc">
   <title>hwloc &mdash; Portable Abstraction of Hierarchical Architectures for High-Performance Computing</title>
   <para>
-   <literal>hwloc</literal> provides command-line tools and a C API to
+   <literal>hwloc</literal> provides CLI tools and a C API to
    obtain the hierarchical map of key computing elements, such as: NUMA
    memory nodes, shared caches, processor packages, processor cores,
    processing units (logical processors or "threads") and even I/O devices.
@@ -58,10 +61,13 @@
    once.
   </para>
   <para>
-   In graphical mode (X11), <literal>hwloc</literal> can display the
-   topology in a human-readable format. Alternatively, it can export to one
-   of several formats, including plain text, PDF, PNG, and FIG. For more
-   information, see the man pages provided by <literal>hwloc</literal>.
+   <emphasis>lstopo</emphasis> allows the user to obtain the topology
+   of a machine or convert topology information obtained on a remote
+   machine into one of several output formats. In graphical mode (X11),
+   it displays the topology in a window, several other output formats
+   are available as well , including plain text, PDF, PNG, SVG and FIG.
+   For more information, see the man pages provided by
+   <literal>hwloc</literal> and <literal>lstopo</literal>.
   </para>
   <para>
    It also features full support for import and export of XML-formatted

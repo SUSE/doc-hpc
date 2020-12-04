@@ -48,7 +48,7 @@
   </varlistentry>
 
   <varlistentry>
-   <term><xref linkend="part-nodes"/></term>
+   <term><xref linkend="part-hardware"/></term>
    <listitem>
        <para>
      Get information about the nodes.
@@ -88,7 +88,8 @@
       </para>
       </listitem>
       </varlistentry>
-  -->
+   -->
+   <!--
   <varlistentry>
    <term><xref linkend="part-testing"/></term>
    <listitem>
@@ -96,7 +97,8 @@
         Some examples of how to test your cluster.
     </para>
    </listitem>
-  </varlistentry>
+   </varlistentry>
+   -->
   <!--
       <varlistentry>
       <term><xref linkend="part-buildsource"/></term>

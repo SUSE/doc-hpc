@@ -12,11 +12,20 @@
          xmlns="http://docbook.org/ns/docbook" version="5.1"
          xmlns:xi="http://www.w3.org/2001/XInclude"
          xmlns:xlink="http://www.w3.org/1999/xlink">
- <title>Compute</title>
+ <title>HPC User Libraries</title>
  <info>
   <abstract>
    <para>
-    What is this chapter about?
+    Many HPC clusters need to accomodate a multitude of compute applications
+    each of which has its own very specific library dependencies. Multiple
+    instances of the same libraries may exist - differing in version, build
+    configuration, compiler and MPI implementation used. To manage these
+    dependencies, an Environment Module system is often used.
+    Most HPC libraries provided with &shpca; are built with support for
+    environment modules.
+    This chapter describes the Environment Module system
+    <emphasis>Lmod</emphasis>, its setup and use as well as a set of
+    HPC compute libraries shipped with &shpca;.
    </para>
   </abstract>
   <dm:docmanager xmlns:dm="urn:x-suse:ns:docmanager">
@@ -48,20 +57,16 @@
     initialization file of your interactive shell. The following init files
     are available:
    </para>
-   <screen>/usr/share/lmod/&lt;lmod_version&gt;/init/bash
- /usr/share/lmod/&lt;lmod_version&gt;/init/ksh
- /usr/share/lmod/&lt;lmod_version&gt;/init/tcsh
- /usr/share/lmod/&lt;lmod_version&gt;/init/zsh
- /usr/share/lmod/&lt;lmod_version&gt;/init/sh</screen>
+   <screen>/usr/share/lmod/lmod/init/bash
+ /usr/share/lmod/lmod/init/ksh
+ /usr/share/lmod/lmod/init/tcsh
+ /usr/share/lmod/lmod/init/zsh
+ /usr/share/lmod/lmod/init/sh</screen>
    <para>
     Pick the one appropriate for your shell. Then add the following to the
     init file of your shell:
    </para>
-   <screen>. /usr/share/lmod/&lt;LMOD_VERSION&gt;/init/&lt;INIT-FILE&gt;</screen>
-   <para>
-    To obtain <literal>&lt;lmod_version&gt;</literal>, run:
-   </para>
-   <screen>rpm -q lua-lmod | sed "s/.*-\([^-]\+\)-.*/\1/"</screen>
+   <screen>source /usr/share/lmod/lmod/init/&lt;INIT-FILE&gt;</screen>
    <para>
     The init script adds the command <command>module</command>.
    </para>
@@ -142,13 +147,74 @@
    </para>
   </sect2>
  </sect1>
+ <sect1 xml:id="sec-compiler">
+     <title>GNU Compiler Toolchain Collection for HPC</title>
+   <para>
+    On &shpca; the GNU compiler collection version 7 is provided as base
+    compiler toolchain.
+    The <package>gnu-compilers-hpc</package> provides the environment module
+    for the base version of the GNU compiler suite. This package must be installed
+    when using any of the HPC libraries enabled for environment modules.
+   </para>
+   <sect2>
+    <title>Environment Module</title>
+   <para>
+    This package requires <package>lua-lmod</package> to supply environment
+    module support.
+   </para>
+   <para>
+    To install <package>gnu-compilers-hpc</package>, run:
+   </para>
+<screen>zypper in gnu-compilers-hpc</screen>
+   <para>
+    To set up the environment appropriately and select the GNU toolchain,
+    run, only then libraries built with the base compilers will become
+    available:
+   </para>
+<screen>module load gnu</screen>
+   </sect2>
+   <sect2>
+    <title>Building HPC Software with GNU Compiler Suite</title>
+    <para>
+     To use the GNU compiler collection to build your own libraries and
+     applications, <package>gnu-compilers-hpc-devel</package> needs to be
+     installed. It makes sure all compiler components required for HPC (ie.
+     C, C++ and Fortran Compliers) are installed.
+    </para>
+    <para>
+     The environment variables <literal>CC</literal>, <literal>CXX</literal>,
+     <literal>FC</literal> and <literal>F77</literal> will be set correctly
+     and the path will be adjusted so that the correct compiler version will
+     be found.
+    </para>
+   </sect2>
+   <sect2>
+    <title>Later Versions</title>
+    <para>
+     The Development Tools Module may provide later versions of the GNU
+     compiler suite. Run
+    </para>
+<screen>zypper search *-compilers-hpc</screen>
+    <para>
+     to determine the available ones. If you have more than one version of
+     the compiler suite installed, <emphasis>Lmod</emphasis> will pick the
+     latest one by default. If you require an older version - or the base
+     version - append the version number:
+    </para>
+    <screen>module load gnu/7</screen>
+    <para>
+     the version number of the compiler suite. For more information,
+     see <xref linkend="sec-compute-lmod"/>.
+    </para>
+   </sect2>
+ </sect1>
  <sect1 xml:id="sec-compute-lib">
   <title>HPC Libraries</title>
   <para>
    Library packages which support environment modules follow a distinctive
    naming scheme: all packages have the compiler suite and, if built with
    MPI support, the MPI flavor in their name:
-   <literal>*-[<replaceable>MPI_FLAVOR</replaceable>]-<replaceable>COMPILER</replaceable>-hpc*</literal>. To
+   <literal>*-[<replaceable>MPI_FLAVOR</replaceable>-]<replaceable>COMPILER</replaceable>-hpc*</literal>. To
    support a parallel installation of multiple versions of a library
    package, the package name contains the version number (with dots
    <literal>.</literal> replaced by underscores <literal>_</literal>). To
@@ -210,10 +276,66 @@
    run <command>zypper in <replaceable>LIBRARY-DEVEL-MASTER-PACKAGE</replaceable></command>.
   </para>
   <para>
-   Presently, the GNU compiler collection version 4.8 as provided with SUSE
-   Linux Enterprise 15 and the MPI flavors Open MPI v.2 and MVAPICH2 are
-   supported.
+   Presently, the GNU compiler collection version 4.8 as provided with &shpca;
+   and the MPI flavors Open MPI v.3 and v.4, MPICH and MVAPICH2 are supported.
   </para>
+  <para>
+   The Development Tools Module may provide later versions of the GNU
+   compiler suite. Run
+   <screen>zypper search *-compilers-hpc</screen>
+   to determine which ones are available.
+  </para>
+  <sect2 xml:id="sec2-lib-boost">
+   <title>HPC Flavor of <literal>boost</literal> Has Been Added</title>
+   <para>
+    <literal>Boost</literal> is a set of portable C++ libraries which provide a
+    reference implementation of "existing practices".
+    See the full release notes for Boost 1.71 at
+    <link xlink:href="https://www.boost.org/users/history/version_1_71_0.html"/>.
+   </para>
+   <para>
+    To load the highest available serial version of this module, run:
+   </para>
+   <screen>module load boost.</screen>
+   <para>
+    List of master packages:
+   </para>
+   <itemizedlist>
+    <listitem>
+     <para>
+      <package>boost-gnu-hpc</package>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <package>boost-gnu-hpc-devel</package>
+     </para>
+    </listitem>
+   </itemizedlist>
+   <para>
+    Most Boost libraries do not depend on MPI flavors. However Boost
+    contains a set of libraries to abstract interaction with MPI. These
+    libraries depend on the MPI flavor used.
+   </para>
+   <para>
+    List of MPI master packages:
+   </para>
+   <itemizedlist>
+    <listitem><para>
+      <package>boost-gnu-<replaceable>&lt;MPI_FLAVOR&gt;</replaceable>-hpc</package>
+     </para></listitem>
+    <listitem><para>
+      <package>boost-gnu-<replaceable>&lt;MPI_FLAVOR&gt;</replaceable>-hpc-devel</package>
+     </para></listitem>
+    <listitem><para>
+      <package>boost-gnu-<replaceable>&lt;MPI_FLAVOR&gt;</replaceable>-hpc-python3</package>
+     </para></listitem>
+   </itemizedlist>
+   <para>
+    <replaceable>&lt;MPI_FLAVOR&gt;</replaceable> is one of the supported
+    MPI flavors <xref linkend="sec1-MPI-libs"/>.
+   </para>
+  </sect2>
   <sect2 xml:id="sec2-lib-fftw">
    <!-- href="https://fate.novell.com/321716" -->
    <title>FFTW HPC Library &mdash; Discrete Fourier Transforms</title>
@@ -228,7 +350,7 @@
     MPI variant, the respective MPI module needs to be loaded beforehand. To
     load this module, run:
    </para>
-   <screen>module load fftw3</screen>
+<screen>module load fftw3</screen>
    <para>
     List of master packages:
    </para>
@@ -245,245 +367,19 @@
     </listitem>
     <listitem>
      <para>
-      <literal>libfftw3-gnu-openmpi1-hpc</literal>
+      <literal>libfftw3-gnu-<replaceable>&lt;MPI_FLAVOR&gt;</replaceable>-hpc</literal>
      </para>
     </listitem>
     <listitem>
      <para>
-      <literal>fftw3-gnu-openmpi1-hpc-devel</literal>
-     </para>
-    </listitem>
-    <listitem>
-     <para>
-      <literal>libfftw3-gnu-mvapich2-hpc</literal>
-     </para>
-    </listitem>
-    <listitem>
-     <para>
-      <literal>fftw3-gnu-mvapich2-hpc-devel</literal>
+      <literal>fftw3-gnu-<replaceable>&lt;MPI_FLAVOR&gt;</replaceable>-hpc-devel</literal>
      </para>
     </listitem>
    </itemizedlist>
    <para>
-    For general information about Lmod and modules, see
-    <xref linkend="sec-compute-lmod"/>.
+    <replaceable>&lt;MPI_FLAVOR&gt;</replaceable> is one of the supported
+    MPI flavors <xref linkend="sec1-MPI-libs"/>.
    </para>
-  </sect2>
-  <sect2 xml:id="sec2-lib-hdf5">
-   <!-- href="https://fate.novell.com/321710" -->
-   <title>HDF5 HPC Library &mdash; Model, Library, File Format for Storing and Managing Data</title>
-   <para>
-    HDF5 is a data model, library, and file format for storing and managing
-    data. It supports an unlimited variety of data types, and is designed for
-    flexible and efficient I/O and for high volume and complex data. HDF5 is
-    portable and extensible, allowing applications to evolve in their use of
-    HDF5.
-   </para>
-   <para>
-    There are serial and MPI variants of this library available. All flavors
-    require loading a compiler toolchain module beforehand. The MPI variants
-    also require loading the correct MPI flavor module.
-   </para>
-   <para>
-    To load the highest available serial version of this module run:
-   </para>
-   <screen>module load hdf5</screen>
-   <para>
-    When an MPI flavor is loaded, the MPI version of this module can be
-    loaded by:
-   </para>
-   <screen>module load phpdf5</screen>
-   <para>
-    List of master packages:
-   </para>
-   <itemizedlist>
-    <listitem>
-     <para>
-      <package>hdf5-examples</package>
-     </para>
-    </listitem>
-    <listitem>
-     <para>
-      <package>hdf5-gnu-hpc-devel</package>
-     </para>
-    </listitem>
-    <listitem>
-     <para>
-      <package>libhdf5-gnu-hpc</package>
-     </para>
-    </listitem>
-    <listitem>
-     <para>
-      <package>libhdf5_cpp-gnu-hpc</package>
-     </para>
-    </listitem>
-    <listitem>
-     <para>
-      <package>libhdf5_fortran-gnu-hpc</package>
-     </para>
-    </listitem>
-    <listitem>
-     <para>
-      <package>libhdf5_hl_cpp-gnu-hpc</package>
-     </para>
-    </listitem>
-    <listitem>
-     <para>
-      <package>libhdf5_hl_fortran-gnu-hpc</package>
-     </para>
-    </listitem>
-    <listitem>
-     <para>
-      <package>hdf5-gnu-openmpi1-hpc-devel</package>
-     </para>
-    </listitem>
-    <listitem>
-     <para>
-      <package>libhdf5-gnu-openmpi1-hpc</package>
-     </para>
-    </listitem>
-    <listitem>
-     <para>
-      <package>libhdf5_fortran-gnu-openmpi1-hpc</package>
-     </para>
-    </listitem>
-    <listitem>
-     <para>
-      <package>libhdf5_hl_fortran-gnu-openmpi1-hpc</package>
-     </para>
-    </listitem>
-    <listitem>
-     <para>
-      <package>hdf5-gnu-mvapich2-hpc-devel</package>
-     </para>
-    </listitem>
-    <listitem>
-     <para>
-      <package>libhdf5-gnu-mvapich2-hpc</package>
-     </para>
-    </listitem>
-    <listitem>
-     <para>
-      <package>libhdf5_fortran-gnu-mvapich2-hpc</package>
-     </para>
-    </listitem>
-   </itemizedlist>
-   <para>
-    For general information about Lmod and modules, see <xref linkend="sec-compute-lmod"/>
-   </para>
-  </sect2>
-  <!-- href="https://fate.novell.com/321719" -->
-  <sect2 xml:id="sec2-lib-netcdf">
-   <title>NetCDF HPC Library &mdash; Implementation of Self-Describing Data Formats</title>
-   <para>
-    The NetCDF software libraries for C, C++, FORTRAN, and Perl are a set of
-    software libraries and self-describing, machine-independent data formats
-    that support the creation, access, and sharing of array-oriented
-    scientific data.
-   </para>
-   <bridgehead renderas="sect5"><literal>netcdf</literal> Packages</bridgehead>
-   <para>
-    The packages with names starting with <literal>netcdf</literal> provide
-    C bindings for the NetCDF API. These are available with and without MPI
-    support.
-   </para>
-   <para>
-    There are serial and MPI variants of this library available. All flavors
-    require loading a compiler toolchain module beforehand. The MPI variants
-    also require loading the correct MPI flavor module.
-   </para>
-   <para>
-    The MPI variant becomes available when the MPI module is loaded. Both
-    variants require loading a compiler toolchain module beforehand. To
-    load the highest version of the non-MPI <literal>netcdf</literal> module,
-    run:
-   </para>
-   <screen>module load netcdf</screen>
-   <para>
-    To load the highest available MPI version of this module, run:
-   </para>
-   <screen>module load pnetcdf</screen>
-   <para>
-    List of master packages:
-   </para>
-   <itemizedlist>
-    <listitem>
-     <para>
-      <package>netcdf-gnu-hpc</package>
-     </para>
-    </listitem>
-    <listitem>
-     <para>
-      <package>netcdf-gnu-hpc-devel</package>
-     </para>
-    </listitem>
-    <listitem>
-     <para>
-      <package>netcdf-gnu-hpc</package>
-     </para>
-    </listitem>
-    <listitem>
-     <para>
-      <package>netcdf-gnu-hpc-devel</package>
-     </para>
-    </listitem>
-    <listitem>
-     <para>
-      <package>netcdf-gnu-openmpi1-hpc</package>
-     </para>
-    </listitem>
-    <listitem>
-     <para>
-      <package>netcdf-gnu-openmpi1-hpc-devel</package>
-     </para>
-    </listitem>
-    <listitem>
-     <para>
-      <package>netcdf-gnu-mvapich2-hpc</package>
-     </para>
-    </listitem>
-    <listitem>
-     <para>
-      <package>netcdf-gnu-mvapich2-hpc-devel</package>
-     </para>
-    </listitem>
-   </itemizedlist>
-   <bridgehead renderas="sect5"><literal>netcdf-cxx</literal> Packages</bridgehead>
-   <para>
-    <package>netcdf-cxx4</package> provides a C++ binding for the NetCDF
-    API.
-   </para>
-   <para>
-    This module requires loading a compiler toolchain module beforehand. To
-    load this module, run:
-   </para>
-   <screen>module load netcdf-cxx4</screen>
-   <para>
-    List of master packages:
-   </para>
-   <itemizedlist>
-    <listitem>
-     <para>
-      <literal>libnetcdf-cxx4-gnu-hpc</literal>
-     </para>
-    </listitem>
-    <listitem>
-     <para>
-      <literal>libnetcdf-cxx4-gnu-hpc-devel</literal>
-     </para>
-    </listitem>
-    <listitem>
-     <para>
-      <literal>netcdf-cxx4-gnu-hpc-tools</literal>
-     </para>
-    </listitem>
-   </itemizedlist>
-   <bridgehead renderas="sect5"><literal>netcdf-fortran</literal> Packages</bridgehead>
-   <para>
-    The <literal>netcdf-fortran</literal> packages provide FORTRAN bindings
-    for the NetCDF API, with and without MPI support.
-   </para>
-   <bridgehead renderas="sect5">For More Information</bridgehead>
    <para>
     For general information about Lmod and modules, see
     <xref linkend="sec-compute-lmod"/>.
@@ -509,37 +405,16 @@
     linear algebra and random number generation.
    </para>
    <para>
-    This package is available both for Python 2 and Python 3. The specific
+    This package is available both for Python 3. The specific
     compiler toolchain and MPI library flavor modules must be loaded for this
     library. The correct library module for the Python version used needs to be
     specified when loading this module. To load this module, run:
    </para>
-   <itemizedlist>
-    <listitem>
-     <para>
-      for Python 2: <literal>module load python2-numpy</literal>
-     </para>
-    </listitem>
-    <listitem>
-     <para>
-      for Python 3: <literal>module load python3-numpy</literal>
-     </para>
-    </listitem>
-   </itemizedlist>
+    <screen>module load python3-numpy</screen>
    <para>
     List of master packages:
    </para>
    <itemizedlist>
-    <listitem>
-     <para>
-      <literal>python2-numpy-gnu-hpc</literal>
-     </para>
-    </listitem>
-    <listitem>
-     <para>
-      <literal>python2-numpy-gnu-hpc-devel</literal>
-     </para>
-    </listitem>
     <listitem>
      <para>
       <literal>python3-numpy-gnu-hpc</literal>
@@ -551,6 +426,141 @@
      </para>
     </listitem>
    </itemizedlist>
+  </sect2>
+
+  <sect2 xml:id="sec2-lib-hypre">
+   <!-- href="https://fate.novell.com/324153" -->
+   <title>HYPRE &mdash; Scalable Linear Solvers and Multigrid Methods</title>
+   <para>
+    HYPRE is a library of linear solvers which aim to solve large
+    and detailed simulations faster than traditional methods at
+    large scales.
+   </para>
+   <para>
+    The library offers a comprehensive suite of
+    scalable solvers for large-scale scientific simulation,
+    featuring parallel multigrid methods for both structured
+    and unstructured grid problems. HYPRE is highly portable
+    and supports a number of languages, and is developed at
+    Lawrence Livermore National Laboratory.
+   </para>
+   <para>
+    For this library a compiler toolchain and an MPI flavor
+    needs to be loaded beforehand. To load this, run:
+   </para>
+<screen>module load <replaceable>TOOLCHAIN</replaceable> <replaceable>MPI_FLAVOR</replaceable> hypre</screen>
+   <para>
+    For information on the toolchain to load, check: <xref linkend="sec-compiler"/>,
+    information on avaiable MPI flavors can be found here: <xref linkend="sec1-MPI-libs"/>.
+   </para>
+   <para>
+    List of master packages:
+   </para>
+   <itemizedlist>
+    <listitem>
+     <para>
+      <literal>hypre-gnu-<replaceable>&lt;MPI_FLAVOR&gt;</replaceable>-hpc-devel</literal>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <literal>libHYPRE-gnu-<replaceable>&lt;MPI_FLAVOR&gt;</replaceable>-hpc</literal>
+     </para>
+    </listitem>
+   </itemizedlist>
+  </sect2>
+  <sect2 xml:id="sec-remote-memkind">
+   <title>memkind &mdash; Heap Manager for Heterogeneous Memory Platforms and Mixed Memory Policies</title>
+   <para>
+    The <emphasis>memkind</emphasis> library is a user-extensible heap manager
+    built on top of <literal>jemalloc</literal> which enables control of
+    memory characteristics and a partitioning of the heap between kinds of
+    memory. The kinds of memory are defined by operating system memory
+    policies that have been applied to virtual address ranges. Memory
+    characteristics supported by <literal>memkind</literal> without user
+    extension include control of NUMA and page size features.
+   </para>
+   <para>
+    For more information, see:
+   </para>
+   <itemizedlist>
+    <listitem>
+     <para>
+      the man pages <literal>memkind</literal> and
+      <literal>hbwallow</literal>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <link xlink:href="https://github.com/memkind/memkind"/>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <link xlink:href="https://memkind.github.io/memkind/"/>
+     </para>
+    </listitem>
+   </itemizedlist>
+   <note role="compact">
+    <para>
+     This tool is only available for x86-64.
+    </para>
+   </note>
+  </sect2>
+  <sect2 xml:id="sec2-lib-mumps">
+   <!-- href="https://fate.novell.com/324151" -->
+   <title>MUMPS &mdash; Multifrontal Massively Parallel Sparse Direct Solver</title>
+   <para>
+    MUMPS (MUltifrontal Massively Parallel sparse direct Solver)
+    solves a sparse system of linear equations A x = b using
+    Gaussian elimination.
+   </para>
+   <para>
+    This library requires a compiler toolchain and an MPI flavor
+    to be loaded beforehand. To load this, run:
+   </para>
+<screen>module load <replaceable>&lt;TOOLCHAIN&gt;</replaceable> <replaceable>&lt;MPI_FLAVOR&gt;</replaceable> mumps</screen>
+   <para>
+    For information on the toolchain to load, check: <xref linkend="sec-compiler"/>,
+    information on avaiable MPI flavors can be found here: <xref linkend="sec1-MPI-libs"/>.
+   </para>
+   <para>
+    List of master packages:
+   </para>
+   <itemizedlist>
+    <listitem>
+     <para>
+      <literal>libmumps-gnu-<replaceable>&lt;MPI_FLAVOR&gt;</replaceable>-hpc</literal>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <literal>mumps-gnu-<replaceable>&lt;MPI_FLAVOR&gt;</replaceable>-hpc-devel</literal>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <literal>mumps-gnu-<replaceable>&lt;MPI_FLAVOR&gt;</replaceable>-hpc-doc</literal>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <literal>mumps-gnu-<replaceable>&lt;MPI_FLAVOR&gt;</replaceable>-hpc-examples</literal>
+     </para>
+    </listitem>
+   </itemizedlist>
+  </sect2>
+  <sect2 xml:id="sec2-lib-pmix">
+   <title>Add Support for PMIx in Slurm and MPI libraries</title>
+   <para>
+    PMIx abstracts the internals of MPI implementations for workload
+    managers and unifies the way MPI jobs are started by the workload
+    manager: With PMIx, there is no need to utilize the individual MPI
+    launchers on Slurm anymore, <command>srun</command> will take care of
+    this. In addition, the workload manager can determine the topology of
+    the cluster. This removes the need for users to specify topologies
+    manually.
+   </para>
   </sect2>
   <sect2 xml:id="sec2-lib-blas">
    <!-- href="https://fate.novell.com/321708" -->
@@ -612,13 +622,13 @@
      <para>
       OpenMP version:
      </para>
-     <screen>module load openblas-pthreads</screen>
+<screen>module load openblas-pthreads</screen>
     </listitem>
     <listitem>
      <para>
       pthreads version:
      </para>
-     <screen>module load openblas</screen>
+<screen>module load openblas</screen>
     </listitem>
    </itemizedlist>
    <para>
@@ -651,7 +661,654 @@
     <xref linkend="sec-compute-lmod"/>.
    </para>
   </sect2>
+  <sect2 xml:id="sec2-lib-petsc">
+   <!-- href="https://fate.novell.com/321718" -->
+   <title>PETSc HPC Library &mdash; Solver for Partial Differential Equations</title>
+   <para>
+    PETSc is a suite of data structures and routines for the scalable
+    (parallel) solution of scientific applications modeled by partial
+    differential equations.
+   </para>
+   <para>
+    This module requires loading a compiler toolchain as well as an MPI
+    library flavor beforehand. To load this module, run:
+   </para>
+<screen>module load petsc</screen>
+   <para>
+    List of master packages:
+   </para>
+   <itemizedlist>
+    <listitem>
+     <para>
+      <literal>libpetsc-gnu-<replaceable>&lt;MPI_FLAVOR&gt;</replaceable>-hpc</literal>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <literal>petsc-gnu-<replaceable>&lt;MPI_FLAVOR&gt;</replaceable>-hpc-devel</literal>
+     </para>
+    </listitem>
+   </itemizedlist>
+   <para>
+    <replaceable>&lt;MPI_FLAVOR&gt;</replaceable> is one of the supported
+    MPI flavors <xref linkend="sec1-MPI-libs"/>.
+   </para>
+   <para>
+    For general information about Lmod and modules, see
+    <xref linkend="sec-compute-lmod"/>.
+   </para>
+  </sect2>
+  <sect2 xml:id="sec2-lib-scal">
+   <!-- href="https://fate.novell.com/321715" -->
+   <title>ScaLAPACK HPC Library &mdash; LAPACK Routines</title>
+   <para>
+    The library ScaLAPACK (short for "Scalable LAPACK") includes a subset of
+    LAPACK routines designed for distributed memory MIMD-parallel computers.
+   </para>
+   <para>
+    This library requires loading both a compiler toolchain and an MPI
+    library flavor beforehand. To load this library, run:
+   </para>
+<screen>module load scalapack</screen>
+   <para>
+    List of master packages:
+   </para>
+   <itemizedlist>
+    <listitem>
+     <para>
+      <literal>libscalapack2-gnu-<replaceable>&lt;MPI_FLAVOR&gt;</replaceable>-hpc</literal>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <literal>libscalapack2-gnu-<replaceable>&lt;MPI_FLAVOR&gt;</replaceable>-hpc-devel</literal>
+     </para>
+    </listitem>
+   </itemizedlist>
+   <para>
+    <replaceable>&lt;MPI_FLAVOR&gt;</replaceable> is one of the supported
+    MPI flavors <xref linkend="sec1-MPI-libs"/>.
+   </para>
+   <para>
+    For general information about Lmod and modules, see
+    <xref linkend="sec-compute-lmod"/>.
+   </para>
+  </sect2>
+  <sect2 xml:id="sec2-lib-scotch">
+   <!-- href="https://fate.novell.com/327141" -->
+   <title>SCOTCH &mdash; Static Mapping and Sparse Matrix Reordering Algorithms</title>
+   <para>
+    SCOTCH is a set of programs and libraries which implement
+    the static mapping and sparse matrix reordering algorithms
+    developed within the SCOTCH project.
+   </para>
+   <para>
+    Its purpose is to apply graph theory, with a divide and
+    conquer approach, to scientific computing problems such as
+    graph and mesh partitioning, static mapping, and sparse
+    matrix ordering, in application domains ranging from
+    structural mechanics to operating systems or bio-chemistry.
+   </para>
+   <para>
+    For this library a compiler toolchain and an MPI flavor
+    needs to be loaded beforehand. To load this, run:
+   </para>
+<screen>module load <replaceable>&lt;TOOLCHAIN&gt;</replaceable> <replaceable>&lt;MPI_FLAVOR&gt;</replaceable> scotch</screen>
+   <para>
+    For information on the toolchain to load, check: <xref linkend="sec-compiler"/>,
+    information on avaiable MPI flavors can be found here: <xref linkend="sec1-MPI-libs"/>.
+   </para>
+   <para>
+    List of master packages:
+   </para>
+   <itemizedlist>
+    <listitem>
+     <para>
+      <literal>libptscotch-gnu-<replaceable>&lt;MPI_FLAVOR&gt;</replaceable>-hpc</literal>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <literal>ptscotch-gnu-<replaceable>&lt;MPI_FLAVOR&gt;</replaceable>-hpc</literal>
+     </para>
+    </listitem>
+        <listitem>
+     <para>
+      <literal>ptscotch-gnu-<replaceable>&lt;MPI_FLAVOR&gt;</replaceable>-hpc-devel</literal>
+     </para>
+    </listitem>
+   </itemizedlist>
+  </sect2>
+  <sect2 xml:id="sec2-lib-superlu">
+   <!-- href="https://fate.novell.com/324150" -->
+   <title>SuperLU &mdash; Supernodal LU Decomposition of Sparse Matrices</title>
+   <para>
+    SuperLU is a general purpose library for the direct solution of large,
+    sparse, nonsymmetric systems of linear equations. The library is written
+    in C and is callable from either C or Fortran program.
+   </para>
+   <para>
+    It uses MPI, OpenMP to support various forms of parallelism. It supports
+    both real and complex datatypes, both single and double precision, and
+    64-bit integer indexing. The library routines performs an LU decomposition
+    with partial pivoting and triangular system solves through forward and
+    back substitution. The LU factorization routines can handle non-square
+    matrices but the triangular solves are performed only for square matrices.
+    The matrix columns may be preordered (before factorization) either through
+    library or user supplied routines. This preordering for sparsity is
+    completely separate from the factorization. Working precision iterative
+    refinement subroutines are provided for improved backward stability.
+    Routines are also provided to equilibrate the system, estimate the
+    condition number, calculate the relative backward error, and estimate
+    error bounds for the refined solutions.
+   </para>
+   <para>
+    This library requires a compiler toolchain and an MPI flavor
+    to be loaded beforehand. To load this, run:
+   </para>
+<screen>module load <replaceable>&lt;TOOLCHAIN&gt;</replaceable> superlu</screen>
+   <para>
+    List of master packages:
+   </para>
+   <itemizedlist>
+    <listitem>
+     <para>
+      <literal>libsuperlu-gnu-hpc</literal>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <literal>superlu-gnu-hpc-devel</literal>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <literal>superlu-gnu-hpc-doc</literal>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <literal>superlu-gnu-hpc-examples</literal>
+     </para>
+    </listitem>
+   </itemizedlist>
+  </sect2>
+  <sect2 xml:id="sec2-lib-trilinos">
+   <!-- href="https://fate.novell.com/324185" -->
+   <title>Trilinos &mdash; Object-oriented Software Framework</title>
+   <para>
+    The Trilinos Project is an effort to develop algorithms and
+    enabling technologies within an object-oriented software
+    framework for the solution of large-scale, complex
+    multi-physics engineering and scientific problems. A unique
+    design feature of Trilinos is its focus on packages.
+   </para>
+   <para>
+    This library needs a compiler toolchain and and MPI flavor
+    to be loaded beforehand. To load this, run:
+   </para>
+<screen>module load <replaceable>&lt;TOOLCHAIN&gt;</replaceable> <replaceable>&lt;MPI_FLAVOR&gt;</replaceable> trilinos</screen>
+   <para>
+    For information on the toolchain to load, check: <xref linkend="sec-compiler"/>,
+    information on avaiable MPI flavors can be found here: <xref linkend="sec1-MPI-libs"/>.
+   </para>
+   <para>
+    List of master packages:
+   </para>
+   <itemizedlist>
+    <listitem>
+     <para>
+      <literal>libtrilinos-gnu-<replaceable>&lt;MPI_FLAVOR&gt;</replaceable>-hpc</literal>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <literal>trilinos-gnu-<replaceable>&lt;MPI_FLAVOR&gt;</replaceable>-hpc-devel</literal>
+     </para>
+    </listitem>
+   </itemizedlist>
+  </sect2>
+ </sect1>
+ <sect1 xml:id="FileFormat">
+  <title>File Format Libraries</title>
+  <sect2 xml:id="sec2-lib-adios">
+   <title>Adaptable IO System (<literal>ADIOS</literal>) 1.13.1 Has Been Added</title>
+   <para>
+    The Adaptable IO System (ADIOS) provides a simple, flexible way for
+    scientists to describe the data in their code that may need to be
+    written, read, or processed outside of the running simulation. For more
+    information, see
+    <link xlink:href="https://www.olcf.ornl.gov/center-projects/adios/"/>.
+   </para>
+   <para>
+    List of master packages:
+   </para>
+   <itemizedlist>
+    <listitem>
+     <para>
+      <package>adios-gnu-<replaceable>&lt;MPI_FLAVOR&gt;</replaceable>-hpc</package>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <package>adios-gnu-<replaceable>&lt;MPI_FLAVOR&gt;</replaceable>-hpc-devel</package>
+     </para>
+    </listitem>
+   </itemizedlist>
+   <para>
+    <replaceable>&lt;MPI_FLAVOR&gt;</replaceable> is one of the supported
+    MPI flavors <xref linkend="sec1-MPI-libs"/>.
+   </para>
+  </sect2>
+  <sect2 xml:id="sec2-lib-hdf5">
+   <!-- href="https://fate.novell.com/321710" -->
+   <title>HDF5 HPC Library &mdash; Model, Library, File Format for Storing and Managing Data</title>
+   <para>
+    HDF5 is a data model, library, and file format for storing and managing
+    data. It supports an unlimited variety of data types, and is designed for
+    flexible and efficient I/O and for high volume and complex data. HDF5 is
+    portable and extensible, allowing applications to evolve in their use of
+    HDF5.
+   </para>
+   <para>
+    There are serial and MPI variants of this library available. All flavors
+    require loading a compiler toolchain module beforehand. The MPI variants
+    also require loading the correct MPI flavor module.
+   </para>
+   <para>
+    To load the highest available serial version of this module run:
+   </para>
+<screen>module load hdf5</screen>
+   <para>
+    When an MPI flavor is loaded, the MPI version of this module can be
+    loaded by:
+   </para>
+<screen>module load phpdf5</screen>
+   <para>
+    List of master packages:
+   </para>
+   <itemizedlist>
+    <listitem>
+     <para>
+      <package>hdf5-examples</package>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <package>hdf5-gnu-hpc-devel</package>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <package>libhdf5-gnu-hpc</package>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <package>libhdf5_cpp-gnu-hpc</package>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <package>libhdf5_fortran-gnu-hpc</package>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <package>libhdf5_hl_cpp-gnu-hpc</package>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <package>libhdf5_hl_fortran-gnu-hpc</package>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <package>hdf5-gnu-<replaceable>&lt;MPI_FLAVOR&gt;</replaceable>-hpc-devel</package>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <package>libhdf5-gnu-<replaceable>&lt;MPI_FLAVOR&gt;</replaceable>-hpc</package>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <package>libhdf5_fortran-gnu-<replaceable>&lt;MPI_FLAVOR&gt;</replaceable>-hpc</package>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <package>libhdf5_hl_fortran-<replaceable>&lt;MPI_FLAVOR&gt;</replaceable>-hpc</package>
+     </para>
+    </listitem>
+   </itemizedlist>
+   <para>
+    <replaceable>&lt;MPI_FLAVOR&gt;</replaceable> is one of the supported
+    MPI flavors <xref linkend="sec1-MPI-libs"/>.
+   </para>
+   <para>
+    For general information about Lmod and modules, see
+    <xref linkend="sec-compute-lmod"/>.
+   </para>
+  </sect2>
+  <sect2 xml:id="sec2-lib-netcdf">
+   <!-- href="https://fate.novell.com/321719" -->
+   <title>NetCDF HPC Library &mdash; Implementation of Self-Describing Data Formats</title>
+   <para>
+    The NetCDF software libraries for C, C++, FORTRAN, and Perl are a set of
+    software libraries and self-describing, machine-independent data formats
+    that support the creation, access, and sharing of array-oriented
+    scientific data.
+   </para>
+   <bridgehead renderas="sect5"><literal>netcdf</literal> Packages</bridgehead>
+   <para>
+    The packages with names starting with <literal>netcdf</literal> provide
+    C bindings for the NetCDF API. These are available with and without MPI
+    support.
+   </para>
+   <para>
+    There are serial and MPI variants of this library available. All flavors
+    require loading a compiler toolchain module beforehand. The MPI variants
+    also require loading the correct MPI flavor module.
+   </para>
+   <para>
+    The MPI variant becomes available when the MPI module is loaded. Both
+    variants require loading a compiler toolchain module beforehand. To
+    load the highest version of the non-MPI <literal>netcdf</literal> module,
+    run:
+   </para>
+<screen>module load netcdf</screen>
+   <para>
+    List of master packages:
+   </para>
+   <itemizedlist>
+    <listitem>
+     <para>
+      <package>netcdf-gnu-hpc</package>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <package>netcdf-gnu-hpc-devel</package>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <package>netcdf-gnu-hpc</package>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <package>netcdf-gnu-hpc-devel</package>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <package>netcdf-gnu-<replaceable>&lt;MPI_FLAVOR&gt;</replaceable>-hpc</package>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <package>netcdf-gnu-<replaceable>&lt;MPI_FLAVOR&gt;</replaceable>-hpc-devel</package>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <package>netcdf-gnu-<replaceable>&lt;MPI_FLAVOR&gt;</replaceable>-hpc</package>
+     </para>
+    </listitem>
+   </itemizedlist>
+   <para>
+    <replaceable>&lt;MPI_FLAVOR&gt;</replaceable> is one of the supported
+    MPI flavors <xref linkend="sec1-MPI-libs"/>.
+   </para>
+   <bridgehead renderas="sect5"><literal>netcdf-cxx</literal> Packages</bridgehead>
+   <para>
+    <package>netcdf-cxx4</package> provides a C++ binding for the NetCDF
+    API.
+   </para>
+   <para>
+    This module requires loading a compiler toolchain module beforehand. To
+    load this module, run:
+   </para>
+<screen>module load netcdf-cxx4</screen>
+   <para>
+    List of master packages:
+   </para>
+   <itemizedlist>
+    <listitem>
+     <para>
+      <literal>libnetcdf-cxx4-gnu-hpc</literal>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <literal>libnetcdf-cxx4-gnu-hpc-devel</literal>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <literal>netcdf-cxx4-gnu-hpc-tools</literal>
+     </para>
+    </listitem>
+   </itemizedlist>
+   <bridgehead renderas="sect5"><literal>netcdf-fortran</literal> Packages</bridgehead>
+   <para>
+    The <literal>netcdf-fortran</literal> packages provide FORTRAN bindings
+    for the NetCDF API, with and without MPI support.
+   </para>
+   <bridgehead renderas="sect5">For More Information</bridgehead>
+   <para>
+    For general information about Lmod and modules, see
+    <xref linkend="sec-compute-lmod"/>.
+   </para>
+  </sect2>
+  <sect2 xml:id="sec2-lib-pnetcdf">
+   <title>HPC Flavor of <literal>pnetcdf</literal> Has Been Added</title>
+   <para>
+   NetCDF is a set of software libraries and self-describing,
+   machine-independent data formats that support the creation, access,
+   and sharing of array-oriented scientific data.
+   </para>
+   <para>
+   Parallel netCDF (<literal>PnetCDF</literal>) is a library providing
+   high-performance I/O while still maintaining file-format compatibility
+   with NetCDF by Unidata.
+   </para>
+   <para>
+   The package is available for the MPI Flavors: Open MPI 2 and 3, MVAPICH2 and MPICH.
+   </para>
+   <para>
+    To load the highest available serial version of this module run:
+   </para>
+   <screen>module load pnetcdf</screen>
+   <para>
+    List of MPI master packages:
+   </para>
+   <itemizedlist>
+    <listitem><para>
+      <package>libpnetcdf-gnu-<replaceable>&lt;MPI_FLAVOR&gt;</replaceable>-hpc</package>
+     </para></listitem>
+    <listitem><para>
+      <package>pnetcdf-gnu-<replaceable>&lt;MPI_FLAVOR&gt;</replaceable>-hpc</package>
+     </para></listitem>
+    <listitem><para>
+      <package>pnetcdf-gnu-<replaceable>&lt;MPI_FLAVOR&gt;</replaceable>-hpc-devel</package>
+     </para></listitem>
+   </itemizedlist>
+   <para>
+    <replaceable>&lt;MPI_FLAVOR&gt;</replaceable> is one of the supported
+    MPI flavors <xref linkend="sec1-MPI-libs"/>.
+   </para>
+  </sect2>
+ </sect1>
+ <sect1  xml:id="sec1-MPI-libs">
+  <title>MPI Libraries</title>
+  <para>
+   Three different implementation of the Message Passing Interface (MPI)
+   standard are provided standard with the HPC module:
+  </para>
+  <itemizedlist>
+   <listitem>
+    <para>
+     Open MPI (version v.2 and openmpi v.3)
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+     MVAPICH2
+    </para>
+   </listitem>
+   <listitem>
+     <para>
+      MPICH
+    </para>
+   </listitem>
+  </itemizedlist>
+  <para>
+   These packages have been built with full environment module support (LMOD).
+  </para>
+  <para>
+   The following packages are available:
+  </para>
+  <itemizedlist>
+   <listitem>
+    <para>For Open MPI:</para>
+    <itemizedlist>
+     <listitem>
+      <para>user programs: <literal>openmpi3-gnu-hpc</literal> and
+      <literal>openmpi4-gnu-hpc</literal>
+      </para>
+     </listitem>
+     <listitem>
+      <para>shared libraries: <literal>libopenmpi3-gnu-hpc</literal> and
+      <literal>libopenmpi4-gnu-hpc</literal>
+      </para>
+     </listitem>
+     <listitem>
+      <para>development libraries, headers and tools required for building:
+      <literal>openmpi3-gnu-hpc-devel</literal> and
+      <literal>openmpi4-gnu-hpc-devel</literal></para>
+     </listitem>
+     <listitem>
+      <para>documentation: <literal>openmpi3-gnu-hpc-docs</literal> and
+      <literal>openmpi4-gnu-hpc-docs</literal>.
+      </para>
+     </listitem>
+    </itemizedlist>
+   </listitem>
+   <listitem>
+    <para>For MVAPICH2</para>
+    <itemizedlist>
+     <listitem>
+      <para>user programs and libraries:
+      <literal>mvapich2-gnu-hpc</literal></para>
+     </listitem>
+     <listitem>
+      <para>development libraries, headers and tools for building:
+      <literal>mvapich2-gnu-hpc-devel</literal></para>
+     </listitem>
+     <listitem>
+      <para>documentation: <literal>mvapich2-gnu-hpc-doc</literal></para>
+     </listitem>
+    </itemizedlist>
+    <para>For MPICH:</para>
+    <itemizedlist>
+     <listitem>
+      <para>user programs and libraries: <literal>mpich-gnu-hpc</literal>
+      </para>
+     </listitem>
+     <listitem>
+      <para>development libraries, headers and tools for building:
+      <literal>mpich-gnu-hpc-devel</literal></para>
+     </listitem>
+    </itemizedlist>
+   </listitem>
+  </itemizedlist>
+  <para>
+   The different MPI implementations and versions are independent of each
+   other can be installed in parallel.
+  </para>
+  <para>
+   Use environment modules to pick the version to use:
+  </para>
+  <itemizedlist>
+   <listitem>
+    <para>
+     For Open MPI v.2:
+    </para>
+    <para>
+<screen>module load openmpi/2</screen>
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+     For Open MPI v.3:
+    </para>
+    <para>
+<screen>module load openmpi/3</screen>
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+     For MVAPICH2:
+    </para>
+    <para>
+<screen>module load mvapich2</screen>
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+      For MPICH:
+    </para>
+    <para>
+<screen>module load mpich</screen>
+    </para>
+   </listitem>
+  </itemizedlist>
+ </sect1>
+
+ <sect1 xml:id="Packages.ProfilingBenckmark">
+  <title>Profiling and Benchmarking Libraries and Tools</title>
+  <para>
+   Performance optimization plays an important role in HPC. That applications
+   are run across multiple cluster nodes poses an additional challange.
+   &shpca; provides a number of tools for profiling MPI applications and
+   benchmarking MPI performance.
+  </para>
+  <sect2 xml:id="sec2-tool-imb">
+   <!-- href="https://fate.novell.com/324155" -->
+   <title>IMB &mdash; Intel(R) MPI Benchmarks</title>
+   <para>
+    Intel(R) MPI Benchmarks provides a set of elementary benchmarks that conform
+    to MPI-1, MPI-2, and MPI-3 standard. One can run all of the supported
+    benchmarks, or a subset specified in the command line using one executable
+    file. Use command-line parameters to specify various settings, such as time
+    measurement, message lengths, and selection of communicators. For details, see
+    the Intel(R) MPI Benchmarks User's Guide located at:
+    https://software.intel.com/en-us/imb-user-guide.
+   </para>
+      <para>
+    For the IMB binaries to be found, a compiler toolchain and an MPI flavor
+    needs to be loaded beforehand. To load this, run:
+   </para>
+<screen>module load <replaceable>&lt;TOOLCHAIN&gt;</replaceable> <replaceable>&lt;MPI_FLAVOR&gt;</replaceable> imb</screen>
+   <para>
+    For information on the toolchain to load, check: <xref linkend="sec-compiler"/>,
+    information on avaiable MPI flavors can be found here: <xref linkend="sec1-MPI-libs"/>.
+   </para>
+   <itemizedlist>
+    <listitem>
+     <para>
+      <literal>imb-gnu-<replaceable>&lt;MPI_FLAVOR&gt;</replaceable>-hpc</literal>
+     </para>
+    </listitem>
+   </itemizedlist>
+  </sect2>
   <sect2 xml:id="sec2-lib-papi">
+   <!-- href="https://fate.novell.com/321720" -->
    <title>PAPI HPC Library &mdash; Consistent Interface for Hardware Performance Counters</title>
    <para>
     PAPI (package <package>papi</package>) provides a tool with a
@@ -663,7 +1320,7 @@
     compiler toolchain to be selected. The latest version provided can be
     selected by running:
    </para>
-   <screen>module load papi</screen>
+<screen>module load papi</screen>
    <para>
     List of master packages:
    </para>
@@ -684,107 +1341,47 @@
     <xref linkend="sec-compute-lmod"/>.
    </para>
   </sect2>
-  <sect2 xml:id="sec2-lib-petsc">
-   <title>PETSc HPC Library &mdash; Solver for Partial Differential Equations</title>
+
+  <sect2 xml:id="sec2-lib-mpip">
+   <!-- href="https://fate.novell.com/321721" -->
+   <title>mpiP &mdash; lightweight MPI Profiling Library</title>
    <para>
-    PETSc is a suite of data structures and routines for the scalable
-    (parallel) solution of scientific applications modeled by partial
-    differential equations.
+    mpiP is a lightweight profiling library for MPI applications.
+    Because it only collects statistical information about MPI
+    functions, mpiP generates considerably less overhead and much
+    less data than tracing tools. All the information captured
+    by mpiP is task-local. It only uses communication during
+    report generation, typically at the end of the experiment,
+    to merge results from all of the tasks into one output file.
    </para>
    <para>
-    This module requires loading a compiler toolchain as well as an MPI
-    library flavor beforehand. To load this module, run:
+    For this library a compiler toolchain and and MPI flavor
+    needs to be loaded beforehand. To load this, run:
    </para>
-   <screen>module load petsc</screen>
+<screen>module load <replaceable>&lt;TOOLCHAIN&gt;</replaceable> <replaceable>&lt;MPI_FLAVOR&gt;</replaceable> trilinos</screen>
    <para>
     List of master packages:
    </para>
    <itemizedlist>
     <listitem>
      <para>
-      <literal>libpetsc-gnu-openmpi1-hpc</literal>
+      <package>mpiP-gnu-<replaceable>&lt;MPI_FLAVOR&gt;</replaceable>-hpc</package>
      </para>
     </listitem>
     <listitem>
      <para>
-      <literal>petsc-gnu-openmpi1-hpc-devel</literal>
+      <package>mpiP-gnu-<replaceable>&lt;MPI_FLAVOR&gt;</replaceable>-hpc-devel</package>
      </para>
     </listitem>
     <listitem>
      <para>
-      <literal>libpetsc-gnu-mvapich2-hpc</literal>
-     </para>
-    </listitem>
-    <listitem>
-     <para>
-      <literal>petsc-gnu-mvapich2-hpc-devel</literal>
+      <literal>mpiP-gnu-<replaceable>&lt;MPI_FLAVOR&gt;</replaceable>-hpc-doc</literal>
      </para>
     </listitem>
    </itemizedlist>
    <para>
-    For general information about Lmod and modules, see
-    <xref linkend="sec-compute-lmod"/>.
-   </para>
-  </sect2>
-  <sect2 xml:id="sec2-lib-scala">
-   <title>ScaLAPACK HPC Library &mdash; LAPACK Routines</title>
-   <para>
-    The library ScaLAPACK (short for "Scalable LAPACK") includes a subset of
-    LAPACK routines designed for distributed memory MIMD-parallel computers.
-   </para>
-   <para>
-    This library requires loading both a compiler toolchain and an MPI
-    library flavor beforehand. To load this library, run:
-   </para>
-   <screen>module load scalapack</screen>
-   <para>
-    List of master packages:
-   </para>
-   <itemizedlist>
-    <listitem>
-     <para>
-      <literal>libblacs2-gnu-openmpi1-hpc</literal>
-     </para>
-    </listitem>
-    <listitem>
-     <para>
-      <literal>libblacs2-gnu-openmpi1-hpc-devel</literal>
-     </para>
-    </listitem>
-    <listitem>
-     <para>
-      <literal>libscalapack2-gnu-openmpi1-hpc</literal>
-     </para>
-    </listitem>
-    <listitem>
-     <para>
-      <literal>libscalapack2-gnu-openmpi1-hpc-devel</literal>
-     </para>
-    </listitem>
-    <listitem>
-     <para>
-      <literal>libblacs2-gnu-mvapich2-hpc</literal>
-     </para>
-    </listitem>
-    <listitem>
-     <para>
-      <literal>libblacs2-gnu-mvapich2-hpc-devel</literal>
-     </para>
-    </listitem>
-    <listitem>
-     <para>
-      <literal>libscalapack2-gnu-mvapich2-hpc</literal>
-     </para>
-    </listitem>
-    <listitem>
-     <para>
-      <literal>libscalapack2-gnu-mvapich2-hpc-devel</literal>
-     </para>
-    </listitem>
-   </itemizedlist>
-   <para>
-    For general information about Lmod and modules, see
-    <xref linkend="sec-compute-lmod"/>.
+    <replaceable>&lt;MPI_FLAVOR&gt;</replaceable> is one of the supported
+    MPI flavors <xref linkend="sec1-MPI-libs"/>.
    </para>
   </sect2>
  </sect1>

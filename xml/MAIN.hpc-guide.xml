@@ -55,23 +55,23 @@
   <xi:include href="remote_administration.xml"/>
  </part>
 
- <part xml:id="part-nodes">
-  <title>Nodes</title>
-  <xi:include href="nodes.xml"/>
+ <part xml:id="part-hardware">
+  <title>Hardware</title>
+  <xi:include href="hardware.xml"/>
  </part>
 
  <part xml:id="part-slurm">
-  <title>Scheduler</title>
+  <title>Workload Manager</title>
   <xi:include href="slurm.xml"/>
  </part>
 
  <part xml:id="part-monitoring">
-  <title>Monitoring</title>
+  <title>Monitoring and Logging</title>
   <xi:include href="monitoring.xml"/>
  </part>
 
  <part xml:id="part-compute">
-  <title>Compute</title>
+  <title>HPC Libraries</title>
   <xi:include href="compute.xml"/>
  </part>
  <!--
@@ -80,10 +80,12 @@
   <xi:include href="compilation.xml"/>
  </part>
  -->
+ <!--
  <part xml:id="part-testing">
   <title>Testing</title>
   <xi:include href="testing.xml"/>
- </part>
+  </part>
+  -->
  <!--
  <part xml:id="part-buildsource">
   <title>Build Source</title>
