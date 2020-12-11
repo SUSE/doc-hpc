@@ -27,7 +27,6 @@
 
 
 <!-- Prompts used in 15 SP2 RN -->
-<!-- Prompts used in 15 SP2 RN -->
 <!ENTITY prompt           "<prompt xmlns='http://docbook.org/ns/docbook'># </prompt>">
 <!ENTITY prompt_master    "<prompt xmlns='http://docbook.org/ns/docbook'>master: # </prompt>">
 <!ENTITY prompt_backup    "<prompt xmlns='http://docbook.org/ns/docbook'>backup: # </prompt>">
