@@ -281,9 +281,9 @@
   </para>
   <para>
    The Development Tools Module may provide later versions of the GNU
-   compiler suite. Run
+   compiler suite. Run</para>
    <screen>zypper search *-compilers-hpc</screen>
-   to determine which ones are available.
+   <para>to determine which ones are available.
   </para>
   <sect2 xml:id="sec2-lib-boost">
    <title>HPC Flavor of <literal>boost</literal> Has Been Added</title>
@@ -1239,33 +1239,25 @@
     <para>
      For Open MPI v.2:
     </para>
-    <para>
 <screen>module load openmpi/2</screen>
-    </para>
    </listitem>
    <listitem>
     <para>
      For Open MPI v.3:
     </para>
-    <para>
 <screen>module load openmpi/3</screen>
-    </para>
    </listitem>
    <listitem>
     <para>
      For MVAPICH2:
     </para>
-    <para>
 <screen>module load mvapich2</screen>
-    </para>
    </listitem>
    <listitem>
     <para>
       For MPICH:
     </para>
-    <para>
 <screen>module load mpich</screen>
-    </para>
    </listitem>
   </itemizedlist>
  </sect1>

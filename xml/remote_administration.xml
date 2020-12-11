@@ -321,10 +321,10 @@ nodeattr [-f genders] -k
     across the network it needs to run on each side of the communication.
    </para>
    <para>
-    To start the service and make sure it is started after every reboot, run
+    To start the service and make sure it is started after every reboot, run</para>
     <screen>systemctl enable munge.service
     systemctl start munge.service</screen>
-    on each node. To perform the same on multiple nodes, pdsh may be employed
+    <para>on each node. To perform the same on multiple nodes, pdsh may be employed
     as well.
    </para>
   </sect2>
