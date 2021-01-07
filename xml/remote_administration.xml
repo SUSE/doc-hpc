@@ -12,7 +12,7 @@
          xmlns="http://docbook.org/ns/docbook" version="5.1"
          xmlns:xi="http://www.w3.org/2001/XInclude"
          xmlns:xlink="http://www.w3.org/1999/xlink">
- <title>Remote Administration</title>
+ <title>Remote administration</title>
  <info>
   <abstract>
    <para>
@@ -29,7 +29,7 @@
   </dm:docmanager>
  </info>
  <sect1 xml:id="sec-remote-genders">
-  <title>Genders &mdash; Static Cluster Configuration Database</title>
+  <title>Genders &mdash; static cluster configuration database</title>
   <para>
    Genders is a static cluster configuration database used for
    configuration management. It allows grouping and addressing sets of
@@ -125,7 +125,7 @@ nodeattr [-f genders] -k
   </sect2>
  </sect1>
  <sect1 xml:id="sec-remote-pdsh">
-  <title>pdsh &mdash; Parallel Remote Shell Program</title>
+  <title>pdsh &mdash; parallel remote shell program</title>
   <para>
    <literal>pdsh</literal> is a parallel remote shell which can be used
    with multiple back-ends for remote connections. It can run a command on
@@ -191,7 +191,7 @@ nodeattr [-f genders] -k
   </para>
  </sect1>
  <sect1 xml:id="sec-remote-powerman">
-  <title>PowerMan &mdash; Centralized Power Control for Clusters</title>
+  <title>PowerMan &mdash; centralized power control for clusters</title>
   <para>
    PowerMan allows manipulating remote power control devices (RPC) from a
    central location. It can control:
@@ -246,7 +246,7 @@ nodeattr [-f genders] -k
    <filename>/etc/powerman/powerman.conf</filename>.
   </para>
   <important>
-   <title>Unencrypted Transfer</title>
+   <title>Unencrypted transfer</title>
    <para>
     When connecting to a remote PowerMan instance, data is transferred
     unencrypted. Therefore, use this feature only if the network is
@@ -255,7 +255,7 @@ nodeattr [-f genders] -k
   </important>
  </sect1>
  <sect1 xml:id="sec-remote-munge">
-  <title><emphasis>munge</emphasis> Authentication</title>
+  <title>MUNGE authentication</title>
   <para>
    <emphasis>munge</emphasis> allows for a secure communication between
    different machines which share the same secret key. The most common
@@ -265,7 +265,7 @@ nodeattr [-f genders] -k
    <emphasis>mrsh</emphasis>.
   </para>
   <sect2>
-   <title>Setting Up <emphasis>munge</emphasis> Authentication</title>
+   <title>Setting up MUNGE authentication</title>
    <para>
     <emphasis>Munge</emphasis> uses the UID/GID to uniquely identify
     and authenciate users. This care must be taken that the users who
@@ -314,7 +314,7 @@ nodeattr [-f genders] -k
    <para>make sure they match.</para>
   </sect2>
   <sect2>
-   <title>Enabling and Starting <emphasis>munge</emphasis></title>
+   <title>Enabling and starting MUNGE</title>
    <para>
     <emphasis>munged</emphasis> needs to be run on all nodes where munge
     authentication is to take place. If munge is used for authentication
@@ -330,7 +330,7 @@ nodeattr [-f genders] -k
   </sect2>
  </sect1>
  <sect1 xml:id="sec-remote-mrsh">
-  <title>mrsh/mrlogin &mdash; Remote Login Using <emphasis>munge</emphasis> Authentication</title>
+  <title>mrsh/mrlogin &mdash; remote login using MUNGE authentication</title>
   <para>
    <emphasis>mrsh</emphasis> is a set of remote shell programs using the
    <emphasis>munge</emphasis> authentication system instead of reserved ports

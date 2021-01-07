@@ -12,7 +12,7 @@
  xmlns="http://docbook.org/ns/docbook" version="5.1"
  xmlns:xi="http://www.w3.org/2001/XInclude"
  xmlns:xlink="http://www.w3.org/1999/xlink">
- <title>Monitoring and Logging</title>
+ <title>Monitoring and logging</title>
  <info>
   <abstract>
    <para>
@@ -29,7 +29,7 @@
   </dm:docmanager>
  </info>
   <sect1 xml:id="sec-remote-conman">
-  <title>ConMan &mdash; The Console Manager</title>
+  <title>ConMan &mdash; the console manager</title>
   <para>
    ConMan is a serial console management program designed to support a
    large number of console devices and simultaneous users. It supports:
@@ -70,7 +70,7 @@
    To install ConMan, run <literal>zypper in conman</literal>.
   </para>
   <important>
-   <title><systemitem class="daemon">conmand</systemitem> Sends Unencrypted Data</title>
+   <title><systemitem class="daemon">conmand</systemitem> sends unencrypted data</title>
    <para>
     The daemon <systemitem class="daemon">conmand</systemitem> sends
     unencrypted data over the
@@ -111,7 +111,7 @@
   </para>
  </sect1>
  <sect1 xml:id="sec-monitoring-ganglia">
-  <title>Ganglia &mdash; System Monitoring</title>
+  <title>Ganglia &mdash; system monitoring</title>
   <para>
    Ganglia is a scalable distributed monitoring system for high-performance
    computing systems, such as clusters and grids. It is based on a
@@ -145,7 +145,7 @@
    </para>
   </sect2>
   <sect2 xml:id="sec-ganglia-web">
-   <title>Using the Ganglia Web Interface</title>
+   <title>Using the Ganglia Web interface</title>
    <para>
     Install <package>ganglia-web</package> on the management server.
     Depending on which PHP version is used (default is PHP 5), enable it in
@@ -159,7 +159,7 @@
   </sect2>
  </sect1>
  <sect1 xml:id="sec-monitoring-ras">
-  <title>rasdaemon &mdash; Utility to Log RAS Error Tracings</title>
+  <title>rasdaemon &mdash; utility to log RAS error tracings</title>
   <para>
    <systemitem class="daemon">rasdaemon</systemitem> is a RAS
    (Reliability, Availability and

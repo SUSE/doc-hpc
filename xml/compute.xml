@@ -12,7 +12,7 @@
          xmlns="http://docbook.org/ns/docbook" version="5.1"
          xmlns:xi="http://www.w3.org/2001/XInclude"
          xmlns:xlink="http://www.w3.org/1999/xlink">
- <title>HPC User Libraries</title>
+ <title>HPC user libraries</title>
  <info>
   <abstract>
    <para>
@@ -34,7 +34,7 @@
   </dm:docmanager>
  </info>
  <sect1 xml:id="sec-compute-lmod">
-  <title>Lmod &mdash; Lua-based Environment Modules</title>
+  <title>Lmod &mdash; Lua-based environment modules</title>
   <para>
    Lmod is an advanced environment module system which allows the
    installation of multiple versions of a program or shared library, and
@@ -48,7 +48,7 @@
    <literal>lmod</literal> module files.
   </para>
   <sect2 xml:id="sec2-compute-lmod-basic">
-   <title>Installation and Basic Usage</title>
+   <title>Installation and basic usage</title>
    <para>
     To install Lmod, run: <command>zypper in lua-lmod</command>.
    </para>
@@ -72,7 +72,7 @@
    </para>
   </sect2>
   <sect2 xml:id="sec2-compute-lmod-lista">
-   <title>Listing Available Modules</title>
+   <title>Listing available modules</title>
    <para>
     To list the available all available modules, run: <command>module
     spider</command>. To show all modules which can be loaded with the
@@ -87,7 +87,7 @@
    </para>
   </sect2>
   <sect2 xml:id="sec2-compute-lmod-listl">
-   <title>Listing Loaded Modules</title>
+   <title>Listing loaded modules</title>
    <para>
     <command>module list</command> shows all currently loaded modules. Refer
     to <command>module help</command> for a short help on the module command
@@ -98,7 +98,7 @@
    </para>
   </sect2>
   <sect2 xml:id="sec2-compute-lmod-info">
-   <title>Gathering Information About a Module</title>
+   <title>Gathering information about a module</title>
    <para>
     To get information about a particular module, run: <command>module
     whatis <replaceable>MODULE-NAME</replaceable></command> To load a module,
@@ -114,7 +114,7 @@
    </para>
   </sect2>
   <sect2 xml:id="sec2-compute-lmod-load">
-   <title>Loading Modules</title>
+   <title>Loading modules</title>
    <para>
     The <command>module load <replaceable>MODULE</replaceable></command>
     command needs to be
@@ -124,7 +124,7 @@
    </para>
   </sect2>
   <sect2 xml:id="sec2-compute-lmod-env">
-   <title>Environment Variables</title>
+   <title>Environment variables</title>
    <para>
     If the respective development packages are installed, build time
     environment variables like <literal>LIBRARY_PATH</literal>,
@@ -140,7 +140,7 @@
    </para>
   </sect2>
   <sect2 xml:id="sec2-compute-lmod-moreinfo">
-   <title>For More Information</title>
+   <title>For more information</title>
    <para>
     For more information on Lmod, see
     <link xlink:href="https://lmod.readthedocs.org"/>.
@@ -157,7 +157,7 @@
     when using any of the HPC libraries enabled for environment modules.
    </para>
    <sect2>
-    <title>Environment Module</title>
+    <title>Environment module</title>
    <para>
     This package requires <package>lua-lmod</package> to supply environment
     module support.
@@ -174,7 +174,7 @@
 <screen>module load gnu</screen>
    </sect2>
    <sect2>
-    <title>Building HPC Software with GNU Compiler Suite</title>
+    <title>Building HPC software with GNU Compiler Suite</title>
     <para>
      To use the GNU compiler collection to build your own libraries and
      applications, <package>gnu-compilers-hpc-devel</package> needs to be
@@ -189,7 +189,7 @@
     </para>
    </sect2>
    <sect2>
-    <title>Later Versions</title>
+    <title>Later versions</title>
     <para>
      The Development Tools Module may provide later versions of the GNU
      compiler suite. Run
@@ -209,7 +209,7 @@
    </sect2>
  </sect1>
  <sect1 xml:id="sec-compute-lib">
-  <title>HPC Libraries</title>
+  <title>HPC libraries</title>
   <para>
    Library packages which support environment modules follow a distinctive
    naming scheme: all packages have the compiler suite and, if built with
@@ -286,7 +286,7 @@
    <para>to determine which ones are available.
   </para>
   <sect2 xml:id="sec2-lib-boost">
-   <title>HPC Flavor of <literal>boost</literal> Has Been Added</title>
+   <title>HPC flavor of Boost</title>
    <para>
     <literal>Boost</literal> is a set of portable C++ libraries which provide a
     reference implementation of "existing practices".
@@ -338,7 +338,7 @@
   </sect2>
   <sect2 xml:id="sec2-lib-fftw">
    <!-- href="https://fate.novell.com/321716" -->
-   <title>FFTW HPC Library &mdash; Discrete Fourier Transforms</title>
+   <title>FFTW HPC library &mdash; discrete Fourier transforms</title>
    <para>
     <literal>FFTW</literal> is a C subroutine library for computing the
     Discrete Fourier Transform (DFT) in one or more dimensions, of both real
@@ -387,7 +387,7 @@
   </sect2>
   <sect2 xml:id="sec2-lib-numpy">
    <!-- href="https://fate.novell.com/321709" -->
-   <title>NumPy Python Library</title>
+   <title>NumPy Python library</title>
    <para>
     NumPy is a general-purpose array-processing package designed to
     efficiently manipulate large multi-dimensional arrays of arbitrary
@@ -430,7 +430,7 @@
 
   <sect2 xml:id="sec2-lib-hypre">
    <!-- href="https://fate.novell.com/324153" -->
-   <title>HYPRE &mdash; Scalable Linear Solvers and Multigrid Methods</title>
+   <title>HYPRE &mdash; scalable linear solvers and multigrid methods</title>
    <para>
     HYPRE is a library of linear solvers which aim to solve large
     and detailed simulations faster than traditional methods at
@@ -470,7 +470,7 @@
    </itemizedlist>
   </sect2>
   <sect2 xml:id="sec-remote-memkind">
-   <title>memkind &mdash; Heap Manager for Heterogeneous Memory Platforms and Mixed Memory Policies</title>
+   <title>memkind &mdash; heap manager for heterogeneous memory platforms and mixed memory policies</title>
    <para>
     The <emphasis>memkind</emphasis> library is a user-extensible heap manager
     built on top of <literal>jemalloc</literal> which enables control of
@@ -509,7 +509,7 @@
   </sect2>
   <sect2 xml:id="sec2-lib-mumps">
    <!-- href="https://fate.novell.com/324151" -->
-   <title>MUMPS &mdash; Multifrontal Massively Parallel Sparse Direct Solver</title>
+   <title>MUMPS &mdash; MUltifrontal Massively Parallel sparse direct Solver</title>
    <para>
     MUMPS (MUltifrontal Massively Parallel sparse direct Solver)
     solves a sparse system of linear equations A x = b using
@@ -551,7 +551,7 @@
    </itemizedlist>
   </sect2>
   <sect2 xml:id="sec2-lib-pmix">
-   <title>Add Support for PMIx in Slurm and MPI libraries</title>
+   <title>Support for PMIx in Slurm and MPI libraries</title>
    <para>
     PMIx abstracts the internals of MPI implementations for workload
     managers and unifies the way MPI jobs are started by the workload
@@ -564,7 +564,7 @@
   </sect2>
   <sect2 xml:id="sec2-lib-blas">
    <!-- href="https://fate.novell.com/321708" -->
-   <title>OpenBLAS Library &mdash; Optimized BLAS Library</title>
+   <title>OpenBLAS library &mdash; optimized BLAS library</title>
    <para>
     OpenBLAS is an optimized BLAS (Basic Linear Algebra Subprograms) library
     based on GotoBLAS2 1.3, BSD version. It provides the BLAS API. It is
@@ -663,7 +663,7 @@
   </sect2>
   <sect2 xml:id="sec2-lib-petsc">
    <!-- href="https://fate.novell.com/321718" -->
-   <title>PETSc HPC Library &mdash; Solver for Partial Differential Equations</title>
+   <title>PETSc HPC library &mdash; solver for partial differential equations</title>
    <para>
     PETSc is a suite of data structures and routines for the scalable
     (parallel) solution of scientific applications modeled by partial
@@ -700,7 +700,7 @@
   </sect2>
   <sect2 xml:id="sec2-lib-scal">
    <!-- href="https://fate.novell.com/321715" -->
-   <title>ScaLAPACK HPC Library &mdash; LAPACK Routines</title>
+   <title>ScaLAPACK HPC library &mdash; LAPACK routines</title>
    <para>
     The library ScaLAPACK (short for "Scalable LAPACK") includes a subset of
     LAPACK routines designed for distributed memory MIMD-parallel computers.
@@ -736,7 +736,7 @@
   </sect2>
   <sect2 xml:id="sec2-lib-scotch">
    <!-- href="https://fate.novell.com/327141" -->
-   <title>SCOTCH &mdash; Static Mapping and Sparse Matrix Reordering Algorithms</title>
+   <title>SCOTCH &mdash; static mapping and sparse matrix reordering algorithms</title>
    <para>
     SCOTCH is a set of programs and libraries which implement
     the static mapping and sparse matrix reordering algorithms
@@ -781,7 +781,7 @@
   </sect2>
   <sect2 xml:id="sec2-lib-superlu">
    <!-- href="https://fate.novell.com/324150" -->
-   <title>SuperLU &mdash; Supernodal LU Decomposition of Sparse Matrices</title>
+   <title>SuperLU &mdash; supernodal LU decomposition of sparse matrices</title>
    <para>
     SuperLU is a general purpose library for the direct solution of large,
     sparse, nonsymmetric systems of linear equations. The library is written
@@ -835,7 +835,7 @@
   </sect2>
   <sect2 xml:id="sec2-lib-trilinos">
    <!-- href="https://fate.novell.com/324185" -->
-   <title>Trilinos &mdash; Object-oriented Software Framework</title>
+   <title>Trilinos &mdash; object-oriented software framework</title>
    <para>
     The Trilinos Project is an effort to develop algorithms and
     enabling technologies within an object-oriented software
@@ -870,9 +870,9 @@
   </sect2>
  </sect1>
  <sect1 xml:id="FileFormat">
-  <title>File Format Libraries</title>
+  <title>File format libraries</title>
   <sect2 xml:id="sec2-lib-adios">
-   <title>Adaptable IO System (<literal>ADIOS</literal>) 1.13.1 Has Been Added</title>
+   <title>Adaptable IO System (ADIOS)</title>
    <para>
     The Adaptable IO System (ADIOS) provides a simple, flexible way for
     scientists to describe the data in their code that may need to be
@@ -902,7 +902,7 @@
   </sect2>
   <sect2 xml:id="sec2-lib-hdf5">
    <!-- href="https://fate.novell.com/321710" -->
-   <title>HDF5 HPC Library &mdash; Model, Library, File Format for Storing and Managing Data</title>
+   <title>HDF5 HPC library &mdash; model, library, file format for storing and managing data</title>
    <para>
     HDF5 is a data model, library, and file format for storing and managing
     data. It supports an unlimited variety of data types, and is designed for
@@ -995,7 +995,7 @@
   </sect2>
   <sect2 xml:id="sec2-lib-netcdf">
    <!-- href="https://fate.novell.com/321719" -->
-   <title>NetCDF HPC Library &mdash; Implementation of Self-Describing Data Formats</title>
+   <title>NetCDF HPC library &mdash; implementation of self-describing data formats</title>
    <para>
     The NetCDF software libraries for C, C++, FORTRAN, and Perl are a set of
     software libraries and self-describing, machine-independent data formats
@@ -1106,7 +1106,7 @@
    </para>
   </sect2>
   <sect2 xml:id="sec2-lib-pnetcdf">
-   <title>HPC Flavor of <literal>pnetcdf</literal> Has Been Added</title>
+   <title>HPC flavor of <literal>pnetcdf</literal> has been added</title>
    <para>
    NetCDF is a set of software libraries and self-describing,
    machine-independent data formats that support the creation, access,
@@ -1145,7 +1145,7 @@
   </sect2>
  </sect1>
  <sect1  xml:id="sec1-MPI-libs">
-  <title>MPI Libraries</title>
+  <title>MPI libraries</title>
   <para>
    Three different implementation of the Message Passing Interface (MPI)
    standard are provided standard with the HPC module:
@@ -1263,7 +1263,7 @@
  </sect1>
 
  <sect1 xml:id="Packages.ProfilingBenckmark">
-  <title>Profiling and Benchmarking Libraries and Tools</title>
+  <title>Profiling and benchmarking libraries and tools</title>
   <para>
    Performance optimization plays an important role in HPC. That applications
    are run across multiple cluster nodes poses an additional challange.
@@ -1272,7 +1272,7 @@
   </para>
   <sect2 xml:id="sec2-tool-imb">
    <!-- href="https://fate.novell.com/324155" -->
-   <title>IMB &mdash; Intel(R) MPI Benchmarks</title>
+   <title>IMB &mdash; Intel&thrdmrk; MPI benchmarks</title>
    <para>
     Intel(R) MPI Benchmarks provides a set of elementary benchmarks that conform
     to MPI-1, MPI-2, and MPI-3 standard. One can run all of the supported
@@ -1301,7 +1301,7 @@
   </sect2>
   <sect2 xml:id="sec2-lib-papi">
    <!-- href="https://fate.novell.com/321720" -->
-   <title>PAPI HPC Library &mdash; Consistent Interface for Hardware Performance Counters</title>
+   <title>PAPI HPC library &mdash; consistent interface for hardware performance counters</title>
    <para>
     PAPI (package <package>papi</package>) provides a tool with a
     consistent interface and methodology for use of the performance counter
@@ -1336,7 +1336,7 @@
 
   <sect2 xml:id="sec2-lib-mpip">
    <!-- href="https://fate.novell.com/321721" -->
-   <title>mpiP &mdash; lightweight MPI Profiling Library</title>
+   <title>mpiP &mdash; lightweight MPI profiling library</title>
    <para>
     mpiP is a lightweight profiling library for MPI applications.
     Because it only collects statistical information about MPI

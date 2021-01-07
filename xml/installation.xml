@@ -12,7 +12,7 @@
          xmlns="http://docbook.org/ns/docbook" version="5.1"
          xmlns:xi="http://www.w3.org/2001/XInclude"
          xmlns:xlink="http://www.w3.org/1999/xlink">
- <title>Installation and Upgrade</title>
+ <title>Installation and upgrade</title>
  <info>
   <abstract>
    <para>
@@ -29,13 +29,13 @@
  </info>
 
  <sect1 xml:id="sec-installation">
-  <title>Installation and Upgrade</title>
+  <title>Installation and upgrade</title>
   <para>
    This section includes information related to the installation and the
    upgrade of the &product; &this-version;.
   </para>
   <sect2 xml:id="sec2-installation-systemrole">
-   <title>System Role for &product; &this-version;</title>
+   <title>System role for &product; &this-version;</title>
    <para>
     With &product; &this-version;, it is possible to choose specific roles
     for the system based on modules selected during the installation process.
@@ -43,7 +43,7 @@
    </para>
    <variablelist>
     <varlistentry>
-     <term>HPC Management Server (Head Node)</term>
+     <term>HPC management server (head node)</term>
      <listitem>
       <para>
        This role includes the following features:
@@ -78,7 +78,7 @@
      </listitem>
     </varlistentry>
     <varlistentry>
-     <term>HPC Compute Node</term>
+     <term>HPC compute node</term>
      <listitem>
       <para>
        This role includes the following features:
@@ -123,7 +123,7 @@
      </listitem>
     </varlistentry>
     <varlistentry>
-     <term>HPC Development Node</term>
+     <term>HPC development node</term>
      <listitem>
       <para>
        This role includes the following features:
@@ -174,7 +174,7 @@
    </para>
   </sect2>
   <sect2 xml:id="sec2-upgrade">
-   <title>Upgrade-Related Notes</title>
+   <title>Upgrade-related notes</title>
    <para>
     <!--
         #if <= 15SP2
@@ -213,7 +213,7 @@
  </sect1>
  <!--
  <sect1 xml:id="sec-installation-postprocess">
-  <title>Post installation Process</title>
+  <title>Post installation process</title>
   <para>
    TOFIX
   </para>

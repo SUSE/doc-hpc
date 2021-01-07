@@ -100,14 +100,14 @@
   </itemizedlist>
  </sect1>
  <sect1 xml:id="sec-introduction-hw">
-  <title>Hardware Platform Support</title>
+  <title>Hardware platform support</title>
   <para>
    &product; &this-version; is available for the
    Intel 64/AMD64 (x86-64) and AArch64 platforms.
   </para>
  </sect1>
  <sect1 xml:id="sec-introduction-life">
-  <title>Support and Life Cycle</title>
+  <title>Support and life cycle</title>
   <para>
    &product; &this-version; is supported throughout the life cycle of
    &slea; &this-version;. Two live-cycle extensions, 'Extended Service
@@ -121,7 +121,7 @@
   </para>
  </sect1>
  <sect1 xml:id="sec-introduction-documentation">
-  <title>Documentation and Other Information</title>
+  <title>Documentation and other information</title>
   <itemizedlist>
    <listitem>
     <para>Read the READMEs on the media.</para>

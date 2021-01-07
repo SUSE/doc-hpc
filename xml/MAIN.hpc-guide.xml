@@ -51,7 +51,7 @@
  </part>
  -->
  <part xml:id="part-remote">
-  <title>Remote Administration</title>
+  <title>Remote administration</title>
   <xi:include href="remote_administration.xml"/>
  </part>
 
@@ -61,17 +61,17 @@
  </part>
 
  <part xml:id="part-slurm">
-  <title>Workload Manager</title>
+  <title>Workload manager</title>
   <xi:include href="slurm.xml"/>
  </part>
 
  <part xml:id="part-monitoring">
-  <title>Monitoring and Logging</title>
+  <title>Monitoring and logging</title>
   <xi:include href="monitoring.xml"/>
  </part>
 
  <part xml:id="part-compute">
-  <title>HPC Libraries</title>
+  <title>HPC libraries</title>
   <xi:include href="compute.xml"/>
  </part>
  <!--
@@ -88,7 +88,7 @@
   -->
  <!--
  <part xml:id="part-buildsource">
-  <title>Build Source</title>
+  <title>Build source</title>
   <xi:include href="buildsource.xml"/>
  </part>
  -->

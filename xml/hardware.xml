@@ -47,7 +47,7 @@
   </para>
  </sect1>
  <sect1 xml:id="sec-nodes-hwloc">
-  <title>hwloc &mdash; Portable Abstraction of Hierarchical Architectures for High-Performance Computing</title>
+  <title>hwloc &mdash; portable abstraction of hierarchical architectures for high-performance computing</title>
   <para>
    <literal>hwloc</literal> provides CLI tools and a C API to
    obtain the hierarchical map of key computing elements, such as: NUMA

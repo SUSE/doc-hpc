@@ -39,7 +39,7 @@
   </dm:docmanager>
  </info>
  <sect1 xml:id="sec-scheduler-slurm">
-  <title>Slurm — Utility for HPC Workload Management</title>
+  <title>Slurm — utility for HPC workload management</title>
 
   <para>
    For a minimal setup of <emphasis>Slurm</emphasis> with a controll node and
@@ -49,7 +49,7 @@
   <sect2 xml:id="sec-slurm-minimal">
    <title>Minimal installation</title>
    <important>
-    <title>Make Sure of Consistent UIDs and GIDs for Slurm's Accounts</title>
+    <title>Make sure of consistent UIDs and GIDs for Slurm's accounts</title>
     <para>
      For security reasons, <emphasis>Slurm</emphasis> does not run as the user
      <systemitem class="username">root</systemitem> but under its own user. It
@@ -166,7 +166,7 @@ systemctl enable slurmd.service</screen>
     </step>
    </procedure>
    <procedure>
-    <title>Testing the Installation</title>
+    <title>Testing the installation</title>
     <step>
      <para>
       Check the status and availability of the compute nodes with the
@@ -848,7 +848,7 @@ Description="subgroup" Organization=bavaria</screen>
   of a service.
  </para>
  <sect2 xml:id="Slurm.Upgrade.Workflow">
-  <title>Upgrade Workflow</title>
+  <title>Upgrade workflow</title>
   <para>
    For this workflow it is assumed that munge authentication is used and that
    <literal>pdsh</literal>, the pdsh Slurm plugin and mrsh are usable to access
@@ -944,7 +944,7 @@ Description="subgroup" Organization=bavaria</screen>
       </para>
 <screen>zypper install --force-resolution slurm_<replaceable>version</replaceable>-slurmdbd</screen>
       <note>
-       <title>Update MariaDB Separately</title>
+       <title>Update MariaDB separately</title>
        <para>
         If you also need to update <literal>mariadb</literal>, it is
         recommended to perform this step separately,
@@ -998,13 +998,13 @@ success!</screen>
       </para>
 <screen>&prompt;systemctl start slurmdbd</screen>
       <note>
-       <title>No Daemonization During Rebuild</title>
+       <title>No daemonization during rebuild</title>
        <para>
         During the rebuild of slurmdbd the database daemon does not daemonize.
        </para>
       </note>
       <note>
-       <title>Convert Primary slurmbd First</title>
+       <title>Convert primary slurmbd first</title>
        <para>
         If a backup database daemon is used, the primary one needs to be
         converted first. The backup will not start until this has happend.
@@ -1196,7 +1196,7 @@ SlurmdTimeout=3600</screen>
        the cluster by using the method as described in 3.b.bb above.
       </para>
       <note>
-       <title>Memory Size Seen by <literal>slurmd</literal> May Change on Update</title>
+       <title>Memory size seen by <literal>slurmd</literal> may change on update</title>
        <para>
         Under certain circumstances, the amount of memory seen by
         <literal>slurmd</literal> may change after an update. If this
@@ -1286,7 +1286,7 @@ SlurmdTimeout=3600</screen>
  </sect2>
  </sect1>
  <sect1 xml:id="sec-slurm-additional-res">
-  <title>Additional Ressources</title>
+  <title>Additional resources</title>
   <sect2 xml:id="sec-slurm-faq">
    <title>Frequently asked questions</title>
    <para>
