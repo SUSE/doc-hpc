@@ -213,22 +213,21 @@
   <para>
    Library packages which support environment modules follow a distinctive
    naming scheme: all packages have the compiler suite and, if built with
-   MPI support, the MPI flavor in their name:
-   <literal>*-[<replaceable>MPI_FLAVOR</replaceable>-]<replaceable>COMPILER</replaceable>-hpc*</literal>. To
-   support a parallel installation of multiple versions of a library
-   package, the package name contains the version number (with dots
+   MPI support, the MPI flavor included in their name:
+   <literal>*-[<replaceable>&lt;MPI_FLAVOR&gt;</replaceable>-]<replaceable>COMPILER</replaceable>-hpc*</literal>.
+   To facilitate the parallel installation of multiple versions of a library,
+   the package name contains the version number (with dots
    <literal>.</literal> replaced by underscores <literal>_</literal>). To
-   simplify the installation of a library, <literal>master</literal>
-   -packages are supplied which will ensure that the latest version of a
-   package is installed. When these <literal>master</literal> packages are
-   updated, the latest
-   version of the respective library packages will be installed while
-   leaving previous versions installed. Library packages are split between
-   runtime and compile time packages. The compile time packages typically
-   supply include files and .so-files for shared libraries. Compile time
-   package names end with <literal>-devel</literal>. For some libraries
-   static (<literal>.a</literal>) libraries are supplied as well, package
-   names for these end with <literal>-devel-static</literal>.
+   simplify the installation of a library, 'master'-packages are supplied
+   which will ensure that the latest version of a package is installed.
+   When these master packages are updated, the latest version of the
+   respective packages will be installed while leaving previous versions
+   installed. Library packages are split between runtime and compile time
+   packages. The compile time packages typically supply include files and
+   .so-files for shared libraries. Compile time package names end with
+   <literal>-devel</literal>. For some libraries static (<literal>.a</literal>)
+   libraries are supplied as well, package names for these end with
+   <literal>-devel-static</literal>.
   </para>
   <para>
    As an example: Package names of the ScaLAPACK library version 2.0.2 built
@@ -276,8 +275,8 @@
    run <command>zypper in <replaceable>LIBRARY-DEVEL-MASTER-PACKAGE</replaceable></command>.
   </para>
   <para>
-   Presently, the GNU compiler collection version 4.8 as provided with &shpca;
-   and the MPI flavors Open MPI v.3 and v.4, MPICH and MVAPICH2 are supported.
+   Presently, the GNU compiler collection version 7 as provided with &shpca;
+   and the MPI flavors Open MPI v.3 and v.4 as well as MPICH and MVAPICH2 are supported.
   </para>
   <para>
    The Development Tools Module may provide later versions of the GNU
@@ -286,7 +285,7 @@
    <para>to determine which ones are available.
   </para>
   <sect2 xml:id="sec2-lib-boost">
-   <title>HPC flavor of Boost</title>
+   <title><literal>boost</literal> &mdash; Boost C++ Libraries</title>
    <para>
     <literal>Boost</literal> is a set of portable C++ libraries which provide a
     reference implementation of "existing practices".
@@ -296,7 +295,18 @@
    <para>
     To load the highest available serial version of this module, run:
    </para>
-   <screen>module load boost.</screen>
+   <screen>module load <replaceable>&lt;TOOLCHAIN&gt;</replaceable> boost</screen>
+   <para>
+     or
+   </para>
+<screen>module load <replaceable>&lt;TOOLCHAIN&gt;</replaceable> <replaceable>&lt;MPI_FLAVOR&gt;</replaceable> boost</screen>
+   <para>
+    if MPI specific boost libraries are to be used.
+   </para>
+   <para>
+    For information on the toolchain to load, check: <xref linkend="sec-compiler"/>,
+    information on avaiable MPI flavors can be found here: <xref linkend="sec1-MPI-libs"/>.
+   </para>
    <para>
     List of master packages:
    </para>
@@ -318,7 +328,7 @@
     libraries depend on the MPI flavor used.
    </para>
    <para>
-    List of MPI master packages:
+    List of master packages:
    </para>
    <itemizedlist>
     <listitem><para>
@@ -350,7 +360,15 @@
     MPI variant, the respective MPI module needs to be loaded beforehand. To
     load this module, run:
    </para>
-<screen>module load fftw3</screen>
+<screen>module load <replaceable>&lt;TOOLCHAIN&gt;</replaceable> fftw3</screen>
+   <para>
+     or
+   </para>
+<screen>module load <replaceable>&lt;TOOLCHAIN&gt;</replaceable> <replaceable>&lt;MPI_FLAVOR&gt;</replaceable> fftw3</screen>
+   <para>
+    For information on the toolchain to load, check: <xref linkend="sec-compiler"/>,
+    information on avaiable MPI flavors can be found here: <xref linkend="sec1-MPI-libs"/>.
+   </para>
    <para>
     List of master packages:
    </para>
@@ -380,11 +398,8 @@
     <replaceable>&lt;MPI_FLAVOR&gt;</replaceable> is one of the supported
     MPI flavors <xref linkend="sec1-MPI-libs"/>.
    </para>
-   <para>
-    For general information about Lmod and modules, see
-    <xref linkend="sec-compute-lmod"/>.
-   </para>
   </sect2>
+
   <sect2 xml:id="sec2-lib-numpy">
    <!-- href="https://fate.novell.com/321709" -->
    <title>NumPy Python library</title>
@@ -405,24 +420,74 @@
     linear algebra and random number generation.
    </para>
    <para>
-    This package is available both for Python 3. The specific
-    compiler toolchain and MPI library flavor modules must be loaded for this
-    library. The correct library module for the Python version used needs to be
-    specified when loading this module. To load this module, run:
+    This package is available both for Python 2 and 3. The specific
+    compiler toolchain module must be loaded for this library.
+    The correct library module for the Python version used needs
+    to be specified when loading this module. To load this module,
+    run:
    </para>
-    <screen>module load python3-numpy</screen>
+    <screen>module load <replaceable>&lt;TOOLCHAIN&gt;</replaceable> python<replaceable>&lt;PYTHON_VERSION&gt;</replaceable>-numpy</screen>
+   <para>
+    For information on the toolchain to load, check: <xref linkend="sec-compiler"/>.
+   </para>
    <para>
     List of master packages:
    </para>
    <itemizedlist>
     <listitem>
      <para>
-      <literal>python3-numpy-gnu-hpc</literal>
+      <literal>python<replaceable>&lt;PYTHON_VERSION&gt;</replaceable>-numpy-gnu-hpc</literal>
      </para>
     </listitem>
     <listitem>
      <para>
-      <literal>python3-numpy-gnu-hpc-devel</literal>
+      <literal>python<replaceable>&lt;PYTHON_VERSION&gt;</replaceable>-numpy-gnu-hpc-devel</literal>
+     </para>
+    </listitem>
+   </itemizedlist>
+  </sect2>
+  <sect2 xml:id="sec2-lib-scipy">
+   <!-- href="https://fate.novell.com/321709" -->
+   <title>SciPy Python Library</title>
+   <para>
+    SciPy is a collection of mathematical algorithms and convenience functions
+    built on the NumPy extension of Python. It adds significant power to the
+    interactive Python session by providing the user with high-level commands and
+    classes for manipulating and visualizing data. With SciPy, an interactive
+    Python session becomes a data-processing and system-prototyping environment.
+   </para>
+   <para>
+    The additional benefit of basing SciPy on Python is that this also makes a
+    powerful programming language available for use in developing sophisticated
+    programs and specialized applications. Scientific applications using SciPy
+    benefit from the development of additional modules in numerous niches of
+    the software landscape by developers across the world. Everything from
+    parallel programming to web and data-base subroutines and classes have
+    been made available to the Python programmer. All of this power is
+    available in addition to the mathematical libraries in SciPy.
+   </para>
+   <para>
+    This package is available both for Python 2 (up to version 1.2.0 only)
+    and 3. The specific compiler toolchain modules must be loaded for this
+    library. The correct library module for the Python version used needs
+    to be specified when loading this module. To load this module, run:
+   </para>
+    <screen>module load <replaceable>&lt;TOOLCHAIN&gt;</replaceable> python<replaceable>&lt;PYTHON_VERSION&gt;</replaceable>-scipy</screen>
+   <para>
+    For information on the toolchain to load, check: <xref linkend="sec-compiler"/>.
+   </para>
+   <para>
+    List of master packages:
+   </para>
+   <itemizedlist>
+    <listitem>
+     <para>
+      <literal>python<replaceable>&lt;PYTHON_VERSION&gt;</replaceable>-scipy-gnu-hpc</literal>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <literal>python<replaceable>&lt;PYTHON_VERSION&gt;</replaceable>-scipy-gnu-hpc-devel</literal>
      </para>
     </listitem>
    </itemizedlist>
@@ -448,7 +513,7 @@
     For this library a compiler toolchain and an MPI flavor
     needs to be loaded beforehand. To load this, run:
    </para>
-<screen>module load <replaceable>TOOLCHAIN</replaceable> <replaceable>MPI_FLAVOR</replaceable> hypre</screen>
+<screen>module load <replaceable>&lt;TOOLCHAIN&gt;</replaceable> <replaceable>&lt;MPI_FLAVOR&gt;</replaceable> hypre</screen>
    <para>
     For information on the toolchain to load, check: <xref linkend="sec-compiler"/>,
     information on avaiable MPI flavors can be found here: <xref linkend="sec1-MPI-libs"/>.
@@ -469,6 +534,207 @@
     </listitem>
    </itemizedlist>
   </sect2>
+
+  <sect2 xml:id="sec-lib-metis">
+   <title>METIS &mdash; Serial Graph Partitioning and Fill-reducing Matrix
+   Ordering Library</title>
+   <para>
+    METIS is a set of serial programs for partitioning graphs,
+    partitioning finite element meshes, and producing fill reducing
+    orderings for sparse matrices. The algorithms implemented in
+    METIS are based on the multilevel recursive-bisection,
+    multilevel k-way, and multi-constraint partitioning schemes.
+   </para>
+   <para>
+    Experiments on a wide range of graphs has shown that METIS
+    is one to two orders of magnitude faster than other widely
+    used partitioning algorithms. Graphs with several millions
+    of vertices can be partitioned in 256 parts in a few seconds
+    on current generation systems.
+   </para>
+   <para>
+    The fill-reducing orderings produced by METIS are significantly
+    better than those produced by other widely used algorithms
+    including multiple minimum degree. For many classes of problems
+    arising in scientific computations and linear programming,
+    METIS is able to reduce the storage and computational
+    requirements of sparse matrix factorization, by up to an
+    order of magnitude. Moreover, unlike multiple minimum
+    degree, the elimination trees produced by METIS are suitable
+    for parallel direct factorization. Furthermore, METIS is able
+    to compute these orderings very fast. Matrices with millions
+    of rows can be reordered in just a few seconds on current
+    generation workstations and PCs.
+   </para>
+   <para>
+    For this library a compiler toolchain needs to be loaded
+    beforehand. To load metis, run:
+   </para>
+<screen>module load <replaceable>&lt;TOOLCHAIN&gt;</replaceable> metis</screen>
+   <para>
+    For information on the toolchain to load, check: <xref linkend="sec-compiler"/>.
+   </para>
+   <para>
+    List of master packages:
+   </para>
+   <itemizedlist>
+    <listitem>
+     <para>
+      <literal>metis-gnu-hpc</literal>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <literal>metis-gnu-hpc-devel</literal>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <literal>metis-gnu-hpc-doc</literal>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <literal>metis-gnu-hpc-examples</literal>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <literal>libmetis-gnu-hpc</literal>
+     </para>
+    </listitem>
+   </itemizedlist>
+  </sect2>
+
+  <sect2 xml:id="sec-lib-gsl">
+   <title>gsl &mdash; GNU Scientific Library</title>
+   <para>
+    The GNU Scientific Library (GSL) is a numerical library for C and
+    C++ programmers.
+   </para>
+   <para>
+    The library provides a wide range of mathematical routines such
+    as random number generators, special functions and least-squares
+    fitting. There are over 1000 functions in total with an extensive
+    test suite.
+   </para>
+   <para>
+    It is free software under the GNU General Public License.
+   </para>
+   <para>
+    For this library a compiler toolchain needs to be loaded
+    beforehand. To load gsl, run:
+   </para>
+<screen>module load <replaceable>&lt;TOOLCHAIN&gt;</replaceable> gsl</screen>
+   <para>
+    For information on the toolchain to load, check: <xref linkend="sec-compiler"/>.
+   </para>
+   <para>
+    List of master packages:
+   </para>
+   <itemizedlist>
+    <listitem>
+     <para>
+      <literal>gsl-gnu-hpc</literal>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <literal>gsl-gnu-hpc-devel</literal>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <literal>gsl-gnu-hpc-doc</literal>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <literal>libgsl-gnu-hpc</literal>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <literal>libgslcblas-gnu-hpc</literal>
+     </para>
+    </listitem>
+   </itemizedlist>
+  </sect2>
+
+    <sect2 xml:id="sec-lib-ocr">
+   <title>ocr &mdash; Open Community Runtime (OCR) for Shared Memory</title>
+   <para>
+    The Open Community Runtime project is an application
+    building framework that explores methods for high-core-count
+    programming with focus on HPC applications.
+   </para>
+   <para>
+    This first reference implementation is functionally
+    complete to the OCR 1.0.0 specification, with extensive
+    tools and demonstration examples, running on both
+    single-node and clusters.
+   </para>
+   <para>
+    This library is available both without and with MPI support.
+    For this library a compiler toolchain and if applicable, an MPI
+    flavor needs to be loaded beforehand. To load ocr, run:
+   </para>
+<screen>module load <replaceable>&lt;TOOLCHAIN&gt;</replaceable> ocr</screen>
+   <para>
+     or
+   </para>
+<screen>module load <replaceable>&lt;TOOLCHAIN&gt;</replaceable> <replaceable>&lt;MPI_FLAVOR&gt;</replaceable> ocr</screen>
+   <para>
+    For information on the toolchain to load, check: <xref linkend="sec-compiler"/>,
+    information on avaiable MPI flavors can be found here: <xref linkend="sec1-MPI-libs"/>.
+   </para>
+   <para>
+    List of master packages:
+   </para>
+   <itemizedlist>
+    <listitem>
+     <para>
+      <literal>ocr-gnu-hpc</literal>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <literal>ocr-gnu-hpc-devel</literal>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <literal>ocr-gnu-hpc-doc</literal>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <literal>ocr-gnu-hpc-examples</literal>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <literal>ocr-gnu-<replaceable>&lt;MPI_FLAVOR&gt;</replaceable>-hpc</literal>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <literal>ocr-gnu-<replaceable>&lt;MPI_FLAVOR&gt;</replaceable>-hpc-devel</literal>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <literal>ocr-gnu-<replaceable>&lt;MPI_FLAVOR&gt;</replaceable>-hpc-doc</literal>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <literal>ocr-gnu-<replaceable>&lt;MPI_FLAVOR&gt;</replaceable>-hpc-examples</literal>
+     </para>
+    </listitem>
+   </itemizedlist>
+  </sect2>
+
   <sect2 xml:id="sec-remote-memkind">
    <title>memkind &mdash; heap manager for heterogeneous memory platforms and mixed memory policies</title>
    <para>
@@ -620,17 +886,20 @@
    <itemizedlist>
     <listitem>
      <para>
-      OpenMP version:
+      standard version:
      </para>
-<screen>module load openblas-pthreads</screen>
+<screen>module load <replaceable>&lt;TOOLCHAIN&gt;</replaceable> openblas</screen>
     </listitem>
     <listitem>
      <para>
-      pthreads version:
+      OpenMP/pthreads version:
      </para>
-<screen>module load openblas</screen>
+<screen>module load <replaceable>&lt;TOOLCHAIN&gt;</replaceable> openblas-pthreads</screen>
     </listitem>
    </itemizedlist>
+   <para>
+    For information on the toolchain to load, check: <xref linkend="sec-compiler"/>.
+   </para>
    <para>
     List of master package for:
    </para>
@@ -656,10 +925,6 @@
      </para>
     </listitem>
    </itemizedlist>
-   <para>
-    For general information about Lmod and modules, see
-    <xref linkend="sec-compute-lmod"/>.
-   </para>
   </sect2>
   <sect2 xml:id="sec2-lib-petsc">
    <!-- href="https://fate.novell.com/321718" -->
@@ -673,7 +938,11 @@
     This module requires loading a compiler toolchain as well as an MPI
     library flavor beforehand. To load this module, run:
    </para>
-<screen>module load petsc</screen>
+<screen>module load <replaceable>&lt;TOOLCHAIN&gt;</replaceable> <replaceable>&lt;MPI_FLAVOR&gt;</replaceable> petsc</screen>
+   <para>
+    For information on the toolchain to load, check: <xref linkend="sec-compiler"/>,
+    information on avaiable MPI flavors can be found here: <xref linkend="sec1-MPI-libs"/>.
+   </para>
    <para>
     List of master packages:
    </para>
@@ -693,10 +962,6 @@
     <replaceable>&lt;MPI_FLAVOR&gt;</replaceable> is one of the supported
     MPI flavors <xref linkend="sec1-MPI-libs"/>.
    </para>
-   <para>
-    For general information about Lmod and modules, see
-    <xref linkend="sec-compute-lmod"/>.
-   </para>
   </sect2>
   <sect2 xml:id="sec2-lib-scal">
    <!-- href="https://fate.novell.com/321715" -->
@@ -709,7 +974,11 @@
     This library requires loading both a compiler toolchain and an MPI
     library flavor beforehand. To load this library, run:
    </para>
-<screen>module load scalapack</screen>
+<screen>module load <replaceable>&lt;TOOLCHAIN&gt;</replaceable> <replaceable>&lt;MPI_FLAVOR&gt;</replaceable> scalapack</screen>
+   <para>
+    For information on the toolchain to load, check: <xref linkend="sec-compiler"/>,
+    information on avaiable MPI flavors can be found here: <xref linkend="sec1-MPI-libs"/>.
+   </para>
    <para>
     List of master packages:
    </para>
@@ -728,10 +997,6 @@
    <para>
     <replaceable>&lt;MPI_FLAVOR&gt;</replaceable> is one of the supported
     MPI flavors <xref linkend="sec1-MPI-libs"/>.
-   </para>
-   <para>
-    For general information about Lmod and modules, see
-    <xref linkend="sec-compute-lmod"/>.
    </para>
   </sect2>
   <sect2 xml:id="sec2-lib-scotch">
@@ -808,6 +1073,9 @@
    </para>
 <screen>module load <replaceable>&lt;TOOLCHAIN&gt;</replaceable> superlu</screen>
    <para>
+    For information on the toolchain to load, check: <xref linkend="sec-compiler"/>.
+   </para>
+   <para>
     List of master packages:
    </para>
    <itemizedlist>
@@ -880,6 +1148,11 @@
     information, see
     <link xlink:href="https://www.olcf.ornl.gov/center-projects/adios/"/>.
    </para>
+<screen>module load <replaceable>&lt;TOOLCHAIN&gt;</replaceable> <replaceable>&lt;MPI_FLAVOR&gt;</replaceable> adios</screen>
+   <para>
+    For information on the toolchain to load, check: <xref linkend="sec-compiler"/>,
+    information on avaiable MPI flavors can be found here: <xref linkend="sec1-MPI-libs"/>.
+   </para>
    <para>
     List of master packages:
    </para>
@@ -918,12 +1191,16 @@
    <para>
     To load the highest available serial version of this module run:
    </para>
-<screen>module load hdf5</screen>
+<screen>module load <replaceable>&lt;TOOLCHAIN&gt;</replaceable> hdf5</screen>
    <para>
     When an MPI flavor is loaded, the MPI version of this module can be
     loaded by:
    </para>
-<screen>module load phpdf5</screen>
+<screen>module load <replaceable>&lt;TOOLCHAIN&gt;</replaceable> <replaceable>&lt;MPI_FLAVOR&gt;</replaceable> phpdf5</screen>
+   <para>
+    For information on the toolchain to load, check: <xref linkend="sec-compiler"/>,
+    information on avaiable MPI flavors can be found here: <xref linkend="sec1-MPI-libs"/>.
+   </para>
    <para>
     List of master packages:
    </para>
@@ -1019,7 +1296,11 @@
     load the highest version of the non-MPI <literal>netcdf</literal> module,
     run:
    </para>
-<screen>module load netcdf</screen>
+<screen>module load <replaceable>&lt;TOOLCHAIN&gt;</replaceable> <replaceable>&lt;MPI_FLAVOR&gt;</replaceable> netcdf</screen>
+   <para>
+    For information on the toolchain to load, check: <xref linkend="sec-compiler"/>,
+    information on avaiable MPI flavors can be found here: <xref linkend="sec1-MPI-libs"/>.
+   </para>
    <para>
     List of master packages:
    </para>
@@ -1073,7 +1354,10 @@
     This module requires loading a compiler toolchain module beforehand. To
     load this module, run:
    </para>
-<screen>module load netcdf-cxx4</screen>
+<screen>module load <replaceable>&lt;TOOLCHAIN&gt;</replaceable> netcdf-cxx4</screen>
+   <para>
+    For information on the toolchain to load, check: <xref linkend="sec-compiler"/>.
+   </para>
    <para>
     List of master packages:
    </para>
@@ -1099,11 +1383,61 @@
     The <literal>netcdf-fortran</literal> packages provide FORTRAN bindings
     for the NetCDF API, with and without MPI support.
    </para>
-   <bridgehead renderas="sect5">For More Information</bridgehead>
    <para>
-    For general information about Lmod and modules, see
-    <xref linkend="sec-compute-lmod"/>.
+    There are serial and MPI variants of this library available. All flavors
+    require loading a compiler toolchain module beforehand. The MPI variants
+    also require loading the correct MPI flavor module.
    </para>
+   <para>
+    The MPI variant becomes available when the MPI module is loaded. Both
+    variants require loading a compiler toolchain module beforehand. To
+    load the highest version of the non-MPI <literal>netcdf</literal> module,
+    run:
+   </para>
+<screen>module load <replaceable>&lt;TOOLCHAIN&gt;</replaceable> netcdf-fortran</screen>
+   <para>
+    or
+   </para>
+<screen>module load <replaceable>&lt;TOOLCHAIN&gt;</replaceable> <replaceable>&lt;MPI_FLAVOR&gt;</replaceable> netcdf-fortran</screen>
+   <para>
+    For information on the toolchain to load, check: <xref linkend="sec-compiler"/>,
+    information on avaiable MPI flavors can be found here: <xref linkend="sec1-MPI-libs"/>.
+   </para>
+   <para>
+    List of master packages:
+   </para>
+   <itemizedlist>
+    <listitem>
+     <para>
+      <literal>libnetcdf-fortran-gnu-hpc</literal>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <literal>libnetcdf-fortran-gnu-hpc-devel</literal>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <literal>libnetcdf-fortran-gnu-hpc</literal>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <literal>libnetcdf-fortran-gnu-<replaceable>&lt;MPI_FLAVOR&gt;</replaceable>-hpc</literal>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <literal>libnetcdf-fortran-gnu-<replaceable>&lt;MPI_FLAVOR&gt;</replaceable>-hpc-devel</literal>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <literal>libnetcdf-fortran-gnu-<replaceable>&lt;MPI_FLAVOR&gt;</replaceable>-hpc</literal>
+     </para>
+    </listitem>
+   </itemizedlist>
   </sect2>
   <sect2 xml:id="sec2-lib-pnetcdf">
    <title>HPC flavor of <literal>pnetcdf</literal> has been added</title>
@@ -1123,7 +1457,11 @@
    <para>
     To load the highest available serial version of this module run:
    </para>
-   <screen>module load pnetcdf</screen>
+   <screen>module load <replaceable>&lt;TOOLCHAIN&gt;</replaceable> <replaceable>&lt;MPI_FLAVOR&gt;</replaceable> pnetcdf</screen>
+   <para>
+    For information on the toolchain to load, check: <xref linkend="sec-compiler"/>,
+    information on avaiable MPI flavors can be found here: <xref linkend="sec1-MPI-libs"/>.
+   </para>
    <para>
     List of MPI master packages:
    </para>
@@ -1153,7 +1491,7 @@
   <itemizedlist>
    <listitem>
     <para>
-     Open MPI (version v.2 and openmpi v.3)
+     Open MPI (version v.3 and v.4)
     </para>
    </listitem>
    <listitem>
@@ -1237,29 +1575,32 @@
   <itemizedlist>
    <listitem>
     <para>
-     For Open MPI v.2:
+     For Open MPI v.3:
     </para>
-<screen>module load openmpi/2</screen>
+<screen>module load <replaceable>&lt;TOOLCHAIN&gt;</replaceable> openmpi/3</screen>
    </listitem>
    <listitem>
     <para>
-     For Open MPI v.3:
+     For Open MPI v.4:
     </para>
-<screen>module load openmpi/3</screen>
+<screen>module load <replaceable>&lt;TOOLCHAIN&gt;</replaceable> openmpi/4</screen>
    </listitem>
    <listitem>
     <para>
      For MVAPICH2:
     </para>
-<screen>module load mvapich2</screen>
+<screen>module load <replaceable>&lt;TOOLCHAIN&gt;</replaceable> mvapich2</screen>
    </listitem>
    <listitem>
     <para>
       For MPICH:
     </para>
-<screen>module load mpich</screen>
+<screen>module load <replaceable>&lt;TOOLCHAIN&gt;</replaceable> mpich</screen>
    </listitem>
   </itemizedlist>
+   <para>
+    For information on the toolchain to load, check: <xref linkend="sec-compiler"/>.
+   </para>
  </sect1>
 
  <sect1 xml:id="Packages.ProfilingBenckmark">
@@ -1312,7 +1653,10 @@
     compiler toolchain to be selected. The latest version provided can be
     selected by running:
    </para>
-<screen>module load papi</screen>
+<screen>module load <replaceable>&lt;TOOLCHAIN&gt;</replaceable> papi</screen>
+   <para>
+    For information on the toolchain to load, check: <xref linkend="sec-compiler"/>.
+   </para>
    <para>
     List of master packages:
    </para>
@@ -1350,7 +1694,11 @@
     For this library a compiler toolchain and and MPI flavor
     needs to be loaded beforehand. To load this, run:
    </para>
-<screen>module load <replaceable>&lt;TOOLCHAIN&gt;</replaceable> <replaceable>&lt;MPI_FLAVOR&gt;</replaceable> trilinos</screen>
+<screen>module load <replaceable>&lt;TOOLCHAIN&gt;</replaceable> <replaceable>&lt;MPI_FLAVOR&gt;</replaceable> mpip</screen>
+   <para>
+    For information on the toolchain to load, check: <xref linkend="sec-compiler"/>,
+    information on avaiable MPI flavors can be found here: <xref linkend="sec1-MPI-libs"/>.
+   </para>
    <para>
     List of master packages:
    </para>
