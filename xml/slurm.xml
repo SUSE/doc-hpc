@@ -847,7 +847,7 @@ Description="subgroup" Organization=bavaria</screen>
   upgrade and replace deprecated configuration options before the final restart
   of a service.
  </para>
- <sect2 xml:id="Slurm.Upgrade.Workflow">
+ <sect2 xml:id="sec-slurm-upgrade-workflow">
   <title>Upgrade workflow</title>
   <para>
    For this workflow it is assumed that munge authentication is used and that
@@ -866,7 +866,7 @@ Description="subgroup" Organization=bavaria</screen>
    <literal>-R ssh</literal>in the <literal>pdsh</literal>commands below. This
    is less scalable and you may run out of usable ports.
   </para>
-  <procedure xml:id="Slurm.Upgrade.Workflow.Procedure">
+  <procedure xml:id="pro-slurm-upgrade-workflow">
    <title>Upgrading Slurm</title>
    <step>
     <para>
@@ -938,7 +938,7 @@ Description="subgroup" Organization=bavaria</screen>
       </para>
       <screen>&prompt;rcmysql restart</screen>
      </step>
-     <step xml:id="Slurm.Upgrade.Workflow.Procedure.Install.slurmdbd">
+     <step xml:id="step-slurm-upgrade-workflow-install-slurmdbd">
       <para>
        Install the upgrade of <literal>slurmdbd</literal>:
       </para>
@@ -949,7 +949,7 @@ Description="subgroup" Organization=bavaria</screen>
         If you also need to update <literal>mariadb</literal>, it is
         recommended to perform this step separately,
         <emphasis>before</emphasis> performing step
-        <xref linkend="Slurm.Upgrade.Workflow.Procedure.Install.slurmdbd"/>.
+        <xref linkend="step-slurm-upgrade-workflow-install-slurmdbd"/>.
        </para>
       </note>
       <substeps>

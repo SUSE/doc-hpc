@@ -1603,7 +1603,7 @@
    </para>
  </sect1>
 
- <sect1 xml:id="Packages.ProfilingBenckmark">
+ <sect1 xml:id="sec1-packages-profiling-benchmark">
   <title>Profiling and benchmarking libraries and tools</title>
   <para>
    Performance optimization plays an important role in HPC. That applications
