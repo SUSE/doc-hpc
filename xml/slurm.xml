@@ -1043,7 +1043,7 @@ success!</screen>
        entire cluster, it is sufficient to do so on the master controller node.
       </para>
      </step>
-     <step xml:id="st.slurm.timeout">
+     <step xml:id="st-slurm-timeout">
       <para>
        <emphasis role="bold">Increase Timeouts</emphasis>
       </para>
@@ -1267,7 +1267,7 @@ SlurmdTimeout=3600</screen>
        Restore the <literal>SlurmdTimeout</literal> and
        <literal>SlurmctldTimeout</literal> values in
        <literal>/etc/slurm/slurm.conf</literal> on all nodes (see
-       <xref linkend="st.slurm.timeout"/>).
+       <xref linkend="st-slurm-timeout"/>).
       </para>
      </step>
     </substeps>
