@@ -25,5 +25,5 @@
   </info>
 
   <xi:include href="book_hpc_guide.xml"/>
-
+  <xi:include href="art_hpc_install.xml"/>
 </set>

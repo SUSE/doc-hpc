@@ -1,0 +1,11 @@
+# Proof of Concept
+
+MAIN="MAIN.hpc-guide.xml"
+ROOTID="art-hpc-poc"
+
+PROFOS="sles"
+PROFCONDITION="suse-product"
+
+STYLEROOT="/usr/share/xml/docbook/stylesheet/opensuse2013-ns"
+FALLBACK_STYLEROOT="/usr/share/xml/docbook/stylesheet/suse-ns"
+
