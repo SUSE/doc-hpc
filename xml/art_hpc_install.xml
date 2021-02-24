@@ -5,21 +5,578 @@
     %entities;
 ]>
 
-<article version="5.1" xml:lang="en" xml:id="art-hpc-poc"
- xmlns="http://docbook.org/ns/docbook"
- xmlns:xi="http://www.w3.org/2001/XInclude"
- xmlns:xlink="http://www.w3.org/1999/xlink">
+<article version="5.1" xml:lang="en" xml:id="art-hpc-install"
+  xmlns="http://docbook.org/ns/docbook"
+  xmlns:xi="http://www.w3.org/2001/XInclude"
+  xmlns:xlink="http://www.w3.org/1999/xlink">
   <title>&slehpc; Installation Guide</title>
 
-
-  <sect1 xml:id="sec-hpc-poc-requirements">
-    <title>Requirements</title>
-    <para>TBD</para>
+  <sect1 xml:id="sec-hpc-inst-terminology">
+    <title>Terminology</title>
+    <para>TDB</para>
+    <remark>toms 2021-02-24: Ideas:
+    compute nodes
+    Genders (database)
+    main management node
+    single head node
+    storage nodes</remark>
   </sect1>
 
-  <sect1 xml:id="sec-hpc-poc-install">
-    <title>Installing &slehpc;</title>
-    <para>TBD</para>
+  <sect1 xml:id="sec-hpc-inst-requirements">
+    <title>Requirements</title>
+    <para>&productname; requires:</para>
+    <remark>toms 2021-02-24: this list needs to be better sorted.
+      Maybe into absolut requirements and optional things?
+      Between hardware and software?
+    </remark>
+    <orderedlist>
+      <listitem>
+        <para>
+          The availability of:
+        </para>
+        <itemizedlist>
+          <listitem>
+            <para>
+              a single head node (m01) which has been installed with
+              &slehpca;15&nbsp;SP3 chosing the <systemitem>HPC Managment Server
+                (Head Node)</systemitem> system role,
+            </para>
+          </listitem>
+          <listitem>
+            <para>
+              optionally a second head node (m02) - which may be a clone of
+              m01,
+            </para>
+          </listitem>
+          <listitem>
+            <para>
+              optionally a storage node whose data is exported via NFS
+              (s01). This is used to export user homes as well as provide shared
+              application and library stacks.
+            </para>
+            <para>
+              If such a node is not available, for the purpose of this
+              guide, it is assumed that the single head node is installed in
+              such a way that an additional physical partitions are available
+              from which this data can be exported. One of these partitions is
+              mounted to <filename>/home</filename>.
+            </para>
+          </listitem>
+          <listitem>
+            <para>
+              an optional data base node to store accounting data.
+            </para>
+          </listitem>
+          <listitem>
+            <para>
+              minimally two compute nodes (c001 and c002) which have been
+              installed with &slehpca;15&nbsp;SP2 using the system role
+                <systemitem>Text Mode</systemitem>. The second node may be
+              prepared by cloning the first one (1). At a later stage we will
+              discuss the automated deployment of compute nodes.
+            </para>
+          </listitem>
+        </itemizedlist>
+      </listitem>
+      <listitem>
+        <para>
+          The master node(s) requires at last two ethernet connections
+            (<systemitem>eth0</systemitem> and <systemitem>eth1</systemitem>)
+          where eth0 is connected to the outside (datacenter) network, while
+            <systemitem>eth1</systemitem> is connected to an internal cluster
+          network to access and mange the compute nodes. The outside connection
+          and the internal network exist on different IP address ranges.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          The compute nodes have at least one ethernet interface (eth0)
+          connected to the internal cluster network. Some remote management
+          applications require the presence of a second physical or logical
+          interface to access the node's BMC.
+        </para>
+        <para>
+          For the purpose of this guide, we assume that all nodes on the
+          internal network have their IP addresses configured (preferrably thru
+          DHPC, however, a static configuration would be sufficient for testing
+          purposes as well).
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          That central user account management is available thru LDAP, NIS
+          or other means. For testing purposes, a user account 'testuser'
+          exists. This user account management is accessible from the internal
+          network. For the purpose of performing any tests in this guide, it is
+          sufficient if an account 'testuser' exists on every system with
+          identical UID and GID.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          The cluster is sufficiently protected by an external firewall.
+        </para>
+        <!--
+### make m01 the only node that's accessible from the outside!
+### elaborate whether the access to the internet should be allowed from
+### within a cluster.
+        -->
+        <para>
+          Later, we will discuss the installation of dedicated login nodes.
+          It is assumed that there is no firewall running on any interface connected
+          to the internal cluster network.
+          Until then, it is assumed that (single) master will serve as a login
+          node for users.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          For the purpose of this document, we assume that security extensions like
+          AppArmor are either not installed or disabled. If Apparmor is installed,
+          make sure it is disabled.
+          To disable it and make this setting permanent, you may run:
+        </para>
+        <remark>toms 2021-02-24: should we really propagate these "old" rc scripts?
+          Why not use "systemctl disable --now apparmor"?
+        </remark>
+        <screen>&prompt.root;<command>rcapparmor stop</command>
+&prompt.root;<command>systemctl disable apparmor</command></screen>
+      </listitem>
+      <listitem>
+        <para>
+          DNS exists. Later, we will discuss the deployment of compute nodes using
+          'clustduct',<remark>toms 2021-02-24: what is this? Command, package...?</remark>
+          as part of this, we will set up our own DNS.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          NTP service is available to m01. Here, we will set up m01 as ntp server
+          for the internal network.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          In addition to the IP networking, a high-speed network (Infiniband,
+          Omni-Path) may exist which is also connected to each node. This high speed
+          interconnect is used for application Message Passing (MPI) and optionally
+          for connecting a parallel file system.
+        </para>
+      </listitem>
+    </orderedlist>
+
+    <para>
+      Also note, that you need to install all systems on the &hpca; cluster
+      using the &productname; product. Only then you have access
+      to the &hpca; module that contains most of the packages needed to set up an
+      &hpca; cluster.
+    </para>
+    <para>
+      To check, whether you have installed the correct product and all require
+      modules are available, you may run the command:
+    </para>
+    <screen>&prompt.root;<command>SUSEConnect --status-text</command></screen>
+    <para>
+      It should list <emphasis>&slehpc;15&nbsp;SP3</emphasis> and at least the following modules:
+    </para>
+    <itemizedlist>
+      <listitem>
+        <para>Basesystem Module</para>
+      </listitem>
+      <listitem>
+        <para>
+          Server Applications Module
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          Desktop Applications Module
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          Web and Scripting Module
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          Development Tools Module
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          HPC Module
+        </para>
+      </listitem>
+    </itemizedlist>
+    <para>
+      Missing modules can be added with the following command:
+    </para>
+    <screen>&prompt.root;<command>SUSEConnect -p <replaceable>MODULE_NAME</replaceable>/15.<replaceable>SP</replaceable>/<replaceable>ARCH</replaceable></command></screen>
+    <para>
+      Here, <replaceable>ARCH</replaceable> is the architecture used (currently supported are
+      x86_64 and aarch64).
+      Replace <replaceable>MODULE_NAME</replaceable> by the following modules.
+    </para>
+    <orderedlist>
+      <listitem>
+        <para>
+          <systemitem>sle-module-basesystem</systemitem> for the Basesystem Module
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          <systemitem>sle-module-server-applications</systemitem> for the Server Applications Module
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          <systemitem>sle-module-desktop-applications</systemitem> for the Desktop Applications Module
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          <systemitem>sle-module-development-tools</systemitem> for the Development Tools Module
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          <systemitem>sle-module-web-scripting</systemitem> for the Web and Scripting Module
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          <systemitem>sle-module-hpc</systemitem> for HPC Module
+        </para>
+      </listitem>
+    </orderedlist>
+    <para>
+      Since modules depend on each other, they need to be enabled in the order specified.
+    </para>
+    <remark>toms 2021-02-24: IMHO, this list should be presented _before_</remark>
+    <para>
+       In detail we have the following list of systems:
+    </para>
+    <screen>m01: Mandatory management server
+m02..m&lt;N>: optional servers for redundancy, accounting database,
+              LDAP, DNS, NTP
+s01..s&lt;M>: optional storage servers
+c001..c&lt;S>: compute nodes</screen>
+  </sect1>
+
+  <sect1 xml:id="sec-hpc-inst-prepare-mgt-server">
+    <title>Preparing the management server</title>
+    <para>
+      After logging into the management node (or a separate storage node) as root,
+      perfrom the following steps:
+    </para>
+
+    <procedure>
+      <step>
+        <para><xref linkend="sec-hpc-inst-setup-genders-database"/></para>
+      </step>
+      <step>
+        <para><xref linkend="sec-hpc-inst-setup-ssh"/></para>
+      </step>
+      <step>
+        <para><xref linkend="sec-hpc-inst-setup-network-storage"/></para>
+      </step>
+    </procedure>
+
+    <sect2 xml:id="sec-hpc-inst-setup-genders-database">
+      <title>Setting up Genders database</title>
+      <para>
+        While not absolutely essential for this cluster, the genders
+        database offers a good way to classify the different systems in a
+        cluster and refer to them by their roles when performing any
+        configuration.
+      </para>
+      <procedure>
+        <step>
+          <para>Install the package on m01:</para>
+          <screen>&prompt.root;<command>zypper install -y genders</command></screen>
+        </step>
+        <step>
+          <para>
+            Add the main management node to create the database:
+          </para>
+          <screen>&prompt.root;<command>echo "m01  all,management=main" >> /etc/genders</command></screen>
+        </step>
+        <step>
+          <para>
+            Repeat this step, if there are further management nodes
+            (replace <replaceable>N</replaceable> with the respective number of the node):
+          </para>
+          <screen>&prompt.root;<command>echo "m<replaceable>N</replaceable>  all,management=main" >> /etc/genders</command></screen>
+        </step>
+        <step>
+          <para>
+            If there are separate storage nodes:
+          </para>
+          <screen>&prompt.root;<command>echo "s<replaceable>N</replaceable>    all,storage" >> /etc/genders/</command></screen>
+        </step>
+        <step>
+          <para>Add the compute nodes:</para>
+          <screen>&prompt.root;<command>echo "c<replaceable>N</replaceable>    all,storage" >> /etc/genders/</command></screen>
+        </step>
+        <result>
+          <para>
+            The mangement nodes, storage nodes, and compute nodes are configured.
+          </para>
+        </result>
+      </procedure>
+    </sect2>
+
+    <sect2 xml:id="sec-hpc-inst-setup-ssh">
+      <title>Setting up SSH access</title>
+      <para>
+        Most configurations on the various components on the cluster will
+        be performed from the main management node (m01). Thus we need to be
+        able to access any other nodes as root without password. Therefore as a
+        first step an ssh key will be generated and deployed to all other nodes.
+      </para>
+      <para>
+        For most remote operations we will use pdsh which allows one to
+        perfrom the same operation on multiple nodes. pdsh is able to use mrsh
+        as remote shell using the munge authentication. For root access, munge
+        authentication is disabled by default, therefore this guide relies on
+        ssh for remote root access. This will require the root ssh public key to
+        be deployed to all systems - unfortunately, we won't be able to use pdsh
+        for this. </para>
+      <para>
+        It should be noted that ssh uses priviledged ports obtained by
+        rresvport() for communication. The number of ports available here is
+        limited, therefore these may get exhausted if multiple pdsh's are
+        running on a machine and the fanout is too high. 'mrsh' does not use
+        privileged ports and thus is not affected by this problem as severely.
+      </para>
+      <para>
+        Later, a scalable method for provisioning compute nodes will be
+        introduced. This method will not suffer from this problem.
+      </para>
+      <procedure>
+        <step>
+          <para>Generate an SSH key:</para>
+          <screen>&prompt.root;<command>ssh-keygen -t rsa</command></screen>
+          <para>
+            You may want to specify a password here. This will require you
+            to run an ssh-agent and add your private key to it to avoid being
+            promted for a password. If you want to script some configuration
+            commands, you may want to create a separate, password-less key which
+            you deploy to the nodes that you want to (re-)configure from a
+            script.
+          </para>
+        </step>
+        <step>
+          <para>
+            Run bash as ssh-agent and add your key:
+          </para>
+          <screen>&prompt.root;<command>ssh-agent bash</command>
+&prompt.root;<command>ssh-add</command></screen>
+        </step>
+        <step>
+          <para>Enter your password.</para>
+        </step>
+        <step>
+          <para>
+            Copy your SSH key to all nodes:
+          </para>
+          <screen>&prompt.root;<command>for i in $(nodeattr -n "management=aux||storage||compute"); do \
+  ssh-copy-id -o "StrictHostKeyChecking accept-new" root@$i; \
+done</command></screen>
+          <para>
+            
+          </para>
+        </step>
+        <step>
+          <para>
+            Enter your passwords on every system that is to be accessed.
+          </para>
+          <!--
+            Later, we will describe how compute nodes can be deployed from an image,
+            there it will no longer be required to copy the ssh id to each node
+            individually.
+          -->
+          <para>
+            Once the root ssh key has been deployed do all other nodes in the cluster
+            there is no need to access nodes individually.
+          </para>
+        </step>
+        <step>
+          <para>
+            On the management node, install the following packages:
+          </para>
+          <screen>&prompt.root;<command>zypper install pdsh pdsh-genders</command></screen>
+        </step>
+        <step>
+          <para>
+            To test whether the pdsh setup works, run the following command:
+          </para>
+          <screen>&prompt.root;<command>pdsh -R ssh -g all hostname -f</command></screen>
+          <para>
+            The command prints a list of fully qualified hostnames.
+          </para>
+        </step>
+        <step>
+          <para>
+            Fix the names that are known under the internal network.
+          </para>
+          <para>
+            The hostnames known to the nodes may not correspond to the hostnames known to
+            the system. For some of the HPC services it is important, that the system know
+            the names they are known under the internal network.
+            Run the following command to fix this:
+          </para>
+          <screen>&prompt.root;<command>pdsh -R exec -g all ssh root@%h /bin/sh -c 'echo %h > /etc/hostname'</command></screen>
+        </step>
+      </procedure>
+    </sect2>
+
+    <sect2 xml:id="sec-hpc-inst-setup-network-storage">
+      <title>Set up network storage</title>
+      <para>
+        
+      </para>
+      <procedure>
+        <step>
+          <para>
+            Make sure, the NFS server is installed:
+          </para>
+          <screen>&prompt.root;<command>zypper install nfs-kernel-server</command></screen>
+        </step>
+        <step>
+          <para>
+            Export NFS file systems:
+          </para>
+          <substeps>
+            <step>
+              <para>Export home:</para>
+              <remark>toms 2021-02-24: the IF part was missing here. Is that correct?</remark>
+              <screen>&prompt.root;<command>IF=eth1; network=${ip route | grep $IF |  cut -f 1 -d' '} \
+echo "/home   $network(rw,sync,nohide)" >> /etc/exports</command></screen>
+            </step>
+            <step>
+              <para>Export data store</para>
+              <remark>toms 2021-02-24: how?</remark>
+            </step>
+          </substeps>
+        </step>
+        <step>
+          <para>
+            Enable and start the NFS server:
+          </para>
+          <screen>&prompt.root;<command>systemctl enable --now nfs-server</command><!--
+&prompt.root;<command>rcnfs-server start</command>--></screen>
+        </step>
+      </procedure>
+    </sect2>
+  </sect1>
+
+  <sect1 xml:id="sec-hpc-inst-cluster-setup">
+    <title>Preparing cluster setup</title>
+
+    <sect2 xml:id="sec-hpc-inst-inst-munge">
+      <title>Install munge and distribute munge key to all cluster nodes</title>
+      <para></para>
+      <procedure>
+        <step>
+          <para>
+            'munge' is the authentication used by mrsh, also configure the
+            workload manager Slurm to use munge: </para>
+          <screen>&prompt.root;<command>pdsh -R ssh -g "management||compute" zypper install -y munge</command>
+&prompt.root;<command>pdcp -R ssh -g "management=aux||compute" /etc/munge/munge.key /etc/munge</command>
+&prompt.root;<command>pdsh -R ssh -g "management||compute" chmod 0400 /etc/munge/munge.key</command>
+&prompt.root;<command>pdsh -R ssh -g "management||compute" chown munge:munge /etc/munge/munge.key</command></screen>
+        </step>
+        <step>
+          <para> Enable and start munged on each system: </para>
+          <remark>toms 2021-02-24: shouldn't we use "systemctl enable --now
+            munge" --now Start or stop unit in addition to enabling or disabling
+            it </remark>
+          <screen>&prompt.root;<command>pdsh -R ssh -g "management||compute" systemctl enable --now munge</command><!--
+&prompt.root;<command>pdsh -R ssh -g "management||compute" systemctl start munge</command>--></screen>
+        </step>
+      </procedure>
+    </sect2>
+
+    <sect2 xml:id="sec-hpc-inst-distribute-ntp-config">
+      <title>Distribute ntp configuration and synchronize time across all cluster nodes</title>
+      <para></para>
+      <procedure>
+        <step>
+          <para> Set up m01 as time server: </para>
+          <screen>&prompt.root;<command>zypper install -y chrony</command></screen>
+          <para/>
+        </step>
+        <step>
+          <para>
+            Set m01 as master server for the internal network (eth1 is assumed to be
+            the network interface of the internal network):
+          </para>
+          <screen>&prompt.root;<command>IF=eth1; network=${ip route | grep $IF |  cut -f 1 -d' '}; \
+echo "allow $network > /etc/chrony.d/master.conf</command>
+&prompt.root;<command>systemctl enable --now chronyd</command></screen>
+          <para>
+            A default timeserver is set in <filename>/etc/chrony.d/pool.conf</filename> at
+            installation time. For the purpose of this guide it is assumed that
+            this time source is accessible from m01. If another source is
+            desired, this setting may be changed.
+          </para>
+        </step>
+        <step>
+          <para>
+            Set m01 as time source for the other nodes on the cluster, enable und start chronyd:
+          </para>
+          <screen>&prompt.root;<command>pdsh -R ssh -g "~management=main" zypper install -y chrony</command>
+&prompt.root;<command>pdsh -R ssh -g "~management=main" sh -c 'echo "pool m01 iburst" \      > /etc/chrony.d/pool.conf'</command>
+&prompt.root;<command>pdsh -R ssh -g "~management=main" systemctl enable --now chronyd</command><!--
+&prompt.root;<command>pdsh -R ssh -g "~management=main" rcchronyd start</command>--></screen>
+        </step>
+      </procedure>
+      <para>
+        For redundancy it is possible to set up a second time server on
+        another management node. If this node has no access to the outside
+        network, it will may use m01 as its time source. In case of faiure of
+        m01 it will continue to serve time using its internal clock thus making
+        sure the clocks within the cluster remain in sync.
+      </para>
+    </sect2>
+
+    <sect2 xml:id="sec-hpc-inst-sync-genders">
+      <title>Syncing genders database across all cluster nodes</title>
+      <para>Use the following command:</para>
+      <screen>&prompt.root;<command>pdcp -R ssh -g "~management=main" /etc/genders /etc</command></screen>
+    </sect2>
+
+    <sect2 xml:id="sec-hpc-inst-add-mount-option-for-nfs">
+      <title>Add mount option for NFS to all nodes on a cluster</title>
+      <para>
+        Make sure, all NFS exported file systems (ie
+          <filename>/home</filename> and possibly other storage partitions) are
+        mounted on all the nodes within the cluster. Here it is assumed only
+          <filename>/home</filename> is exported from m01. If a separate storage
+        server is used or more directories are exported, the commands will have
+        to be adapted.
+      </para>
+      <screen>&prompt.root;<command>server=m01; pdsh -R ssh -g "~(management=main||storage)" \
+sh -c "echo \"${server}/home  /home nfs  defaults 0 1\" >> /etc/fstab"</command>
+&prompt.root;<command>psdh -R ssh -g "~(management=main||storage)" mount /home</command></screen>
+    </sect2>
+
+    <sect2 xml:id="sec-hpc-inst-install-slurm">
+      <title>Install the Slurm workload manager across the cluster</title>
+      <para>If the management node has been installed using the Management Node
+        profile, Slurm should be installed there already. To make sure, run:
+      </para>
+      <screen>&prompt.root;<command>zypper install -y slurm slurm-munge</command></screen>
+      <para>We will configure Slurm with 'munge' authentication. For this, we
+        need to ensure, that the <systemitem class="username">slurm</systemitem>
+        user has the same UID across the entire cluster. When installing Slurm
+        on a node, this user will be created if it doesn't exist already. To
+        ensure the UID is uniform across the cluster, the 
+        <systemitem class="username">slurm</systemitem> user should be
+        configured on the nodes before installing any Slrum packages.</para>
+    </sect2>
   </sect1>
 
 </article>
