@@ -1294,7 +1294,7 @@ SlurmdTimeout=3600</screen>
       <term>How do I change the state of a node from down to up?</term>
        <listitem>
         <para>
-		When the <literal>slurmd</literal> daemon on a node does not reboot in the time given by the <literal>ResumeTimeout</literal> parameter or the <literal>ReturnToService</literal> was not changed int he configuration file <filename>slurm.conf</filename>, compute nodes stay in the <literal>down</literal> state and have to be set back to the <literal>up</literal> state manually. This can be done for the <replaceable>NODE</replaceable> with following command</para>
+		When the <literal>slurmd</literal> daemon on a node does not reboot in the time given by the <literal>ResumeTimeout</literal> parameter or the <literal>ReturnToService</literal> was not changed in the configuration file <filename>slurm.conf</filename>, compute nodes stay in the <literal>down</literal> state and have to be set back to the <literal>up</literal> state manually. This can be done for the <replaceable>NODE</replaceable> with the following command:</para>
             <screen>
 scontrol update state=resume NodeName=NODE
             </screen>
@@ -1304,7 +1304,7 @@ scontrol update state=resume NodeName=NODE
       <term>What is the difference between the state <literal>down</literal> and <literal>down*</literal>?</term>
        <listitem>
          <para>
-           When a node is marked as <literal>down</literal> this means that the node is not reachable due to network issues or the <literal>slurmd</literal> is no running. In the <literal>down</literal> state the node is reachable, but the node was rebooted unexpectedly, the hardware does not match the description in <filename>slurm.conf</filename> or a healtcheck configured with the <literal>HealthCheckProgram</literal>.
+           When a node is marked as <literal>down</literal> this means that the node is not reachable due to network issues or the <literal>slurmd</literal> is not running. In the <literal>down</literal> state the node is reachable, but the node was rebooted unexpectedly, the hardware does not match the description in <filename>slurm.conf</filename> or a healthcheck configured with the <literal>HealthCheckProgram</literal>.
            </para>
              </listitem>
     </varlistentry>
