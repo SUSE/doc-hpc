@@ -1294,11 +1294,10 @@ SlurmdTimeout=3600</screen>
       <term>How do I change the state of a node from down to up?</term>
        <listitem>
         <para>
-          When the <literal>slurmd</literal> daemon on a node does not reboot in the time given by the <literal>ResumeTimeout</literal> parameter or the <literal>ReturnToService</literal> was not changed int he configuration file <filename>slurm.conf</filename>, compute nodes stay in the <literal>down</literal> state and have to be set back to the <literal>up</literal> state manually. This can be done for the <replaceable>NODE</replaceable> with following command
+		When the <literal>slurmd</literal> daemon on a node does not reboot in the time given by the <literal>ResumeTimeout</literal> parameter or the <literal>ReturnToService</literal> was not changed int he configuration file <filename>slurm.conf</filename>, compute nodes stay in the <literal>down</literal> state and have to be set back to the <literal>up</literal> state manually. This can be done for the <replaceable>NODE</replaceable> with following command</para>
             <screen>
 scontrol update state=resume NodeName=NODE
             </screen>
-        </para>
        </listitem>
     </varlistentry>
     <varlistentry>
@@ -1313,11 +1312,10 @@ scontrol update state=resume NodeName=NODE
       <term>How do I get the exact core count, socket number and number of CPUs for a node?</term>
        <listitem>
          <para>
-           The values for a node which go into the configuration file <filename>slurm.conf</filename> can be obtained with the command
+		 The values for a node which go into the configuration file <filename>slurm.conf</filename> can be obtained with the command</para>
              <screen>
 slurmd -C
                </screen>
-           </para>
              </listitem>
     </varlistentry>
    </variablelist>
