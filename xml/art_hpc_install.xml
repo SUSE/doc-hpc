@@ -22,7 +22,228 @@
     storage nodes</remark>
   </sect1>
 
+  <sect1 xml:id="sec-hpc-inst-usage-scenario">
+    <title>Usage scenario</title>
+    <para>
+      The procedures in this document will lead to a minimal &hpc; cluster with the following properties:
+    </para>
+    <itemizedlist>
+      <listitem>
+        <para>TBD</para>
+      </listitem>
+    </itemizedlist>
+  </sect1>
+
+
   <sect1 xml:id="sec-hpc-inst-requirements">
+    <title>System requirements</title>
+    <para>
+      This section informs you about the key system requirements described in <xref
+        linkend="sec-hpc-inst-usage-scenario"/>.
+    </para>
+
+    <sect2 xml:id="sec-hpc-inst-req-hw">
+      <title>Hardware requirements</title>
+      <variablelist>
+        <varlistentry>
+          <term>Single head node (m01)</term>
+          <listitem>
+            <para>
+              A machine (bare metal or virtual) with two (Ethernet) network cards.
+            </para>
+            <remark>toms 2021-03-10: RAM/storage?</remark>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>Compute nodes</term>
+          <listitem>
+            <para>
+              At least two machines (bare metal or virtual). Each machine needs at least one
+              (Ethernet) network card.
+            </para>
+            <remark>toms 2021-03-10: RAM/storage?</remark>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </sect2>
+
+    <sect2 xml:id="sec-hpc-inst-req-sw">
+      <title>Software requirments</title>
+      <para>
+        All machines need need the product &product; with the following modules:
+      </para>
+      <itemizedlist>
+      <listitem>
+        <para>Basesystem Module</para>
+      </listitem>
+      <listitem>
+        <para>
+          Server Applications Module
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          Desktop Applications Module
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          Web and Scripting Module
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          Development Tools Module
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          HPC Module
+        </para>
+      </listitem>
+    </itemizedlist>
+    </sect2>
+
+    <sect2 xml:id="sec-hpc-inst-req-other-hw">
+      <title>Other optional hardware recommendations</title>
+      <variablelist>
+        <varlistentry>
+          <term>Second head node</term>
+          <listitem>
+            <para>
+              Can be a clone of m01.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>Storage node</term>
+          <listitem>
+            <para>
+              Whose data is exported via NFS. This is used to export user
+              homes as well as provide shared application and library stacks.
+            </para>
+            <para>
+              If such a node is not available, it is assumed that the single head
+              node is installed in such a way that an additional physical partitions
+              are available from which this data can be exported.
+              One of these partitions is mounted to <filename>/home</filename>.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>Database node</term>
+          <listitem>
+            <para>
+              To store accounting data.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>High-speed network</term>
+          <listitem>
+            <para>
+              In addition to the IP networking, a high-speed network
+              (Infiniband, Omni-Path) may exist which is also connected to each
+              node. This high speed interconnect is used for application Message
+              Passing (MPI) and optionally for connecting a parallel file
+              system.
+            </para>
+            <remark>toms 2021-03-10: more info needed</remark>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </sect2>
+
+    <sect2 xml:id="sec-hpc-inst-req-other-sw">
+      <title>Other software recommendations</title>
+      <variablelist>
+        <varlistentry>
+          <term>Time synchronization</term>
+          <listitem>
+            <para><remark>toms 2021-03-10: needed? required? recommended?</remark></para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>Host name and IP address</term>
+          <listitem>
+            <para>
+              all nodes on the internal network have their IP addresses configured
+              (preferrably thru DHCP). However, a static configuration would be
+              sufficient for testing purposes as well.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>SSH</term>
+          <listitem>
+            <para>
+              Most configurations on the various components on the cluster
+              will be performed from the main management node (m01). Thus we
+              need to be able to access any other nodes as &rootuser; without
+              password.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>DNS</term>
+          <listitem>
+            <para>
+              DNS is reachable on each machine.
+              <remark>toms 2021-03-10: TBD</remark>
+            </para>
+            <para>
+              Later, we will discuss the deployment of compute nodes using
+              'clustduct',<remark>toms 2021-03-10: what is this?</remark>
+              as part of this, we will set up our own DNS.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>NTP</term>
+          <listitem>
+            <para>
+              This service is available on the m01. This server will be set
+              up as NTP server for the internal network.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>No &aa;</term>
+          <listitem>
+            <para>
+               Security extensions like AppArmor are either not installed or disabled.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>LDAP, NIS, or other means</term>
+          <listitem>
+            <para>
+              A central user account management.
+              <remark>toms 2021-03-10: why?</remark>
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>Firewall</term>
+          <listitem>
+            <para>
+              The cluster is sufficiently protected by an external firewall.
+            </para>
+            <para>
+              Later, we will discuss the installation of dedicated login
+              nodes. It is assumed that there is no firewall running on any
+              interface connected to the internal cluster network. Until then,
+              it is assumed that (single) master will serve as a login node for
+              users.
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </sect2>
+  </sect1>
+
+<!--  <sect1 xml:id="sec-hpc-inst-requirements-old">
     <title>Requirements</title>
     <para>&productname; requires:</para>
     <remark>toms 2021-02-24: this list needs to be better sorted.
@@ -116,11 +337,11 @@
         <para>
           The cluster is sufficiently protected by an external firewall.
         </para>
-        <!--
+        <!-\-
 ### make m01 the only node that's accessible from the outside!
 ### elaborate whether the access to the internet should be allowed from
 ### within a cluster.
-        -->
+        -\->
         <para>
           Later, we will discuss the installation of dedicated login nodes.
           It is assumed that there is no firewall running on any interface connected
@@ -137,7 +358,7 @@
           To disable it and make this setting permanent, you may run:
         </para>
         <remark>toms 2021-02-24: should we really propagate these "old" rc scripts?
-          Why not use "systemctl disable --now apparmor"?
+          Why not use "systemctl disable -\-now apparmor"?
         </remark>
         <screen>&prompt.root;<command>rcapparmor stop</command>
 &prompt.root;<command>systemctl disable apparmor</command></screen>
@@ -175,7 +396,7 @@
       To check, whether you have installed the correct product and all require
       modules are available, you may run the command:
     </para>
-    <screen>&prompt.root;<command>SUSEConnect --status-text</command></screen>
+    <screen>&prompt.root;<command>SUSEConnect -\-status-text</command></screen>
     <para>
       It should list <emphasis>&slehpc;15&nbsp;SP3</emphasis> and at least the following modules:
     </para>
@@ -262,7 +483,7 @@ m02..m&lt;N>: optional servers for redundancy, accounting database,
               LDAP, DNS, NTP
 s01..s&lt;M>: optional storage servers
 c001..c&lt;S>: compute nodes</screen>
-  </sect1>
+  </sect1>-->
 
   <sect1 xml:id="sec-hpc-inst-prepare-mgt-server">
     <title>Preparing the management server</title>
