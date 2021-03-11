@@ -9,7 +9,15 @@
   xmlns="http://docbook.org/ns/docbook"
   xmlns:xi="http://www.w3.org/2001/XInclude"
   xmlns:xlink="http://www.w3.org/1999/xlink">
-  <title>&slehpc; Installation Guide</title>
+  <title>&slehpc;</title>
+  <subtitle>Installation Guide</subtitle>
+  <info>
+    <abstract>
+      <para>
+        abstract: TBD
+      </para>
+    </abstract>
+  </info>
 
   <sect1 xml:id="sec-hpc-inst-concept-overview">
     <title>Conceptual Overview</title>
