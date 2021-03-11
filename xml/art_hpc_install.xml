@@ -11,9 +11,16 @@
   xmlns:xlink="http://www.w3.org/1999/xlink">
   <title>&slehpc; Installation Guide</title>
 
+  <sect1 xml:id="sec-hpc-inst-concept-overview">
+    <title>Conceptual Overview</title>
+    <para>TBD</para>
+    <remark>toms 2021-03-11: Contains some highlights of this product</remark>
+  </sect1>
+
   <sect1 xml:id="sec-hpc-inst-terminology">
     <title>Terminology</title>
     <para>TDB</para>
+    <remark>toms 2021-03-24: Maybe move it to another place?</remark>
     <remark>toms 2021-02-24: Ideas:
     compute nodes
     Genders (database)
