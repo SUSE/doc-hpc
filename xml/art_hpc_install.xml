@@ -55,13 +55,72 @@
   <sect1 xml:id="sec-hpc-inst-terminology">
     <title>Terminology</title>
     <para>TDB</para>
-    <remark>toms 2021-03-24: Maybe move it to another place?</remark>
-    <remark>toms 2021-02-24: Ideas:
-    compute nodes
-    Genders (database)
-    main management node
-    single head node
-    storage nodes</remark>
+    <remark>toms 2021-02-24: Maybe move it to another place?</remark>
+    <remark>toms 2021-03-16: WIP, needs to be reviewed</remark>
+    <variablelist>
+      <varlistentry xml:id="gl-hpc-clustduct">
+        <term>clustduct</term>
+        <listitem>
+        <remark>toms 2021-03-16: the following paragraphs are taken from the package info:</remark>
+          <para>
+            A framework which connects a genders database to dnsmasq.
+          </para>
+          <para>
+            This framework feeds dnsmasq with the node information of a
+            genders database. It can also create a PXE boot file structure with
+            the possiblity to update node MAC addresses in the genders database.
+            In addition, boot images can be managed in the PXE environment.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry xml:id="gl-hpc-compute-nodes">
+        <term>compute nodes</term>
+        <listitem>
+          <para>
+            A node which receives tasks to be run as jobs.
+          </para>
+          <para>See <xref linkend="gl-hpc-head-nodes"/> and <xref
+              linkend="gl-hpc-storage-nodes"/></para>
+          <!--<glossseealso linkend="gl-hpc-head-nodes"/>
+          <glossseealso linkend="gl-hpc-storage-nodes"/>-->
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>genders database</term>
+        <listitem>
+          <para>TBD</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry xml:id="gl-hpc-head-nodes">
+        <term>head node(s)</term>
+        <listitem>
+          <para>
+            A node which manages the cluster of the &hpca; system. Also named
+            as <emphasis>management node</emphasis>.
+          </para>
+          <para>See also <xref linkend="gl-hpc-compute-nodes"/> and <xref linkend="gl-hpc-storage-nodes"/></para>
+          <!--<glossseealso linkend="gl-hpc-compute-nodes"/>
+          <glossseealso linkend="gl-hpc-storage-nodes"/>-->
+        </listitem>
+      </varlistentry>
+      <varlistentry xml:id="gl-hpc-hpc-cluster">
+        <term>&hpca; cluster</term>
+        <listitem>
+          <para>
+            Consists of hundreds or thousands of compute nodes networked together and
+            working in paralell.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry xml:id="gl-hpc-storage-nodes">
+        <term>storage nodes</term>
+        <listitem>
+          <para>
+            A node which stores or provides data to the compute nodes as fast as possible.
+          </para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
   </sect1>
 
   <sect1 xml:id="sec-hpc-inst-usage-scenario">
