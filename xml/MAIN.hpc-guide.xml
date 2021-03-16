@@ -2,96 +2,28 @@
 <?xml-stylesheet href="urn:x-suse:xslt:profiling:docbook51-profile.xsl"
  type="text/xml"
  title="Profiling step"?>
-<!DOCTYPE book
+<!DOCTYPE set
 [
   <!ENTITY % entities SYSTEM "generic-entities.ent">
     %entities;
 ]>
 
-<book xml:id="book-hpc" xml:lang="en"
- xmlns="http://docbook.org/ns/docbook" version="5.1"
+<set xml:id="set-hpc" xml:lang="en" version="5.1"
+ xmlns="http://docbook.org/ns/docbook"
  xmlns:xi="http://www.w3.org/2001/XInclude"
  xmlns:xlink="http://www.w3.org/1999/xlink">
+  <title>&slehpc; Documentation</title>
+  <info>
+    <date><?dbtimestamp format="B d, Y"?></date>
+    <dm:docmanager xmlns:dm="urn:x-suse:ns:docmanager">
+      <dm:bugtracker>
+        <dm:url>https://bugzilla.suse.com/enter_bug.cgi</dm:url>
+      </dm:bugtracker>
+      <dm:editurl>https://github.com/SUSE/doc-hpc/blob/master/xml/</dm:editurl>
+      <dm:translation>no</dm:translation>
+    </dm:docmanager>
+  </info>
 
- <info>
-   <title>High-Performance Computing Guide</title>
-   <productname>&productname;</productname>
-   <productnumber>&productnumber;</productnumber>
-   <date><?dbtimestamp format="B d, Y"?></date>
-   <xi:include href="common_copyright_gfdl.xml"/>
-   <abstract>
-     <para>
-       &shpc;
-     </para>
-   </abstract>
-   <dm:docmanager xmlns:dm="urn:x-suse:ns:docmanager">
-    <dm:bugtracker>
-     <dm:url>https://bugzilla.suse.com/enter_bug.cgi</dm:url>
-     <dm:component>Other</dm:component>
-     <dm:product>SUSE Linux Enterprise HPC 15 SP3</dm:product>
-     <dm:assignee>taroth@suse.com</dm:assignee>
-    </dm:bugtracker>
-   </dm:docmanager>
- </info>
-
- <xi:include href="preface_hpc-guide.xml"/>
-
- <part xml:id="part-intro">
-  <title>Introduction</title>
-  <xi:include href="introduction.xml"/>
- </part>
- <part xml:id="part-inst">
-  <title>Installation</title>
-  <xi:include href="installation.xml"/>
- </part>
- <!--
- <part xml:id="part-dep">
-  <title>Deployment</title>
-  <xi:include href="deployment.xml"/>
- </part>
- -->
- <part xml:id="part-remote">
-  <title>Remote administration</title>
-  <xi:include href="remote_administration.xml"/>
- </part>
-
- <part xml:id="part-hardware">
-  <title>Hardware</title>
-  <xi:include href="hardware.xml"/>
- </part>
-
- <part xml:id="part-slurm">
-  <title>Workload manager</title>
-  <xi:include href="slurm.xml"/>
- </part>
-
- <part xml:id="part-monitoring">
-  <title>Monitoring and logging</title>
-  <xi:include href="monitoring.xml"/>
- </part>
-
- <part xml:id="part-compute">
-  <title>HPC libraries</title>
-  <xi:include href="compute.xml"/>
- </part>
- <!--
- <part xml:id="part-compilation">
-  <title>Compilation</title>
-  <xi:include href="compilation.xml"/>
- </part>
- -->
- <!--
- <part xml:id="part-testing">
-  <title>Testing</title>
-  <xi:include href="testing.xml"/>
-  </part>
-  -->
- <!--
- <part xml:id="part-buildsource">
-  <title>Build source</title>
-  <xi:include href="buildsource.xml"/>
- </part>
- -->
- <!-- <xi:include href="example_doc_updates.xml"/>-->
- <xi:include href="common_legal.xml"/>
-</book>
+  <xi:include href="book_hpc_guide.xml"/>
+  <xi:include href="art_hpc_install.xml"/>
+</set>
