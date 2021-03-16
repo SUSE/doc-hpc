@@ -227,36 +227,6 @@
       <title>Required service components</title>
       <variablelist>
         <varlistentry>
-          <term>NTP</term>
-          <listitem>
-            <para>
-              This service is available on the m01. This server will be set
-              up as NTP server for the internal network.
-            </para>
-          </listitem>
-        </varlistentry>
-        <varlistentry>
-          <term>Host name and IP address</term>
-          <listitem>
-            <para>
-              all nodes on the internal network have their IP addresses configured
-              (preferrably thru DHCP). However, a static configuration would be
-              sufficient for testing purposes as well.
-            </para>
-          </listitem>
-        </varlistentry>
-        <varlistentry>
-          <term>SSH</term>
-          <listitem>
-            <para>
-              Most configurations on the various components on the cluster
-              will be performed from the main management node (m01). Thus we
-              need to be able to access any other nodes as &rootuser; without
-              password.
-            </para>
-          </listitem>
-        </varlistentry>
-        <varlistentry>
           <term>DNS</term>
           <listitem>
             <para>
@@ -267,23 +237,6 @@
               Later, we will discuss the deployment of compute nodes using
               'clustduct',<remark>toms 2021-03-10: what is this?</remark>
               as part of this, we will set up our own DNS.
-            </para>
-          </listitem>
-        </varlistentry>
-        <varlistentry>
-          <term>No &aa;</term>
-          <listitem>
-            <para>
-               Security extensions like AppArmor are either not installed or disabled.
-            </para>
-          </listitem>
-        </varlistentry>
-        <varlistentry>
-          <term>LDAP, NIS, or other means</term>
-          <listitem>
-            <para>
-              A central user account management.
-              <remark>toms 2021-03-10: why?</remark>
             </para>
           </listitem>
         </varlistentry>
@@ -299,6 +252,53 @@
               interface connected to the internal cluster network. Until then,
               it is assumed that (single) master will serve as a login node for
               users.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>Host name and IP address</term>
+          <listitem>
+            <para>
+              all nodes on the internal network have their IP addresses configured
+              (preferrably thru DHCP). However, a static configuration would be
+              sufficient for testing purposes as well.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>LDAP, NIS, or other means</term>
+          <listitem>
+            <para>
+              A central user account management.
+              <remark>toms 2021-03-10: why?</remark>
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>NTP</term>
+          <listitem>
+            <para>
+              This service is available on the m01. This server will be set
+              up as NTP server for the internal network.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>SSH</term>
+          <listitem>
+            <para>
+              Most configurations on the various components on the cluster
+              will be performed from the main management node (m01). Thus we
+              need to be able to access any other nodes as &rootuser; without
+              password.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>No &aa;</term>
+          <listitem>
+            <para>
+               Security extensions like AppArmor are either not installed or disabled.
             </para>
           </listitem>
         </varlistentry>
@@ -604,11 +604,11 @@ c001..c&lt;S>: compute nodes</screen>
           <para>Add the compute nodes:</para>
           <screen>&prompt.root;<command>echo "c<replaceable>N</replaceable>    all,storage" >> /etc/genders/</command></screen>
         </step>
-        <result>
+        <!--<result>
           <para>
             The mangement nodes, storage nodes, and compute nodes are configured.
           </para>
-        </result>
+        </result>-->
       </procedure>
     </sect2>
 
