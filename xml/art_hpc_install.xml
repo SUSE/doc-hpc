@@ -450,8 +450,8 @@
         <remark>toms 2021-02-24: should we really propagate these "old" rc scripts?
           Why not use "systemctl disable -\-now apparmor"?
         </remark>
-        <screen>&prompt.root;<command>rcapparmor stop</command>
-&prompt.root;<command>systemctl disable apparmor</command></screen>
+        <screen><prompt># </prompt><command>rcapparmor stop</command>
+<prompt># </prompt><command>systemctl disable apparmor</command></screen>
       </listitem>
       <listitem>
         <para>
@@ -486,7 +486,7 @@
       To check, whether you have installed the correct product and all require
       modules are available, you may run the command:
     </para>
-    <screen>&prompt.root;<command>SUSEConnect -\-status-text</command></screen>
+    <screen><prompt># </prompt><command>SUSEConnect -\-status-text</command></screen>
     <para>
       It should list <emphasis>&slehpc;15&nbsp;SP3</emphasis> and at least the following modules:
     </para>
@@ -523,7 +523,7 @@
     <para>
       Missing modules can be added with the following command:
     </para>
-    <screen>&prompt.root;<command>SUSEConnect -p <replaceable>MODULE_NAME</replaceable>/15.<replaceable>SP</replaceable>/<replaceable>ARCH</replaceable></command></screen>
+    <screen><prompt># </prompt><command>SUSEConnect -p <replaceable>MODULE_NAME</replaceable>/15.<replaceable>SP</replaceable>/<replaceable>ARCH</replaceable></command></screen>
     <para>
       Here, <replaceable>ARCH</replaceable> is the architecture used (currently supported are
       x86_64 and aarch64).
@@ -609,33 +609,36 @@ c001..c&lt;S>: compute nodes</screen>
         cluster and refer to them by their roles when performing any
         configuration.
       </para>
+      <para>
+        On the head node, perform the following steps:
+      </para>
       <procedure>
         <step>
           <para>Install the package on m01:</para>
-          <screen>&prompt.root;<command>zypper install -y genders</command></screen>
+          <screen><prompt># </prompt><command>zypper install -y genders</command></screen>
         </step>
         <step>
           <para>
             Add the main management node to create the database:
           </para>
-          <screen>&prompt.root;<command>echo "m01  all,management=main" >> /etc/genders</command></screen>
+          <screen><prompt># </prompt><command>echo "m01  all,management=main" >> /etc/genders</command></screen>
         </step>
         <step>
           <para>
             Repeat this step, if there are further management nodes
             (replace <replaceable>N</replaceable> with the respective number of the node):
           </para>
-          <screen>&prompt.root;<command>echo "m<replaceable>N</replaceable>  all,management=main" >> /etc/genders</command></screen>
+          <screen><prompt># </prompt><command>echo "m<replaceable>N</replaceable>  all,management=main" >> /etc/genders</command></screen>
         </step>
         <step>
           <para>
             If there are separate storage nodes:
           </para>
-          <screen>&prompt.root;<command>echo "s<replaceable>N</replaceable>    all,storage" >> /etc/genders/</command></screen>
+          <screen><prompt># </prompt><command>echo "s<replaceable>N</replaceable>    all,storage" >> /etc/genders/</command></screen>
         </step>
         <step>
           <para>Add the compute nodes:</para>
-          <screen>&prompt.root;<command>echo "c<replaceable>N</replaceable>    all,storage" >> /etc/genders/</command></screen>
+          <screen><prompt># </prompt><command>echo "c<replaceable>N</replaceable>    all,storage" >> /etc/genders/</command></screen>
         </step>
         <!--<result>
           <para>
@@ -675,7 +678,7 @@ c001..c&lt;S>: compute nodes</screen>
       <procedure>
         <step>
           <para>Generate an SSH key:</para>
-          <screen>&prompt.root;<command>ssh-keygen -t rsa</command></screen>
+          <screen><prompt># </prompt><command>ssh-keygen -t rsa</command></screen>
           <para>
             You may want to specify a password here. This will require you
             to run an ssh-agent and add your private key to it to avoid being
@@ -689,8 +692,8 @@ c001..c&lt;S>: compute nodes</screen>
           <para>
             Run bash as ssh-agent and add your key:
           </para>
-          <screen>&prompt.root;<command>ssh-agent bash</command>
-&prompt.root;<command>ssh-add</command></screen>
+          <screen><prompt># </prompt><command>ssh-agent bash</command>
+<prompt># </prompt><command>ssh-add</command></screen>
         </step>
         <step>
           <para>Enter your password.</para>
@@ -699,7 +702,7 @@ c001..c&lt;S>: compute nodes</screen>
           <para>
             Copy your SSH key to all nodes:
           </para>
-          <screen>&prompt.root;<command>for i in $(nodeattr -n "management=aux||storage||compute"); do \
+          <screen><prompt># </prompt><command>for i in $(nodeattr -n "management=aux||storage||compute"); do \
   ssh-copy-id -o "StrictHostKeyChecking accept-new" root@$i; \
 done</command></screen>
           <para>
@@ -724,13 +727,13 @@ done</command></screen>
           <para>
             On the management node, install the following packages:
           </para>
-          <screen>&prompt.root;<command>zypper install pdsh pdsh-genders</command></screen>
+          <screen><prompt># </prompt><command>zypper install pdsh pdsh-genders</command></screen>
         </step>
         <step>
           <para>
             To test whether the pdsh setup works, run the following command:
           </para>
-          <screen>&prompt.root;<command>pdsh -R ssh -g all hostname -f</command></screen>
+          <screen><prompt># </prompt><command>pdsh -R ssh -g all hostname -f</command></screen>
           <para>
             The command prints a list of fully qualified hostnames.
           </para>
@@ -745,7 +748,7 @@ done</command></screen>
             the names they are known under the internal network.
             Run the following command to fix this:
           </para>
-          <screen>&prompt.root;<command>pdsh -R exec -g all ssh root@%h /bin/sh -c 'echo %h > /etc/hostname'</command></screen>
+          <screen><prompt># </prompt><command>pdsh -R exec -g all ssh root@%h /bin/sh -c 'echo %h > /etc/hostname'</command></screen>
         </step>
       </procedure>
     </sect2>
@@ -760,7 +763,7 @@ done</command></screen>
           <para>
             Make sure, the NFS server is installed:
           </para>
-          <screen>&prompt.root;<command>zypper install nfs-kernel-server</command></screen>
+          <screen><prompt># </prompt><command>zypper install nfs-kernel-server</command></screen>
         </step>
         <step>
           <para>
@@ -770,7 +773,7 @@ done</command></screen>
             <step>
               <para>Export home:</para>
               <remark>toms 2021-02-24: the IF part was missing here. Is that correct?</remark>
-              <screen>&prompt.root;<command>IF=eth1; network=${ip route | grep $IF |  cut -f 1 -d' '} \
+              <screen><prompt># </prompt><command>IF=eth1; network=${ip route | grep $IF |  cut -f 1 -d' '} \
 echo "/home   $network(rw,sync,nohide)" >> /etc/exports</command></screen>
             </step>
             <step>
@@ -783,8 +786,8 @@ echo "/home   $network(rw,sync,nohide)" >> /etc/exports</command></screen>
           <para>
             Enable and start the NFS server:
           </para>
-          <screen>&prompt.root;<command>systemctl enable --now nfs-server</command><!--
-&prompt.root;<command>rcnfs-server start</command>--></screen>
+          <screen><prompt># </prompt><command>systemctl enable --now nfs-server</command><!--
+<prompt># </prompt><command>rcnfs-server start</command>--></screen>
         </step>
       </procedure>
     </sect2>
@@ -801,18 +804,18 @@ echo "/home   $network(rw,sync,nohide)" >> /etc/exports</command></screen>
           <para>
             'munge' is the authentication used by mrsh, also configure the
             workload manager Slurm to use munge: </para>
-          <screen>&prompt.root;<command>pdsh -R ssh -g "management||compute" zypper install -y munge</command>
-&prompt.root;<command>pdcp -R ssh -g "management=aux||compute" /etc/munge/munge.key /etc/munge</command>
-&prompt.root;<command>pdsh -R ssh -g "management||compute" chmod 0400 /etc/munge/munge.key</command>
-&prompt.root;<command>pdsh -R ssh -g "management||compute" chown munge:munge /etc/munge/munge.key</command></screen>
+          <screen><prompt># </prompt><command>pdsh -R ssh -g "management||compute" zypper install -y munge</command>
+<prompt># </prompt><command>pdcp -R ssh -g "management=aux||compute" /etc/munge/munge.key /etc/munge</command>
+<prompt># </prompt><command>pdsh -R ssh -g "management||compute" chmod 0400 /etc/munge/munge.key</command>
+<prompt># </prompt><command>pdsh -R ssh -g "management||compute" chown munge:munge /etc/munge/munge.key</command></screen>
         </step>
         <step>
           <para> Enable and start munged on each system: </para>
           <remark>toms 2021-02-24: shouldn't we use "systemctl enable --now
             munge" --now Start or stop unit in addition to enabling or disabling
             it </remark>
-          <screen>&prompt.root;<command>pdsh -R ssh -g "management||compute" systemctl enable --now munge</command><!--
-&prompt.root;<command>pdsh -R ssh -g "management||compute" systemctl start munge</command>--></screen>
+          <screen><prompt># </prompt><command>pdsh -R ssh -g "management||compute" systemctl enable --now munge</command><!--
+<prompt># </prompt><command>pdsh -R ssh -g "management||compute" systemctl start munge</command>--></screen>
         </step>
       </procedure>
     </sect2>
@@ -823,7 +826,7 @@ echo "/home   $network(rw,sync,nohide)" >> /etc/exports</command></screen>
       <procedure>
         <step>
           <para> Set up m01 as time server: </para>
-          <screen>&prompt.root;<command>zypper install -y chrony</command></screen>
+          <screen><prompt># </prompt><command>zypper install -y chrony</command></screen>
           <para/>
         </step>
         <step>
@@ -831,9 +834,9 @@ echo "/home   $network(rw,sync,nohide)" >> /etc/exports</command></screen>
             Set m01 as master server for the internal network (eth1 is assumed to be
             the network interface of the internal network):
           </para>
-          <screen>&prompt.root;<command>IF=eth1; network=${ip route | grep $IF |  cut -f 1 -d' '}; \
+          <screen><prompt># </prompt><command>IF=eth1; network=${ip route | grep $IF |  cut -f 1 -d' '}; \
 echo "allow $network > /etc/chrony.d/master.conf</command>
-&prompt.root;<command>systemctl enable --now chronyd</command></screen>
+<prompt># </prompt><command>systemctl enable --now chronyd</command></screen>
           <para>
             A default timeserver is set in <filename>/etc/chrony.d/pool.conf</filename> at
             installation time. For the purpose of this guide it is assumed that
@@ -845,11 +848,11 @@ echo "allow $network > /etc/chrony.d/master.conf</command>
           <para>
             Set m01 as time source for the other nodes on the cluster, enable und start chronyd:
           </para>
-          <screen>&prompt.root;<command>pdsh -R ssh -g "~management=main" zypper install -y chrony</command>
-&prompt.root;<command>pdsh -R ssh -g "~management=main" sh -c 'echo "pool m01 iburst" \
+          <screen><prompt># </prompt><command>pdsh -R ssh -g "~management=main" zypper install -y chrony</command>
+<prompt># </prompt><command>pdsh -R ssh -g "~management=main" sh -c 'echo "pool m01 iburst" \
   > /etc/chrony.d/pool.conf'</command>
-&prompt.root;<command>pdsh -R ssh -g "~management=main" systemctl enable --now chronyd</command><!--
-&prompt.root;<command>pdsh -R ssh -g "~management=main" rcchronyd start</command>--></screen>
+<prompt># </prompt><command>pdsh -R ssh -g "~management=main" systemctl enable --now chronyd</command><!--
+<prompt># </prompt><command>pdsh -R ssh -g "~management=main" rcchronyd start</command>--></screen>
         </step>
       </procedure>
       <para>
@@ -864,7 +867,7 @@ echo "allow $network > /etc/chrony.d/master.conf</command>
     <sect2 xml:id="sec-hpc-inst-sync-genders">
       <title>Syncing genders database across all cluster nodes</title>
       <para>Use the following command:</para>
-      <screen>&prompt.root;<command>pdcp -R ssh -g "~management=main" /etc/genders /etc</command></screen>
+      <screen><prompt># </prompt><command>pdcp -R ssh -g "~management=main" /etc/genders /etc</command></screen>
     </sect2>
 
     <sect2 xml:id="sec-hpc-inst-add-mount-option-for-nfs">
@@ -877,9 +880,9 @@ echo "allow $network > /etc/chrony.d/master.conf</command>
         server is used or more directories are exported, the commands will have
         to be adapted.
       </para>
-      <screen>&prompt.root;<command>server=m01; pdsh -R ssh -g "~(management=main||storage)" \
+      <screen><prompt># </prompt><command>server=m01; pdsh -R ssh -g "~(management=main||storage)" \
 sh -c "echo \"${server}/home  /home nfs  defaults 0 1\" >> /etc/fstab"</command>
-&prompt.root;<command>psdh -R ssh -g "~(management=main||storage)" mount /home</command></screen>
+<prompt># </prompt><command>psdh -R ssh -g "~(management=main||storage)" mount /home</command></screen>
     </sect2>
 
     <sect2 xml:id="sec-hpc-inst-install-slurm">
@@ -887,7 +890,7 @@ sh -c "echo \"${server}/home  /home nfs  defaults 0 1\" >> /etc/fstab"</command>
       <para>If the management node has been installed using the Management Node
         profile, Slurm should be installed there already. To make sure, run:
       </para>
-      <screen>&prompt.root;<command>zypper install -y slurm slurm-munge</command></screen>
+      <screen><prompt># </prompt><command>zypper install -y slurm slurm-munge</command></screen>
       <para>We will configure Slurm with 'munge' authentication. For this, we
         need to ensure, that the <systemitem class="username">slurm</systemitem>
         user has the same UID across the entire cluster. When installing Slurm
