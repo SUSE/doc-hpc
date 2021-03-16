@@ -14,15 +14,42 @@
   <info>
     <abstract>
       <para>
-        abstract: TBD
+        &product; provides a preconfigured and well integrated environment
+        to make deploying and running a High Performance Computing Cluster easy.
+        While providing the same components as &sle;, it comes with number of
+        additional tools and libraries specifically targetted at &hpca; use cases.
       </para>
     </abstract>
   </info>
 
   <sect1 xml:id="sec-hpc-inst-concept-overview">
     <title>Conceptual Overview</title>
-    <para>TBD</para>
-    <remark>toms 2021-03-11: Contains some highlights of this product</remark>
+    <para>&productname; contains the following highlights:</para>
+    <remark>toms 2021-03-11: add some highlights of this product,
+      but the items needs some brief description</remark>
+
+    <itemizedlist>
+      <listitem>
+        <para>
+          Slurm workload manager
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          Module support (Lmod)
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          Spack
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          Rapid node deployment using Clustduct
+        </para>
+      </listitem>
+    </itemizedlist>
   </sect1>
 
   <sect1 xml:id="sec-hpc-inst-terminology">
@@ -40,52 +67,57 @@
   <sect1 xml:id="sec-hpc-inst-usage-scenario">
     <title>Usage scenario</title>
     <para>
-      The procedures in this document will lead to a minimal &hpc; cluster with the following properties:
+      &productname; can be used in many variations and scenarios.
+      This is why it is hard to specify a general scenario which fits
+      everywhere.
+      Depending yon your use case, your &hpca; system can be small or
+      large.
     </para>
-    <itemizedlist>
-      <listitem>
-        <para>TBD</para>
-      </listitem>
-    </itemizedlist>
-  </sect1>
-
-
-  <sect1 xml:id="sec-hpc-inst-requirements">
-    <title>System requirements</title>
     <para>
-      This section informs you about the key system requirements described in <xref
-        linkend="sec-hpc-inst-usage-scenario"/>.
+      Therefor, the procedures in this document will focus on a minimal
+      &hpc; system for smaller needs. As a basic requirement you need:
     </para>
 
-    <sect2 xml:id="sec-hpc-inst-req-hw">
-      <title>Hardware requirements</title>
-      <variablelist>
-        <varlistentry>
-          <term>Single head node (m01)</term>
-          <listitem>
-            <para>
-              A machine (bare metal or virtual) with two (Ethernet) network cards.
-            </para>
-            <remark>toms 2021-03-10: RAM/storage?</remark>
-          </listitem>
-        </varlistentry>
-        <varlistentry>
-          <term>Compute nodes</term>
-          <listitem>
-            <para>
-              At least two machines (bare metal or virtual). Each machine needs at least one
-              (Ethernet) network card.
-            </para>
-            <remark>toms 2021-03-10: RAM/storage?</remark>
-          </listitem>
-        </varlistentry>
-      </variablelist>
-    </sect2>
-
+    <variablelist>
+      <varlistentry>
+        <term>Head node (host name <systemitem>md0</systemitem>)</term>
+        <listitem>
+          <para>
+            One machine (bare metal or virtual) with two (Ethernet) network
+            cards.
+          </para>
+          <para>
+            Usually, the dimensioning of your head node depends on the size
+            of your cluster.
+            <remark>toms 2021-03-15: maybe some recommendations?</remark>
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>Compute nodes (host names <systemitem>c001</systemitem> and
+            <systemitem>c002</systemitem>)</term>
+        <listitem>
+          <para>
+            Two machines (bare metal or virtual). Each machine
+            needs at least one (Ethernet) network card.
+          </para>
+          <para>
+            The hardware setup of your compute nodes depends on your use case.
+            <remark>toms 2021-03-15: maybe some recommendations?</remark>
+          </para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+    <para>
+      This setup can be used for <remark>toms 2021-03-15: TBD</remark>.
+    </para>
+    <!--<para>
+      The following subsections describes further parts of the system.
+    </para>-->
     <sect2 xml:id="sec-hpc-inst-req-sw">
-      <title>Software requirments</title>
+      <title>Required modules</title>
       <para>
-        All machines need need the product &product; with the following modules:
+        All machines need the product &product; with the following modules:
       </para>
       <itemizedlist>
       <listitem>
@@ -119,63 +151,16 @@
     </itemizedlist>
     </sect2>
 
-    <sect2 xml:id="sec-hpc-inst-req-other-hw">
-      <title>Other optional hardware recommendations</title>
+    <sect2 xml:id="sec-hpc-inst-req-other-components">
+      <title>Required service components</title>
       <variablelist>
         <varlistentry>
-          <term>Second head node</term>
+          <term>NTP</term>
           <listitem>
             <para>
-              Can be a clone of m01.
+              This service is available on the m01. This server will be set
+              up as NTP server for the internal network.
             </para>
-          </listitem>
-        </varlistentry>
-        <varlistentry>
-          <term>Storage node</term>
-          <listitem>
-            <para>
-              Whose data is exported via NFS. This is used to export user
-              homes as well as provide shared application and library stacks.
-            </para>
-            <para>
-              If such a node is not available, it is assumed that the single head
-              node is installed in such a way that an additional physical partitions
-              are available from which this data can be exported.
-              One of these partitions is mounted to <filename>/home</filename>.
-            </para>
-          </listitem>
-        </varlistentry>
-        <varlistentry>
-          <term>Database node</term>
-          <listitem>
-            <para>
-              To store accounting data.
-            </para>
-          </listitem>
-        </varlistentry>
-        <varlistentry>
-          <term>High-speed network</term>
-          <listitem>
-            <para>
-              In addition to the IP networking, a high-speed network
-              (Infiniband, Omni-Path) may exist which is also connected to each
-              node. This high speed interconnect is used for application Message
-              Passing (MPI) and optionally for connecting a parallel file
-              system.
-            </para>
-            <remark>toms 2021-03-10: more info needed</remark>
-          </listitem>
-        </varlistentry>
-      </variablelist>
-    </sect2>
-
-    <sect2 xml:id="sec-hpc-inst-req-other-sw">
-      <title>Other software recommendations</title>
-      <variablelist>
-        <varlistentry>
-          <term>Time synchronization</term>
-          <listitem>
-            <para><remark>toms 2021-03-10: needed? required? recommended?</remark></para>
           </listitem>
         </varlistentry>
         <varlistentry>
@@ -214,15 +199,6 @@
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term>NTP</term>
-          <listitem>
-            <para>
-              This service is available on the m01. This server will be set
-              up as NTP server for the internal network.
-            </para>
-          </listitem>
-        </varlistentry>
-        <varlistentry>
           <term>No &aa;</term>
           <listitem>
             <para>
@@ -257,6 +233,7 @@
       </variablelist>
     </sect2>
   </sect1>
+
 
 <!--  <sect1 xml:id="sec-hpc-inst-requirements-old">
     <title>Requirements</title>
@@ -500,11 +477,11 @@ s01..s&lt;M>: optional storage servers
 c001..c&lt;S>: compute nodes</screen>
   </sect1>-->
 
-  <sect1 xml:id="sec-hpc-inst-prepare-mgt-server">
-    <title>Preparing the management server</title>
+  <sect1 xml:id="sec-hpc-inst-prepare-head-node">
+    <title>Preparing the head node</title>
     <para>
-      After logging into the management node (or a separate storage node) as root,
-      perfrom the following steps:
+      After logging into the head node (or a separate storage node) as root,
+      perform the following steps:
     </para>
 
     <procedure>
@@ -736,7 +713,7 @@ echo "/home   $network(rw,sync,nohide)" >> /etc/exports</command></screen>
     </sect2>
 
     <sect2 xml:id="sec-hpc-inst-distribute-ntp-config">
-      <title>Distribute ntp configuration and synchronize time across all cluster nodes</title>
+      <title>Distribute NTP configuration and synchronize time across all cluster nodes</title>
       <para></para>
       <procedure>
         <step>
@@ -764,7 +741,8 @@ echo "allow $network > /etc/chrony.d/master.conf</command>
             Set m01 as time source for the other nodes on the cluster, enable und start chronyd:
           </para>
           <screen>&prompt.root;<command>pdsh -R ssh -g "~management=main" zypper install -y chrony</command>
-&prompt.root;<command>pdsh -R ssh -g "~management=main" sh -c 'echo "pool m01 iburst" \      > /etc/chrony.d/pool.conf'</command>
+&prompt.root;<command>pdsh -R ssh -g "~management=main" sh -c 'echo "pool m01 iburst" \
+  > /etc/chrony.d/pool.conf'</command>
 &prompt.root;<command>pdsh -R ssh -g "~management=main" systemctl enable --now chronyd</command><!--
 &prompt.root;<command>pdsh -R ssh -g "~management=main" rcchronyd start</command>--></screen>
         </step>
@@ -815,4 +793,51 @@ sh -c "echo \"${server}/home  /home nfs  defaults 0 1\" >> /etc/fstab"</command>
     </sect2>
   </sect1>
 
+  <sect1 xml:id="sec-hpc-inst-req-other-hw">
+    <title>Further adaptions</title>
+    <para>
+      In case your computing power is not enough, you can extend your &hpca; system:
+    </para>
+    <remark>toms 2021-03-16: maybe this section needs some more flesh to describe
+    what's possible or needed for specific use cases.
+    </remark>
+    <variablelist>
+      <varlistentry>
+        <term>More than one head node</term>
+        <listitem>
+          <para> Can be a clone of <systemitem>m01</systemitem>.
+            <remark>toms 2021-03-15: benefit?</remark>
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>Storage node</term>
+        <listitem>
+          <para> Whose data is exported via NFS. This is used to export user
+            homes as well as provide shared application and library stacks. </para>
+          <para> If such a node is not available, it is assumed that the single
+            head node is installed in such a way that an additional physical
+            partitions are available from which this data can be exported. One
+            of these partitions is mounted to <filename>/home</filename>.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>Database node</term>
+        <listitem>
+          <para> To store accounting data. </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>High-speed network</term>
+        <listitem>
+          <para> In addition to the IP networking, a high-speed network
+            (Infiniband, Omni-Path) may exist which is also connected to each
+            node. This high speed interconnect is used for application Message
+            Passing (MPI) and optionally for connecting a parallel file system. </para>
+          <remark>toms 2021-03-10: more info needed</remark>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+  </sect1>
 </article>
