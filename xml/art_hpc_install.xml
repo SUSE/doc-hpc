@@ -177,7 +177,9 @@
         <listitem>
           <para>
             One machine (bare metal or virtual) with two (Ethernet) network
-            cards.
+            cards which has been installed with &slehpca;15&nbsp;SP3 chosing
+            the <systemitem>HPC Managment Server (Head Node)</systemitem>
+            system role.
           </para>
           <para>
             Usually, the dimensioning of your head node depends on the size
@@ -191,8 +193,11 @@
             <systemitem>c002</systemitem>)</term>
         <listitem>
           <para>
-            Two machines (bare metal or virtual). Each machine
-            needs at least one (Ethernet) network card.
+            Two machines (bare metal or virtual) which have been
+            installed with &slehpca;15&nbsp;SP2 using the system role
+            <systemitem>Text Mode</systemitem>. The second node may be
+            prepared by cloning the first one.
+            Each machine needs at least one (Ethernet) network card.
           </para>
           <para>
             The hardware setup of your compute nodes depends on your use case.
