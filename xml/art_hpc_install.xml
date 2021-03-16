@@ -63,6 +63,27 @@
         </para>
       </listitem>
     </itemizedlist>
+    <remark>toms 2021-03-16: would it make sense to add some benefits?</remark>
+    <itemizedlist>
+      <listitem>
+        <formalpara>
+          <title>Performance</title>
+          <para>TBD</para>
+        </formalpara>
+      </listitem>
+      <listitem>
+        <formalpara>
+          <title>Reliability</title>
+          <para>TBD</para>
+        </formalpara>
+      </listitem>
+      <listitem>
+        <formalpara>
+          <title>Scalability</title>
+          <para>TBD</para>
+        </formalpara>
+      </listitem>
+    </itemizedlist>
   </sect1>
 
   <sect1 xml:id="sec-hpc-inst-terminology">
@@ -142,7 +163,7 @@
       &productname; can be used in many variations and scenarios.
       This is why it is hard to specify a general scenario which fits
       everywhere.
-      Depending yon your use case, your &hpca; system can be small or
+      Depending on your use case, your &hpca; system can be small or
       large.
     </para>
     <para>
