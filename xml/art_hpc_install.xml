@@ -584,13 +584,20 @@ c001..c&lt;S>: compute nodes</screen>
 
     <procedure>
       <step>
-        <para><xref linkend="sec-hpc-inst-setup-genders-database"/></para>
+        <para>
+          Install &slehpca;15&nbsp;SP3 and choose the
+          <systemitem>HPC Managment Server (Head Node)</systemitem>
+          system role.
+        </para>
       </step>
       <step>
-        <para><xref linkend="sec-hpc-inst-setup-ssh"/></para>
+        <para><xref linkend="sec-hpc-inst-setup-genders-database" xrefstyle="select:title"/></para>
       </step>
       <step>
-        <para><xref linkend="sec-hpc-inst-setup-network-storage"/></para>
+        <para><xref linkend="sec-hpc-inst-setup-ssh" xrefstyle="select:title"/></para>
+      </step>
+      <step>
+        <para><xref linkend="sec-hpc-inst-setup-network-storage" xrefstyle="select:title"/></para>
       </step>
     </procedure>
 
