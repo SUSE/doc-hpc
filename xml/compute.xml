@@ -1391,7 +1391,7 @@
    <para>
     The MPI variant becomes available when the MPI module is loaded. Both
     variants require loading a compiler toolchain module beforehand. To
-    load the highest version of the non-MPI <literal>netcdf</literal> module,
+    load the highest version of the non-MPI <literal>netcdf-fortran</literal> module,
     run:
    </para>
 <screen>module load <replaceable>&lt;TOOLCHAIN&gt;</replaceable> netcdf-fortran</screen>

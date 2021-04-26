@@ -847,6 +847,14 @@ Description="subgroup" Organization=bavaria</screen>
   upgrade and replace deprecated configuration options before the final restart
   of a service.
  </para>
+ <para>
+  It should be noted that a new major version of Slurm introduces a new version
+  of <literal>libslurm</literal>. Older versions of this library might no longer
+  work with an upgraded Slurm. For all &slea; software depending on
+  <literal>libslurm </literal> an upgrade will be provided. Any locally
+  developed Slurm modules or tools may require modification and/or
+  recompilation.
+ </para>
  <sect2 xml:id="sec-slurm-upgrade-workflow">
   <title>Upgrade workflow</title>
   <para>
@@ -905,6 +913,13 @@ Description="subgroup" Organization=bavaria</screen>
        Make sure that <literal>slurmdbd</literal> is not running anymore:
       </para>
       <screen>&prompt;rcslurmdbd status</screen>
+      <para>
+       It should be noted that <literal>slurmctld</literal> might remain running
+       while the database daemon is down. While it is down, requests intended
+       for <literal>slurmdbd</literal> are queued internally. The DBD Agent
+       Queue size is limited, however, and should therefore be monitored with
+       <literal>sdiag</literal>.
+      </para>
      </step>
      <step>
       <para>
@@ -988,6 +1003,11 @@ success!</screen>
        <literal>slurmdbd</literal> may be shut down with signal
        <literal>SIGTERM</literal> (that is, by pressing
        <keycombo><keycap function="control"/><keycap>C</keycap></keycombo>).
+      </para>
+      <para>
+       When using a backup <literal>slurmdbd</literal>, the conversion needs to be performed
+       on the primary. The backup will not start until the conversion has
+       taken place.
       </para>
      </step>
      <step>
@@ -1124,17 +1144,18 @@ SlurmdTimeout=3600</screen>
        <emphasis role="bold">Back up the <literal>slurmctld</literal> state files</emphasis>
       </para>
       <para>
-       Almost every major version involves changes to the
-       <literal>slurmctld</literal> state files.
-       The format of older releases is understood if it is not older than 2
-       major versions.
+       Also, it should be noted, that <literal>slurmctld</literal> maintains
+       state information that is persistent. Almost every major version
+       involves changes to the <literal>slurmctld</literal> state files.
+       This state information will be upgraded as well if the upgrade remains
+       within the supported version range and no data will be lost.
       </para>
       <para>
-       Old versions will not understand a newer format, thus it is useful to
-       back up the old state in case an update needs to be rolled back.
-       Otherwise the content will not be understood on downgrade and will be
-       discarded This will in turn lead to the loss of all pending and running
-       jobs.
+       However, if a downgrade should become necessary, state information
+       from newer versions will not be recognized by an older version of
+       <literal>slurmctld</literal> and thus will be discarded, resulting in a loss of all
+       running and pending jobs. Thus it is useful to back up the old state
+       in case an update needs to be rolled back.
       </para>
       <substeps>
        <step>
@@ -1266,7 +1287,8 @@ SlurmdTimeout=3600</screen>
       <para>
        Restore the <literal>SlurmdTimeout</literal> and
        <literal>SlurmctldTimeout</literal> values in
-       <literal>/etc/slurm/slurm.conf</literal> on all nodes (see
+       <literal>/etc/slurm/slurm.conf</literal> on all nodes and run
+       <literal>scontrol reconfigure</literal> (see
        <xref linkend="st-slurm-timeout"/>).
       </para>
      </step>
