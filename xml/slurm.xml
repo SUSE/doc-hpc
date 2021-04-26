@@ -849,8 +849,8 @@ Description="subgroup" Organization=bavaria</screen>
  </para>
  <para>
   It should be noted that a new major version of Slurm introduces a new version
-  of <literal>libslurm</literal>. Older versions of this library may no longer
-  work with an upgraded Slurm. For all SLE software depending on
+  of <literal>libslurm</literal>. Older versions of this library might no longer
+  work with an upgraded Slurm. For all &slea; software depending on
   <literal>libslurm </literal> an upgrade will be provided. Any locally
   developed Slurm modules or tools may require modification and/or
   recompilation.
@@ -914,8 +914,8 @@ Description="subgroup" Organization=bavaria</screen>
       </para>
       <screen>&prompt;rcslurmdbd status</screen>
       <para>
-       It should be noted that <literal>slurmctld</literal> may remain running
-       while the database daemon is down. While it is down requests intended
+       It should be noted that <literal>slurmctld</literal> might remain running
+       while the database daemon is down. While it is down, requests intended
        for <literal>slurmdbd</literal> are queued internally. The DBD Agent
        Queue size is limited, however, and should therefore be monitored with
        <literal>sdiag</literal>.
@@ -1005,7 +1005,7 @@ success!</screen>
        <keycombo><keycap function="control"/><keycap>C</keycap></keycombo>).
       </para>
       <para>
-       When using a backup slurmdbd, the conversion needs to be performed
+       When using a backup <literal>slurmdbd</literal>, the conversion needs to be performed
        on the primary. The backup will not start until the conversion has
        taken place.
       </para>
@@ -1153,7 +1153,7 @@ SlurmdTimeout=3600</screen>
       <para>
        However, if a downgrade should become necessary, state information
        from newer versions will not be recognized by an older version of
-       slurmctld and thus will be discarded, resulting in a loss of all
+       <literal>slurmctld</literal> and thus will be discarded, resulting in a loss of all
        running and pending jobs. Thus it is useful to back up the old state
        in case an update needs to be rolled back.
       </para>
