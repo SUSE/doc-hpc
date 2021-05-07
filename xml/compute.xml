@@ -1613,19 +1613,19 @@
   </para>
   <sect2 xml:id="sec2-tool-imb">
    <!-- href="https://fate.novell.com/324155" -->
-   <title>IMB &mdash; Intel&thrdmrk; MPI benchmarks</title>
+   <title>IMB &mdash; Intel* MPI benchmarks</title>
    <para>
-    Intel(R) MPI Benchmarks provides a set of elementary benchmarks that conform
-    to MPI-1, MPI-2, and MPI-3 standard. One can run all of the supported
-    benchmarks, or a subset specified in the command line using one executable
+    Intel* MPI Benchmarks provides a set of elementary benchmarks that conform
+    to the MPI-1, MPI-2, and MPI-3 standards. One can run all of the supported
+    benchmarks, or a subset specified in the command line, using one executable
     file. Use command-line parameters to specify various settings, such as time
     measurement, message lengths, and selection of communicators. For details, see
-    the Intel(R) MPI Benchmarks User's Guide located at:
-    https://software.intel.com/en-us/imb-user-guide.
+    the Intel* MPI Benchmarks User's Guide located at:
+    <link xlink:href="https://software.intel.com/en-us/imb-user-guide"/>.
    </para>
       <para>
     For the IMB binaries to be found, a compiler toolchain and an MPI flavor
-    needs to be loaded beforehand. To load this, run:
+    need to be loaded beforehand. To load this, run:
    </para>
 <screen>module load <replaceable>&lt;TOOLCHAIN&gt;</replaceable> <replaceable>&lt;MPI_FLAVOR&gt;</replaceable> imb</screen>
    <para>
