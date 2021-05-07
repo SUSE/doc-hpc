@@ -13,24 +13,24 @@
   <abstract>
    <para>
     <emphasis>Slurm</emphasis> is a workload manager for managing compute jobs
-    on high performance computing cluster. It can start multiple jobs on a
+    on high performance computing clusters. It can start multiple jobs on a
     single node or a single job on multiple nodes. Additional components can be
     used for advanced scheduling and accounting.
    </para>
 
    <para>
-    The mandatory components of <emphasis>Slurm</emphasis> is the control
-    daemon <emphasis>slurmctld</emphasis> taking care of job scheduling and the
+    The mandatory components of <emphasis>Slurm</emphasis> are the control
+    daemon <emphasis>slurmctld</emphasis> taking care of job scheduling, and the
     slurm daemon <emphasis>slurmd</emphasis> responsible for launching compute
-    jobs. Subsequently nodes running the control daemon are called master nodes
+    jobs. Subsequently, nodes running the control daemon are called master nodes
     and nodes running the <emphasis>slurmd</emphasis> are called compute nodes.
    </para>
 
    <para>
     Additional components are a secondary <emphasis>slurmctld</emphasis> acting
-    as standby server for a failover and the slurm database daemon
+    as standby server for a failover, and the slurm database daemon
     <emphasis>slurmdbd</emphasis> which stores the job history and user
-    hirachy.
+    hierarchy.
    </para>
   </abstract>
   <dm:docmanager xmlns:dm="urn:x-suse:ns:docmanager">
@@ -42,8 +42,8 @@
   <title>Slurm — utility for HPC workload management</title>
 
   <para>
-   For a minimal setup of <emphasis>Slurm</emphasis> with a controll node and
-   multiple cmpute nodes, follow these instructions:
+   For a minimal setup of <emphasis>Slurm</emphasis> with a control node and
+   multiple compute nodes, follow these instructions:
   </para>
 
   <sect2 xml:id="sec-slurm-minimal">
@@ -83,9 +83,9 @@
     <step>
      <para>
       Install <package>slurm-node</package> on the compute nodes with
-      <command>zypper in slurm-node</command> and <package>slurm</package> on
-      the controll node with <command>zypper in slurm</command>. The package
-      <package>munge</package>will be installed as dependence automatically.
+      <command>zypper in slurm-node</command>, and <package>slurm</package> on
+      the control node with <command>zypper in slurm</command>. The package
+      <package>munge</package>will automatically be installed as a dependency.
      </para>
     </step>
    </procedure>
@@ -235,10 +235,10 @@ sbatch sleeper.sh
   <sect2 xml:id="sec-slurm-slurmdbd">
    <title>Install slurm database</title>
    <para>
-    With the minimal installation slurm will only store pending and running
+    With the minimal installation, slurm will only store pending and running
     jobs. In order to store to finished and failed job data, the storage plugin
-    has to be installed and enabled. Additionally so called completely fair
-    scheduling can be enable, which replaces the FIFO
+    has to be installed and enabled. Additionally, so-called completely fair
+    scheduling can be enabled, which replaces the FIFO
     <footnote>
      <para>
       <emphasis>f</emphasis>irst <emphasis>i</emphasis>n
@@ -249,11 +249,11 @@ sbatch sleeper.sh
     dependence of the job which a user has run in the history.
    </para>
    <para>
-    The slurm database has two components which is the daemon
-    <literal>slurmdbd</literal> itself and a mysql database, where
-    <literal>mariab</literal> is recommended. The database can be on the same
+    The slurm database has two components: the <literal>slurmdbd</literal>
+    daemon itself, and a MySQL database, where <literal>mariab</literal> is
+    recommended. The database can be on the same
     node which runs <literal>slurmdbd</literal> or another node. For this
-    simple setup all these services run on the same node.
+    simple setup, all these services run on the same node.
    </para>
    <procedure>
     <title>Install <package>slurmdbd</package></title>
@@ -286,17 +286,17 @@ systemctl enable mariadb</screen>
     </step>
     <step xml:id="sec-sum-sqldb">
      <para>
-      In this step the database and the user for the slurm database has to be
-      created. This is done by connecting to the SQL database with e.g. the
-      command <command>mysql -u root -p</command>. After a successful
-      connection the database and the creation of secure password
+      In this step, the database and the user for the slurm database have to be
+      created. This is done by connecting to the SQL database, for example with
+      the command <command>mysql -u root -p</command>. After a successful
+      connection, the database and the creation of a secure password
       <footnote>
        <para>
         You can use the command <command>openssl rand -base64 32</command> to
         create a secure random password
        </para>
       </footnote>
-      , the slurm user and the database is created with the commands
+      , the slurm user and the database are created with the commands
      </para>
 <screen>
 create user 'slurm'@'localhost' identified by 'password';

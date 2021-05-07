@@ -156,17 +156,17 @@ nodeattr [-f genders] -k
    <xref linkend="sec-remote-mrsh"/>
   </para>
   <para>
-   Remote machines can either be specified on the command line or
+   Remote machines can be specified on the command line, or
    <command>pdsh</command> can use a <filename>machines</filename> file
-   (<filename>/etc/pdsh/machines</filename>), dsh (Dancer's shell) style
-   groups or netgroups. Also, it can target nodes based on the currently
-   running Slurm jobs.
+   (<filename>/etc/pdsh/machines</filename>), <command>dsh</command> (Dancer's
+   shell)-style groups or netgroups. Also, it can target nodes based on the
+   currently running Slurm jobs.
   </para>
   <para>
    The different ways to select target hosts are realized by modules. Some
    of these modules provide identical options to <command>pdsh</command>.
-   The module loaded first will win and consume the option. Therefore, it is
-   recommended to limit yourself to a single method and specifying this with
+   The module loaded first will win and handle the option. Therefore, we
+   recommended limiting yourself to a single method and specifying this with
    the <literal>-M</literal> option.
   </para>
   <para>
@@ -179,15 +179,15 @@ nodeattr [-f genders] -k
    <literal>machines</literal>, <literal>slurm</literal>,
    <literal>netgroup</literal> and <literal>dshgroup</literal>.
    Each host-list plugin is provided in a separate package. This avoids
-   conflicts between command line options for different plugins which
-   happen to be identical and helps to keep installations small and free
+   conflicts between command-line options for different plugins which
+   happen to be identical, and helps to keep installations small and free
    of unneeded dependencies. Package dependencies have been set to prevent
-   installing plugins with conflicting command options. To install one of
-   the plugins, run:
+   the installation of plugins with conflicting command options. To install one
+   of the plugins, run:
   </para>
-  <screen>zypper in pdsh-<replaceable>PLUGIN_NAME</replaceable></screen>
+<screen>zypper in pdsh-<replaceable>PLUGIN_NAME</replaceable></screen>
   <para>
-   For more information, see the man page <command>pdsh</command>.
+   For more information, see the <command>man</command> page <command>pdsh</command>.
   </para>
  </sect1>
  <sect1 xml:id="sec-remote-powerman">
