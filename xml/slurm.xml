@@ -1005,33 +1005,33 @@ success!</screen>
        <keycombo><keycap function="control"/><keycap>C</keycap></keycombo>).
       </para>
       <para>
-       When using a backup <literal>slurmdbd</literal>, the conversion needs to be performed
-       on the primary. The backup will not start until the conversion has
-       taken place.
+       When using a backup <literal>slurmdbd</literal>, the conversion needs to
+       be performed on the primary. The backup will not start until the
+       conversion has taken place.
       </para>
      </step>
      <step>
       <para>
-       Before restarting the service deprecated configuration options should
-       may be removed or replaced. Check the list below for a list of
-       deprecated options. Once this has been completed, restart slurmdbd.
+       Before restarting the service, you should remove or replace any
+       deprecated configuration options. Check the list of deprecated options
+       below. Once this has been completed, restart <command>slurmdbd</command>:
       </para>
 <screen>&prompt;systemctl start slurmdbd</screen>
       <note>
        <title>No daemonization during rebuild</title>
        <para>
-        During the rebuild of slurmdbd the database daemon does not daemonize.
+        During the rebuild of slurmdbd, the database daemon does not daemonize.
        </para>
       </note>
       <note>
        <title>Convert primary slurmbd first</title>
        <para>
         If a backup database daemon is used, the primary one needs to be
-        converted first. The backup will not start until this has happend.
+        converted first. The backup will not start until this has happened.
        </para>
       </note>
       <para>
-       Only after the conversion has been completed the backup will start.
+       Only after the conversion has been completed will the backup start.
       </para>
      </step>
     </substeps>

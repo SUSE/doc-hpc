@@ -259,16 +259,16 @@ nodeattr [-f genders] -k
   <para>
    <emphasis>munge</emphasis> allows for a secure communication between
    different machines which share the same secret key. The most common
-   usecase is the <emphasis>slurm</emphasis> workload mangager which
+   usecase is the <emphasis>slurm</emphasis> workload manager which
    uses <emphasis>munge</emphasis> for the encryption of its messages.
-   Another usecase is authentification for the parallel shell
+   Another usecase is authentication for the parallel shell
    <emphasis>mrsh</emphasis>.
   </para>
   <sect2>
    <title>Setting up MUNGE authentication</title>
    <para>
     <emphasis>Munge</emphasis> uses the UID/GID to uniquely identify
-    and authenciate users. This care must be taken that the users who
+    and authenticate users. Thus, care must be taken that the users who
     are to be authenicated across a network have unified UIDs and GIDs.
    </para>
    <para>
@@ -277,13 +277,13 @@ nodeattr [-f genders] -k
     the entire cluster.
    </para>
    <para>
-    <emphasis>Munge</emphasis> is installed by <command>zypper</command>
-    in munge'. This will install all packages required at runtime. A
-    'munge-devel' package is available to build applications that require
-    munge authentication.
+    <emphasis>Munge</emphasis> is installed by
+    <command>zypper in munge</command>. This will install all packages required
+    at runtime. A 'munge-devel' package is available to build applications that
+    require <emphasis>munge</emphasis> authentication.
    </para>
    <para>
-    When installing <emphasis>munge</emphasis> a new key is generated on
+    When installing <emphasis>munge</emphasis>, a new key is generated on
     every system. The <emphasis>munge</emphasis> key needs to be uniform
     across the entire cluster, however. Therefore a key of one system
     needs to be copied in a secure way to all other nodes in the cluster.

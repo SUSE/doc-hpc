@@ -178,8 +178,8 @@
     <para>
      To use the GNU compiler collection to build your own libraries and
      applications, <package>gnu-compilers-hpc-devel</package> needs to be
-     installed. It makes sure all compiler components required for HPC (ie.
-     C, C++ and Fortran Compliers) are installed.
+     installed. It makes sure all compiler components required for HPC (that is,
+     C, C++ and Fortran Compilers) are installed.
     </para>
     <para>
      The environment variables <literal>CC</literal>, <literal>CXX</literal>,
@@ -304,7 +304,7 @@
    </para>
    <para>
     For information on the toolchain to load, check: <xref linkend="sec-compiler"/>,
-    information on avaiable MPI flavors can be found here: <xref linkend="sec1-MPI-libs"/>.
+    information on available MPI flavors can be found here: <xref linkend="sec1-MPI-libs"/>.
    </para>
    <para>
     List of master packages:
@@ -366,7 +366,7 @@
 <screen>module load <replaceable>&lt;TOOLCHAIN&gt;</replaceable> <replaceable>&lt;MPI_FLAVOR&gt;</replaceable> fftw3</screen>
    <para>
     For information on the toolchain to load, check: <xref linkend="sec-compiler"/>,
-    information on avaiable MPI flavors can be found here: <xref linkend="sec1-MPI-libs"/>.
+    information on available MPI flavors can be found here: <xref linkend="sec1-MPI-libs"/>.
    </para>
    <para>
     List of master packages:
@@ -515,7 +515,7 @@
 <screen>module load <replaceable>&lt;TOOLCHAIN&gt;</replaceable> <replaceable>&lt;MPI_FLAVOR&gt;</replaceable> hypre</screen>
    <para>
     For information on the toolchain to load, check: <xref linkend="sec-compiler"/>,
-    information on avaiable MPI flavors can be found here: <xref linkend="sec1-MPI-libs"/>.
+    information on available MPI flavors can be found here: <xref linkend="sec1-MPI-libs"/>.
    </para>
    <para>
     List of master packages:
@@ -685,7 +685,7 @@
 <screen>module load <replaceable>&lt;TOOLCHAIN&gt;</replaceable> <replaceable>&lt;MPI_FLAVOR&gt;</replaceable> ocr</screen>
    <para>
     For information on the toolchain to load, check: <xref linkend="sec-compiler"/>,
-    information on avaiable MPI flavors can be found here: <xref linkend="sec1-MPI-libs"/>.
+    information on available MPI flavors can be found here: <xref linkend="sec1-MPI-libs"/>.
    </para>
    <para>
     List of master packages:
@@ -787,7 +787,7 @@
 <screen>module load <replaceable>&lt;TOOLCHAIN&gt;</replaceable> <replaceable>&lt;MPI_FLAVOR&gt;</replaceable> mumps</screen>
    <para>
     For information on the toolchain to load, check: <xref linkend="sec-compiler"/>,
-    information on avaiable MPI flavors can be found here: <xref linkend="sec1-MPI-libs"/>.
+    information on available MPI flavors can be found here: <xref linkend="sec1-MPI-libs"/>.
    </para>
    <para>
     List of master packages:
@@ -940,7 +940,7 @@
 <screen>module load <replaceable>&lt;TOOLCHAIN&gt;</replaceable> <replaceable>&lt;MPI_FLAVOR&gt;</replaceable> petsc</screen>
    <para>
     For information on the toolchain to load, check: <xref linkend="sec-compiler"/>,
-    information on avaiable MPI flavors can be found here: <xref linkend="sec1-MPI-libs"/>.
+    information on available MPI flavors can be found here: <xref linkend="sec1-MPI-libs"/>.
    </para>
    <para>
     List of master packages:
@@ -976,7 +976,7 @@
 <screen>module load <replaceable>&lt;TOOLCHAIN&gt;</replaceable> <replaceable>&lt;MPI_FLAVOR&gt;</replaceable> scalapack</screen>
    <para>
     For information on the toolchain to load, check: <xref linkend="sec-compiler"/>,
-    information on avaiable MPI flavors can be found here: <xref linkend="sec1-MPI-libs"/>.
+    information on available MPI flavors can be found here: <xref linkend="sec1-MPI-libs"/>.
    </para>
    <para>
     List of master packages:
@@ -1020,7 +1020,7 @@
 <screen>module load <replaceable>&lt;TOOLCHAIN&gt;</replaceable> <replaceable>&lt;MPI_FLAVOR&gt;</replaceable> scotch</screen>
    <para>
     For information on the toolchain to load, check: <xref linkend="sec-compiler"/>,
-    information on avaiable MPI flavors can be found here: <xref linkend="sec1-MPI-libs"/>.
+    information on available MPI flavors can be found here: <xref linkend="sec1-MPI-libs"/>.
    </para>
    <para>
     List of master packages:
@@ -1053,7 +1053,7 @@
    </para>
    <para>
     It uses MPI, OpenMP to support various forms of parallelism. It supports
-    both real and complex datatypes, both single and double precision, and
+    both real and complex data types, both single and double precision, and
     64-bit integer indexing. The library routines performs an LU decomposition
     with partial pivoting and triangular system solves through forward and
     back substitution. The LU factorization routines can handle non-square
@@ -1117,7 +1117,7 @@
 <screen>module load <replaceable>&lt;TOOLCHAIN&gt;</replaceable> <replaceable>&lt;MPI_FLAVOR&gt;</replaceable> trilinos</screen>
    <para>
     For information on the toolchain to load, check: <xref linkend="sec-compiler"/>,
-    information on avaiable MPI flavors can be found here: <xref linkend="sec1-MPI-libs"/>.
+    information on available MPI flavors can be found here: <xref linkend="sec1-MPI-libs"/>.
    </para>
    <para>
     List of master packages:
@@ -1150,7 +1150,7 @@
 <screen>module load <replaceable>&lt;TOOLCHAIN&gt;</replaceable> <replaceable>&lt;MPI_FLAVOR&gt;</replaceable> adios</screen>
    <para>
     For information on the toolchain to load, check: <xref linkend="sec-compiler"/>,
-    information on avaiable MPI flavors can be found here: <xref linkend="sec1-MPI-libs"/>.
+    information on available MPI flavors can be found here: <xref linkend="sec1-MPI-libs"/>.
    </para>
    <para>
     List of master packages:
@@ -1198,7 +1198,7 @@
 <screen>module load <replaceable>&lt;TOOLCHAIN&gt;</replaceable> <replaceable>&lt;MPI_FLAVOR&gt;</replaceable> phpdf5</screen>
    <para>
     For information on the toolchain to load, check: <xref linkend="sec-compiler"/>,
-    information on avaiable MPI flavors can be found here: <xref linkend="sec1-MPI-libs"/>.
+    information on available MPI flavors can be found here: <xref linkend="sec1-MPI-libs"/>.
    </para>
    <para>
     List of master packages:
@@ -1298,7 +1298,7 @@
 <screen>module load <replaceable>&lt;TOOLCHAIN&gt;</replaceable> <replaceable>&lt;MPI_FLAVOR&gt;</replaceable> netcdf</screen>
    <para>
     For information on the toolchain to load, check: <xref linkend="sec-compiler"/>,
-    information on avaiable MPI flavors can be found here: <xref linkend="sec1-MPI-libs"/>.
+    information on available MPI flavors can be found here: <xref linkend="sec1-MPI-libs"/>.
    </para>
    <para>
     List of master packages:
@@ -1400,7 +1400,7 @@
 <screen>module load <replaceable>&lt;TOOLCHAIN&gt;</replaceable> <replaceable>&lt;MPI_FLAVOR&gt;</replaceable> netcdf-fortran</screen>
    <para>
     For information on the toolchain to load, check: <xref linkend="sec-compiler"/>,
-    information on avaiable MPI flavors can be found here: <xref linkend="sec1-MPI-libs"/>.
+    information on available MPI flavors can be found here: <xref linkend="sec1-MPI-libs"/>.
    </para>
    <para>
     List of master packages:
@@ -1459,7 +1459,7 @@
    <screen>module load <replaceable>&lt;TOOLCHAIN&gt;</replaceable> <replaceable>&lt;MPI_FLAVOR&gt;</replaceable> pnetcdf</screen>
    <para>
     For information on the toolchain to load, check: <xref linkend="sec-compiler"/>,
-    information on avaiable MPI flavors can be found here: <xref linkend="sec1-MPI-libs"/>.
+    information on available MPI flavors can be found here: <xref linkend="sec1-MPI-libs"/>.
    </para>
    <para>
     List of MPI master packages:
@@ -1606,7 +1606,7 @@
   <title>Profiling and benchmarking libraries and tools</title>
   <para>
    Performance optimization plays an important role in HPC. That applications
-   are run across multiple cluster nodes poses an additional challange.
+   are run across multiple cluster nodes poses an additional challenge.
    &shpca; provides a number of tools for profiling MPI applications and
    benchmarking MPI performance.
   </para>
@@ -1629,7 +1629,7 @@
 <screen>module load <replaceable>&lt;TOOLCHAIN&gt;</replaceable> <replaceable>&lt;MPI_FLAVOR&gt;</replaceable> imb</screen>
    <para>
     For information on the toolchain to load, check: <xref linkend="sec-compiler"/>,
-    information on avaiable MPI flavors can be found here: <xref linkend="sec1-MPI-libs"/>.
+    information on available MPI flavors can be found here: <xref linkend="sec1-MPI-libs"/>.
    </para>
    <itemizedlist>
     <listitem>
@@ -1696,7 +1696,7 @@
 <screen>module load <replaceable>&lt;TOOLCHAIN&gt;</replaceable> <replaceable>&lt;MPI_FLAVOR&gt;</replaceable> mpip</screen>
    <para>
     For information on the toolchain to load, check: <xref linkend="sec-compiler"/>,
-    information on avaiable MPI flavors can be found here: <xref linkend="sec1-MPI-libs"/>.
+    information on available MPI flavors can be found here: <xref linkend="sec1-MPI-libs"/>.
    </para>
    <para>
     List of master packages:
