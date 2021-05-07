@@ -194,7 +194,7 @@
      The Development Tools Module may provide later versions of the GNU
      compiler suite. Run
     </para>
-<screen>zypper search *-compilers-hpc</screen>
+<screen>zypper search '*-compilers-hpc'</screen>
     <para>
      to determine the available ones. If you have more than one version of
      the compiler suite installed, <emphasis>Lmod</emphasis> will pick the
@@ -223,11 +223,11 @@
    When these master packages are updated, the latest version of the
    respective packages will be installed while leaving previous versions
    installed. Library packages are split between runtime and compile time
-   packages. The compile time packages typically supply include files and
-   .so-files for shared libraries. Compile time package names end with
-   <literal>-devel</literal>. For some libraries static (<literal>.a</literal>)
-   libraries are supplied as well, package names for these end with
-   <literal>-devel-static</literal>.
+   packages. The compile time packages typically supply <literal>include</literal>
+   files and <literal>.so</literal> files for shared libraries. Compile time
+   package names end with <literal>-devel</literal>. For some libraries,
+   static (<literal>.a</literal>) libraries are supplied as well. Package names
+   for these end with <literal>-devel-static</literal>.
   </para>
   <para>
    As an example: Package names of the ScaLAPACK library version 2.0.2 built
@@ -280,10 +280,9 @@
   </para>
   <para>
    The Development Tools Module may provide later versions of the GNU
-   compiler suite. Run</para>
-   <screen>zypper search *-compilers-hpc</screen>
-   <para>to determine which ones are available.
+   compiler suite. To determine which ones are available, run:
   </para>
+<screen>zypper search '*-compilers-hpc'</screen>
   <sect2 xml:id="sec2-lib-boost">
    <title><literal>boost</literal> &mdash; Boost C++ Libraries</title>
    <para>
