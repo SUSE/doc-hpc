@@ -261,7 +261,7 @@ nodeattr [-f genders] -k
    different machines which share the same secret key. The most common
    usecase is the <emphasis>slurm</emphasis> workload manager which
    uses <emphasis>munge</emphasis> for the encryption of its messages.
-   Another usecase is authentication for the parallel shell
+   Another use case is authentication for the parallel shell
    <emphasis>mrsh</emphasis>.
   </para>
   <sect2>
