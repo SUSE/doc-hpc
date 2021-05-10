@@ -77,7 +77,7 @@
      </para>
      <para>
       Configure, enable and start <command>munge</command> on the control and
-      compute nodes as described in <xref linkend="sec-remote-munge"/>.
+      compute nodes, as described in <xref linkend="sec-remote-munge"/>.
      </para>
     </step>
     <step>
@@ -85,7 +85,7 @@
       Install <package>slurm-node</package> on the compute nodes with
       <command>zypper in slurm-node</command>, and <package>slurm</package> on
       the control node with <command>zypper in slurm</command>. The package
-      <package>munge</package>will automatically be installed as a dependency.
+      <package>munge</package> will automatically be installed as a dependency.
      </para>
     </step>
    </procedure>
@@ -110,7 +110,7 @@
       </step>
       <step>
        <para>
-        In order to define the compute nodes add:
+        In order to define the compute nodes, add:
        </para>
 <screen>NodeName=<replaceable>NODE_LIST</replaceable>  State=UNKNOWN</screen>
        <para>
@@ -258,22 +258,22 @@ sbatch sleeper.sh
    <procedure>
     <title>Install <package>slurmdbd</package></title>
     <note>
-     <title>Mariadb</title>
+     <title>MariaDB</title>
      <para>
       If you want to use an external SQL database (or such a database is
-      already installed on the control node), you can skip the Mariadb-related
+      already installed on the control node), you can skip the MariaDB-related
       steps.
      </para>
     </note>
     <step>
      <para>
-      Install the Mariabd SQL database with <command>zypper in
+      Install the MariaDB SQL database with <command>zypper in
       mariadb</command>.
      </para>
     </step>
     <step>
      <para>
-      Start and enable Mariadb with the following commands:
+      Start and enable MariaDB with the following commands:
      </para>
 <screen>systemctl start mariadb
 systemctl enable mariadb</screen>
@@ -357,17 +357,17 @@ AccountingStorageHost=localhost</screen>
     </step>
     <step performance="optional">
      <para>
-      Per default <literal>slurm</literal> does not take any group membership
+      By default, <literal>slurm</literal> does not take any group membership
       into account and it is not possible to map the system groups to
-      <literal>slurm</literal>. The creation and group membership have to
-      managed via the commandline tool <command>sacctmgr</command>. Its also
-      possible to have a group hierarchy and users can be part of several
+      <literal>slurm</literal>. Group creation and membership have to be
+      managed via the command line tool <command>sacctmgr</command>. It is also
+      possible to have a group hierarchy, and users can be part of several
       groups.
      </para>
      <para>
       To create an umbrella group <literal>bavaria</literal> for two subgroups
-      called <literal>nuremberg</literal> and <literal>munich</literal> use
-      following commands
+      called <literal>nuremberg</literal> and <literal>munich</literal>, use
+      the following commands:
      </para>
 <screen>sacctmgr add account bavaria \
   Description="umbrella group for subgroups" Organization=bavaria
@@ -388,14 +388,14 @@ Description="subgroup" Organization=bavaria</screen>
    <title>scontrol</title>
    <para>
     The command <command>scontrol</command> is used to show and update the
-    entities of <literal>slurm</literal> like the state of the compute nodes or
-    compute jobs. It can also be used to reboot or propagate configuration
+    entities of <literal>slurm</literal>, such as the state of the compute nodes
+    or compute jobs. It can also be used to reboot or to propagate configuration
     changes to the compute nodes.
    </para>
    <para>
-    Useful options to this command are <literal>--details</literal> which will
-    print a more verbose output and <literal>--oneliner</literal> forcing the
-    output to a single what is useful for scripts.
+    Useful options to this command are <literal>--details</literal>, which will
+    print more verbose output, and <literal>--oneliner</literal>, which forces
+    the output onto a single line, which is more useful in shell scripts.
    </para>
    <variablelist>
     <varlistentry>
@@ -515,16 +515,16 @@ Description="subgroup" Organization=bavaria</screen>
      <term><command>sinfo</command></term>
      <listitem>
       <para>
-       retrieves information about the state of the compute nodes and can be
-       used for a fast overview of the cluster health. Following commandline
-       switches are available
+       retrieves information about the state of the compute nodes, and can be
+       used for a fast overview of the cluster health. The following comman
+       line switches are available:
       </para>
       <variablelist>
        <varlistentry>
         <term><command>--dead</command></term>
         <listitem>
          <para>
-          displays information about not responding nodes.
+          displays information about unresponsive nodes.
          </para>
         </listitem>
        </varlistentry>
@@ -532,7 +532,7 @@ Description="subgroup" Organization=bavaria</screen>
         <term><command>--long</command></term>
         <listitem>
          <para>
-          use this switch for more detailed information.
+          shows more detailed information.
          </para>
         </listitem>
        </varlistentry>
@@ -540,7 +540,7 @@ Description="subgroup" Organization=bavaria</screen>
         <term><command>--reservation</command></term>
         <listitem>
          <para>
-          print information about advanced reservations.
+          prints information about advanced reservations.
          </para>
         </listitem>
        </varlistentry>
@@ -549,7 +549,7 @@ Description="subgroup" Organization=bavaria</screen>
         <listitem>
          <para>
           displays the reason why a node is in the <literal>down</literal>,
-          <literal>drained</literal> or <literal>failing</literal> state.
+          <literal>drained</literal>, or <literal>failing</literal> state.
          </para>
         </listitem>
        </varlistentry>
@@ -557,8 +557,8 @@ Description="subgroup" Organization=bavaria</screen>
         <term><command>--state=<replaceable>STATE</replaceable></command></term>
         <listitem>
          <para>
-          limit the output only to computes with the given state
-          <replaceable>STATE</replaceable>.
+          limit the output only to nodes with the specified
+          <replaceable>STATE</replaceable> state.
          </para>
         </listitem>
        </varlistentry>
@@ -569,8 +569,8 @@ Description="subgroup" Organization=bavaria</screen>
      <term><command>sacct</command></term>
      <listitem>
       <para>
-       displays, when accounting is enabled, the accounting data. Following
-       options are available
+       when accounting is enabled, displays the accounting data. The following
+       options are available:
       </para>
       <variablelist>
        <varlistentry>
@@ -585,7 +585,7 @@ Description="subgroup" Organization=bavaria</screen>
         <term><command>--accounts</command>=<replaceable>NAME</replaceable></term>
         <listitem>
          <para>
-          only specified user(s) are shown
+          only the specified user(s) are shown
          </para>
         </listitem>
        </varlistentry>
@@ -595,9 +595,9 @@ Description="subgroup" Organization=bavaria</screen>
          <para>
           only jobs after starttime will be showed. It also possible to have
           just <replaceable>MM/DD</replaceable> or
-          <replaceable>HH:MM</replaceable>. If not time is given
-          <literal>00:00</literal>, what means that only job from this day are
-          showed.
+          <replaceable>HH:MM</replaceable>. If no time is given, defaults to
+          <literal>00:00</literal>, what means that only jobs from this day are
+          shown.
          </para>
         </listitem>
        </varlistentry>
@@ -605,7 +605,7 @@ Description="subgroup" Organization=bavaria</screen>
         <term><command>--endtime</command>=<replaceable>MM/DD[/YY]-HH:MM[:SS]</replaceable></term>
         <listitem>
          <para>
-          same option as for <command>--starttime</command>. If not set, the
+          same options as for <command>--starttime</command>. If not set, the
           time when the command was issued is used.
          </para>
         </listitem>
@@ -622,7 +622,7 @@ Description="subgroup" Organization=bavaria</screen>
         <term><command>--partition</command>=<replaceable>PARTITION</replaceable></term>
         <listitem>
          <para>
-          show only job which run <replaceable>PARTITION</replaceable>.
+          show only jobs which run in <replaceable>PARTITION</replaceable>.
          </para>
         </listitem>
        </varlistentry>
@@ -633,14 +633,14 @@ Description="subgroup" Organization=bavaria</screen>
      <term><command>sbatch</command>, <command>salloc</command> and <command>srun</command></term>
      <listitem>
       <para>
-       this commands are used schedule a compute job, which is a batch script
-       for <command>sbatch</command>, a interactive session for
-       <command>salloc</command> and a binary for <command>srun</command>.
-       Please note that only the command <command>sbatch</command> will place
-       the submitted job script to the queue if it can't scheduled immediately.
+       these commands are used to schedule a compute job, which is a batch script
+       for the <command>sbatch</command> command, a interactive session for
+       <command>salloc</command>, and a binary for <command>srun</command>.
+       Please note that only <command>sbatch</command> will place the submitted
+       job script into the queue if it can not be scheduled immediately.
       </para>
       <para>
-       Frequently used options for this commands are:
+       Some frequently-used options for this commands are:
       </para>
       <variablelist>
        <varlistentry>
@@ -764,22 +764,21 @@ Description="subgroup" Organization=bavaria</screen>
   <title>Upgrading Slurm</title>
    <para>
   New major versions of Slurm are released in regular intervals. With some
-  restrictions (see below), interoperability is guaranteed between 3 consecutive
-  versions. However, unlike updates to maintenance releases (that is releases
-  which differ in the last version number), upgrades to later major versions
-  may require more careful planning.
+  restrictions (see below), interoperability is guaranteed between three
+  consecutive versions. However, unlike updates to maintenance releases (that
+  is, releases which differ in the last version number), upgrades to later major
+  versions may require more careful planning.
  </para>
  <para>
-  For existing products under general support version upgrades of Slurm are
+  For existing products under general support, version upgrades of Slurm are
   provided regularly. Unlike maintenance updates, these upgrades will not be
   installed automatically using <literal>zypper patch</literal> but require the
-  administrator to request their installation explicitly. This is to ensures
+  administrator to request their installation explicitly. This is to ensure
   that these upgrades are not installed unintentionally and gives the
   administrator the opportunity to plan version upgrades beforehand.
  </para>
  <para>
-  On new installations, we recommend installing the latest available
-  version.
+  On new installations, we recommend installing the latest available version.
  </para>
  <para>
   Slurm uses a segmented version number: The first two segments denote the
@@ -789,8 +788,8 @@ Description="subgroup" Organization=bavaria</screen>
   Check the list below for available major versions.
  </para>
  <para>
-  Upgrade packages (that is packages that have not been supplied with the
-  module or service pack initially) have their major version encoded in the
+  Upgrade packages (that is, packages that were not initially supplied with the
+  module or service pack) have their major version encoded in the
   package name (with periods <literal>.</literal> replaced by underscores
   <literal>_</literal>). For example, for version 18.08, this would be:
   <literal>slurm_18_08-*.rpm</literal>.
@@ -803,7 +802,7 @@ Description="subgroup" Organization=bavaria</screen>
   To upgrade Slurm subpackages, proceed analogously.
  </para>
  <para>
-  In addition to the <quote>3 major version rule</quote> mentioned at the
+  In addition to the <quote>the major version rule</quote> mentioned at the
   beginning of this section, obey the following rules regarding the order of
   updates:
  </para>
@@ -1307,6 +1306,7 @@ SlurmdTimeout=3600</screen>
   </para>
  </sect2>
  </sect1>
+ 
  <sect1 xml:id="sec-slurm-additional-res">
   <title>Additional resources</title>
   <sect2 xml:id="sec-slurm-faq">
@@ -1318,32 +1318,54 @@ SlurmdTimeout=3600</screen>
       </question>
        <answer>
         <para>
-		When the <literal>slurmd</literal> daemon on a node does not reboot in the time given by the <literal>ResumeTimeout</literal> parameter or the <literal>ReturnToService</literal> was not changed in the configuration file <filename>slurm.conf</filename>, compute nodes stay in the <literal>down</literal> state and have to be set back to the <literal>up</literal> state manually. This can be done for the <replaceable>NODE</replaceable> with the following command:</para>
-        <screen>scontrol update state=resume NodeName=NODE</screen>
+         When the <literal>slurmd</literal> daemon on a node does not reboot in
+         the time given by the <literal>ResumeTimeout</literal> parameter, or
+         the <literal>ReturnToService</literal> was not changed in the
+         configuration file <filename>slurm.conf</filename>, compute nodes stay
+         in the <literal>down</literal> state and have to be set back to the
+         <literal>up</literal> state manually. This can be done for the
+         <replaceable>NODE</replaceable> with the following command:
+        </para>
+<screen>scontrol update state=resume NodeName=<replaceable>NODE</replaceable></screen>
        </answer>
     </qandaentry>
     <qandaentry>
       <question>
-       <para>What is the difference between the state <literal>down</literal> and <literal>down*</literal>?</para>
+       <para>
+        What is the difference between the state <literal>down</literal> and
+        <literal>down*</literal>?
+       </para>
       </question>
       <answer>
        <para>
-           When a node is marked as <literal>down</literal> this means that the node is not reachable due to network issues or the <literal>slurmd</literal> is not running. In the <literal>down</literal> state the node is reachable, but the node was rebooted unexpectedly, the hardware does not match the description in <filename>slurm.conf</filename> or a healthcheck configured with the <literal>HealthCheckProgram</literal>.
+        When a node is marked as <literal>down</literal>, this means that the
+        node is not reachable due to network issues or the
+        <literal>slurmd</literal> is not running. In the <literal>down</literal>
+        state, the node is reachable, but the node was rebooted unexpectedly,
+        the hardware does not match the description in
+        <filename>slurm.conf</filename>, or a healthcheck was configured with
+        the <literal>HealthCheckProgram</literal>.
        </para>
       </answer>
     </qandaentry>
     <qandaentry>
       <question>
-       <para>How do I get the exact core count, socket number and number of CPUs for a node?</para>
+       <para>
+        How do I get the exact core count, socket number and number of CPUs for
+        a node?
+       </para>
       </question>
       <answer>
        <para>
-		 The values for a node which go into the configuration file <filename>slurm.conf</filename> can be obtained with the command</para>
-       <screen>slurmd -C</screen>
+        The values for a node which go into the configuration file
+        <filename>slurm.conf</filename> can be obtained with the command:
+       </para>
+<screen>slurmd -C</screen>
       </answer>
     </qandaentry>
    </qandaset>
   </sect2>
+  
   <sect2 xml:id="sec-slurm-ext-doc">
    <title>External documentation</title>
    <para>

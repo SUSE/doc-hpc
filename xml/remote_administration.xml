@@ -328,7 +328,7 @@ nodeattr [-f genders] -k
 systemctl start munge.service</screen>
     <para>
      To perform the same on multiple nodes, you can also use
-     <command>pdsh<command>.
+     <command>pdsh</command>.
    </para>
   </sect2>
  </sect1>
