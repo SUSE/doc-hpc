@@ -279,7 +279,7 @@ nodeattr [-f genders] -k
    <para>
     <emphasis>Munge</emphasis> is installed by
     <command>zypper in munge</command>. This will install all packages required
-    at runtime. A 'munge-devel' package is available to build applications that
+    at runtime. A <package>munge-devel</package> package is available to build applications that
     require <emphasis>munge</emphasis> authentication.
    </para>
    <para>
