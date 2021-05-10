@@ -51,7 +51,7 @@
       <itemizedlist>
        <listitem>
         <para>
-         Uses BTRFS as the default root file system
+         Uses Btrfs as the default root file system
         </para>
        </listitem>
        <listitem>
@@ -61,12 +61,12 @@
        </listitem>
        <listitem>
         <para>
-         Disables firewall and Kdump services
+         Disables the firewall and kdump services
         </para>
        </listitem>
        <listitem>
         <para>
-         Installs controller for the Slurm Workload Manager
+         Installs a controller for the Slurm Workload Manager
         </para>
        </listitem>
        <listitem>
@@ -96,17 +96,17 @@
        </listitem>
        <listitem>
         <para>
-         Disables firewall and Kdump services
+         Disables firewall and kdump services
         </para>
        </listitem>
        <listitem>
         <para>
-         Based from minimal setup configuration
+         Based upon the minimal setup configuration
         </para>
        </listitem>
        <listitem>
         <para>
-         Installs client for the Slurm Workload Manager
+         Installs a client for the Slurm workload manager
         </para>
        </listitem>
        <listitem>
@@ -136,7 +136,7 @@
        </listitem>
        <listitem>
         <para>
-         Adds compilers and development toolchain
+         Adds compilers and development toolchains
         </para>
        </listitem>
       </itemizedlist>
@@ -146,22 +146,22 @@
    <para>
     The scratch partition <literal>/var/tmp/</literal> will only be created if
     there is sufficient space available on the installation medium (minimum
-    32 GB).
+    32&nbsp;GB).
    </para>
    <para>
     The Environment Module <literal>Lmod</literal> will be installed for all
     roles. It is required at build time and run time of the system.
    </para>
    <para>
-    All libraries specifically build for HPC will be installed under
+    All libraries specifically built for HPC will be installed under
     <literal>/usr/lib/hpc</literal>. They are not part of the standard search
     path, thus the <literal>Lmod</literal> environment module system is
     required.
    </para>
    <para>
-    <literal>Munge</literal> authentication is installed for all roles. This
-    requires to copy the same generated munge keys to all nodes of a cluster.
-    For more information, see <xref linkend="sec-remote-munge"/>.
+    <literal>Munge</literal> authentication is installed for all roles. Munge
+    keys will be generated and the same keys must be copied to all nodes of a
+    cluster. For more information, see <xref linkend="sec-remote-munge"/>.
    </para>
    <para>
     From the Ganglia monitoring system, the data collector

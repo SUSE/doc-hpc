@@ -17,10 +17,9 @@
   <abstract>
    <para>
     HPC clusters usually consist of a small set of identical compute
-    nodes. Each set of nodes may consist from a mere handful to thousands
-    of machines.
-    Managing such compute nodes may be challanging. This chaper
-    descibes a number of tools which aid this task.
+    nodes. Each cluster may consist of a mere handful of machines, up to
+    thousands. Managing the compute nodes of a cluster may be challanging. This
+    chapter descibes a number of tools which aid this task.
    </para>
   </abstract>
   <dm:docmanager xmlns:dm="urn:x-suse:ns:docmanager">
@@ -38,16 +37,17 @@
    cluster.
   </para>
   <para>
-   Perl, Python, Lua, C, and C++ bindings are supplied with Genders, the
-   respective packages provide man pages or other documentation describing
-   the APIs.
+   Perl, Python, Lua, C, and C++ bindings are supplied with Genders. Each
+   package provides <command>man</command> pages or other documentation which
+   describe the APIs.
   </para>
   <sect2 xml:id="sec-genders-db">
     <title>Genders database format</title>
   <para>
-    The Genders database in &shpca; is the plain-text file <filename>/etc/genders</filename>.
-    It contains a list of nodenames with their attributes. Each line of
-    the genders file may have one of the following formats.
+   The Genders database in &shpca; is a plain-text file
+   <filename>/etc/genders</filename>. It contains a list of node names with
+   their attributes. Each line of the database may have one of the following
+   formats.
   </para>
     <screen>
 nodename                attr[=value],attr[=value],...
@@ -55,84 +55,83 @@ nodename1,nodename2,... attr[=value],attr[=value],...
 nodenames[A-B]          attr[=value],attr[=value],...
     </screen>
   <para>
-    The nodename(s) are without their domain and followed by any number of
-    spaces or tabs, and then the comma-separated list of attributes. Every
-    attribute can optionally have a value.  The substitution string "%n" can
-    be used in an attribute value to represent the nodename.  Nodenames can be
-    listed on multiple lines, so a node's attributes can be specified on multiple
-    lines.  However, no single node may have duplicate attributes.
+   The node name(s) do not have domain, and are followed by any number of
+   spaces or tabs, then the comma-separated list of attributes. Every
+   attribute can optionally have a value.  The substitution string
+   <literal>%n</literal> can be used in an attribute value to represent the node
+   name. Node names can be listed on multiple lines, so a node's attributes can
+   be specified on multiple lines. However, no single node may have duplicate
+   attributes.
   </para>
   <para>
-    There must be no spaces embedded in the attribute list and there is
-    no provision for continuation lines.  Commas and equal characters are special
-    and cannot appear in attribute names or their values.  Comments are prefixed
-    with the hash character (#) and can appear anywhere in the file.
+   There must be no spaces embedded in the attribute list, and there is
+   no provision for continuation lines.  Commas and equals characters
+   (<literal>=</literal>) are special, and cannot appear in attribute names or
+   values. Comments are prefixed with the hash character (<literal>#</literal>)
+   and can appear anywhere in the file.
   </para>
   <para>
-    Ranges for nodenames can be specified in the form:
-    prefix[n-m,l-k,...], where n &gt; m and l &gt; k, etc., as an alternative
-    to explicit lists of nodenames.
+   Ranges for nodenames can be specified in the form:
+   <literal>prefix[n-m,l-k,...]</literal>, where n &gt; m and l &gt; k, etc.,
+   as an alternative to explicit lists of nodenames.
   </para>
   </sect2>
+  
   <sect2 xml:id="sec-nodeattr">
-    <title>Nodeattr usage</title>
-  <para>
-    The command line utitlity <literal>nodeaddr</literal> can be used to query data
+   <title>Nodeattr usage</title>
+   <para>
+    The command line utility <command>nodeaddr</command> can be used to query data
     in the genders file. When the genders file is replicated on all nodes, a qery
     can be done wihtout network access. It can be called like followed
-  </para>
-  <screen>
-nodeattr [-q | -n | -s] [-r] attr[=val]
-  </screen>
+   </para>
+<screen>nodeattr [-q | -n | -s] [-r] attr[=val]</screen>
   <para>
-    where <literal>-q</literal> is the default option and prints a list nodes
-    with <literal>attr[=val]</literal> as hostrange.
+   where <literal>-q</literal> is the default option and prints a list nodes
+   with <literal>attr[=val]</literal> as hostrange.
   </para>
   <para>
-    The <literal>-c</literal> options will give a comma separated, the
-    <literal>-s</literal> option a space seperated list of nodes with
-    <literal>attr[=val]</literal>.
+   The <literal>-c</literal> options will give a comma-separated list, and the
+   <literal>-s</literal> option a space-separated list, of nodes with 
+   <literal>attr[=val]</literal>.
   </para>
   <para>
-    If none of the formatting options are specified, nodeattr returns a zero
-    value if the local node has the specified attribute, else nonzero.  The
-    <literal>-v</literal> option causes any value associated with the attribute
-    to go to stdout. If a node name is specified before the attribute, it is
-    queried instead of the
-    local node.
+   If none of the formatting options are specified, <command>nodeattr</command>
+   returns a zero value if the local node has the specified attribute, and 
+   otherwise nonzero.  The <literal>-v</literal> option causes any value
+   associated with the attribute to go to <literal>stdout</literal>. If a node
+   name is specified before the attribute, it is queried instead of the
+   local node.
   </para>
   <para>
-    When <literal>nodeattr</literal> is called with the <literal>-l</literal>
-    parameter like
+    When <command>nodeattr</command> is called with the <literal>-l</literal>
+    parameter, as follows:
   </para>
-    <screen>
-nodeattr -l [node]
-    </screen>
-      <para>
-        all attributes for a particular node are printed out. If no node paramteter is
-        is given, all attributes of the local node are printed out.
-      </para>
-      <para>
-        With the command
-       </para>
-        <screen>
-nodeattr [-f genders] -k
-        </screen>
-        <para>
-          a syntax check of the genders database is performed, where with the switch
-          <literal>-f</literal> an alternative datanbase location can be specified.
-        </para>
-  </sect2>
+<screen>nodeattr -l [node]</screen>
+  <para>
+   all attributes for a particular node are printed out. If no node
+   paramteter is is given, all attributes of the local node are printed out.
+  </para>
+  <para>
+   With the command
+  </para>
+<screen>nodeattr [-f genders] -k</screen>
+  <para>
+   a syntax check of the genders database is performed, where with the switch
+   <literal>-f</literal> an alternative datanbase location can be specified.
+  </para>
+ </sect2>
+  
  </sect1>
  <sect1 xml:id="sec-remote-pdsh">
   <title>pdsh &mdash; parallel remote shell program</title>
   <para>
-   <literal>pdsh</literal> is a parallel remote shell which can be used
+   <command>pdsh</command> is a parallel remote shell which can be used
    with multiple back-ends for remote connections. It can run a command on
    multiple machines in parallel.
   </para>
   <para>
-   To install pdsh, run <command>zypper in pdsh</command>.
+   To install <package>pdsh</package>, run the command:
+   <command>zypper in pdsh</command>.
   </para>
   <para>
    On &shpca; the back-ends <literal>ssh</literal>,
@@ -255,41 +254,40 @@ nodeattr [-f genders] -k
   </important>
  </sect1>
  <sect1 xml:id="sec-remote-munge">
-  <title>MUNGE authentication</title>
+  <title>Munge authentication</title>
   <para>
-   <emphasis>munge</emphasis> allows for a secure communication between
+   <emphasis>Munge</emphasis> allows for secure communications between
    different machines which share the same secret key. The most common
-   usecase is the <emphasis>slurm</emphasis> workload manager which
+   usecase is the <emphasis>Slurm</emphasis> workload manager, which
    uses <emphasis>munge</emphasis> for the encryption of its messages.
    Another use case is authentication for the parallel shell
    <emphasis>mrsh</emphasis>.
   </para>
   <sect2>
-   <title>Setting up MUNGE authentication</title>
+   <title>Setting up Munge authentication</title>
    <para>
-    <emphasis>Munge</emphasis> uses the UID/GID to uniquely identify
-    and authenticate users. Thus, care must be taken that the users who
-    are to be authenicated across a network have unified UIDs and GIDs.
+    <emphasis>Munge</emphasis> uses UID/GID values to uniquely identify
+    and authenticate users. Thus, you must take care that users who will
+    authenicate across a network have unified UIDs and GIDs.
    </para>
    <para>
     <emphasis>Munge</emphasis> credentials have a limited time-to-live.
-    Therefore it must be ensured  that the time is synchronized across
-    the entire cluster.
+    Therefore you must ensure that the time is synchronized across the entire
+    cluster.
    </para>
    <para>
     <emphasis>Munge</emphasis> is installed by
     <command>zypper in munge</command>. This will install all packages required
-    at runtime. A <package>munge-devel</package> package is available to build applications that
-    require <emphasis>munge</emphasis> authentication.
+    at runtime. A <package>munge-devel</package> package is available to build
+    applications that require <emphasis>munge</emphasis> authentication.
    </para>
    <para>
-    When installing <emphasis>munge</emphasis>, a new key is generated on
-    every system. The <emphasis>munge</emphasis> key needs to be uniform
-    across the entire cluster, however. Therefore a key of one system
-    needs to be copied in a secure way to all other nodes in the cluster.
-    Care must be taken that the key is only readable by the
-    <emphasis>'munge'</emphasis> user (permissions mask
-    <literal>0400</literal>).
+    When installing <package>Munge</package>, a new key is generated on
+    every system. However, this <emphasis>Munge</emphasis> key needs to be
+    uniform across the entire cluster. Therefore, the key from one system needs
+    to be copied in a secure way to all other nodes in the cluster. Care must
+    be taken that the key is only readable by the 
+    <literal>munge</literal> user (permissions mask <literal>0400</literal>).
    </para>
    <para>
     <emphasis>pdsh</emphasis> (with ssh) may be used to do this:
@@ -298,27 +296,27 @@ nodeattr [-f genders] -k
     Check permissions, owner and file type of the key file located under
     <filename>/etc/munge/munge.key</filename> on the local system:
    </para>
-   <screen># stat --format "%F %a %G %U %n" /etc/munge/munge.key</screen>
+<screen># stat --format "%F %a %G %U %n" /etc/munge/munge.key</screen>
    <para>The settings should be:</para>
-   <screen>400 regular file munge munge /etc/munge/munge.key</screen>
+<screen>400 regular file munge munge /etc/munge/munge.key</screen>
    <para>Get md5sum of munge.key:</para>
-   <screen># md5sum /etc/munge/munge.key</screen>
+<screen># md5sum /etc/munge/munge.key</screen>
    <para>Copy key to list of nodes:</para>
-   <screen># pdcp -R ssh -w &lt;hostlist&gt; /etc/munge/munge.key
+<screen># pdcp -R ssh -w &lt;hostlist&gt; /etc/munge/munge.key
    /etc/munge/munge.key </screen>
    <para>Check key settings in remote host:</para>
-   <screen>pdsh -R ssh -w &lt;hostlist&gt; stat --format \"%F %a %G %U %n\"
-   /etc/munge/munge.key
-   pdsh -R ssh -w &lt;hostlist&gt; md5sum /etc/munge/munge.key
-   </screen>
-   <para>make sure they match.</para>
+<screen>pdsh -R ssh -w &lt;hostlist&gt; stat --format \"%F %a %G %U %n\"
+/etc/munge/munge.key
+pdsh -R ssh -w &lt;hostlist&gt; md5sum /etc/munge/munge.key</screen>
+   <para>Make sure that they match.</para>
   </sect2>
   <sect2>
-   <title>Enabling and starting MUNGE</title>
+   <title>Enabling and starting Munge</title>
    <para>
-    <emphasis>munged</emphasis> needs to be run on all nodes where munge
-    authentication is to take place. If munge is used for authentication
-    across the network it needs to run on each side of the communication.
+    <systemitem class="daemon">munged</systemitem> needs to be run on all nodes
+    where Munge authentication will take place. If Munge is used for
+    authentication across the network, it needs to run on each side of the
+    communications link.
    </para>
    <para>
     To start the service and make sure it is started after every reboot, on each
@@ -333,10 +331,10 @@ systemctl start munge.service</screen>
   </sect2>
  </sect1>
  <sect1 xml:id="sec-remote-mrsh">
-  <title>mrsh/mrlogin &mdash; remote login using MUNGE authentication</title>
+  <title>mrsh/mrlogin &mdash; remote login using Munge authentication</title>
   <para>
    <emphasis>mrsh</emphasis> is a set of remote shell programs using the
-   <emphasis>munge</emphasis> authentication system instead of reserved ports
+   <emphasis>Munge</emphasis> authentication system instead of reserved ports
    for security.
   </para>
   <para>
@@ -372,8 +370,8 @@ systemctl start munge.service</screen>
   <para>
    To set up a cluster of machines allowing remote login from each other,
    first follow the instructions for setting up and starting
-   <emphasis>munge</emphasis> authentication in <xref linkend="sec-remote-munge"/>.
-   After <emphasis>munge</emphasis> service has been successfully
+   <emphasis>Munge</emphasis> authentication in <xref linkend="sec-remote-munge"/>.
+   After the <emphasis>Munge</emphasis> service has been successfully
    started, enable and start <command>mrlogin</command> on each machine on
    which the user will log in:
   </para>

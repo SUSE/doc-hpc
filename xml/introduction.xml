@@ -32,7 +32,7 @@
   <itemizedlist>
    <listitem>
     <para>
-     Workload manager
+     A workload manager
     </para>
    </listitem>
    <listitem>
@@ -47,12 +47,12 @@
    </listitem>
    <listitem>
     <para>
-     Serial console monitoring tool
+     A serial-console monitoring tool
     </para>
    </listitem>
    <listitem>
     <para>
-     Cluster power management tool
+     A cluster power management tool
     </para>
    </listitem>
    <listitem>
@@ -77,8 +77,8 @@
    </listitem>
    <listitem>
     <para>
-     User-extensible heap manager capable of distinguishing between different kinds
-     of memory (x86-64 only)
+     A user-extensible heap manager capable of distinguishing between different
+     kinds of memory (x86-64 only)
     </para>
    </listitem>
    <listitem>
@@ -88,8 +88,8 @@
    </listitem>
    <listitem>
     <para>
-     Serial and parallel computational libraries providing the common standards
-     BLAS, LAPACK, ...
+     Serial and parallel computational libraries providing many common
+     standards, such as BLAS, LAPACK, and many others.
     </para>
    </listitem>
    <listitem>
@@ -110,7 +110,7 @@
   <title>Support and life cycle</title>
   <para>
    &product; &this-version; is supported throughout the life cycle of
-   &slea; &this-version;. Two live-cycle extensions, 'Extended Service
+   &slea; &this-version;. Two life-cycle extensions, 'Extended Service
    Overlap Support' (ESPOS) and 'Long Term Support Service' (LTSS), are also
    available for this product. Any released package is fully maintained
    and supported until the availability of the next release.
