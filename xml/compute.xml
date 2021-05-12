@@ -180,7 +180,7 @@
      To use the GNU compiler collection to build your own libraries and
      applications, <package>gnu-compilers-hpc-devel</package> needs to be
      installed. It makes sure all compiler components required for HPC (that is,
-     C, C++ and Fortran Compilers) are installed.
+     C, C++, and Fortran compilers) are installed.
     </para>
     <para>
      The environment variables <literal>CC</literal>, <literal>CXX</literal>,
@@ -503,8 +503,8 @@
    <para>
     The library offers a comprehensive suite of scalable solvers for large-scale
     scientific simulation, featuring parallel multigrid methods for both
-    structured and unstructured grid problems. HYPRE is highly portable, and
-    supports a number of languages, and is developed at Lawrence Livermore
+    structured and unstructured grid problems. HYPRE is highly portable and
+    supports a number of languages. It is developed at Lawrence Livermore
     National Laboratory.
    </para>
    <para>
@@ -1291,7 +1291,7 @@
    <!-- href="https://fate.novell.com/321719" -->
    <title>NetCDF HPC library &mdash; implementation of self-describing data formats</title>
    <para>
-    The NetCDF software libraries for C, C++, FORTRAN, and Perl are a set of
+    The NetCDF software libraries for C, C++, Fortran, and Perl are a set of
     software libraries and self-describing, machine-independent data formats
     that support the creation, access, and sharing of array-oriented
     scientific data.
@@ -1400,7 +1400,7 @@
    </itemizedlist>
    <bridgehead renderas="sect5"><literal>netcdf-fortran</literal> Packages</bridgehead>
    <para>
-    The <literal>netcdf-fortran</literal> packages provide FORTRAN bindings
+    The <literal>netcdf-fortran</literal> packages provide Fortran bindings
     for the NetCDF API, with and without MPI support.
    </para>
    <para>
@@ -1637,14 +1637,15 @@
   </para>
   <sect2 xml:id="sec2-tool-imb">
    <!-- href="https://fate.novell.com/324155" -->
-   <title>IMB &mdash; Intel* MPI benchmarks</title>
+   <title>IMB &mdash; Intel&thrdmrk; MPI benchmarks</title>
    <para>
-    Intel* MPI Benchmarks provides a set of elementary benchmarks that conform
-    to the MPI-1, MPI-2, and MPI-3 standards. One can run all of the supported
-    benchmarks, or a subset specified in the command line, using one executable
-    file. Use command-line parameters to specify various settings, such as time
-    measurement, message lengths, and selection of communicators. For details, see
-    the Intel* MPI Benchmarks User's Guide located at:
+    The Intel&thrdmrk; MPI Benchmarks package provides a set of elementary
+    benchmarks that conform to the MPI-1, MPI-2, and MPI-3 standards. You can
+    run all of the supported benchmarks, or a subset specified in the command
+    line, using a single executable file. Use command-line parameters to specify
+    various settings, such as time measurement, message lengths, and selection
+    of communicators. For details, see the Intel&thrdmrk; MPI Benchmarks User's
+    Guide located at:
     <link xlink:href="https://software.intel.com/en-us/imb-user-guide"/>.
    </para>
       <para>
