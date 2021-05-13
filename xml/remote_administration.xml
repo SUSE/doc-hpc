@@ -39,7 +39,7 @@
   <para>
    Perl, Python, Lua, C, and C++ bindings are supplied with Genders. Each
    package provides <command>man</command> pages or other documentation which
-   describe the APIs.
+   describes the APIs.
   </para>
   <sect2 xml:id="sec-genders-db">
     <title>Genders database format</title>

@@ -61,12 +61,12 @@
        </listitem>
        <listitem>
         <para>
-         Disables the firewall and kdump services
+         Disables the firewall and Kdump services
         </para>
        </listitem>
        <listitem>
         <para>
-         Installs a controller for the Slurm Workload Manager
+         Installs a controller for the Slurm workload manager
         </para>
        </listitem>
        <listitem>
@@ -159,7 +159,7 @@
     required.
    </para>
    <para>
-    <literal>Munge</literal> authentication is installed for all roles. Munge
+    <literal>MUNGE</literal> authentication is installed for all roles. MUNGE
     keys will be generated and the same keys must be copied to all nodes of a
     cluster. For more information, see <xref linkend="sec-remote-munge"/>.
    </para>
