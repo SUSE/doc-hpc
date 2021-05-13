@@ -77,7 +77,7 @@
       directory.
      </para>
      <para>
-      Configure, enable and start <command>munge</command> on the control and
+      Configure, enable, and start <command>munge</command> on the control and
       compute nodes, as described in <xref linkend="sec-remote-munge"/>.
      </para>
     </step>
