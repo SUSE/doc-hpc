@@ -1264,6 +1264,7 @@ SlurmdTimeout=3600</screen>
         In the <literal>down</literal> state, the node is reachable, but the
         node was rebooted unexpectedly, the hardware does not match the
         description in <filename>slurm.conf</filename>, or a healthcheck was
+        configured with the <literal>HealthCheckProgram</literal>.
        </para>
       </answer>
     </qandaentry>

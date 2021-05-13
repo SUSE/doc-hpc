@@ -18,7 +18,7 @@
    <para>
     HPC clusters usually consist of a small set of identical compute
     nodes. Each cluster may consist of a mere handful of machines, up to
-    thousands. Managing the compute nodes of a cluster may be challanging. This
+    thousands. Managing the compute nodes of a cluster may be challenging. This
     chapter descibes a number of tools which aid this task.
    </para>
   </abstract>
@@ -30,9 +30,9 @@
  <sect1 xml:id="sec-remote-genders">
   <title>Genders &mdash; static cluster configuration database</title>
   <para>
-   Genders is a static cluster configuration database used for
-   configuration management. It allows grouping and addressing sets of
-   hosts by attributes and is used by a variety of tools. The Genders
+   <emphasis>Genders</emphasis> is a static cluster configuration database used
+   for configuration management. It allows grouping and addressing sets of
+   hosts by attributes, and is used by a variety of tools. The Genders
    database is a text file which is usually replicated on each node in a
    cluster.
   </para>
@@ -55,25 +55,25 @@ nodename1,nodename2,... attr[=value],attr[=value],...
 nodenames[A-B]          attr[=value],attr[=value],...
     </screen>
   <para>
-   The node name(s) do not have domain, and are followed by any number of
+   Node names do not include a domain, and are followed by any number of
    spaces or tabs, then the comma-separated list of attributes. Every
-   attribute can optionally have a value.  The substitution string
+   attribute can optionally have a value. The substitution string
    <literal>%n</literal> can be used in an attribute value to represent the node
    name. Node names can be listed on multiple lines, so a node's attributes can
    be specified on multiple lines. However, no single node may have duplicate
    attributes.
   </para>
   <para>
-   There must be no spaces embedded in the attribute list, and there is
-   no provision for continuation lines.  Commas and equals characters
-   (<literal>=</literal>) are special, and cannot appear in attribute names or
-   values. Comments are prefixed with the hash character (<literal>#</literal>)
-   and can appear anywhere in the file.
+   The attribute list must not contain spaces, and there is no provision for
+   continuation lines.  Commas and equals characters (<literal>=</literal>) are
+   special, and cannot appear in attribute names or values. Comments are
+   prefixed with the hash character (<literal>#</literal>) and can appear
+   anywhere in the file.
   </para>
   <para>
-   Ranges for nodenames can be specified in the form:
+   Ranges for node names can be specified in the form:
    <literal>prefix[n-m,l-k,...]</literal>, where n &gt; m and l &gt; k, etc.,
-   as an alternative to explicit lists of nodenames.
+   as an alternative to explicit lists of node names.
   </para>
   </sect2>
   
@@ -87,7 +87,7 @@ nodenames[A-B]          attr[=value],attr[=value],...
 <screen>nodeattr [-q | -n | -s] [-r] attr[=val]</screen>
   <para>
    where <literal>-q</literal> is the default option and prints a list nodes
-   with <literal>attr[=val]</literal> as hostrange.
+   with <literal>attr[=val]</literal> as the host range.
   </para>
   <para>
    The <literal>-c</literal> options will give a comma-separated list, and the
@@ -96,8 +96,8 @@ nodenames[A-B]          attr[=value],attr[=value],...
   </para>
   <para>
    If none of the formatting options are specified, <command>nodeattr</command>
-   returns a zero value if the local node has the specified attribute, and 
-   otherwise nonzero.  The <literal>-v</literal> option causes any value
+   returns a zero value if the local node has the specified attribute, and
+   non-zero otherwise. The <literal>-v</literal> option causes any value
    associated with the attribute to go to <literal>stdout</literal>. If a node
    name is specified before the attribute, it is queried instead of the
    local node.
@@ -254,40 +254,39 @@ nodenames[A-B]          attr[=value],attr[=value],...
   </important>
  </sect1>
  <sect1 xml:id="sec-remote-munge">
-  <title>Munge authentication</title>
+  <title>MUNGE authentication</title>
   <para>
-   <emphasis>Munge</emphasis> allows for secure communications between
+   <emphasis>MUNGE</emphasis> allows for secure communications between
    different machines which share the same secret key. The most common
    usecase is the <emphasis>Slurm</emphasis> workload manager, which
-   uses <emphasis>munge</emphasis> for the encryption of its messages.
-   Another use case is authentication for the parallel shell
+   uses MUNGE for the encryption of its messages. Another use case is
+   authentication for the parallel shell
    <emphasis>mrsh</emphasis>.
   </para>
   <sect2>
-   <title>Setting up Munge authentication</title>
+   <title>Setting up MUNGE authentication</title>
    <para>
-    <emphasis>Munge</emphasis> uses UID/GID values to uniquely identify
-    and authenticate users. Thus, you must take care that users who will
-    authenicate across a network have unified UIDs and GIDs.
+    MUNGE uses UID/GID values to uniquely identify and authenticate users. Thus,
+    you must take care that users who will authenicate across a network have
+    unified UIDs and GIDs.
    </para>
    <para>
-    <emphasis>Munge</emphasis> credentials have a limited time-to-live.
-    Therefore you must ensure that the time is synchronized across the entire
-    cluster.
+    MUNGE credentials have a limited time-to-live, so you must ensure that the
+    time is synchronized across the entire cluster.
    </para>
    <para>
-    <emphasis>Munge</emphasis> is installed by
-    <command>zypper in munge</command>. This will install all packages required
-    at runtime. A <package>munge-devel</package> package is available to build
-    applications that require <emphasis>munge</emphasis> authentication.
+    MUNGE is installed with the command <command>zypper in munge</command>.
+    This will install all packages required at runtime. A
+    <package>munge-devel</package> package is available to build applications
+    that require <emphasis>munge</emphasis> authentication.
    </para>
    <para>
-    When installing <package>Munge</package>, a new key is generated on
-    every system. However, this <emphasis>Munge</emphasis> key needs to be
-    uniform across the entire cluster. Therefore, the key from one system needs
-    to be copied in a secure way to all other nodes in the cluster. Care must
-    be taken that the key is only readable by the 
-    <literal>munge</literal> user (permissions mask <literal>0400</literal>).
+    When installing the <package>munge</package> package, a new key is generated
+    on every system. However, this MUNGE key must be uniform across the entire
+    cluster. Therefore, the key from one system needs to be copied in a secure
+    way to all other nodes in the cluster. Care must be taken that the key is
+    only readable by the <literal>munge</literal> user (permissions mask
+    <literal>0400</literal>).
    </para>
    <para>
     <emphasis>pdsh</emphasis> (with ssh) may be used to do this:
@@ -311,10 +310,10 @@ pdsh -R ssh -w &lt;hostlist&gt; md5sum /etc/munge/munge.key</screen>
    <para>Make sure that they match.</para>
   </sect2>
   <sect2>
-   <title>Enabling and starting Munge</title>
+   <title>Enabling and starting MUNGE</title>
    <para>
     <systemitem class="daemon">munged</systemitem> needs to be run on all nodes
-    where Munge authentication will take place. If Munge is used for
+    where MUNGE authentication will take place. If MUNGE is used for
     authentication across the network, it needs to run on each side of the
     communications link.
    </para>
@@ -331,10 +330,10 @@ systemctl start munge.service</screen>
   </sect2>
  </sect1>
  <sect1 xml:id="sec-remote-mrsh">
-  <title>mrsh/mrlogin &mdash; remote login using Munge authentication</title>
+  <title>mrsh/mrlogin &mdash; remote login using MUNGE authentication</title>
   <para>
    <emphasis>mrsh</emphasis> is a set of remote shell programs using the
-   <emphasis>Munge</emphasis> authentication system instead of reserved ports
+   <emphasis>MUNGE</emphasis> authentication system instead of reserved ports
    for security.
   </para>
   <para>
@@ -369,11 +368,10 @@ systemctl start munge.service</screen>
   </itemizedlist>
   <para>
    To set up a cluster of machines allowing remote login from each other,
-   first follow the instructions for setting up and starting
-   <emphasis>Munge</emphasis> authentication in <xref linkend="sec-remote-munge"/>.
-   After the <emphasis>Munge</emphasis> service has been successfully
-   started, enable and start <command>mrlogin</command> on each machine on
-   which the user will log in:
+   first follow the instructions for setting up and starting MUNGE
+   authentication in <xref linkend="sec-remote-munge"/>. After the MUNGE service
+   has been successfully started, enable and start <command>mrlogin</command>
+   on each machine on which the user will log in:
   </para>
   <screen>systemctl enable mrlogind.socket mrshd.socket
 systemctl start mrlogind.socket mrshd.socket</screen>
