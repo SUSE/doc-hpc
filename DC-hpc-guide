@@ -6,5 +6,5 @@ ROOTID=book-hpc
 PROFOS="sles"
 PROFCONDITION="suse-product"
 
-STYLEROOT="/usr/share/xml/docbook/stylesheet/opensuse2013-ns"
+STYLEROOT="/usr/share/xml/docbook/stylesheet/suse2021-ns"
 FALLBACK_STYLEROOT="/usr/share/xml/docbook/stylesheet/suse-ns"
