@@ -810,7 +810,7 @@ Description="subgroup" Organization=bavaria</screen>
   To upgrade Slurm subpackages, use the analogous commands.
  </para>
  <para>
-  In addition to the <quote>the major version rule</quote> mentioned at the
+  In addition to the <quote>three major-version rule</quote> mentioned at the
   beginning of this section, obey the following rules regarding the order of
   updates:
  </para>
