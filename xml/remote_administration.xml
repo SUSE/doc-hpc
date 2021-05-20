@@ -55,7 +55,7 @@ nodename1,nodename2,... attr[=value],attr[=value],...
 nodenames[A-B]          attr[=value],attr[=value],...
     </screen>
   <para>
-   Node names do not include a domain, and are followed by any number of
+   Node names are listed without their domain, and are followed by any number of
    spaces or tabs, then the comma-separated list of attributes. Every
    attribute can optionally have a value. The substitution string
    <literal>%n</literal> can be used in an attribute value to represent the node
