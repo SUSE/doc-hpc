@@ -139,7 +139,7 @@
    <para>
     When using the Btrfs file system, the monitoring data will be lost after
     a rollback and the service <systemitem class="daemon">gmetad</systemitem>.
-    To be able to start it again, either install the package
+    To be fix this issue, either install the package
     <package>ganglia-gmetad-skip-bcheck</package> or create the file
     <filename>/etc/ganglia/no_btrfs_check</filename>.
    </para>
@@ -148,13 +148,13 @@
    <title>Using the Ganglia Web interface</title>
    <para>
     Install <package>ganglia-web</package> on the management server.
-    Depending on which PHP version is used (default is PHP 5), enable it in
-    Apache2: <command>a2enmod php5</command> or <command>a2enmod
+    Depending on which PHP version is used (the default is PHP 7), enable it in
+    Apache2: <command>a2enmod php7</command> or <command>a2enmod
     php7</command>. Then start Apache2 on this machine: <command>rcapache2
     start</command> and make sure it is started automatically after a
     reboot: <command>systemctl enable apache2</command>. The Ganglia Web
     interface should be accessible from
-    <literal>http://<replaceable>MANAGEMENT_SERVER</replaceable>/ganglia</literal>.
+    <literal>http://<replaceable>MANAGEMENT_SERVER</replaceable>/ganglia-web</literal>.
    </para>
   </sect2>
  </sect1>
@@ -162,10 +162,9 @@
   <title>rasdaemon &mdash; utility to log RAS error tracings</title>
   <para>
    <systemitem class="daemon">rasdaemon</systemitem> is a RAS
-   (Reliability, Availability and
-   Serviceability) logging tool. It records memory errors using the EDAC
-   tracing events. EDAC drivers in the Linux kernel handle detection of ECC
-   errors from memory controllers.
+   (Reliability, Availability and Serviceability) logging tool. It records
+   memory errors using EDAC tracing events. EDAC drivers in the Linux kernel
+   handle detection of ECC errors from memory controllers.
   </para>
   <para>
    <systemitem class="daemon">rasdaemon</systemitem> can be used on large

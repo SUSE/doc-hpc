@@ -19,7 +19,7 @@
     HPC clusters usually consist of a small set of identical compute
     nodes. Each cluster may consist of a mere handful of machines, up to
     thousands. Managing the compute nodes of a cluster may be challenging. This
-    chapter descibes a number of tools which aid this task.
+    chapter describes a number of tools which aid this task.
    </para>
   </abstract>
   <dm:docmanager xmlns:dm="urn:x-suse:ns:docmanager">
