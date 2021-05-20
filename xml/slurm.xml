@@ -1060,7 +1060,8 @@ success!</screen>
        <note>
         <title>Convert primary <systemitem class="daemon">slurmdbd</systemitem> first</title>
         <para>
-         If a backup database daemon is used, the primary one needs to be
+         If a backup <systemitem class="daemon">slurmdbd</systemitem> daemon is used,
+         the primary  <systemitem class="daemon">slurmdbd</systemitem> needs to be
          upgraded and run to perform the conversion first. The backup
          <systemitem class="daemon">slurmdbd</systemitem> will not
          start until this has happened.
