@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet href="urn:x-suse:xslt:profiling:docbook51-profile.xsl"
  type="text/xml"
  title="Profiling step"?>
@@ -1373,7 +1372,7 @@ SlurmdTimeout=3600</screen>
     <qandaentry>
      <question>
       <para>
-       What is the difference between the state <literal>down</literal> and
+       What is the difference between the states <literal>down</literal> and
        <literal>down*</literal>?
       </para>
      </question>
@@ -1383,14 +1382,14 @@ SlurmdTimeout=3600</screen>
        not responding.
       </para>
       <para>
-       Thus, when a node is marked as <literal>down*</literal>, this means that
-       the node is not reachable due to network issues, or its
-       <literal>slurmd</literal> is not running.
+       Thus, when a node is marked as <literal>down*</literal>, it means that
+       the node is not reachable due to network issues, or that
+       <literal>slurmd</literal> is not running on that node.
       </para>
       <para>
-       In the <literal>down</literal> state, the node is reachable, but the
-       node was rebooted unexpectedly, the hardware does not match the
-       description in <filename>slurm.conf</filename>, or a healthcheck was
+       In the <literal>down</literal> state, the node is reachable, but either
+       the node was rebooted unexpectedly, the hardware does not match the
+       description in <filename>slurm.conf</filename>, or a health check was
        configured with the <literal>HealthCheckProgram</literal>.
       </para>
      </answer>
