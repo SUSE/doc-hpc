@@ -682,11 +682,10 @@ Description="subgroup" Organization=bavaria</screen>
         <listitem>
          <para>
           means that the signal specified by <replaceable>NUMBER</replaceable>
-          will be sent, 60 seconds before the end of the job unless
-          <replaceable>TIME</replaceable>
-          was specified. The signal will be sent to every process on every node.
-          If a signal should only be sent to the controlling batch job, you
-          must specify the <command>B:</command> flag.
+          will be sent 60 seconds before the end of the job, unless
+          <replaceable>TIME</replaceable> was specified. The signal will be sent
+          to every process on every node. If a signal should only be sent to the
+          controlling batch job, you must specify the <command>B:</command> flag.
          </para>
         </listitem>
        </varlistentry>
@@ -723,8 +722,8 @@ Description="subgroup" Organization=bavaria</screen>
         <listitem>
          <para>
           run a job only on nodes with the specified <emphasis>generic
-          resource</emphasis>, for example a GPU, specified by the value of
-          <replaceable>GRES</replaceable>.
+          resource</emphasis> (GRes), for example a GPU, specified by the value
+          of <replaceable>GRES</replaceable>.
          </para>
         </listitem>
        </varlistentry>

@@ -206,7 +206,7 @@
     (<literal>x86_64</literal>, <literal>aarch64</literal>).
     #else
     -->
-    You can upgrade to &shpca; &this-version; from &shpca;_&prev-version;.
+    You can upgrade to &shpca; &this-version; from &shpca; &prev-version;.
  <!-- #endif -->
    </para>
   </sect2>
