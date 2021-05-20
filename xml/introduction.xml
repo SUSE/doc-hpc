@@ -89,7 +89,7 @@
    <listitem>
     <para>
      Serial and parallel computational libraries providing common standards,
-     such as BLAS, LAPACK, and many others.
+     such as BLAS, LAPACK, and others.
     </para>
    </listitem>
    <listitem>
