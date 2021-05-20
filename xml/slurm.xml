@@ -12,22 +12,30 @@
  xmlns:xlink="http://www.w3.org/1999/xlink" xml:base="slurm.xml"
  xml:id="cha-slurm" xml:lang="en" version="5.1">
  <title>Slurm</title>
- <info><abstract>
+ <info>
+  <abstract>
    <para>
     <emphasis>Slurm</emphasis> is a workload manager for managing compute jobs
     on high-performance computing clusters. It can start multiple jobs on a
     single node or a single job on multiple nodes. Additional components can be
-    used for advanced scheduling and accounting. </para>
-   <para> The mandatory components of Slurm are the control daemon
-     <emphasis>slurmctld</emphasis>, which takes care of job scheduling, and the
+    used for advanced scheduling and accounting.
+   </para>
+
+   <para>
+    The mandatory components of Slurm are the control daemon
+    <emphasis>slurmctld</emphasis>, which takes care of job scheduling, and the
     slurm daemon <emphasis>slurmd</emphasis>, responsible for launching compute
     jobs. Subsequently, nodes running <command>slurmctld</command> are called
-     <emphasis>master nodes</emphasis> and nodes running
-     <command>slurmd</command> are called <emphasis>compute nodes</emphasis>. </para>
-   <para> Additional components are a secondary <emphasis>slurmctld</emphasis>
-    acting as standby server for a failover, and the slurm database daemon
-     <emphasis>slurmdbd</emphasis>, which stores the job history and user
-    hierarchy. </para>
+    <emphasis>master nodes</emphasis> and nodes running
+    <command>slurmd</command> are called <emphasis>compute nodes</emphasis>.
+   </para>
+
+   <para>
+    Additional components are a secondary <emphasis>slurmctld</emphasis> acting
+    as standby server for a failover, and the slurm database daemon
+    <emphasis>slurmdbd</emphasis>, which stores the job history and user
+    hierarchy.
+   </para>
   </abstract>
   <dm:docmanager xmlns:dm="urn:x-suse:ns:docmanager">
    <dm:bugtracker/>
@@ -36,325 +44,443 @@
  </info>
  <sect1 xml:id="sec-scheduler-slurm">
   <title>Slurm — utility for HPC workload management</title>
-  <para> For a minimal setup of Slurm with a control node and multiple compute
-   nodes, follow these instructions: </para>
+
+  <para>
+   For a minimal setup of Slurm with a control node and multiple compute nodes,
+   follow these instructions:
+  </para>
+
   <sect2 xml:id="sec-slurm-minimal">
    <title>Minimal installation</title>
    <important>
     <title>Make sure of consistent UIDs and GIDs for Slurm's accounts</title>
-    <para> For security reasons, Slurm does not run as the user <systemitem
-      class="username">root</systemitem> but under its own user. It is important
-     that the user <systemitem class="username">slurm</systemitem> has the same
-     UID/GID across all nodes of the cluster. </para>
-    <para> If this user/group does not exist, the package
-      <package>slurm</package> creates this user and group when it is installed.
-     However, this does not guarantee that the generated UIDs/GIDs will be
-     identical on all systems. </para>
-    <para> Therefore, we strongly advise you to create the user/group
-      <systemitem class="username">slurm</systemitem> before installing
-      <package>slurm</package>. If you are using a network directory service
+    <para>
+     For security reasons, Slurm does not run as the user
+     <systemitem
+      class="username">root</systemitem> but under its own
+     user. It is important that the user
+     <systemitem class="username">slurm</systemitem> has the same UID/GID
+     across all nodes of the cluster.
+    </para>
+    <para>
+     If this user/group does not exist, the package <package>slurm</package>
+     creates this user and group when it is installed. However, this does not
+     guarantee that the generated UIDs/GIDs will be identical on all systems.
+    </para>
+    <para>
+     Therefore, we strongly advise you to create the user/group
+     <systemitem class="username">slurm</systemitem> before installing
+     <package>slurm</package>. If you are using a network directory service
      such as LDAP for user and group management, you can use it to provide the
-      <systemitem class="username">slurm</systemitem> user/group as well.
+     <systemitem class="username">slurm</systemitem> user/group as well.
     </para>
    </important>
    <procedure>
     <step>
-     <para> It is strongly recommended that all compute nodes share a common
-      home directory. </para>
-     <para> Configure, enable, and start <command>munge</command> on the control
-      and compute nodes, as described in <xref linkend="sec-remote-munge"/>.
+     <para>
+      It is strongly recommended that all compute nodes share a common home
+      directory.
+     </para>
+     <para>
+      Configure, enable, and start <command>munge</command> on the control and
+      compute nodes, as described in <xref linkend="sec-remote-munge"/>.
      </para>
     </step>
     <step>
-     <para> Install <package>slurm-node</package> on the compute nodes with
-       <command>zypper in slurm-node</command>, and <package>slurm</package> on
+     <para>
+      Install <package>slurm-node</package> on the compute nodes with
+      <command>zypper in slurm-node</command>, and <package>slurm</package> on
       the control node with <command>zypper in slurm</command>. The package
-       <package>munge</package> will automatically be installed as a dependency.
+      <package>munge</package> will automatically be installed as a dependency.
      </para>
     </step>
    </procedure>
    <procedure>
     <title>Creating <filename>slurm.conf</filename></title>
     <step>
-     <para> Edit the main configuration file
-       <filename>/etc/slurm/slurm.conf</filename>: </para>
+     <para>
+      Edit the main configuration file
+      <filename>/etc/slurm/slurm.conf</filename>:
+     </para>
      <substeps>
       <step>
-       <para> Configure the parameter
-          <literal>ControlMachine=<replaceable>CONTROL_MACHINE</replaceable></literal>
-        with the host name of the control node. </para>
-       <para> To find out the correct host name, run <command>hostname
-         -s</command> on the control node. </para>
+       <para>
+        Configure the parameter
+        <literal>ControlMachine=<replaceable>CONTROL_MACHINE</replaceable></literal>
+        with the host name of the control node.
+       </para>
+       <para>
+        To find out the correct host name, run <command>hostname -s</command>
+        on the control node.
+       </para>
       </step>
       <step>
-       <para> In order to define the compute nodes, add: </para>
-       <screen>NodeName=<replaceable>NODE_LIST</replaceable> State=UNKNOWN</screen>
-       <para> where the actual parameters like <literal>CPUs</literal> for
-        compute node can be obtained by running the following command on the
-        compute node: </para>
-       <screen>slurmd -C</screen>
-       <para> Additionally, the line </para>
-       <screen>PartitionName=normal Nodes=<replaceable>NODE_LIST</replaceable> \
+       <para>
+        In order to define the compute nodes, add:
+       </para>
+<screen>NodeName=<replaceable>NODE_LIST</replaceable> State=UNKNOWN</screen>
+       <para>
+        where the actual parameters like <literal>CPUs</literal> for compute
+        node can be obtained by running the following command on the compute
+        node:
+       </para>
+<screen>slurmd -C</screen>
+       <para>
+        Additionally, the line
+       </para>
+<screen>PartitionName=normal Nodes=<replaceable>NODE_LIST</replaceable> \
   Default=YES MaxTime=24:00:00 State=UP</screen>
-       <para> has to be added, where <replaceable>NODE_LIST</replaceable> is the
-        list of compute nodes (that is, the output of <command>hostname
-         -s</command> run on each compute node (either comma-separated or as
-        ranges: <literal>node[1-100]</literal>). </para>
+       <para>
+        has to be added, where <replaceable>NODE_LIST</replaceable> is the list
+        of compute nodes (that is, the output of <command>hostname -s</command>
+        run on each compute node (either comma-separated or as ranges:
+        <literal>node[1-100]</literal>).
+       </para>
       </step>
       <step>
-       <para> Now copy the modified configuration file
-         <filename>/etc/slurm/slurm.conf</filename> to the control node and all
-        compute nodes: </para>
-       <screen>scp /etc/slurm/slurm.conf <replaceable>COMPUTE_NODE</replaceable>:/etc/slurm/</screen>
+       <para>
+        Now copy the modified configuration file
+        <filename>/etc/slurm/slurm.conf</filename> to the control node and all
+        compute nodes:
+       </para>
+<screen>scp /etc/slurm/slurm.conf <replaceable>COMPUTE_NODE</replaceable>:/etc/slurm/</screen>
       </step>
      </substeps>
     </step>
     <step>
-     <para> On the control node, start <systemitem class="daemon"
-       >slurmctld</systemitem>: </para>
-     <screen>systemctl start slurmctld.service</screen>
-     <para> Also enable it so that it starts on every boot: </para>
-     <screen>systemctl enable slurmctld.service</screen>
+     <para>
+      On the control node, start
+      <systemitem class="daemon"
+       >slurmctld</systemitem>:
+     </para>
+<screen>systemctl start slurmctld.service</screen>
+     <para>
+      Also enable it so that it starts on every boot:
+     </para>
+<screen>systemctl enable slurmctld.service</screen>
     </step>
     <step>
-     <para> On the compute nodes, start and enable <systemitem class="daemon"
-       >slurmd</systemitem>: </para>
-     <screen>systemctl start slurmd.service
+     <para>
+      On the compute nodes, start and enable
+      <systemitem class="daemon"
+       >slurmd</systemitem>:
+     </para>
+<screen>systemctl start slurmd.service
  systemctl enable slurmd.service</screen>
-     <para> The last line causes <systemitem class="daemon">slurmd</systemitem>
-      to be started on every boot automatically. </para>
+     <para>
+      The last line causes <systemitem class="daemon">slurmd</systemitem> to be
+      started on every boot automatically.
+     </para>
     </step>
    </procedure>
    <procedure>
     <title>Testing the installation</title>
     <step>
-     <para> Check the status and availability of the compute nodes with the
-       <command>sinfo</command> command. It should give you the following output
-      in this example: </para>
-     <screen>
+     <para>
+      Check the status and availability of the compute nodes with the
+      <command>sinfo</command> command. It should give you the following output
+      in this example:
+     </para>
+<screen>
 PARTITION AVAIL  TIMELIMIT  NODES  STATE NODELIST
 normal*      up 1-00:00:00      2   idle sle15sp2-node[1-2]
 </screen>
-     <para> If the node state is not <literal>idle</literal> see <xref
-       linkend="sec-slurm-faq"/>. </para>
+     <para>
+      If the node state is not <literal>idle</literal> see
+      <xref
+       linkend="sec-slurm-faq"/>.
+     </para>
     </step>
     <step>
-     <para> Now the Slurm installation can be tested by running: </para>
-     <screen>srun sleep 30</screen>
-     <para> This will try to immediately run the <command>sleep</command> on a
-      free compute node. In another shell you can now <footnote>
-       <para> at least within 30 seconds </para>
-      </footnote> run the command: </para>
-     <screen>squeue</screen>
-     <para> It will show you the running compute job in an output like this: </para>
-     <screen>
+     <para>
+      Now the Slurm installation can be tested by running:
+     </para>
+<screen>srun sleep 30</screen>
+     <para>
+      This will try to immediately run the <command>sleep</command> on a free
+      compute node. In another shell you can now
+      <footnote>
+       <para>
+        at least within 30 seconds
+       </para>
+      </footnote>
+      run the command:
+     </para>
+<screen>squeue</screen>
+     <para>
+      It will show you the running compute job in an output like this:
+     </para>
+<screen>
     JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)
         1    normal    sleep     root  R       0:05      1 node02
 </screen>
     </step>
     <step>
-     <para> Now you can create the simple shell script </para>
-     <screen>
+     <para>
+      Now you can create the simple shell script
+     </para>
+<screen>
 #!/bin/bash
 echo "started at $(date)"
 sleep 30
 echo "finished at $(date)"
 </screen>
-     <para> save it as <filename>sleeper.sh</filename> and run the shell script
-      in the queue with </para>
-     <screen>
+     <para>
+      save it as <filename>sleeper.sh</filename> and run the shell script in
+      the queue with
+     </para>
+<screen>
 sbatch sleeper.sh
       </screen>
-     <para> The shell script is executed as soon as enough resources are
-      available. After the execution the output of the shell script is stored in
-      the output file <filename>slurm-${JOBNR}.out</filename>. </para>
+     <para>
+      The shell script is executed as soon as enough resources are available.
+      After the execution the output of the shell script is stored in the
+      output file <filename>slurm-${JOBNR}.out</filename>.
+     </para>
     </step>
    </procedure>
   </sect2>
+
   <sect2 xml:id="sec-slurm-slurmdbd">
    <title>Install Slurm database</title>
-   <para> With the minimal installation, Slurm will only store pending and
-    running jobs. In order to store to finished and failed job data, the storage
-    plugin has to be installed and enabled. Additionally, so-called
-     <emphasis>completely fair scheduling</emphasis> can be enabled, which
-    replaces FIFO <footnote>
+   <para>
+    With the minimal installation, Slurm will only store pending and running
+    jobs. In order to store to finished and failed job data, the storage plugin
+    has to be installed and enabled. Additionally, so-called
+    <emphasis>completely fair scheduling</emphasis> can be enabled, which
+    replaces FIFO
+    <footnote>
      <para>
       <emphasis>f</emphasis>irst <emphasis>i</emphasis>n
-      <emphasis>f</emphasis>irst <emphasis>o</emphasis>ut. </para>
-    </footnote> scheduling with algorithms which calculate the job priority in a
-    queue in dependence of the job which a user has run in the history. </para>
-   <para> The Slurm database has two components: the <literal>slurmdbd</literal>
+      <emphasis>f</emphasis>irst <emphasis>o</emphasis>ut.
+     </para>
+    </footnote>
+    scheduling with algorithms which calculate the job priority in a queue in
+    dependence of the job which a user has run in the history.
+   </para>
+   <para>
+    The Slurm database has two components: the <literal>slurmdbd</literal>
     daemon itself, and a SQL database, where &mariadb; is recommended. The
     database can be on the same node which runs <literal>slurmdbd</literal> or
     another node. For this simple setup, all these services run on the same
-    node. </para>
+    node.
+   </para>
    <procedure>
     <title>Install <package>slurmdbd</package></title>
     <note>
      <title>&mariadb;</title>
-     <para> If you want to use an external SQL database (or such a database is
-      already installed on the control node), you can skip the &mariadb;-related
-      steps. </para>
+     <para>
+      If you want to use an external SQL database (or such a database is
+      already installed on the control node), you can skip the
+      &mariadb;-related steps.
+     </para>
     </note>
     <step>
-     <para> Install the &mariadb; SQL database with <command>zypper in
-       mariadb</command>. </para>
+     <para>
+      Install the &mariadb; SQL database with <command>zypper in
+      mariadb</command>.
+     </para>
     </step>
     <step>
-     <para> Start and enable &mariadb; with the following commands: </para>
-     <screen>systemctl start mariadb
+     <para>
+      Start and enable &mariadb; with the following commands:
+     </para>
+<screen>systemctl start mariadb
 systemctl enable mariadb</screen>
     </step>
     <step>
-     <para> Now the database should be secure with the command
-       <command>mysql_secure_installation</command>. </para>
+     <para>
+      Now the database should be secure with the command
+      <command>mysql_secure_installation</command>.
+     </para>
     </step>
     <step xml:id="sec-sum-sqldb">
-     <para> In this step, the database and the user for the Slurm database have
-      to be created. This is done by connecting to the SQL database, for example
-      with the command <command>mysql -u root -p</command>. After a successful
-      connection to the database and the creation of a secure password <footnote>
-       <para> You can use the command <command>openssl rand -base64 32</command>
-        to create a secure random password </para>
-      </footnote> , the Slurm user and the database are created with the
-      commands: </para>
-     <screen>
+     <para>
+      In this step, the database and the user for the Slurm database have to be
+      created. This is done by connecting to the SQL database, for example with
+      the command <command>mysql -u root -p</command>. After a successful
+      connection to the database and the creation of a secure password
+      <footnote>
+       <para>
+        You can use the command <command>openssl rand -base64 32</command> to
+        create a secure random password
+       </para>
+      </footnote>
+      , the Slurm user and the database are created with the commands:
+     </para>
+<screen>
 create user 'slurm'@'localhost' identified by 'password';
 grant all on slurm_acct_db.* TO 'slurm'@'localhost';
 create database slurm_acct_db;</screen>
     </step>
     <step>
-     <para> The package <package>slurmdbd</package> can be installed with the
-      command </para>
-     <screen>zypper in slurm-slurmdbd</screen>
-     <para> Now the configuration file
-       <filename>/etc/slurm/slurmdbd.conf</filename> for
-       <literal>slurmdbd</literal> has to be modified so that the daemon can
-      access the database. Change the following lines </para>
-     <screen>StoragePass=password</screen>
-     <para> to the password which you used in <xref linkend="sec-sum-sqldb"/>.
-      If you chose another location or user for the SQL database, you also need
-      to modify the following entries: </para>
-     <screen>StorageUser=slurm
+     <para>
+      The package <package>slurmdbd</package> can be installed with the command
+     </para>
+<screen>zypper in slurm-slurmdbd</screen>
+     <para>
+      Now the configuration file <filename>/etc/slurm/slurmdbd.conf</filename>
+      for <literal>slurmdbd</literal> has to be modified so that the daemon can
+      access the database. Change the following lines
+     </para>
+<screen>StoragePass=password</screen>
+     <para>
+      to the password which you used in <xref linkend="sec-sum-sqldb"/>. If you
+      chose another location or user for the SQL database, you also need to
+      modify the following entries:
+     </para>
+<screen>StorageUser=slurm
 DbdAddr=localhost
 DbdHost=localhost</screen>
     </step>
     <step>
-     <para> The daemon <literal>slurmdbd</literal> should now be started and
-      enabled with the commands </para>
-     <screen>systemctl start slurmdbd
+     <para>
+      The daemon <literal>slurmdbd</literal> should now be started and enabled
+      with the commands
+     </para>
+<screen>systemctl start slurmdbd
 systemctl enable slurmdbd</screen>
-     <para> The first start of <literal>slurmdbd</literal> will take some time.
+     <para>
+      The first start of <literal>slurmdbd</literal> will take some time.
      </para>
     </step>
     <step>
-     <para> To enable accounting, you have to have change/add the following
-      lines for the connection between the <literal>slurmctld</literal> and the
-       <literal>slurmdbd</literal> daemon: </para>
-     <screen>JobAcctGatherType=jobacct_gather/linux
+     <para>
+      To enable accounting, you have to have change/add the following lines for
+      the connection between the <literal>slurmctld</literal> and the
+      <literal>slurmdbd</literal> daemon:
+     </para>
+<screen>JobAcctGatherType=jobacct_gather/linux
 JobAcctGatherFrequency=30
 AccountingStorageType=accounting_storage/slurmdbd
 AccountingStorageHost=localhost</screen>
-     <para> In the example above, we assume that <literal>slurmdbd</literal> is
-      running on the same host as <literal>slurmctld</literal>. </para>
+     <para>
+      In the example above, we assume that <literal>slurmdbd</literal> is
+      running on the same host as <literal>slurmctld</literal>.
+     </para>
     </step>
     <step>
-     <para> Restart the <literal>slurmctld</literal> with: </para>
-     <screen>systemctl restart slurmctld</screen>
+     <para>
+      Restart the <literal>slurmctld</literal> with:
+     </para>
+<screen>systemctl restart slurmctld</screen>
     </step>
     <step performance="optional">
-     <para> By default, Slurm does not take any group membership into account,
-      and it is not possible to map the system groups to Slurm. Group creation
-      and membership have to be managed via the command line tool
-       <command>sacctmgr</command>. It is also possible to have a group
-      hierarchy, and users can be part of several groups. </para>
-     <para> To create an umbrella group <literal>bavaria</literal> for two
-      subgroups called <literal>nuremberg</literal> and
-       <literal>munich</literal>, use the following commands: </para>
-     <screen>sacctmgr add account bavaria \
+     <para>
+      By default, Slurm does not take any group membership into account, and it
+      is not possible to map the system groups to Slurm. Group creation and
+      membership have to be managed via the command line tool
+      <command>sacctmgr</command>. It is also possible to have a group
+      hierarchy, and users can be part of several groups.
+     </para>
+     <para>
+      To create an umbrella group <literal>bavaria</literal> for two subgroups
+      called <literal>nuremberg</literal> and <literal>munich</literal>, use
+      the following commands:
+     </para>
+<screen>sacctmgr add account bavaria \
   Description="umbrella group for subgroups" Organization=bavaria
 sacctmgr add account nuremberg,munich parent=bavaria
 Description="subgroup" Organization=bavaria</screen>
-     <para> With the similar syntax you can add now users to the accounts: </para>
-     <screen>sacctmgr add user tux Account=nuremberg</screen>
+     <para>
+      With the similar syntax you can add now users to the accounts:
+     </para>
+<screen>sacctmgr add user tux Account=nuremberg</screen>
     </step>
    </procedure>
   </sect2>
  </sect1>
  <sect1 xml:id="sec-slurm-adm-commands">
   <title>Slurm administration commands</title>
+
   <sect2 xml:id="sec-slurm-sconfigure">
    <title>scontrol</title>
-   <para> The command <command>scontrol</command> is used to show and update the
+   <para>
+    The command <command>scontrol</command> is used to show and update the
     entities of Slurm, such as the state of the compute nodes or compute jobs.
     It can also be used to reboot or to propagate configuration changes to the
-    compute nodes. </para>
-   <para> Useful options to this command are <literal>--details</literal>, which
-    will print more verbose output, and <literal>--oneliner</literal>, which
-    forces the output onto a single line, which is more useful in shell scripts. </para>
+    compute nodes.
+   </para>
+   <para>
+    Useful options to this command are <literal>--details</literal>, which will
+    print more verbose output, and <literal>--oneliner</literal>, which forces
+    the output onto a single line, which is more useful in shell scripts.
+   </para>
    <variablelist>
     <varlistentry>
-     <term><command>scontrol show
-      <replaceable>ENTITY</replaceable></command></term>
+     <term><command>scontrol show <replaceable>ENTITY</replaceable></command></term>
      <listitem>
-      <para> will display the state of the specified
-        <replaceable>ENTITY</replaceable>. </para>
+      <para>
+       will display the state of the specified
+       <replaceable>ENTITY</replaceable>.
+      </para>
      </listitem>
     </varlistentry>
     <varlistentry>
-     <term><command>scontrol update
-       <replaceable>SPECIFICATION</replaceable></command></term>
+     <term><command>scontrol update <replaceable>SPECIFICATION</replaceable></command></term>
      <listitem>
-      <para> can be used to update the <replaceable>SPECIFICATION</replaceable>
-       like the compute node or compute node state. </para>
-      <para> Useful <replaceable>SPECIFICATION</replaceable> states for compute
-       nodes which can be set are: </para>
+      <para>
+       can be used to update the <replaceable>SPECIFICATION</replaceable> like
+       the compute node or compute node state.
+      </para>
+      <para>
+       Useful <replaceable>SPECIFICATION</replaceable> states for compute nodes
+       which can be set are:
+      </para>
       <variablelist>
        <varlistentry>
-        <term>nodename=<replaceable>NODE</replaceable> state=drain
-          reason=<replaceable>REASON</replaceable></term>
+        <term>nodename=<replaceable>NODE</replaceable> state=drain reason=<replaceable>REASON</replaceable></term>
         <listitem>
-         <para> will drain the compute node so that no <emphasis>new</emphasis>
-          jobs can be scheduled on the compute node, but will node end compute
-          jobs running on the compute node. <replaceable>REASON</replaceable>
-          could be any string. </para>
+         <para>
+          will drain the compute node so that no <emphasis>new</emphasis> jobs
+          can be scheduled on the compute node, but will node end compute jobs
+          running on the compute node. <replaceable>REASON</replaceable> could
+          be any string.
+         </para>
         </listitem>
        </varlistentry>
        <varlistentry>
-        <term>nodename=<replaceable>NODE</replaceable> state=down
-          reason=<replaceable>REASON</replaceable></term>
+        <term>nodename=<replaceable>NODE</replaceable> state=down reason=<replaceable>REASON</replaceable></term>
         <listitem>
-         <para> is removing all jobs from the compute node
-           <replaceable>NODE</replaceable>, any jobs on the node will be
-          aborted. </para>
+         <para>
+          is removing all jobs from the compute node
+          <replaceable>NODE</replaceable>, any jobs on the node will be
+          aborted.
+         </para>
         </listitem>
        </varlistentry>
        <varlistentry>
-        <term>nodename=<replaceable>NODE</replaceable> state=drain
-          reason=<replaceable>REASON</replaceable></term>
+        <term>nodename=<replaceable>NODE</replaceable> state=drain reason=<replaceable>REASON</replaceable></term>
         <listitem>
-         <para> will drain the compute node so that no <emphasis>new</emphasis>
-          jobs can be scheduled on the compute node, but will node end compute
-          jobs running on the compute node. <replaceable>REASON</replaceable>
-          could be any string. </para>
-         <para> The compute node will stay in <literal>drained</literal> state
-          and must be put back to the idle state with the next listed command.
+         <para>
+          will drain the compute node so that no <emphasis>new</emphasis> jobs
+          can be scheduled on the compute node, but will node end compute jobs
+          running on the compute node. <replaceable>REASON</replaceable> could
+          be any string.
+         </para>
+         <para>
+          The compute node will stay in <literal>drained</literal> state and
+          must be put back to the idle state with the next listed command.
          </para>
         </listitem>
        </varlistentry>
        <varlistentry>
         <term>nodename=<replaceable>NODE</replaceable> state=resume</term>
         <listitem>
-         <para> marks the compute node <replaceable>NODE</replaceable> to be
-          ready for a return to the <literal>idle</literal> state. </para>
+         <para>
+          marks the compute node <replaceable>NODE</replaceable> to be ready
+          for a return to the <literal>idle</literal> state.
+         </para>
         </listitem>
        </varlistentry>
        <varlistentry>
         <term>jobid=<replaceable>JOBID</replaceable><replaceable>REQUIREMENT</replaceable>=<replaceable>VALUE</replaceable></term>
         <listitem>
-         <para> will update the given requirement, such as
-           <literal>NumNodes</literal>, with a new value. This command can also
-          be executed as a normal user. </para>
+         <para>
+          will update the given requirement, such as
+          <literal>NumNodes</literal>, with a new value. This command can also
+          be executed as a normal user.
+         </para>
         </listitem>
        </varlistentry>
       </variablelist>
@@ -363,69 +489,87 @@ Description="subgroup" Organization=bavaria</screen>
     <varlistentry>
      <term>reconfigure</term>
      <listitem>
-      <para> will trigger a reload of the configuration file
-        <filename>slurm.conf</filename> on all compute nodes. </para>
+      <para>
+       will trigger a reload of the configuration file
+       <filename>slurm.conf</filename> on all compute nodes.
+      </para>
      </listitem>
     </varlistentry>
     <varlistentry>
      <term>reboot <replaceable>NODELIST</replaceable></term>
      <listitem>
-      <para> can be used to reboot a compute node, as soon as the jobs on it
-       have finished. The option <literal>RebootProgram="/sbin/reboot"</literal>
-       have to be set in <filename>slurm.conf</filename> to use this command. </para>
-      <para> When the reboot of a compute node takes more than 60 seconds, you
-       can set a higher value for the parameter, such as
-        <literal>ResumeTimeout=300</literal> in <filename>slurm.conf</filename>.
+      <para>
+       can be used to reboot a compute node, as soon as the jobs on it have
+       finished. The option <literal>RebootProgram="/sbin/reboot"</literal>
+       have to be set in <filename>slurm.conf</filename> to use this command.
+      </para>
+      <para>
+       When the reboot of a compute node takes more than 60 seconds, you can
+       set a higher value for the parameter, such as
+       <literal>ResumeTimeout=300</literal> in <filename>slurm.conf</filename>.
       </para>
      </listitem>
     </varlistentry>
     <varlistentry>
      <term><command>sacctmgr</command></term>
      <listitem>
-      <para> is used for job accounting within Slurm. The service
-        <literal>slurmdbd</literal> has to be setup in order to use this
+      <para>
+       is used for job accounting within Slurm. The service
+       <literal>slurmdbd</literal> has to be setup in order to use this
        command. Follow the steps in <xref linkend="sec-sum-sqldb"/> to setup
-        <literal>slurmdbd</literal>. </para>
+       <literal>slurmdbd</literal>.
+      </para>
      </listitem>
     </varlistentry>
     <varlistentry>
      <term><command>sinfo</command></term>
      <listitem>
-      <para> retrieves information about the state of the compute nodes, and can
-       be used for a fast overview of the cluster health. The following
-       command-line switches are available: </para>
+      <para>
+       retrieves information about the state of the compute nodes, and can be
+       used for a fast overview of the cluster health. The following
+       command-line switches are available:
+      </para>
       <variablelist>
        <varlistentry>
         <term><command>--dead</command></term>
         <listitem>
-         <para> displays information about unresponsive nodes. </para>
+         <para>
+          displays information about unresponsive nodes.
+         </para>
         </listitem>
        </varlistentry>
        <varlistentry>
         <term><command>--long</command></term>
         <listitem>
-         <para> shows more detailed information. </para>
+         <para>
+          shows more detailed information.
+         </para>
         </listitem>
        </varlistentry>
        <varlistentry>
         <term><command>--reservation</command></term>
         <listitem>
-         <para> prints information about advanced reservations. </para>
+         <para>
+          prints information about advanced reservations.
+         </para>
         </listitem>
        </varlistentry>
        <varlistentry>
         <term><command>-R</command></term>
         <listitem>
-         <para> displays the reason why a node is in the
-          <literal>down</literal>, <literal>drained</literal>, or
-           <literal>failing</literal> state. </para>
+         <para>
+          displays the reason why a node is in the <literal>down</literal>,
+          <literal>drained</literal>, or <literal>failing</literal> state.
+         </para>
         </listitem>
        </varlistentry>
        <varlistentry>
         <term><command>--state=<replaceable>STATE</replaceable></command></term>
         <listitem>
-         <para> limit the output only to nodes with the specified
-           <replaceable>STATE</replaceable> state. </para>
+         <para>
+          limit the output only to nodes with the specified
+          <replaceable>STATE</replaceable> state.
+         </para>
         </listitem>
        </varlistentry>
       </variablelist>
@@ -434,165 +578,195 @@ Description="subgroup" Organization=bavaria</screen>
     <varlistentry>
      <term><command>sacct</command></term>
      <listitem>
-      <para> when accounting is enabled, displays the accounting data. The
-       following options are available: </para>
+      <para>
+       when accounting is enabled, displays the accounting data. The following
+       options are available:
+      </para>
       <variablelist>
        <varlistentry>
         <term><command>--allusers</command></term>
         <listitem>
-         <para> show accounting data for all users. </para>
+         <para>
+          show accounting data for all users.
+         </para>
         </listitem>
        </varlistentry>
        <varlistentry>
         <term><command>--accounts</command>=<replaceable>NAME</replaceable></term>
         <listitem>
-         <para> only the specified user(s) are shown </para>
+         <para>
+          only the specified user(s) are shown
+         </para>
         </listitem>
        </varlistentry>
        <varlistentry>
         <term><command>--starttime</command>=<replaceable>MM/DD[/YY]-HH:MM[:SS]</replaceable></term>
         <listitem>
-         <para> only jobs after starttime will be shown. You can use just
-           <replaceable>MM/DD</replaceable> or <replaceable>HH:MM</replaceable>.
-          If no time is given, defaults to <literal>00:00</literal>, which means
-          that only jobs from today are shown. </para>
+         <para>
+          only jobs after starttime will be shown. You can use just
+          <replaceable>MM/DD</replaceable> or <replaceable>HH:MM</replaceable>.
+          If no time is given, defaults to <literal>00:00</literal>, which
+          means that only jobs from today are shown.
+         </para>
         </listitem>
        </varlistentry>
        <varlistentry>
         <term><command>--endtime</command>=<replaceable>MM/DD[/YY]-HH:MM[:SS]</replaceable></term>
         <listitem>
-         <para> accepts the same options as for <command>--starttime</command>.
-          If not set, the time when the command was issued is used. </para>
+         <para>
+          accepts the same options as for <command>--starttime</command>. If
+          not set, the time when the command was issued is used.
+         </para>
         </listitem>
        </varlistentry>
        <varlistentry>
         <term><command>--name</command>=<replaceable>NAME</replaceable></term>
         <listitem>
-         <para> limit output to jobs with the given
-           <replaceable>NAME</replaceable>
+         <para>
+          limit output to jobs with the given <replaceable>NAME</replaceable>
          </para>
         </listitem>
        </varlistentry>
        <varlistentry>
         <term><command>--partition</command>=<replaceable>PARTITION</replaceable></term>
         <listitem>
-         <para> show only jobs which run in
-          <replaceable>PARTITION</replaceable>. </para>
+         <para>
+          show only jobs which run in <replaceable>PARTITION</replaceable>.
+         </para>
         </listitem>
        </varlistentry>
       </variablelist>
      </listitem>
     </varlistentry>
     <varlistentry>
-     <term><command>sbatch</command>, <command>salloc</command> and
-       <command>srun</command></term>
+     <term><command>sbatch</command>, <command>salloc</command> and <command>srun</command></term>
      <listitem>
-      <para> these commands are used to schedule
-       <emphasis>compute jobs</emphasis>, which means batch scripts for the
-       <command>sbatch</command> command, interactive sessions for the
-       <command>salloc</command> command, or binaries for the
-       <command>srun</command> command.
+      <para>
+       these commands are used to schedule <emphasis>compute jobs</emphasis>,
+       which means batch scripts for the <command>sbatch</command> command,
+       interactive sessions for the <command>salloc</command> command, or
+       binaries for the <command>srun</command> command.
       </para>
-      <para> Note that if the job cannot be scheduled immediately, only
-        <command>sbatch</command> will place it into the queue. </para>
-      <para> Frequently-used options for these commands are: </para>
+      <para>
+       Note that if the job cannot be scheduled immediately, only
+       <command>sbatch</command> will place it into the queue.
+      </para>
+      <para>
+       Frequently-used options for these commands are:
+      </para>
       <variablelist>
        <varlistentry>
-        <term><command>-n
-         <replaceable>COUNT_THREADS</replaceable></command></term>
+        <term><command>-n <replaceable>COUNT_THREADS</replaceable></command></term>
         <listitem>
-         <para> specifies the number of threads needed by the job. The threads
-          can be allocated on different nodes. </para>
+         <para>
+          specifies the number of threads needed by the job. The threads can be
+          allocated on different nodes.
+         </para>
         </listitem>
        </varlistentry>
        <varlistentry>
-        <term><command>-N
-           <replaceable>MINCOUNT_NODES[-MAXCOUNT_NODES]</replaceable></command></term>
+        <term><command>-N <replaceable>MINCOUNT_NODES[-MAXCOUNT_NODES]</replaceable></command></term>
         <listitem>
-         <para> sets the number of compute nodes which are required for a job.
-          The <replaceable>MAXCOUNT_NODES</replaceable> number can be omitted.
+         <para>
+          sets the number of compute nodes which are required for a job. The
+          <replaceable>MAXCOUNT_NODES</replaceable> number can be omitted.
          </para>
         </listitem>
        </varlistentry>
        <varlistentry>
         <term><command>--time <replaceable>TIME</replaceable></command></term>
         <listitem>
-         <para> specifies the maximal clocktime (runtime) after which a job is
+         <para>
+          specifies the maximal clocktime (runtime) after which a job is
           killed. The format of <replaceable>TIME</replaceable> is either
           seconds or <replaceable>[HH:]MM:SS</replaceable>. Not to be confused
           with <command>walltime</command>, which is <literal>clocktime &times;
-           threads</literal>. </para>
+          threads</literal>.
+         </para>
         </listitem>
        </varlistentry>
        <varlistentry>
-        <term><command>--signal
-          <replaceable>[B:]NUMBER[@TIME]</replaceable></command></term>
+        <term><command>--signal <replaceable>[B:]NUMBER[@TIME]</replaceable></command></term>
         <listitem>
-         <para> means that the signal specified by
-           <replaceable>NUMBER</replaceable> will be sent 60 seconds before the
-          end of the job, unless <replaceable>TIME</replaceable> was specified.
-          The signal will be sent to every process on every node. If a signal
-          should only be sent to the controlling batch job, you must specify the
-           <command>B:</command> flag. </para>
+         <para>
+          means that the signal specified by <replaceable>NUMBER</replaceable>
+          will be sent 60 seconds before the end of the job, unless
+          <replaceable>TIME</replaceable> was specified. The signal will be
+          sent to every process on every node. If a signal should only be sent
+          to the controlling batch job, you must specify the
+          <command>B:</command> flag.
+         </para>
         </listitem>
        </varlistentry>
        <varlistentry>
-        <term><command>--job-name
-         <replaceable>NAME</replaceable></command></term>
+        <term><command>--job-name <replaceable>NAME</replaceable></command></term>
         <listitem>
-         <para> set the name of the job to <replaceable>NAME</replaceable> in
-          the queue. </para>
+         <para>
+          set the name of the job to <replaceable>NAME</replaceable> in the
+          queue.
+         </para>
         </listitem>
        </varlistentry>
        <varlistentry>
         <term><command>--array=<replaceable>RANGEINDEX</replaceable></command></term>
         <listitem>
-         <para> execute the given script via <command>sbatch</command> for
-          indexes given by <replaceable>RANGEINDEX</replaceable> with the same
-          parameters. </para>
+         <para>
+          execute the given script via <command>sbatch</command> for indexes
+          given by <replaceable>RANGEINDEX</replaceable> with the same
+          parameters.
+         </para>
         </listitem>
        </varlistentry>
        <varlistentry>
         <term><command>--dependency=<replaceable>STATE:JOBID</replaceable></command></term>
         <listitem>
-         <para> defer job until specified <replaceable>STATE</replaceable> of
-          job <replaceable>JOBID</replaceable> has been reached. </para>
+         <para>
+          defer job until specified <replaceable>STATE</replaceable> of job
+          <replaceable>JOBID</replaceable> has been reached.
+         </para>
         </listitem>
        </varlistentry>
        <varlistentry>
         <term><command>--gres=<replaceable>GRES</replaceable></command></term>
         <listitem>
-         <para> run a job only on nodes with the specified <emphasis>generic
-           resource</emphasis> (GRes), for example a GPU, specified by the value
-          of <replaceable>GRES</replaceable>. </para>
+         <para>
+          run a job only on nodes with the specified <emphasis>generic
+          resource</emphasis> (GRes), for example a GPU, specified by the value
+          of <replaceable>GRES</replaceable>.
+         </para>
         </listitem>
        </varlistentry>
        <varlistentry>
         <term><command>--licenses=<replaceable>NAME[:COUNT]</replaceable></command></term>
         <listitem>
-         <para> the job must have the number specified in
-           <replaceable>COUNT</replaceable> of licenses with the name
-           <replaceable>NAME</replaceable>. A license is the opposite of a
+         <para>
+          the job must have the number specified in
+          <replaceable>COUNT</replaceable> of licenses with the name
+          <replaceable>NAME</replaceable>. A license is the opposite of a
           generic resource: it is not tied to a computer, but is a cluster-wide
-          variable. </para>
+          variable.
+         </para>
         </listitem>
        </varlistentry>
        <varlistentry>
         <term><command>--mem=<replaceable>MEMORY</replaceable></command></term>
         <listitem>
-         <para> sets the real memory <replaceable>MEMORY</replaceable> needed by
-          a job per node. To use this option, memory control must be enabled.
-          The default unit for the <replaceable>MEMORY</replaceable> value is
+         <para>
+          sets the real memory <replaceable>MEMORY</replaceable> needed by a
+          job per node. To use this option, memory control must be enabled. The
+          default unit for the <replaceable>MEMORY</replaceable> value is
           megabytes, but you can also use <literal>K</literal> for kilobyte,
-           <literal>M</literal> for megabyte, <literal>G</literal> for gigabyte,
-          and <literal>T</literal> for terabyte. </para>
+          <literal>M</literal> for megabyte, <literal>G</literal> for gigabyte,
+          and <literal>T</literal> for terabyte.
+         </para>
         </listitem>
        </varlistentry>
        <varlistentry>
         <term><command>--mem-per-cpu=<replaceable>MEMORY</replaceable></command></term>
         <listitem>
-         <para> This takes the same options as <command>--mem</command>, but
-          defines memory on a per-CPU basis rather than a per-node basis.
+         <para>
+          This takes the same options as <command>--mem</command>, but defines
+          memory on a per-CPU basis rather than a per-node basis.
          </para>
         </listitem>
        </varlistentry>
@@ -604,156 +778,241 @@ Description="subgroup" Organization=bavaria</screen>
  </sect1>
  <sect1 xml:id="sec-slurm-upgrade">
   <title>Upgrading Slurm</title>
-  <para> New major versions of Slurm are released in regular intervals. With
-   some restrictions (see below), interoperability is guaranteed between three
+
+  <para>
+   New major versions of Slurm are released in regular intervals. With some
+   restrictions (see below), interoperability is guaranteed between three
    consecutive versions. However, unlike updates to maintenance releases (that
    is, releases which differ in the last version number), upgrades to later
-   major versions may require more careful planning. </para>
-  <para> For existing products under general support, version upgrades of Slurm
-   are provided regularly. Unlike maintenance updates, these upgrades will not
-   be installed automatically using <literal>zypper patch</literal> but require
-   the administrator to request their installation explicitly. This is to ensure
-   that these upgrades are not installed unintentionally and gives the
-   administrator the opportunity to plan version upgrades beforehand. </para>
-  <para> On new installations, we recommend installing the latest available
-   version. </para>
-  <para> Slurm uses a segmented version number: The first two segments denote
-   the major version, the final segment denotes the patch level. </para>
-  <para> Check the list below for available major versions. </para>
-  <para> Upgrade packages (that is, packages that were not initially supplied
-   with the module or service pack) have their major version encoded in the
-   package name (with periods <literal>.</literal> replaced by underscores
-    <literal>_</literal>). For example, for version 18.08, this would be:
-    <literal>slurm_18_08-*.rpm</literal>. </para>
-  <para> To upgrade the package <package>slurm</package> to 18.08, run the
-   command: </para>
-  <screen>zypper install --force-resolution slurm_18_08</screen>
-  <para> To upgrade Slurm subpackages, use the analogous commands. </para>
-  <para> In addition to the <quote>three major-version rule</quote> mentioned at
-   the beginning of this section, obey the following rules regarding the order
-   of updates: </para>
+   major versions may require more careful planning.
+  </para>
+
+  <para>
+   For existing products under general support, version upgrades of Slurm are
+   provided regularly. Unlike maintenance updates, these upgrades will not be
+   installed automatically using <literal>zypper patch</literal> but require
+   the administrator to request their installation explicitly. This is to
+   ensure that these upgrades are not installed unintentionally and gives the
+   administrator the opportunity to plan version upgrades beforehand.
+  </para>
+
+  <para>
+   On new installations, we recommend installing the latest available version.
+  </para>
+
+  <para>
+   Slurm uses a segmented version number: The first two segments denote the
+   major version, the final segment denotes the patch level.
+  </para>
+
+  <para>
+   Check the list below for available major versions.
+  </para>
+
+  <para>
+   Upgrade packages (that is, packages that were not initially supplied with
+   the module or service pack) have their major version encoded in the package
+   name (with periods <literal>.</literal> replaced by underscores
+   <literal>_</literal>). For example, for version 18.08, this would be:
+   <literal>slurm_18_08-*.rpm</literal>.
+  </para>
+
+  <para>
+   To upgrade the package <package>slurm</package> to 18.08, run the command:
+  </para>
+
+<screen>zypper install --force-resolution slurm_18_08</screen>
+
+  <para>
+   To upgrade Slurm subpackages, use the analogous commands.
+  </para>
+
+  <para>
+   In addition to the <quote>three major-version rule</quote> mentioned at the
+   beginning of this section, obey the following rules regarding the order of
+   updates:
+  </para>
+
   <orderedlist>
    <listitem>
-    <para> The version of <literal>slurmdbd</literal> must be identical to or
-     higher than the version of <literal>slurmctld</literal>
+    <para>
+     The version of <literal>slurmdbd</literal> must be identical to or higher
+     than the version of <literal>slurmctld</literal>
     </para>
    </listitem>
    <listitem>
-    <para> The version of <literal>slurmctld</literal> must the identical to or
+    <para>
+     The version of <literal>slurmctld</literal> must the identical to or
      higher than the version of <literal>slurmd</literal>
     </para>
    </listitem>
    <listitem>
-    <para> The version of <literal>slurmd</literal> must be identical to or
-     higher than the version of the <literal>slurm</literal> user applications.
+    <para>
+     The version of <literal>slurmd</literal> must be identical to or higher
+     than the version of the <literal>slurm</literal> user applications.
     </para>
    </listitem>
   </orderedlist>
-  <para> Or in short: </para>
-  <para> version(<literal>slurmdbd</literal>) &gt;=
-    version(<literal>slurmctld</literal>) &gt;=
-    version(<literal>slurmd</literal>) &gt;= version (Slurm user CLIs). </para>
-  <para> With each version, configuration options for
-    <literal>slurmctld</literal>/<literal>slurmd</literal> or
-    <literal>slurmdbd</literal> may be deprecated. While deprecated they will
+
+  <para>
+   Or in short:
+  </para>
+
+  <para>
+   version(<literal>slurmdbd</literal>) &gt;=
+   version(<literal>slurmctld</literal>) &gt;=
+   version(<literal>slurmd</literal>) &gt;= version (Slurm user CLIs).
+  </para>
+
+  <para>
+   With each version, configuration options for
+   <literal>slurmctld</literal>/<literal>slurmd</literal> or
+   <literal>slurmdbd</literal> may be deprecated. While deprecated they will
    remain valid for this version and the two consecutive ones but they may be
-   removed later. </para>
-  <para> Therefore, it is advisable to update the configuration files after the
-   upgrade and replace deprecated configuration options before the final restart
-   of a service. </para>
-  <para> It should be noted that a new major version of Slurm introduces a new
+   removed later.
+  </para>
+
+  <para>
+   Therefore, it is advisable to update the configuration files after the
+   upgrade and replace deprecated configuration options before the final
+   restart of a service.
+  </para>
+
+  <para>
+   It should be noted that a new major version of Slurm introduces a new
    version of <literal>libslurm</literal>. Older versions of this library might
    no longer work with an upgraded Slurm. For all &slea; software depending on
-    <literal>libslurm </literal>, an upgrade will be provided. Any
+   <literal>libslurm </literal>, an upgrade will be provided. Any
    locally-developed Slurm modules or tools may require modification and/or
-   recompilation. </para>
+   recompilation.
+  </para>
+
   <sect2 xml:id="sec-slurm-upgrade-workflow">
    <title>Upgrade workflow</title>
-   <para> For this workflow, we assume that MUNGE authentication is used and
-    that <literal>pdsh</literal>, the pdsh Slurm plugin and mrsh are usable to
+   <para>
+    For this workflow, we assume that MUNGE authentication is used and that
+    <literal>pdsh</literal>, the pdsh Slurm plugin and mrsh are usable to
     access the all machines of the cluster (that is <literal>mrshd</literal> is
-    running on all nodes in the cluster). </para>
-   <para> If this is not the case, install <literal>pdsh</literal>: </para>
-   <screen>&prompt;zypper in pdsh-slurm</screen>
-   <para> if <literal>mrsh</literal> is not used in the cluster, the
-     <literal>ssh</literal> back-end for <literal>pdsh</literal> may be used as
+    running on all nodes in the cluster).
+   </para>
+   <para>
+    If this is not the case, install <literal>pdsh</literal>:
+   </para>
+<screen>&prompt;zypper in pdsh-slurm</screen>
+   <para>
+    if <literal>mrsh</literal> is not used in the cluster, the
+    <literal>ssh</literal> back-end for <literal>pdsh</literal> may be used as
     well for this, simply replace the option <literal>-R mrsh</literal> by
-     <literal>-R ssh</literal>in the <literal>pdsh</literal>commands below. This
-    is less scalable and you may run out of usable ports. </para>
+    <literal>-R ssh</literal>in the <literal>pdsh</literal>commands below. This
+    is less scalable and you may run out of usable ports.
+   </para>
    <procedure xml:id="pro-slurm-upgrade-workflow">
     <title>Upgrading Slurm</title>
     <step>
      <para>
       <emphasis role="bold">Upgrade slurmdbd Database Daemon</emphasis>
      </para>
-     <para> If the database daemon <literal>slurmdbd</literal> is used, it must
-      be upgraded first. Care must be taken if the same database is used for
+     <para>
+      If the database daemon <literal>slurmdbd</literal> is used, it must be
+      upgraded first. Care must be taken if the same database is used for
       multiple clusters. The database needs to be updated before any cluster is
-      updated. </para>
-     <para> It should be noted that when upgrading <literal>slurmdbd</literal>,
-      a conversion of the database will take place when the new version of
-       <literal>slurmdbd</literal> is started for the first time. If the
+      updated.
+     </para>
+     <para>
+      It should be noted that when upgrading <literal>slurmdbd</literal>, a
+      conversion of the database will take place when the new version of
+      <literal>slurmdbd</literal> is started for the first time. If the
       database is big the conversion will take several tens of minutes. During
-      this time, the database will be inaccessible. </para>
-     <para> It is highly recommended to create a backup of the database in case
-      an error occurs during the upgrade process or afterwards: without a backup
+      this time, the database will be inaccessible.
+     </para>
+     <para>
+      It is highly recommended to create a backup of the database in case an
+      error occurs during the upgrade process or afterwards: without a backup
       all accounting data collected in the database may be lost if an error
       occurs or the upgrade must be rolled back for some reason. A database
       converted to a newer version cannot be converted back to an older one and
-      older versions of <literal>slurmdbd</literal> will not recognize the newer
-      formats. To backup and upgrade <literal>slurmdbd</literal> you may follow
-      this procedure: </para>
+      older versions of <literal>slurmdbd</literal> will not recognize the
+      newer formats. To backup and upgrade <literal>slurmdbd</literal> you may
+      follow this procedure:
+     </para>
      <substeps>
       <step>
-       <para> Stop the <literal>slurmdbd</literal> service: </para>
-       <screen>&prompt;rcslurmdbd stop</screen>
-       <para> Make sure that <literal>slurmdbd</literal> is not running anymore: </para>
-       <screen>&prompt;rcslurmdbd status</screen>
-       <para> It should be noted that <literal>slurmctld</literal> might remain
+       <para>
+        Stop the <literal>slurmdbd</literal> service:
+       </para>
+<screen>&prompt;rcslurmdbd stop</screen>
+       <para>
+        Make sure that <literal>slurmdbd</literal> is not running anymore:
+       </para>
+<screen>&prompt;rcslurmdbd status</screen>
+       <para>
+        It should be noted that <literal>slurmctld</literal> might remain
         running while the database daemon is down. While it is down, requests
         intended for <literal>slurmdbd</literal> are queued internally. The DBD
         Agent Queue size is limited, however, and should therefore be monitored
-        with <literal>sdiag</literal>. </para>
+        with <literal>sdiag</literal>.
+       </para>
       </step>
       <step>
-       <para> Create a backup of the slurm_acct_db database: </para>
-       <screen>&prompt;mysqldump -p slurm_acct_db &gt; slurm_acct_db.sql</screen>
-       <para> If needed, this can be restored calling: </para>
-       <screen>&prompt;mysql -p slurm_acct_db &lt; slurm_acct_db.sql</screen>
+       <para>
+        Create a backup of the slurm_acct_db database:
+       </para>
+<screen>&prompt;mysqldump -p slurm_acct_db &gt; slurm_acct_db.sql</screen>
+       <para>
+        If needed, this can be restored calling:
+       </para>
+<screen>&prompt;mysql -p slurm_acct_db &lt; slurm_acct_db.sql</screen>
       </step>
       <step>
-       <para> In preparation of the conversion, make sure, the variable
-         <literal>innodb_buffer_size</literal> is set to a value &gt;= 128 Mb: </para>
-       <para> On the database server, run: </para>
-       <screen>&prompt;echo  'SELECT @@innodb_buffer_pool_size/1024/1024;' | \
+       <para>
+        In preparation of the conversion, make sure, the variable
+        <literal>innodb_buffer_size</literal> is set to a value &gt;= 128 Mb:
+       </para>
+       <para>
+        On the database server, run:
+       </para>
+<screen>&prompt;echo  'SELECT @@innodb_buffer_pool_size/1024/1024;' | \
   mysql --password --batch</screen>
-       <para> If the size is less than 128&nbsp;MB, it can be changed on the fly
-        for the current session (on <literal>mariadb</literal>) </para>
-       <screen>&prompt;echo 'set GLOBAL innodb_buffer_pool_size = 134217728;' | \
+       <para>
+        If the size is less than 128&nbsp;MB, it can be changed on the fly for
+        the current session (on <literal>mariadb</literal>)
+       </para>
+<screen>&prompt;echo 'set GLOBAL innodb_buffer_pool_size = 134217728;' | \
   mysql --password --batch</screen>
-       <para> or permanently by editing <filename>/etc/my.cnf</filename>,
-        setting it to 128&nbsp;MB then restarting the database: </para>
-       <screen>&prompt;rcmysql restart</screen>
+       <para>
+        or permanently by editing <filename>/etc/my.cnf</filename>, setting it
+        to 128&nbsp;MB then restarting the database:
+       </para>
+<screen>&prompt;rcmysql restart</screen>
       </step>
       <step xml:id="step-slurm-upgrade-workflow-install-slurmdbd">
-       <para> Install the upgrade of <literal>slurmdbd</literal>: </para>
-       <screen>zypper install --force-resolution slurm_<replaceable>version</replaceable>-slurmdbd</screen>
+       <para>
+        Install the upgrade of <literal>slurmdbd</literal>:
+       </para>
+<screen>zypper install --force-resolution slurm_<replaceable>version</replaceable>-slurmdbd</screen>
        <note>
         <title>Update &mariadb; separately</title>
-        <para> If you also need to update <literal>mariadb</literal>, it is
+        <para>
+         If you also need to update <literal>mariadb</literal>, it is
          recommended to perform this step separately,
-          <emphasis>before</emphasis> performing step <xref
-          linkend="step-slurm-upgrade-workflow-install-slurmdbd"/>. </para>
+         <emphasis>before</emphasis> performing step
+         <xref
+          linkend="step-slurm-upgrade-workflow-install-slurmdbd"/>.
+        </para>
        </note>
        <substeps>
         <step>
-         <para> Upgrade &mariadb;: </para>
-         <screen>&prompt;zypper update mariadb</screen>
+         <para>
+          Upgrade &mariadb;:
+         </para>
+<screen>&prompt;zypper update mariadb</screen>
         </step>
         <step>
-         <para> Run the conversion of the database tables to the new version of
-          &mariadb;: </para>
-         <screen>mysql_upgrade --user=root --password=<replaceable>root_db_password</replaceable>;</screen>
+         <para>
+          Run the conversion of the database tables to the new version of
+          &mariadb;:
+         </para>
+<screen>mysql_upgrade --user=root --password=<replaceable>root_db_password</replaceable>;</screen>
         </step>
        </substeps>
       </step>
@@ -761,38 +1020,48 @@ Description="subgroup" Organization=bavaria</screen>
        <para>
         <emphasis role="bold">Rebuild database</emphasis>
        </para>
-       <para> Since a conversion may take a considerable amount of time, the
-        systemd service may run into a timeout during the conversion. Thus we
-        recommend performing the migration manually, by running
-         <literal>slurmdbd</literal> from the command line in the foreground: </para>
-       <screen>&prompt;/usr/sbin/slurmdbd -D -v</screen>
-       <para> Once you see the message: </para>
-       <screen>Conversion done:
+       <para>
+        Since a conversion may take a considerable amount of time, the systemd
+        service may run into a timeout during the conversion. Thus we recommend
+        performing the migration manually, by running
+        <literal>slurmdbd</literal> from the command line in the foreground:
+       </para>
+<screen>&prompt;/usr/sbin/slurmdbd -D -v</screen>
+       <para>
+        Once you see the message:
+       </para>
+<screen>Conversion done:
 success!</screen>
        <para>
         <literal>slurmdbd</literal> may be shut down with signal
-         <literal>SIGTERM</literal> (that is, by pressing <keycombo>
-         <keycap function="control"/>
-         <keycap>C</keycap>
-        </keycombo>). </para>
-       <para> When using a backup <literal>slurmdbd</literal>, the conversion
-        needs to be performed on the primary. The backup will start after the
-        conversion has completed. </para>
+        <literal>SIGTERM</literal> (that is, by pressing <keycombo>
+        <keycap function="control"/> <keycap>C</keycap> </keycombo>).
+       </para>
+       <para>
+        When using a backup <literal>slurmdbd</literal>, the conversion needs
+        to be performed on the primary. The backup will start after the
+        conversion has completed.
+       </para>
       </step>
       <step>
-       <para> Before restarting the service, you should remove or replace any
+       <para>
+        Before restarting the service, you should remove or replace any
         deprecated configuration options. Check the list of deprecated options
         below. After this has been completed, restart
-        <command>slurmdbd</command>: </para>
-       <screen>&prompt;systemctl start slurmdbd</screen>
+        <command>slurmdbd</command>:
+       </para>
+<screen>&prompt;systemctl start slurmdbd</screen>
        <note>
         <title>No daemonization during rebuild</title>
-        <para> During the rebuild of the Slurm database, the database
-         daemon does not daemonize. </para>
+        <para>
+         During the rebuild of the Slurm database, the database daemon does not
+         daemonize.
+        </para>
        </note>
        <note>
         <title>Convert primary <systemitem class="daemon">slurmdbd</systemitem> first</title>
-        <para> If a backup database daemon is used, the primary one needs to be
+        <para>
+         If a backup database daemon is used, the primary one needs to be
          converted first. The backup will not start until this has happened.
         </para>
        </note>
@@ -802,57 +1071,71 @@ success!</screen>
     <step>
      <para>
       <emphasis role="bold">Update <literal>slurmctld</literal> and
-        <literal>slurmd</literal></emphasis>
+      <literal>slurmd</literal></emphasis>
      </para>
-     <para> Once the Slurm database has been updated, the
-       <literal>slurmctld</literal> and <literal>slurmd</literal> instances may
+     <para>
+      Once the Slurm database has been updated, the
+      <literal>slurmctld</literal> and <literal>slurmd</literal> instances may
       be updated. It is recommended to update the head and compute nodes all in
       a single pass. If this is not feasible, the compute nodes
-       (<literal>slurmd</literal>) may be updated on a node-by-node basis.
+      (<literal>slurmd</literal>) may be updated on a node-by-node basis.
       However, this requires that the master nodes
-      (<literal>slurmctld</literal>) have been updated successfully. </para>
+      (<literal>slurmctld</literal>) have been updated successfully.
+     </para>
      <substeps>
       <step>
        <para>
         <emphasis role="bold">Back up the
-          <literal>slurmctld</literal>/<literal>slurmd</literal>
-         configuration</emphasis>
+        <literal>slurmctld</literal>/<literal>slurmd</literal>
+        configuration</emphasis>
        </para>
-       <para> It is advisable to create a backup copy of the Slurm configuration
+       <para>
+        It is advisable to create a backup copy of the Slurm configuration
         before starting the upgrade process. Since the configuration file
-         <filename>/etc/slurm/slurm.conf</filename> should be identical across
+        <filename>/etc/slurm/slurm.conf</filename> should be identical across
         the entire cluster, it is sufficient to do so on the master controller
-        node. </para>
+        node.
+       </para>
       </step>
       <step xml:id="st-slurm-timeout">
        <para>
         <emphasis role="bold">Increase Timeouts</emphasis>
        </para>
-       <para> Set <literal>SlurmdTimeout</literal> and
-         <literal>SlurmctldTimeout</literal> in
-         <filename>/etc/slurm/slurm.conf</filename> to sufficiently high values
+       <para>
+        Set <literal>SlurmdTimeout</literal> and
+        <literal>SlurmctldTimeout</literal> in
+        <filename>/etc/slurm/slurm.conf</filename> to sufficiently high values
         to avoid timeouts while <literal>slurmctld</literal> and
-         <literal>slurmd</literal> are down. We recommend at least 60 minutes,
-        and more on larger clusters. </para>
+        <literal>slurmd</literal> are down. We recommend at least 60 minutes,
+        and more on larger clusters.
+       </para>
        <substeps>
         <step>
-         <para> Edit <filename>/etc/slurm/slurm.conf</filename> on the master
+         <para>
+          Edit <filename>/etc/slurm/slurm.conf</filename> on the master
           controller node and set the values for this variable to at least 3600
-          (one hour). </para>
-         <screen>SlurmctldTimeout=3600
+          (one hour).
+         </para>
+<screen>SlurmctldTimeout=3600
 SlurmdTimeout=3600</screen>
         </step>
         <step>
-         <para> Copy <filename>/etc/slurm/slurm.conf</filename> to all nodes, if
-          MUNGE authentication is used in the cluster as recommended. </para>
+         <para>
+          Copy <filename>/etc/slurm/slurm.conf</filename> to all nodes, if
+          MUNGE authentication is used in the cluster as recommended.
+         </para>
          <substeps>
           <step>
-           <para> Obtain the list of partitions in
-             <filename>/etc/slurm/slurm.conf</filename>. </para>
+           <para>
+            Obtain the list of partitions in
+            <filename>/etc/slurm/slurm.conf</filename>.
+           </para>
           </step>
           <step>
-           <para> Execute: </para>
-           <screen>&prompt;cp /etc/slurm/slurm.conf /etc/slurm/slurm.conf.update
+           <para>
+            Execute:
+           </para>
+<screen>&prompt;cp /etc/slurm/slurm.conf /etc/slurm/slurm.conf.update
 &prompt;sudo -u slurm /bin/bash -c 'cat /etc/slurm/slurm.conf.update \
   | pdsh -R mrsh -P <replaceable>partitions</replaceable> \
   "cat > /etc/slurm/slurm.conf"'
@@ -861,8 +1144,10 @@ SlurmdTimeout=3600</screen>
 </screen>
           </step>
           <step>
-           <para> Verify that the reconfiguration took effect: </para>
-           <screen>&prompt;scontrol show config | grep Timeout</screen>
+           <para>
+            Verify that the reconfiguration took effect:
+           </para>
+<screen>&prompt;scontrol show config | grep Timeout</screen>
           </step>
          </substeps>
         </step>
@@ -870,72 +1155,89 @@ SlurmdTimeout=3600</screen>
       </step>
       <step>
        <para>
-        <emphasis role="bold">Shut down any running <literal>slurmctld</literal>
-         instances</emphasis>
+        <emphasis role="bold">Shut down any running
+        <literal>slurmctld</literal> instances</emphasis>
        </para>
        <substeps>
         <step>
-         <para> If applicable, shut down any backup controllers on the backup
-          head nodes: </para>
-         <screen>&prompt_backup;systemctl stop slurmctld</screen>
+         <para>
+          If applicable, shut down any backup controllers on the backup head
+          nodes:
+         </para>
+<screen>&prompt_backup;systemctl stop slurmctld</screen>
         </step>
         <step>
-         <para> Shut down the master controller: </para>
-         <screen>&prompt_master;systemctl stop slurmctld</screen>
+         <para>
+          Shut down the master controller:
+         </para>
+<screen>&prompt_master;systemctl stop slurmctld</screen>
         </step>
        </substeps>
       </step>
       <step>
        <para>
         <emphasis role="bold">Back up the <literal>slurmctld</literal> state
-         files</emphasis>
+        files</emphasis>
        </para>
-       <para> Also, it should be noted, that <literal>slurmctld</literal>
-        maintains state information that is persistent. Almost every major
-        version involves changes to the <literal>slurmctld</literal> state
-        files. This state information will be upgraded as well if the upgrade
-        remains within the supported version range and no data will be lost. </para>
-       <para> However, if a downgrade should become necessary, state information
-        from newer versions will not be recognized by an older version of
-         <literal>slurmctld</literal> and thus will be discarded, resulting in a
+       <para>
+        Also, it should be noted, that <literal>slurmctld</literal> maintains
+        state information that is persistent. Almost every major version
+        involves changes to the <literal>slurmctld</literal> state files. This
+        state information will be upgraded as well if the upgrade remains
+        within the supported version range and no data will be lost.
+       </para>
+       <para>
+        However, if a downgrade should become necessary, state information from
+        newer versions will not be recognized by an older version of
+        <literal>slurmctld</literal> and thus will be discarded, resulting in a
         loss of all running and pending jobs. Thus it is useful to back up the
-        old state in case an update needs to be rolled back. </para>
+        old state in case an update needs to be rolled back.
+       </para>
        <substeps>
         <step>
-         <para> Determine the <literal>StateSaveLocation</literal> directory: </para>
-         <screen>&prompt;scontrol show config | grep StateSaveLocation</screen>
+         <para>
+          Determine the <literal>StateSaveLocation</literal> directory:
+         </para>
+<screen>&prompt;scontrol show config | grep StateSaveLocation</screen>
         </step>
         <step>
-         <para> Create a backup of the content of this directory to be able to
-          roll back the update if an issue arises. </para>
-         <para> Should a downgrade be required make sure to restore the content
-          of the <literal>StateSaveLocation</literal> directory from this
-          backup. </para>
+         <para>
+          Create a backup of the content of this directory to be able to roll
+          back the update if an issue arises.
+         </para>
+         <para>
+          Should a downgrade be required make sure to restore the content of
+          the <literal>StateSaveLocation</literal> directory from this backup.
+         </para>
         </step>
        </substeps>
       </step>
       <step>
        <para>
         <emphasis role="bold">Shut down <literal>slurmd</literal> on the
-         nodes</emphasis>
+        nodes</emphasis>
        </para>
-       <screen>&prompt;pdsh -R ssh -P <replaceable>partitions</replaceable> systemctl stop slurmd</screen>
+<screen>&prompt;pdsh -R ssh -P <replaceable>partitions</replaceable> systemctl stop slurmd</screen>
       </step>
       <step>
        <para>
         <emphasis role="bold">Update <literal>slurmctld</literal> on the master
-         and backup nodes as well as <literal>slurmd</literal> on the compute
-         nodes</emphasis>
+        and backup nodes as well as <literal>slurmd</literal> on the compute
+        nodes</emphasis>
        </para>
        <substeps>
         <step>
-         <para> On the master/backup node(s): run: </para>
-         <screen>&prompt_master;zypper zypper install \
+         <para>
+          On the master/backup node(s): run:
+         </para>
+<screen>&prompt_master;zypper zypper install \
   --force-resolution slurm_<replaceable>version</replaceable></screen>
         </step>
         <step>
-         <para> On the master node run: </para>
-         <screen>&prompt_master;pdsh -R ssh -P <replaceable>partitions</replaceable> \
+         <para>
+          On the master node run:
+         </para>
+<screen>&prompt_master;pdsh -R ssh -P <replaceable>partitions</replaceable> \
   zypper install --force-resolution \
   slurm_<replaceable>version</replaceable>-node</screen>
         </step>
@@ -945,37 +1247,46 @@ SlurmdTimeout=3600</screen>
        <para>
         <emphasis role="bold">Replace deprecated options</emphasis>
        </para>
-       <para> If deprecated options are to be replaced in the configuration
-        files (see list below), this may be performed before updating the
-        services. These configuration files may be distributed to all
-        controllers and nodes of the cluster by using the method as described in
-        3.b.bb above. </para>
+       <para>
+        If deprecated options are to be replaced in the configuration files
+        (see list below), this may be performed before updating the services.
+        These configuration files may be distributed to all controllers and
+        nodes of the cluster by using the method as described in 3.b.bb above.
+       </para>
        <note>
-        <title>Memory size seen by <literal>slurmd</literal> may change on
-         update</title>
-        <para> Under certain circumstances, the amount of memory seen by
-          <literal>slurmd</literal> may change after an update. If this happens,
-          <literal>slurmctld</literal> will put the nodes in a
-          <literal>drained</literal> state. To check, whether the amount of
+        <title>Memory size seen by <literal>slurmd</literal> may change on update</title>
+        <para>
+         Under certain circumstances, the amount of memory seen by
+         <literal>slurmd</literal> may change after an update. If this happens,
+         <literal>slurmctld</literal> will put the nodes in a
+         <literal>drained</literal> state. To check, whether the amount of
          memory seem by <literal>slurmd</literal> will change after the update,
-         you may run on a single compute node: </para>
-        <screen>&prompt_node1;slurmd -C</screen>
-        <para> Compare the output with the settings in
-          <filename>slurm.conf</filename>. If required, correct the setting.
+         you may run on a single compute node:
+        </para>
+<screen>&prompt_node1;slurmd -C</screen>
+        <para>
+         Compare the output with the settings in
+         <filename>slurm.conf</filename>. If required, correct the setting.
         </para>
        </note>
       </step>
       <step>
        <para>
         <emphasis role="bold">Restart <literal>slurmd</literal> on all compute
-         nodes</emphasis>
+        nodes</emphasis>
        </para>
-       <para> On the master controller run: </para>
-       <screen>&prompt_master;pdsh -R ssh -P <replaceable>partitions</replaceable> \
+       <para>
+        On the master controller run:
+       </para>
+<screen>&prompt_master;pdsh -R ssh -P <replaceable>partitions</replaceable> \
   systemctl start slurmd</screen>
-       <para> On the master, run: </para>
-       <screen>&prompt_master;systemctl start slurmctld</screen>
-       <para> then execute the same on the backup controller(s) </para>
+       <para>
+        On the master, run:
+       </para>
+<screen>&prompt_master;systemctl start slurmctld</screen>
+       <para>
+        then execute the same on the backup controller(s)
+       </para>
       </step>
       <step>
        <para>
@@ -983,17 +1294,25 @@ SlurmdTimeout=3600</screen>
        </para>
        <substeps>
         <step>
-         <para> Check the status of the controller(s). On the master and backup
-          controllers, run: </para>
-         <screen>&prompt;systemctl status slurmctld</screen>
+         <para>
+          Check the status of the controller(s). On the master and backup
+          controllers, run:
+         </para>
+<screen>&prompt;systemctl status slurmctld</screen>
         </step>
         <step>
-         <para> and verify that the services are running without errors. </para>
-         <para> Run: </para>
-         <screen>sinfo -R</screen>
-         <para> to check whether there are any <literal>down</literal>,
-           <literal>drained</literal>, <literal>failing</literal> or
-           <literal>failed</literal> nodes after restart. </para>
+         <para>
+          and verify that the services are running without errors.
+         </para>
+         <para>
+          Run:
+         </para>
+<screen>sinfo -R</screen>
+         <para>
+          to check whether there are any <literal>down</literal>,
+          <literal>drained</literal>, <literal>failing</literal> or
+          <literal>failed</literal> nodes after restart.
+         </para>
         </step>
        </substeps>
       </step>
@@ -1001,21 +1320,25 @@ SlurmdTimeout=3600</screen>
        <para>
         <emphasis role="bold">Clean up</emphasis>
        </para>
-       <para> Restore the <literal>SlurmdTimeout</literal> and
-         <literal>SlurmctldTimeout</literal> values in
-         <literal>/etc/slurm/slurm.conf</literal> on all nodes and run
-         <literal>scontrol reconfigure</literal> (see <xref
-         linkend="st-slurm-timeout"/>). </para>
+       <para>
+        Restore the <literal>SlurmdTimeout</literal> and
+        <literal>SlurmctldTimeout</literal> values in
+        <literal>/etc/slurm/slurm.conf</literal> on all nodes and run
+        <literal>scontrol reconfigure</literal> (see
+        <xref
+         linkend="st-slurm-timeout"/>).
+       </para>
       </step>
      </substeps>
     </step>
    </procedure>
-   <para> A new major version of <package>libslurm</package> is provided with
-    each service pack of &product;. The old version will not be uninstalled on
+   <para>
+    A new major version of <package>libslurm</package> is provided with each
+    service pack of &product;. The old version will not be uninstalled on
     upgrade, and user-provided applications built with an old version should
     continue to work if the old library used is not older than the the past two
     versions. It is strongly recommended to rebuild local applications using
-     <literal>libslurm</literal> &mdash; such as MPI libraries with Slurm
+    <literal>libslurm</literal> &mdash; such as MPI libraries with Slurm
     support &mdash; as early as possible. This may require updating the user
     applications, as new arguments may be introduced to existing functions.
    </para>
@@ -1023,63 +1346,87 @@ SlurmdTimeout=3600</screen>
  </sect1>
  <sect1 xml:id="sec-slurm-additional-res">
   <title>Additional resources</title>
-  <sect2 xml:id="sec-slurm-faq"><title>Frequently asked questions</title>
+
+  <sect2 xml:id="sec-slurm-faq">
+   <title>Frequently asked questions</title>
    <qandaset>
     <qandaentry>
      <question>
-      <para>How do I change the state of a node from <literal>down</literal> to
-        <literal>up</literal>? </para>
+      <para>
+       How do I change the state of a node from <literal>down</literal> to
+       <literal>up</literal>?
+      </para>
      </question>
      <answer>
-      <para> When the <literal>slurmd</literal> daemon on a node does not reboot
-       in the time specified in the <literal>ResumeTimeout</literal> parameter,
-       or the <literal>ReturnToService</literal> was not changed in the
-       configuration file <filename>slurm.conf</filename>, compute nodes stay in
-       the <literal>down</literal> state and have to be set back to the
-        <literal>up</literal> state manually. This can be done for the
-        <replaceable>NODE</replaceable> with the following command: </para>
-      <screen>scontrol update state=resume NodeName=<replaceable>NODE</replaceable></screen>
+      <para>
+       When the <literal>slurmd</literal> daemon on a node does not reboot in
+       the time specified in the <literal>ResumeTimeout</literal> parameter, or
+       the <literal>ReturnToService</literal> was not changed in the
+       configuration file <filename>slurm.conf</filename>, compute nodes stay
+       in the <literal>down</literal> state and have to be set back to the
+       <literal>up</literal> state manually. This can be done for the
+       <replaceable>NODE</replaceable> with the following command:
+      </para>
+<screen>scontrol update state=resume NodeName=<replaceable>NODE</replaceable></screen>
      </answer>
     </qandaentry>
     <qandaentry>
      <question>
-      <para> What is the difference between the state <literal>down</literal>
-       and <literal>down*</literal>? </para>
+      <para>
+       What is the difference between the state <literal>down</literal> and
+       <literal>down*</literal>?
+      </para>
      </question>
      <answer>
-      <para> A <literal>*</literal> shown after a status code means that the
-       node is not responding. </para>
-      <para> Thus, when a node is marked as <literal>down*</literal>, this means
-       that the node is not reachable due to network issues, or its
-        <literal>slurmd</literal> is not running. </para>
-      <para> In the <literal>down</literal> state, the node is reachable, but
-       the node was rebooted unexpectedly, the hardware does not match the
+      <para>
+       A <literal>*</literal> shown after a status code means that the node is
+       not responding.
+      </para>
+      <para>
+       Thus, when a node is marked as <literal>down*</literal>, this means that
+       the node is not reachable due to network issues, or its
+       <literal>slurmd</literal> is not running.
+      </para>
+      <para>
+       In the <literal>down</literal> state, the node is reachable, but the
+       node was rebooted unexpectedly, the hardware does not match the
        description in <filename>slurm.conf</filename>, or a healthcheck was
-       configured with the <literal>HealthCheckProgram</literal>. </para>
+       configured with the <literal>HealthCheckProgram</literal>.
+      </para>
      </answer>
     </qandaentry>
     <qandaentry>
      <question>
-      <para> How do I get the exact core count, socket number and number of CPUs
-       for a node? </para>
+      <para>
+       How do I get the exact core count, socket number and number of CPUs for
+       a node?
+      </para>
      </question>
      <answer>
-      <para> The values for a node which go into the configuration file
-        <filename>slurm.conf</filename> can be obtained with the command: </para>
-      <screen>slurmd -C</screen>
+      <para>
+       The values for a node which go into the configuration file
+       <filename>slurm.conf</filename> can be obtained with the command:
+      </para>
+<screen>slurmd -C</screen>
      </answer>
     </qandaentry>
    </qandaset>
   </sect2>
+
   <sect2 xml:id="sec-slurm-ext-doc">
    <title>External documentation</title>
-   <para> For further documentation, see the <link
-     xlink:href="https://slurm.schedmd.com/quickstart_admin.html">Quick Start
-     Administrator Guide</link> and <link
-     xlink:href="https://slurm.schedmd.com/quickstart.html"> Quick Start User
-     Guide</link>. There is further in-depth documentation on the <link
+   <para>
+    For further documentation, see the
+    <link
+     xlink:href="https://slurm.schedmd.com/quickstart_admin.html">Quick
+    Start Administrator Guide</link> and
+    <link
+     xlink:href="https://slurm.schedmd.com/quickstart.html"> Quick
+    Start User Guide</link>. There is further in-depth documentation on the
+    <link
      xlink:href="https://slurm.schedmd.com/documentation.html">Slurm
-     documentation page</link>. </para>
+    documentation page</link>.
+   </para>
   </sect2>
  </sect1>
 </chapter>
