@@ -787,11 +787,11 @@ success!</screen>
        <screen>&prompt;systemctl start slurmdbd</screen>
        <note>
         <title>No daemonization during rebuild</title>
-        <para> During the rebuild of <literal>slurmdb</literal>, the database
+        <para> During the rebuild of the Slurm database, the database
          daemon does not daemonize. </para>
        </note>
        <note>
-        <title>Convert primary slurmdb first</title>
+        <title>Convert primary <systemitem class="daemon">slurmdbd</systemitem> first</title>
         <para> If a backup database daemon is used, the primary one needs to be
          converted first. The backup will not start until this has happened.
         </para>
