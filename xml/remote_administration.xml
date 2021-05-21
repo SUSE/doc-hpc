@@ -147,12 +147,11 @@ nodenames[A-B]          attr[=value],attr[=value],...
   </para>
   <para>
    The <literal>mrsh</literal> back-end requires the
-   <literal>mrshd</literal> to be running on the client. The
+   <literal>mrshd</literal> daemon to be running on the client. The
    <literal>mrsh</literal> back-end does not require the use of reserved
-   sockets. Therefore, it does not suffer from port exhaustion when
-   executing commands on many machines in parallel. For information about
-   setting up the system to use this back-end, see
-   <xref linkend="sec-remote-mrsh"/>
+   sockets, so it does not suffer from port exhaustion when executing commands
+   on many machines in parallel. For information about setting up the system to
+   use this back-end, see <xref linkend="sec-remote-mrsh"/>
   </para>
   <para>
    Remote machines can be specified on the command line, or
@@ -169,7 +168,7 @@ nodenames[A-B]          attr[=value],attr[=value],...
    the <literal>-M</literal> option.
   </para>
   <para>
-   The <filename>machines</filename> file lists all target hosts one per
+   The <filename>machines</filename> file lists all target hosts, one per
    line. The appropriate netgroup can be selected with the
    <literal>-g</literal> command line option.
   </para>
