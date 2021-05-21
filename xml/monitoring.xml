@@ -163,7 +163,7 @@
   <para>
    <systemitem class="daemon">rasdaemon</systemitem> is a RAS
    (Reliability, Availability and Serviceability) logging tool. It records
-   memory errors using EDAC (Error Detection And Correction) tracing events.
+   memory errors using EDAC (Error Detection and Correction) tracing events.
    EDAC drivers in the Linux kernel handle detection of ECC (Error Correction
    Code) errors from memory controllers.
   </para>
