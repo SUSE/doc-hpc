@@ -163,15 +163,15 @@
   <para>
    <systemitem class="daemon">rasdaemon</systemitem> is a RAS
    (Reliability, Availability and Serviceability) logging tool. It records
-   memory errors using EDAC tracing events. EDAC drivers in the Linux kernel
-   handle detection of ECC errors from memory controllers.
+   memory errors using EDAC (Error Detection And Correction) tracing events.
+   EDAC drivers in the Linux kernel handle detection of ECC (Error Correction
+   Code) errors from memory controllers.
   </para>
   <para>
    <systemitem class="daemon">rasdaemon</systemitem> can be used on large
-   memory systems to
-   track, record and localize memory errors and how they evolve over time
-   to detect hardware degradation. Furthermore, it can be used to localize
-   a faulty DIMM on the board.
+   memory systems to track, record and localize memory errors and how they
+   evolve over time to detect hardware degradation. Furthermore, it can be used
+   to localize a faulty DIMM on the motherboard.
   </para>
   <para>
    To check whether the EDAC drivers are loaded, execute:
@@ -208,8 +208,8 @@
    description, create a file with an arbitrary name in the directory
    <filename>/etc/ras/dimm_labels.d/</filename>. The format is:
   </para>
-  <screen>Vendor: <replaceable>VENDOR-NAME</replaceable>
-  Model: <replaceable>MODEL-NAME</replaceable>
+<screen>Vendor: <replaceable>MOTHERBOARD-VENDOR-NAME</replaceable>
+Model: <replaceable>MOTHERBOARD-MODEL-NAME</replaceable>
   <replaceable>LABEL</replaceable>: <replaceable>MC</replaceable>.<replaceable>TOP</replaceable>.<replaceable>MID</replaceable>.<replaceable>LOW</replaceable></screen>
  </sect1>
 </chapter>
