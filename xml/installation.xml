@@ -66,7 +66,7 @@
        </listitem>
        <listitem>
         <para>
-         Installs a controller for the Slurm workload manager
+         Installs a controller for the &slurm; workload manager
         </para>
        </listitem>
        <listitem>
@@ -106,7 +106,7 @@
        </listitem>
        <listitem>
         <para>
-         Installs a client for the Slurm workload manager
+         Installs a client for the &slurm; workload manager
         </para>
        </listitem>
        <listitem>

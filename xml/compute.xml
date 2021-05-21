@@ -431,10 +431,10 @@
     sacrificing too much speed for small multi-dimensional arrays.
    </para>
    <para>
-    NumPy is built on the Numeric code base and adds features introduced by
-    <emphasis>numarray</emphasis>, as well as an extended C API, and the ability
-    to create arrays of arbitrary type, which also makes NumPy suitable for
-    interfacing with general-purpose database applications.
+    NumPy is built on the Numeric code base and adds features introduced by the
+    discontinued <emphasis>NumArray</emphasis> project, as well as an extended
+    C API, and the ability to create arrays of arbitrary type, which also makes
+    NumPy suitable for interfacing with general-purpose database applications.
    </para>
    <para>
     There are also basic facilities for discrete Fourier transform, basic
@@ -839,11 +839,11 @@
   </sect2>
 
   <sect2 xml:id="sec2-lib-pmix">
-   <title>Support for PMIx in Slurm and MPI libraries</title>
+   <title>Support for PMIx in &slurm; and MPI libraries</title>
    <para>
     PMIx abstracts the internals of MPI implementations for workload managers
     and unifies the way MPI jobs are started by the workload manager: With
-    PMIx, there is no need to utilize the individual MPI launchers on Slurm
+    PMIx, there is no need to utilize the individual MPI launchers on &slurm;
     anymore, <command>srun</command> will take care of this. In addition, the
     workload manager can determine the topology of the cluster. This removes
     the need for users to specify topologies manually.

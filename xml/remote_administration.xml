@@ -110,12 +110,12 @@ nodenames[A-B]          attr[=value],attr[=value],...</screen>
    paramteter is is given, all attributes of the local node are printed out.
   </para>
   <para>
-   With the command:
+   To perform a syntax check of the genders database, run:
   </para>
 <screen>&prompt;nodeattr [-f genders] -k</screen>
   <para>
-   a syntax check of the genders database is performed, where with the switch
-   <literal>-f</literal> an alternative datanbase location can be specified.
+   To specify an alternative database location, use the option
+   <literal>-f</literal>.
   </para>
  </sect2>
   
@@ -156,7 +156,7 @@ nodenames[A-B]          attr[=value],attr[=value],...</screen>
    <command>pdsh</command> can use a <filename>machines</filename> file
    (<filename>/etc/pdsh/machines</filename>), <command>dsh</command> (Dancer's
    shell)-style groups or netgroups. Also, it can target nodes based on the
-   currently running Slurm jobs.
+   currently running &slurm; jobs.
   </para>
   <para>
    The different ways to select target hosts are realized by modules. Some
@@ -251,35 +251,34 @@ nodenames[A-B]          attr[=value],attr[=value],...</screen>
   </important>
  </sect1>
  <sect1 xml:id="sec-remote-munge">
-  <title>MUNGE authentication</title>
+  <title>&munge; authentication</title>
   <para>
-   <emphasis>MUNGE</emphasis> allows for secure communications between
-   different machines which share the same secret key. The most common
-   use case is the <emphasis>Slurm</emphasis> workload manager, which
-   uses MUNGE for the encryption of its messages. Another use case is
-   authentication for the parallel shell <emphasis>mrsh</emphasis>.
+   &munge; allows for secure communications between different machines which
+   share the same secret key. The most common use case is the &slurm; workload
+   manager, which uses &munge; for the encryption of its messages. Another use
+   case is authentication for the parallel shell mrsh.
   </para>
   <sect2>
-   <title>Setting up MUNGE authentication</title>
+   <title>Setting up &munge; authentication</title>
    <para>
-    MUNGE uses UID/GID values to uniquely identify and authenticate users. Thus,
+    &munge; uses UID/GID values to uniquely identify and authenticate users. Thus,
     you must take care that users who will authenticate across a network have
     unified UIDs and GIDs.
    </para>
    <para>
-    MUNGE credentials have a limited time-to-live, so you must ensure that the
+    &munge; credentials have a limited time-to-live, so you must ensure that the
     time is synchronized across the entire cluster.
    </para>
    <para>
-    MUNGE is installed with the command <command>zypper in munge</command>.
+    &munge; is installed with the command <command>zypper in munge</command>.
     This will install all packages required at runtime. The package
     <package>munge-devel</package> can be used to build applications that
     require <emphasis>munge</emphasis> authentication.
    </para>
    <para>
     When installing the <package>munge</package> package, a new key is generated
-    on every system. However, the entire cluster needs to use the same MUNGE
-    key. Therefore, you must copy the MUNGE key from the first system to all
+    on every system. However, the entire cluster needs to use the same &munge;
+    key. Therefore, you must copy the &munge; key from the first system to all
     te other nodes in the cluster, in a secure way. Care must be taken that the
     key is only readable by the <literal>munge</literal> user (permissions mask
     <literal>0400</literal>).
@@ -314,10 +313,10 @@ nodenames[A-B]          attr[=value],attr[=value],...</screen>
    </para>
   </sect2>
   <sect2>
-   <title>Enabling and starting MUNGE</title>
+   <title>Enabling and starting &munge;</title>
    <para>
     <systemitem class="daemon">munged</systemitem> needs to be run on all nodes
-    where MUNGE authentication will take place. If MUNGE is used for
+    where &munge; authentication will take place. If &munge; is used for
     authentication across the network, it needs to run on each side of the
     communications link.
    </para>
@@ -334,10 +333,10 @@ nodenames[A-B]          attr[=value],attr[=value],...</screen>
   </sect2>
  </sect1>
  <sect1 xml:id="sec-remote-mrsh">
-  <title>mrsh/mrlogin &mdash; remote login using MUNGE authentication</title>
+  <title>mrsh/mrlogin &mdash; remote login using &munge; authentication</title>
   <para>
    <emphasis>mrsh</emphasis> is a set of remote shell programs using the
-   <emphasis>MUNGE</emphasis> authentication system instead of reserved ports
+   <emphasis>&munge;</emphasis> authentication system instead of reserved ports
    for security.
   </para>
   <para>
@@ -372,8 +371,8 @@ nodenames[A-B]          attr[=value],attr[=value],...</screen>
   </itemizedlist>
   <para>
    To set up a cluster of machines allowing remote login from each other,
-   first follow the instructions for setting up and starting MUNGE
-   authentication in <xref linkend="sec-remote-munge"/>. After the MUNGE service
+   first follow the instructions for setting up and starting &munge;
+   authentication in <xref linkend="sec-remote-munge"/>. After the &munge; service
    has been successfully started, enable and start <command>mrlogin</command>
    on each machine on which the user will log in:
   </para>
