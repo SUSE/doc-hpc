@@ -65,7 +65,7 @@
     Pick the appropriate file for your shell. Then add the following line into
     your shell's init file:
    </para>
-<screen>source /usr/share/lmod/lmod/init/&lt;INIT-FILE&gt;</screen>
+<screen>source /usr/share/lmod/lmod/init/<replaceable>INIT-FILE</replaceable></screen>
    <para>
     The init script adds the command <command>module</command>.
    </para>
@@ -759,12 +759,12 @@
    <title>memkind &mdash; heap manager for heterogeneous memory platforms and mixed memory policies</title>
    <para>
     The <emphasis>memkind</emphasis> library is a user-extensible heap manager
-    built on top of <literal>jemalloc</literal> which enables control of memory
-    characteristics and a partitioning of the heap between kinds of memory. The
-    kinds of memory are defined by operating system memory policies that have
-    been applied to virtual address ranges. Memory characteristics supported by
-    <literal>memkind</literal> without user extension include control of NUMA
-    and page size features.
+    built on top of <emphasis>jemalloc</emphasis> which enables control of
+    memory characteristics and a partitioning of the heap between kinds of
+    memory. The kinds of memory are defined by operating system memory policies
+    that have been applied to virtual address ranges. Memory characteristics
+    supported by <package>memkind</package> without user extension include
+    control of NUMA and page size features.
    </para>
    <para>
     For more information, see:
@@ -797,9 +797,9 @@
 <!-- href="https://fate.novell.com/324151" -->
    <title>MUMPS &mdash; MUltifrontal Massively Parallel sparse direct Solver</title>
    <para>
-    MUMPS (MUltifrontal Massively Parallel sparse direct Solver) solves a
-    sparse system of linear equations (<literal>A x = b</literal>) using
-    Gaussian elimination.
+    MUMPS (not to be confused with the database programming language with the
+    same acronym) solves a sparse system of linear equations
+    (<emphasis>A x = b</emphasis>) using Gaussian elimination.
    </para>
    <para>
     This library requires a compiler toolchain and an MPI flavor to be loaded

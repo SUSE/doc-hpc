@@ -176,7 +176,7 @@
   <para>
    To check whether the EDAC drivers are loaded, execute:
   </para>
-<screen>ras-mc-ctl --status</screen>
+<screen>&prompt;ras-mc-ctl --status</screen>
   <para>
    The command should return <literal>ras-mc-ctl: drivers are
    loaded</literal>. If it indicates that the drivers are not loaded, EDAC
@@ -191,17 +191,17 @@
    <filename>/var/log/messages</filename> and to an internal database. A
    summary of the stored errors can be obtained with:
   </para>
-<screen>ras-mc-ctl --summary</screen>
+<screen>&prompt;ras-mc-ctl --summary</screen>
   <para>
    The errors stored in the database can be viewed with:
   </para>
-<screen>ras-mc-ctl --errors</screen>
+<screen>&prompt;ras-mc-ctl --errors</screen>
   <para>
    Optionally, you can load the DIMM labels silk-screened on the system
    board to more easily identify the faulty DIMM. To do so, before starting
    <systemitem class="daemon">rasdaemon</systemitem>, run:
   </para>
-  <screen>systemctl start ras-mc-ctl start</screen>
+<screen>&prompt;systemctl start ras-mc-ctl start</screen>
   <para>
    For this to work, you need to set up a layout description for the board.
    There are no descriptions supplied by default. To add a layout

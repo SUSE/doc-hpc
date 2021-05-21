@@ -49,11 +49,9 @@
    their attributes. Each line of the database may have one of the following
    formats.
   </para>
-    <screen>
-nodename                attr[=value],attr[=value],...
+    <screen>nodename                attr[=value],attr[=value],...
 nodename1,nodename2,... attr[=value],attr[=value],...
-nodenames[A-B]          attr[=value],attr[=value],...
-    </screen>
+nodenames[A-B]          attr[=value],attr[=value],...</screen>
   <para>
    Node names are listed without their domain, and are followed by any number of
    spaces or tabs, then the comma-separated list of attributes. Every
