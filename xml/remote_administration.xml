@@ -78,7 +78,7 @@ nodenames[A-B]          attr[=value],attr[=value],...</screen>
   <sect2 xml:id="sec-nodeattr">
    <title>Nodeattr usage</title>
    <para>
-    The command line utility <command>nodeaddr</command> can be used to query data
+    The command line utility <command>nodeattr</command> can be used to query data
     in the genders file. When the genders file is replicated on all nodes, a qery
     can be done wihtout network access. It can be called as follows:
    </para>
