@@ -36,7 +36,7 @@
   </dm:docmanager>
  </info>
 
- <xi:include href="preface_hpc-guide.xml"/>
+ <xi:include href="preface_administration.xml"/>
 
  <part xml:id="part-intro">
   <title>Introduction</title>
