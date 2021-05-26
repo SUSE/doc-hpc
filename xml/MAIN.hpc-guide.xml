@@ -28,6 +28,8 @@
     <dm:bugtracker>
      <dm:url>https://bugzilla.suse.com/enter_bug.cgi</dm:url>
      <dm:component>Other</dm:component>
+     <!--taroth 2021-05-26: aginies has requested a 'Documentation' component
+     now, update the component as soon as it is in place-->
      <dm:product>SUSE Linux Enterprise HPC 15 SP3</dm:product>
      <dm:assignee>taroth@suse.com</dm:assignee>
     </dm:bugtracker>
