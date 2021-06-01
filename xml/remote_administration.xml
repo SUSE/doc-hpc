@@ -261,9 +261,9 @@ nodenames[A-B]          attr[=value],attr[=value],...</screen>
   <sect2>
    <title>Setting up &munge; authentication</title>
    <para>
-    &munge; uses UID/GID values to uniquely identify and authenticate users. Thus,
-    you must take care that users who will authenticate across a network have
-    unified UIDs and GIDs.
+    &munge; uses UID/GID values to uniquely identify and authenticate users.
+    Thus, you must take care that users who will authenticate across a network
+    have matching UIDs and GIDs across all nodes.
    </para>
    <para>
     &munge; credentials have a limited time-to-live, so you must ensure that the

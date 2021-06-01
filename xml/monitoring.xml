@@ -57,8 +57,9 @@
    </listitem>
    <listitem>
     <para>
-     external processes (for example, using 'expect' scripts for telnet,
-     ssh, or ipmi-sol connections)
+     external processes (for example, using <command>expect</command> scripts
+     for <command>telnet</command>, <command>ssh</command>, or
+     <command>ipmi-sol</command> connections)
     </para>
    </listitem>
   </itemizedlist>
@@ -154,7 +155,7 @@
     start</command> and make sure it is started automatically after a
     reboot: <command>systemctl enable apache2</command>. The Ganglia Web
     interface should be accessible from
-    <literal>http://<replaceable>MANAGEMENT_SERVER</replaceable>/ganglia-web</literal>.
+    <literal>http://<replaceable>MANAGEMENT_SERVER</replaceable>/ganglia</literal>.
    </para>
   </sect2>
  </sect1>

@@ -759,7 +759,7 @@
    <title>memkind &mdash; heap manager for heterogeneous memory platforms and mixed memory policies</title>
    <para>
     The <emphasis>memkind</emphasis> library is a user-extensible heap manager
-    built on top of <emphasis>jemalloc</emphasis> which enables control of
+    built on top of <emphasis>jemalloc</emphasis> which enables control over
     memory characteristics and a partitioning of the heap between kinds of
     memory. The kinds of memory are defined by operating system memory policies
     that have been applied to virtual address ranges. Memory characteristics
