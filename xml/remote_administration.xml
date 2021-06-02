@@ -19,7 +19,7 @@
     HPC clusters usually consist of a small set of identical compute
     nodes. Each cluster may consist of a mere handful of machines, up to
     thousands. Managing the compute nodes of a cluster may be challenging. This
-    chapter descibes a number of tools which aid this task.
+    chapter describes a number of tools which aid this task.
    </para>
   </abstract>
   <dm:docmanager xmlns:dm="urn:x-suse:ns:docmanager">
@@ -49,11 +49,9 @@
    their attributes. Each line of the database may have one of the following
    formats.
   </para>
-    <screen>
-nodename                attr[=value],attr[=value],...
+    <screen>nodename                attr[=value],attr[=value],...
 nodename1,nodename2,... attr[=value],attr[=value],...
-nodenames[A-B]          attr[=value],attr[=value],...
-    </screen>
+nodenames[A-B]          attr[=value],attr[=value],...</screen>
   <para>
    Node names are listed without their domain, and are followed by any number of
    spaces or tabs, then the comma-separated list of attributes. Every
@@ -80,11 +78,11 @@ nodenames[A-B]          attr[=value],attr[=value],...
   <sect2 xml:id="sec-nodeattr">
    <title>Nodeattr usage</title>
    <para>
-    The command line utility <command>nodeaddr</command> can be used to query data
+    The command line utility <command>nodeattr</command> can be used to query data
     in the genders file. When the genders file is replicated on all nodes, a qery
-    can be done wihtout network access. It can be called like followed
+    can be done wihtout network access. It can be called as follows:
    </para>
-<screen>nodeattr [-q | -n | -s] [-r] attr[=val]</screen>
+<screen>&prompt;nodeattr [-q | -n | -s] [-r] attr[=val]</screen>
   <para>
    where <literal>-q</literal> is the default option and prints a list nodes
    with <literal>attr[=val]</literal> as the host range.
@@ -106,18 +104,18 @@ nodenames[A-B]          attr[=value],attr[=value],...
     When <command>nodeattr</command> is called with the <literal>-l</literal>
     parameter, as follows:
   </para>
-<screen>nodeattr -l [node]</screen>
+<screen>&prompt;nodeattr -l [node]</screen>
   <para>
    all attributes for a particular node are printed out. If no node
    paramteter is is given, all attributes of the local node are printed out.
   </para>
   <para>
-   With the command
+   To perform a syntax check of the genders database, run:
   </para>
-<screen>nodeattr [-f genders] -k</screen>
+<screen>&prompt;nodeattr [-f genders] -k</screen>
   <para>
-   a syntax check of the genders database is performed, where with the switch
-   <literal>-f</literal> an alternative datanbase location can be specified.
+   To specify an alternative database location, use the option
+   <literal>-f</literal>.
   </para>
  </sect2>
   
@@ -147,19 +145,18 @@ nodenames[A-B]          attr[=value],attr[=value],...
   </para>
   <para>
    The <literal>mrsh</literal> back-end requires the
-   <literal>mrshd</literal> to be running on the client. The
+   <literal>mrshd</literal> daemon to be running on the client. The
    <literal>mrsh</literal> back-end does not require the use of reserved
-   sockets. Therefore, it does not suffer from port exhaustion when
-   executing commands on many machines in parallel. For information about
-   setting up the system to use this back-end, see
-   <xref linkend="sec-remote-mrsh"/>
+   sockets, so it does not suffer from port exhaustion when executing commands
+   on many machines in parallel. For information about setting up the system to
+   use this back-end, see <xref linkend="sec-remote-mrsh"/>
   </para>
   <para>
    Remote machines can be specified on the command line, or
    <command>pdsh</command> can use a <filename>machines</filename> file
    (<filename>/etc/pdsh/machines</filename>), <command>dsh</command> (Dancer's
    shell)-style groups or netgroups. Also, it can target nodes based on the
-   currently running Slurm jobs.
+   currently running &slurm; jobs.
   </para>
   <para>
    The different ways to select target hosts are realized by modules. Some
@@ -169,7 +166,7 @@ nodenames[A-B]          attr[=value],attr[=value],...
    the <literal>-M</literal> option.
   </para>
   <para>
-   The <filename>machines</filename> file lists all target hosts one per
+   The <filename>machines</filename> file lists all target hosts, one per
    line. The appropriate netgroup can be selected with the
    <literal>-g</literal> command line option.
   </para>
@@ -184,7 +181,7 @@ nodenames[A-B]          attr[=value],attr[=value],...
    the installation of plugins with conflicting command options. To install one
    of the plugins, run:
   </para>
-<screen>zypper in pdsh-<replaceable>PLUGIN_NAME</replaceable></screen>
+<screen>&prompt;zypper in pdsh-<replaceable>PLUGIN_NAME</replaceable></screen>
   <para>
    For more information, see the <command>man</command> page <command>pdsh</command>.
   </para>
@@ -234,11 +231,11 @@ nodenames[A-B]          attr[=value],attr[=value],...
   <para>
    After configuring PowerMan, start its service by:
   </para>
-  <screen>systemctl start powerman.service</screen>
+<screen>&prompt;systemctl start powerman.service</screen>
   <para>
    To start PowerMan automatically after every boot, run:
   </para>
-  <screen>systemctl enable powerman.service</screen>
+<screen>&prompt;systemctl enable powerman.service</screen>
   <para>
    Optionally, PowerMan can connect to a remote PowerMan instance. To
    enable this, add the option <literal>listen</literal> to
@@ -254,66 +251,72 @@ nodenames[A-B]          attr[=value],attr[=value],...
   </important>
  </sect1>
  <sect1 xml:id="sec-remote-munge">
-  <title>MUNGE authentication</title>
+  <title>&munge; authentication</title>
   <para>
-   <emphasis>MUNGE</emphasis> allows for secure communications between
-   different machines which share the same secret key. The most common
-   usecase is the <emphasis>Slurm</emphasis> workload manager, which
-   uses MUNGE for the encryption of its messages. Another use case is
-   authentication for the parallel shell
-   <emphasis>mrsh</emphasis>.
+   &munge; allows for secure communications between different machines which
+   share the same secret key. The most common use case is the &slurm; workload
+   manager, which uses &munge; for the encryption of its messages. Another use
+   case is authentication for the parallel shell mrsh.
   </para>
   <sect2>
-   <title>Setting up MUNGE authentication</title>
+   <title>Setting up &munge; authentication</title>
    <para>
-    MUNGE uses UID/GID values to uniquely identify and authenticate users. Thus,
-    you must take care that users who will authenicate across a network have
-    unified UIDs and GIDs.
+    &munge; uses UID/GID values to uniquely identify and authenticate users.
+    Thus, you must take care that users who will authenticate across a network
+    have matching UIDs and GIDs across all nodes.
    </para>
    <para>
-    MUNGE credentials have a limited time-to-live, so you must ensure that the
+    &munge; credentials have a limited time-to-live, so you must ensure that the
     time is synchronized across the entire cluster.
    </para>
    <para>
-    MUNGE is installed with the command <command>zypper in munge</command>.
-    This will install all packages required at runtime. A
-    <package>munge-devel</package> package is available to build applications
-    that require <emphasis>munge</emphasis> authentication.
+    &munge; is installed with the command <command>zypper in munge</command>.
+    This will install all packages required at runtime. The package
+    <package>munge-devel</package> can be used to build applications that
+    require <emphasis>munge</emphasis> authentication.
    </para>
    <para>
     When installing the <package>munge</package> package, a new key is generated
-    on every system. However, this MUNGE key must be uniform across the entire
-    cluster. Therefore, the key from one system needs to be copied in a secure
-    way to all other nodes in the cluster. Care must be taken that the key is
-    only readable by the <literal>munge</literal> user (permissions mask
+    on every system. However, the entire cluster needs to use the same &munge;
+    key. Therefore, you must copy the &munge; key from the first system to all
+    te other nodes in the cluster, in a secure way. Care must be taken that the
+    key is only readable by the <literal>munge</literal> user (permissions mask
     <literal>0400</literal>).
    </para>
    <para>
-    <emphasis>pdsh</emphasis> (with ssh) may be used to do this:
+    <emphasis>pdsh</emphasis> (with SSH) may be used to do this:
    </para>
    <para>
     Check permissions, owner and file type of the key file located under
     <filename>/etc/munge/munge.key</filename> on the local system:
    </para>
-<screen># stat --format "%F %a %G %U %n" /etc/munge/munge.key</screen>
-   <para>The settings should be:</para>
+<screen>&prompt;stat --format "%F %a %G %U %n" /etc/munge/munge.key</screen>
+   <para>
+    The settings should be:
+   </para>
 <screen>400 regular file munge munge /etc/munge/munge.key</screen>
-   <para>Get md5sum of munge.key:</para>
-<screen># md5sum /etc/munge/munge.key</screen>
-   <para>Copy key to list of nodes:</para>
-<screen># pdcp -R ssh -w &lt;hostlist&gt; /etc/munge/munge.key
-   /etc/munge/munge.key </screen>
-   <para>Check key settings in remote host:</para>
-<screen>pdsh -R ssh -w &lt;hostlist&gt; stat --format \"%F %a %G %U %n\"
-/etc/munge/munge.key
-pdsh -R ssh -w &lt;hostlist&gt; md5sum /etc/munge/munge.key</screen>
-   <para>Make sure that they match.</para>
+   <para>
+    Calculate the MD5 sum of <filename>munge.key</filename>:
+   </para>
+<screen>&prompt;md5sum /etc/munge/munge.key</screen>
+   <para>
+    Copy the key to the listed nodes:
+   </para>
+<screen>&prompt;pdcp -R ssh -w <replaceable>HOSTLIST</replaceable> /etc/munge/munge.key /etc/munge/munge.key</screen>
+   <para>
+    Check the key settings on the remote host:
+   </para>
+<screen>&prompt;pdsh -R ssh -w <replaceable>HOSTLIST</replaceable> stat --format \"%F %a %G %U %n\" /etc/munge/munge.key
+&prompt;pdsh -R ssh -w <replaceable>HOSTLIST</replaceable> md5sum /etc/munge/munge.key</screen>
+   <para>
+    Make sure that they match.
+   </para>
   </sect2>
   <sect2>
-   <title>Enabling and starting MUNGE</title>
+   <title>Enabling and starting &munge;</title>
    <para>
     <systemitem class="daemon">munged</systemitem> needs to be run on all nodes
-    where MUNGE authentication will take place. If MUNGE is used for
+    where &munge; authentication will take place. If &munge; is used for
     authentication across the network, it needs to run on each side of the
     communications link.
    </para>
@@ -321,8 +324,8 @@ pdsh -R ssh -w &lt;hostlist&gt; md5sum /etc/munge/munge.key</screen>
     To start the service and make sure it is started after every reboot, on each
     node, run:
    </para>
-<screen>systemctl enable munge.service
-systemctl start munge.service</screen>
+<screen>&prompt;systemctl enable munge.service
+&prompt;systemctl start munge.service</screen>
     <para>
      To perform the same on multiple nodes, you can also use
      <command>pdsh</command>.
@@ -330,10 +333,10 @@ systemctl start munge.service</screen>
   </sect2>
  </sect1>
  <sect1 xml:id="sec-remote-mrsh">
-  <title>mrsh/mrlogin &mdash; remote login using MUNGE authentication</title>
+  <title>mrsh/mrlogin &mdash; remote login using &munge; authentication</title>
   <para>
    <emphasis>mrsh</emphasis> is a set of remote shell programs using the
-   <emphasis>MUNGE</emphasis> authentication system instead of reserved ports
+   <emphasis>&munge;</emphasis> authentication system instead of reserved ports
    for security.
   </para>
   <para>
@@ -368,24 +371,24 @@ systemctl start munge.service</screen>
   </itemizedlist>
   <para>
    To set up a cluster of machines allowing remote login from each other,
-   first follow the instructions for setting up and starting MUNGE
-   authentication in <xref linkend="sec-remote-munge"/>. After the MUNGE service
+   first follow the instructions for setting up and starting &munge;
+   authentication in <xref linkend="sec-remote-munge"/>. After the &munge; service
    has been successfully started, enable and start <command>mrlogin</command>
    on each machine on which the user will log in:
   </para>
-  <screen>systemctl enable mrlogind.socket mrshd.socket
-systemctl start mrlogind.socket mrshd.socket</screen>
+<screen>&prompt;systemctl enable mrlogind.socket mrshd.socket
+&prompt;systemctl start mrlogind.socket mrshd.socket</screen>
   <para>
    To start mrsh support at boot, run:
   </para>
-  <screen>systemctl enable munge.service
-systemctl enable mrlogin.service</screen>
+<screen>&prompt;systemctl enable munge.service
+&prompt;systemctl enable mrlogin.service</screen>
   <para>
    We do not recommend using <emphasis>mrsh</emphasis> when logged in as the
    user <systemitem class="username">root</systemitem>. This is disabled by
    default. To enable it regardless, run:
   </para>
-  <screen>echo "mrsh" &gt;&gt; /etc/securetty
-  echo "mrlogin" &gt;&gt; /etc/securetty</screen>
+  <screen>&prompt;echo "mrsh" &gt;&gt; /etc/securetty
+&prompt;echo "mrlogin" &gt;&gt; /etc/securetty</screen>
  </sect1>
 </chapter>

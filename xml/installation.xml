@@ -19,7 +19,7 @@
     &product; comes with a number of preconfigured system roles for HPC. These
     roles provide a set of preselected packages typical for the specific role,
     as well as an installation workflow that will configure the system to make
-    the best use of system resource based on a typical role use case.
+    the best use of system resources based on a typical use case of a role.
    </para>
   </abstract>
   <dm:docmanager xmlns:dm="urn:x-suse:ns:docmanager">
@@ -66,7 +66,7 @@
        </listitem>
        <listitem>
         <para>
-         Installs a controller for the Slurm workload manager
+         Installs a controller for the &slurm; workload manager
         </para>
        </listitem>
        <listitem>
@@ -106,12 +106,12 @@
        </listitem>
        <listitem>
         <para>
-         Installs a client for the Slurm workload manager
+         Installs a client for the &slurm; workload manager
         </para>
        </listitem>
        <listitem>
         <para>
-         Does not create a separate home partition
+         Does not create a separate <literal>/home</literal> partition
         </para>
        </listitem>
        <listitem>
@@ -150,7 +150,8 @@
    </para>
    <para>
     The Environment Module <literal>Lmod</literal> will be installed for all
-    roles. It is required at build time and run time of the system.
+    roles. It is required at build time and run time of the system. For more
+    information, see <xref linkend="sec-compute-lmod"/>.
    </para>
    <para>
     All libraries specifically built for HPC will be installed under
@@ -167,7 +168,8 @@
     From the Ganglia monitoring system, the data collector
     <package>ganglia-gmod</package> is installed for every role, while the
     data aggregator <package>ganglia-gmetad</package> needs to be installed
-    manually on the system which is expected to collect the data.
+    manually on the system which is expected to collect the data. For more
+    information, see <xref linkend="sec-monitoring-ganglia"/>.
    </para>
    <para>
     The system roles are only available for new installations of &product;.

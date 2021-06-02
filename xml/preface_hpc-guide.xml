@@ -59,7 +59,7 @@
    <term><xref linkend="part-slurm"/></term>
    <listitem>
     <para>
-        The Slurm scheduler.
+        The &slurm; scheduler.
     </para>
    </listitem>
   </varlistentry>
