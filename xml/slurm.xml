@@ -1338,7 +1338,7 @@ SlurmdTimeout=3600</screen>
     A new major version of <package>libslurm</package> is provided with each
     service pack of &product;. The old version will not be uninstalled on
     upgrade, and user-provided applications built with an old version should
-    continue to work if the old library used is not older than the the past two
+    continue to work if the old library used is not older than the past two
     versions. It is strongly recommended to rebuild local applications using
     <literal>libslurm</literal> &mdash; such as MPI libraries with Slurm
     support &mdash; as early as possible. This may require updating the user
