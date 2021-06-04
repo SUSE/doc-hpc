@@ -1148,7 +1148,7 @@
     A unique design feature of Trilinos is its focus on packages.
    </para>
    <para>
-    This library needs a compiler toolchain and and MPI flavor to be loaded
+    This library needs a compiler toolchain and MPI flavor to be loaded
     beforehand. To load this module, run:
    </para>
 <screen>&prompt;module load <replaceable>TOOLCHAIN</replaceable> <replaceable>MPI_FLAVOR</replaceable> trilinos</screen>
@@ -1780,7 +1780,7 @@
     results from all of the tasks into one output file.
    </para>
    <para>
-    For this library a compiler toolchain and and MPI flavor needs to be loaded
+    For this library a compiler toolchain and MPI flavor needs to be loaded
     beforehand. To load this module, run:
    </para>
 <screen>&prompt;module load <replaceable>TOOLCHAIN</replaceable> <replaceable>MPI_FLAVOR</replaceable> mpip</screen>

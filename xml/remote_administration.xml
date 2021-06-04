@@ -74,7 +74,7 @@ nodenames[A-B]          attr[=value],attr[=value],...</screen>
    as an alternative to explicit lists of node names.
   </para>
   </sect2>
-  
+
   <sect2 xml:id="sec-nodeattr">
    <title>Nodeattr usage</title>
    <para>
@@ -89,7 +89,7 @@ nodenames[A-B]          attr[=value],attr[=value],...</screen>
   </para>
   <para>
    The <literal>-c</literal> options will give a comma-separated list, and the
-   <literal>-s</literal> option a space-separated list, of nodes with 
+   <literal>-s</literal> option a space-separated list, of nodes with
    <literal>attr[=val]</literal>.
   </para>
   <para>
@@ -107,7 +107,7 @@ nodenames[A-B]          attr[=value],attr[=value],...</screen>
 <screen>&prompt;nodeattr -l [node]</screen>
   <para>
    all attributes for a particular node are printed out. If no node
-   paramteter is is given, all attributes of the local node are printed out.
+   paramteter is given, all attributes of the local node are printed out.
   </para>
   <para>
    To perform a syntax check of the genders database, run:
@@ -118,7 +118,7 @@ nodenames[A-B]          attr[=value],attr[=value],...</screen>
    <literal>-f</literal>.
   </para>
  </sect2>
-  
+
  </sect1>
  <sect1 xml:id="sec-remote-pdsh">
   <title>pdsh &mdash; parallel remote shell program</title>
