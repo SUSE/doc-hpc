@@ -15,9 +15,9 @@
   <abstract>
    <para>
     <emphasis>Slurm</emphasis> is a workload manager for managing compute jobs
-    on high-performance computing clusters. It can start multiple jobs on a
-    single node or a single job on multiple nodes. Additional components can be
-    used for advanced scheduling and accounting.
+    on high-performance computing clusters. It is able to start multiple jobs on
+    a single node or a single job on multiple nodes. Additional components can
+    be used for advanced scheduling and accounting.
    </para>
 
    <para>
@@ -52,13 +52,12 @@
   <sect2 xml:id="sec-slurm-minimal">
    <title>Minimal installation</title>
    <important>
-    <title>Make sure of consistent UIDs and GIDs for Slurm's accounts</title>
+    <title>Make sure of consistent UIDs and GIDs for &slurm;'s accounts</title>
     <para>
-     For security reasons, Slurm does not run as the user
-     <systemitem
-      class="username">root</systemitem> but under its own
-     user. It is important that the user
-     <systemitem class="username">slurm</systemitem> has the same UID/GID
+     For security reasons, &slurm; does not run as the user
+     <systemitem class="username">root</systemitem> but under its own
+     user. It is important that the user <systemitem
+      class="username">slurm</systemitem> has the same UID/GID
      across all nodes of the cluster.
     </para>
     <para>
@@ -73,24 +72,33 @@
      such as LDAP for user and group management, you can use it to provide the
      <systemitem class="username">slurm</systemitem> user/group as well.
     </para>
+    <para>
+     It is strongly recommended that all compute nodes share common user
+     home directories. These should be provided through network storage.
+    </para>
    </important>
    <procedure>
     <step>
      <para>
-      It is strongly recommended that all compute nodes share a common home
-      directory.
-     </para>
-     <para>
-      Configure, enable, and start <command>munge</command> on the control and
-      compute nodes, as described in <xref linkend="sec-remote-munge"/>.
+      On the control node, install the <package>slurm</package> with the
+      command <command>zypper in slurm</command>.
      </para>
     </step>
     <step>
      <para>
-      Install <package>slurm-node</package> on the compute nodes with
-      <command>zypper in slurm-node</command>, and <package>slurm</package> on
-      the control node with <command>zypper in slurm</command>. The package
-      <package>munge</package> will automatically be installed as a dependency.
+      On the compute nodes, install the <package>slurm-node</package> package
+      with the command <command>zypper in slurm-node</command>.
+     </para>
+    </step>
+    <step>
+     <para>
+      On both control and compute nodes, the package
+      <package>munge</package>will be installed automatically.
+     </para>
+     <para>
+      Configure, enable and start &munge; on the control and compute nodes as
+      described in <xref linkend="sec-remote-munge"/>. Make sure that the same
+      <literal>munge</literal> key is shared across all nodes.
      </para>
     </step>
    </procedure>
@@ -119,9 +127,11 @@
        </para>
 <screen>NodeName=<replaceable>NODE_LIST</replaceable> State=UNKNOWN</screen>
        <para>
-        where the actual parameters like <literal>CPUs</literal> for compute
-        node can be obtained by running the following command on the compute
-        node:
+        This line allows specifying additional per-node parameters, such as
+        <literal>Boards</literal>, <literal>SocketsPerBoard</literal>
+        <literal>CoresPerSocket</literal>, <literal>ThreadsPerCore</literal>,
+        or <literal>CPU</literal>. The actual values of these can be
+        obtained by running the following command on the compute node:
        </para>
 <screen>slurmd -C</screen>
        <para>
@@ -372,6 +382,15 @@ AccountingStorageHost=localhost</screen>
       <command>sacctmgr</command>. It is also possible to have a group
       hierarchy, and users can be part of several groups.
      </para>
+     <note>
+      <para>
+       When using slurmdbd make sure a table for a cluster is added to the
+       database before slurmctld is started (or restart it afterwards).
+       Otherwise, no accounting information may be written to the database.
+       To add a cluster table, run:
+       <command>sacctmgr -i add cluster <replaceable>CLUSTERNAME</replaceable></command>.
+      </para>
+     </note>
      <para>
       To create an umbrella group <literal>bavaria</literal> for two subgroups
       called <literal>nuremberg</literal> and <literal>munich</literal>, use
