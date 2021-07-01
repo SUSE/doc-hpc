@@ -15,9 +15,9 @@
   <abstract>
    <para>
     <emphasis>Slurm</emphasis> is a workload manager for managing compute jobs
-    on high-performance computing clusters. It is able to start multiple jobs on
-    a single node or a single job on multiple nodes. Additional components can
-    be used for advanced scheduling and accounting.
+    on high-performance computing clusters. It can start multiple jobs on a
+    single node or a single job on multiple nodes. Additional components can be
+    used for advanced scheduling and accounting.
    </para>
 
    <para>
@@ -54,10 +54,11 @@
    <important>
     <title>Make sure of consistent UIDs and GIDs for &slurm;'s accounts</title>
     <para>
-     For security reasons, &slurm; does not run as the user
-     <systemitem class="username">root</systemitem> but under its own
-     user. It is important that the user <systemitem
-      class="username">slurm</systemitem> has the same UID/GID
+     For security reasons, Slurm does not run as the user
+     <systemitem
+      class="username">root</systemitem> but under its own
+     user. It is important that the user
+     <systemitem class="username">slurm</systemitem> has the same UID/GID
      across all nodes of the cluster.
     </para>
     <para>
@@ -93,7 +94,7 @@
     <step>
      <para>
       On both control and compute nodes, the package
-      <package>munge</package>will be installed automatically.
+      <package>munge</package> will be installed automatically.
      </para>
      <para>
       Configure, enable and start &munge; on the control and compute nodes as
