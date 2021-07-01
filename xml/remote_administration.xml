@@ -271,16 +271,16 @@ nodenames[A-B]          attr[=value],attr[=value],...</screen>
    </para>
    <para>
     &munge; is installed with the command <command>zypper in munge</command>.
-    This will install all packages required at runtime. The package
-    <package>munge-devel</package> can be used to build applications that
-    require <emphasis>munge</emphasis> authentication.
+    This will install further required packages. A separate
+    <package>munge-devel</package> package is available to build applications
+    that require &munge; authentication.
    </para>
    <para>
     When installing the <package>munge</package> package, a new key is generated
     on every system. However, the entire cluster needs to use the same &munge;
-    key. Therefore, you must copy the &munge; key from the first system to all
-    te other nodes in the cluster, in a secure way. Care must be taken that the
-    key is only readable by the <literal>munge</literal> user (permissions mask
+    key. Therefore, you must securely copy the &munge; key from one system to
+    all the other nodes in the cluster. Take care that the key is only readable
+    by the <literal>munge</literal> user (permissions mask
     <literal>0400</literal>).
    </para>
    <para>
