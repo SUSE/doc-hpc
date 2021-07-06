@@ -28,6 +28,8 @@
 <!ENTITY slurm "Slurm">
 <!ENTITY mrsh "mrsh">
 <!ENTITY munge "MUNGE">
+<!ENTITY grafana "Grafana">
+<!ENTITY prometheus "Prometheus">
 
 
 
