@@ -111,6 +111,218 @@
    For more information about options, see the man page of ConMan.
   </para>
  </sect1>
+ <sect1 xml:id="sec-monitoring-clusters-prometheus">
+  <title>Monitoring &hpca; clusters</title>
+  <para>
+   TODO: Add intro
+  </para>
+  <para>
+   In the following procedure, the cluster contains a head node (&wsIname;), a
+   monitoring server (&wsIIname;), and two compute nodes (&wsIIIname; and &wsIVname;).
+  </para>
+  <procedure xml:id="pro-monitoring-clusters-prometheus">
+   <title>Monitoring &hpca; clusters with &prometheus; and &grafana;</title>
+   <step>
+    <para>
+     On the head node, install the &slurm; exporter:
+    </para>
+<screen>&prompt.root;zypper in golang-github-vpenso-prometheus_slurm_exporter
+&prompt.root;systemctl enable --now prometheus-slurm_exporter</screen>
+    <para>
+     Verify that the &slurm; exporter is working by navigating to
+     http://&wsIname;:8080/metrics in your browser, where you should see the
+     exported metrics to be collected by &prometheus;.
+    </para>
+    <remark>trichardson (2021-07-08): Cannot connect in my test lab, so unsure
+     if the Slurm exporter works</remark>
+   </step>
+   <step>
+    <para>
+     On each compute node, install the node exporter:
+    </para>
+<screen>&prompt.root;zypper in golang-github-prometheus-node_exporter
+&prompt.root;systemctl enable --now prometheus-node_exporter</screen>
+    <para>
+     Verify that the node exporter is working by navigating to
+     http://&wsIname;:9100/metrics in your browser, where you should see the
+     exported metrics to be collected by &prometheus;.
+    </para>
+    <remark>trichardson (2021-07-08): I can connect to <emphasis>this</emphasis>
+     address in my test lab, which suggests that the problem with 8080 is the
+     Slurm exporter rather than my test lab</remark>
+   </step>
+   <step>
+    <para>
+     On the monitoring server, install &prometheus; and &grafana;:
+    </para>
+    <substeps>
+     <step>
+      <para>
+       Install PackageHub:
+      </para>
+<screen>&prompt.root;SUSEConnect --product PackageHub/15.3/x86_64</screen>
+     </step>
+     <step>
+      <para>
+       Install the &prometheus; and &grafana; packages:
+      </para>
+<screen>&prompt.root;zypper in golang-github-prometheus-prometheus grafana</screen>
+     </step>
+    </substeps>
+   </step>
+   <step>
+    <para>
+     Edit the <literal>scrape_configs</literal> section of the
+     <filename>/etc/prometheus/prometheus.yml</filename> file to add jobs
+     for each node:
+    </para>
+<screen>scrape_configs:
+
+  - job_name: 'monitoring-server'
+    # Override the global default and scrape targets from this job every 5 seconds.
+    scrape_interval: 5s
+    scrape_timeout: 5s
+    static_configs:
+      - targets: ['localhost:9090']
+      - targets: ['localhost:9100']
+
+  - job_name: 'head-node'
+    static_configs:
+      - targets: ['&wsIname;:8080']
+      - targets: ['&wsIname;:9100']
+
+  - job_name: 'node1'
+    static_configs:
+      - targets: ['&wsIIIname;:9100']
+
+  - job_name: 'node2'
+    static_configs:
+      - targets: ['&wsIVname;:9100']</screen>
+    <remark>trichardson (2021-07-09): Do you need to add a job for every compute
+     node? What if you have hundreds?</remark>
+   </step>
+<!--
+The first job ‘prometheus_server’ is used to monitor the Prometheus server itself, and the second job ‘slurmctld’ is for the SLURM exporter metrics.
++
+In both jobs, a new line has been added for the node exporter data served from port 9100.
+-->
+   <step>
+    <para>
+     Enable and start &prometheus; and &grafana;:
+    </para>
+<screen>&prompt.root;systemctl enable --now prometheus
+&prompt.root;systemctl enable --now grafana-server</screen>
+    <para>
+     Verify that &prometheus; is working by navigating to
+     http://&wsIIname;:9090/config in your browser, where you should see the
+     contents of the <filename>/etc/prometheus/prometheus.yml</filename> file.
+    </para>
+   </step>
+   <step>
+    <para>
+     Log in to the &grafana; web interface at http://&wsIIname;:3000 using
+     <literal>admin</literal> for both the user name and password, then change
+     your password when prompted.
+    </para>
+   </step>
+   <step>
+    <para>
+     Add &prometheus; as a data source:
+    </para>
+    <substeps>
+     <step>
+      <para>
+       Navigate to <menuchoice><guimenu>Configuration</guimenu><guimenu>Data Sources</guimenu></menuchoice>,
+       then click <guimenu>Add data source</guimenu>.
+      </para>
+     </step>
+     <step>
+      <para>
+       Find &prometheus; and click <guimenu>Select</guimenu>.
+      </para>
+     </step>
+     <step>
+      <para>
+       In the <guimenu>URL</guimenu> field, enter <literal>http://localhost:9090</literal>.
+       You can keep the default settings for the other fields.
+      </para>
+     </step>
+     <step>
+      <para>
+       Click <guimenu>Save &amp; Test</guimenu>.
+      </para>
+     </step>
+    </substeps>
+   </step>
+   <step>
+    <para>
+     Add a dashboard for the &slurm; metrics:
+    </para>
+    <substeps>
+     <step>
+      <para>
+       Navigate to <menuchoice><guimenu>Create</guimenu><guimenu>Import</guimenu></menuchoice>.
+      </para>
+     </step>
+     <step>
+      <para>
+       In the <guimenu>Import via grafana.com</guimenu> field, enter the dashboard
+       ID <literal>4323</literal>, then click <guimenu>Load</guimenu>.
+      </para>
+     </step>
+     <step>
+      <para>
+       Select <guimenu>&prometheus;</guimenu> from the
+       <guimenu>Select a &prometheus; data source</guimenu> drop down box, then
+       click <guimenu>Import</guimenu>.
+      </para>
+      <!-- you'll now see the slurm dashboard -->
+     </step>
+     <step>
+      <para>
+       Click the <guimenu>Save</guimenu> icon, optionally add a note to describe
+       your changes, then click <guimenu>Save</guimenu>.
+      </para>
+     </step>
+    </substeps>
+    <remark>trichardson (2021-07-09): No data, unsurprising since I couldn't
+     access the slurm exporter web server</remark>
+   </step>
+   <step>
+    <para>
+     Add a dashboard for the node metrics:
+    </para>
+    <substeps>
+     <step>
+      <para>
+       Navigate to <menuchoice><guimenu>Create</guimenu><guimenu>Import</guimenu></menuchoice>.
+      </para>
+     </step>
+     <step>
+      <para>
+       In the <guimenu>Import via grafana.com</guimenu> field, enter the dashboard
+       ID <literal>405</literal>, then click <guimenu>Load</guimenu>.
+      </para>
+     </step>
+     <step>
+      <para>
+       Select <guimenu>&prometheus;</guimenu> from the
+       <guimenu>Select a &prometheus; data source</guimenu> drop down box, then
+       click <guimenu>Import</guimenu>.
+      </para>
+      <!-- you'll now see the nodes dashboard -->
+     </step>
+     <step>
+      <para>
+       Click the <guimenu>Save</guimenu> icon, optionally add a note to describe
+       your changes, then click <guimenu>Save</guimenu>.
+      </para>
+     </step>
+    </substeps>
+    <remark>trichardson (2021-07-09): It took a very long time for data from the nodes to appear. Is this normal? If so, it may be worth mentioning, otherwise people could think it didn't work.</remark>
+   </step>
+  </procedure>
+ </sect1>
  <sect1 xml:id="sec-monitoring-ganglia">
   <title>Ganglia &mdash; system monitoring</title>
   <para>
