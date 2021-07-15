@@ -141,7 +141,7 @@
 <!ENTITY obs           "Open Build Service">
 <!ENTITY osbs          "openSUSE Build Service">
 <!ENTITY obsa          "OBS">
-<!ENTITY ph            "PackageHub">
+<!ENTITY ph            "&suse; Package Hub">
 <!ENTITY soliddriver   "SUSE SolidDriver">
 
 

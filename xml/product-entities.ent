@@ -3,8 +3,13 @@
 
 <!-- PRODUCT NAME AND VERSIONS -->
 <!ENTITY productname   "&slehpc;">
-<!ENTITY productnumber "15 SP3">
 <!ENTITY this-version "15 SP3">
+<!ENTITY product-ga    "15">
+<!ENTITY product-sp    "3">
+<!ENTITY productnumbershort "&product-ga;.&product-sp;">
+<!ENTITY productnumber "&product-ga; SP&product-sp;">
+
+
 
 <!-- PROJECT REPOSITORY URL -->
 <!ENTITY repo-url "https://github.com/SUSE/doc-hpc">
