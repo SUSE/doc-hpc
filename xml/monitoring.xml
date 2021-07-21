@@ -111,6 +111,327 @@
    For more information about options, see the man page of ConMan.
   </para>
  </sect1>
+ <sect1 xml:id="sec-monitoring-clusters-prometheus">
+  <title>Monitoring &hpc; clusters</title>
+  <para>
+   You can monitor clusters in &productname; using &prometheus; and &grafana;.
+   &prometheus; collects metrics from exporters that run on the machines in the
+   cluster, and stores the data in a time series database. &grafana; provides
+   data visualization dashboards for the metrics collected by &prometheus;.
+  </para>
+  <para>
+   The following &prometheus; exporters are useful for &hpc;:
+  </para>
+  <variablelist>
+   <varlistentry>
+    <term>&slurm; exporter</term>
+    <listitem>
+     <para>
+      Extracts metrics from the &slurm; workload manager. Install this exporter
+      on the management server to retrieve data about &slurm; jobs, scheduler
+      information, and the status of the compute nodes.
+     </para>
+    </listitem>
+   </varlistentry>
+   <varlistentry>
+    <term>Node exporter</term>
+    <listitem>
+     <para>
+      Extracts hardware and kernel metrics directly from the compute nodes.
+      Install this exporter on every compute node if you need more details than
+      the &slurm; exporter provides.
+     </para>
+    </listitem>
+   </varlistentry>
+  </variablelist>
+  <para>
+   You can install &prometheus; and &grafana; on the management server, or on a
+   separate monitoring server. In the following procedure, the cluster contains
+   a management server, a monitoring server, and two compute nodes. Replace the
+   example FQDNs with the FQDNs or IP addresses of your servers.
+  </para>
+  <note>
+   <title>Monitoring with &susemgr;</title>
+   <para>
+    If you manage your clusters with &susemgr;, set up monitoring with &prometheus;
+    and &grafana; using the instructions in the
+   <link xlink:href="https://documentation.suse.com/suma/4.2/en/suse-manager/administration/monitoring.html">
+   <citetitle>&susemgr; Administration Guide</citetitle></link>.
+   </para>
+  </note>
+  <procedure xml:id="pro-monitoring-clusters-prometheus">
+   <title>Monitoring &hpca; clusters with &prometheus; and &grafana;</title>
+   <step>
+    <para>
+     On the management server, install and start the &slurm; exporter:
+    </para>
+<screen>&prompt.root;zypper in golang-github-vpenso-prometheus_slurm_exporter
+&prompt.root;systemctl enable --now prometheus-slurm_exporter</screen>
+    <para>
+     To verify that the &slurm; exporter works, navigate to
+     <link xlink:href="http://management-server.&exampledomain;:8080/metrics"/>
+     in your browser, where you should see the exported &slurm; metrics.
+    </para>
+    <remark>trichardson (2021-07-08): Couldn't connect in my test lab, so can't confirm
+     that the Slurm exporter works. Is there something missing from this procedure?
+     Is there something not working in my test setup? Or is there a bug with the
+     Slurm exporter itself? <emphasis>Update:</emphasis> when I repeatedly
+     check the status of the Slurm exporter, it seems to be running for about 15s,
+     and then failing for 15s, in a loop.</remark>
+   </step>
+   <step performance="optional">
+    <para>
+     On each compute node, install the and start node exporter:
+    </para>
+<screen>&prompt.root;zypper in golang-github-prometheus-node_exporter
+&prompt.root;systemctl enable --now prometheus-node_exporter</screen>
+    <para>
+     You can also install the node exporter on the management server and the
+      monitoring server.
+    </para>
+    <para>
+     To verify that the node exporter works, navigate to
+     <link xlink:href="http://compute-node.&exampledomain;:9100/metrics"/>
+     in your browser, where you should see the exported node metrics.
+    </para>
+    <remark>trichardson (2021-07-08): I can connect to <emphasis>this</emphasis>
+     address in my test lab, for all of my VMs, so the problem with 8080 isn't my network</remark>
+   </step>
+   <step>
+    <para>
+     On the monitoring server, install &prometheus; and &grafana; from &ph;:
+    </para>
+    <substeps>
+     <step>
+      <para>
+       Install &ph;:
+      </para>
+<screen>&prompt.root;SUSEConnect --product PackageHub/&productnumbershort;/x86_64</screen>
+     </step>
+     <step>
+      <para>
+       Install the &prometheus; and &grafana; packages:
+      </para>
+<screen>&prompt.root;zypper in golang-github-prometheus-prometheus grafana</screen>
+     </step>
+    </substeps>
+   </step>
+   <step>
+    <para>
+     Edit the <literal>scrape_configs</literal> section of the
+     <filename>/etc/prometheus/prometheus.yml</filename> file to add jobs for
+     the &prometheus; exporters:
+    </para>
+<screen>scrape_configs:
+
+  - job_name: 'monitoring-server'
+    static_configs:
+      - targets: ['localhost:9090'] <co xml:id="co-prom-server"/>
+      - targets: ['localhost:9100']
+
+  - job_name: 'management-server'
+    scrape_interval: 30s
+    scrape_timeout: 30s <co xml:id="co-mgmt-scrape-timer"/>
+    static_configs:
+      - targets: ['management-server.&exampledomain;:8080'] <co xml:id="co-slurm-exporter"/>
+      - targets: ['management-server.&exampledomain;:9100']
+
+  - job_name: 'node1'
+    static_configs:
+      - targets: ['compute-node.&exampledomain;:9100'] <co xml:id="co-node-exporter"/>
+
+  - job_name: 'node2'
+    static_configs:
+      - targets: ['compute-node2.&exampledomain;:9100']</screen>
+    <calloutlist>
+     <callout arearefs="co-prom-server">
+      <para>
+       Monitors the monitoring server.
+      </para>
+     </callout>
+     <callout arearefs="co-mgmt-scrape-timer">
+      <para>
+       Overrides the global default setting (<literal>15s</literal>). Set both
+       <literal>scrape_interval</literal> and <literal>scrape_timeout</literal>
+       to <literal>30s</literal> to avoid overloading the management server.
+      </para>
+     </callout>
+     <callout arearefs="co-slurm-exporter">
+      <para>
+       Collects the exported &slurm; metrics from the management server.
+      </para>
+     </callout>
+     <callout arearefs="co-node-exporter">
+      <para>
+       Collects the exported node metrics. Add a job with a port 9100 target for
+       every machine that has the node exporter installed.
+      </para>
+     </callout>
+    </calloutlist>
+   </step>
+   <step>
+    <para>
+     Enable and start &prometheus; and &grafana;:
+    </para>
+<screen>&prompt.root;systemctl enable --now prometheus
+&prompt.root;systemctl enable --now grafana-server</screen>
+    <para>
+     To verify that &prometheus; works, navigate to
+     <link xlink:href="http://monitoring-server.&exampledomain;:9090/config"/>
+     in your browser, where you should see the contents of the
+     <filename>/etc/prometheus/prometheus.yml</filename> file.
+    </para>
+   </step>
+   <step>
+    <para>
+     Log in to the &grafana; web interface at
+     <link xlink:href="http://monitoring-server.&exampledomain;:3000"/>.
+     Use <literal>admin</literal> for both the user name and password, then change
+     your password when prompted.
+    </para>
+   </step>
+   <step>
+    <para>
+     Add &prometheus; as a data source:
+    </para>
+    <substeps>
+     <step>
+      <para>
+       Navigate to <menuchoice><guimenu>Configuration</guimenu>
+       <guimenu>Data Sources</guimenu></menuchoice>, then click
+       <guimenu>Add data source</guimenu>.
+      </para>
+     </step>
+     <step>
+      <para>
+       Find &prometheus; and click <guimenu>Select</guimenu>.
+      </para>
+     </step>
+     <step>
+      <para>
+       In the <guimenu>URL</guimenu> field, enter <literal>http://localhost:9090</literal>.
+       You can keep the default settings for the other fields.
+      </para>
+     </step>
+     <step>
+      <para>
+       Click <guimenu>Save &amp; Test</guimenu>.
+      </para>
+     </step>
+    </substeps>
+   </step>
+   <step>
+    <para>
+     Add a dashboard for the &slurm; metrics:
+    </para>
+    <substeps>
+     <step>
+      <para>
+       Navigate to <menuchoice><guimenu>Create</guimenu><guimenu>Import</guimenu></menuchoice>.
+      </para>
+     </step>
+     <step>
+      <para>
+       In the <guimenu>Import via grafana.com</guimenu> field, enter the dashboard
+       ID <literal>4323</literal>, then click <guimenu>Load</guimenu>.
+      </para>
+     </step>
+     <step>
+      <para>
+       Select <guimenu>&prometheus;</guimenu> from the
+       <guimenu>Select a &prometheus; data source</guimenu> drop down box, then
+       click <guimenu>Import</guimenu>.
+      </para>
+     </step>
+     <step>
+      <para>
+       Review the &slurm; dashboard. The data might take some time to appear.
+      </para>
+     </step>
+     <step>
+      <para>
+       Click the <guimenu>Save</guimenu> icon, optionally add a note to describe
+       your changes, then click <guimenu>Save</guimenu>.
+      </para>
+     </step>
+    </substeps>
+    <remark>trichardson (2021-07-09): No data, unsurprising since I couldn't
+     access the slurm exporter web server</remark>
+   </step>
+   <step performance="optional">
+    <para>
+     Add a dashboard for the node metrics:
+    </para>
+    <substeps>
+     <step>
+      <para>
+       Navigate to <menuchoice><guimenu>Create</guimenu><guimenu>Import</guimenu></menuchoice>.
+      </para>
+     </step>
+     <step>
+      <para>
+       In the <guimenu>Import via grafana.com</guimenu> field, enter the dashboard
+       ID <literal>405</literal>, then click <guimenu>Load</guimenu>.
+      </para>
+     </step>
+     <step>
+      <para>
+       Select <guimenu>&prometheus;</guimenu> from the
+       <guimenu>Select a &prometheus; data source</guimenu> drop down box, then
+       click <guimenu>Import</guimenu>.
+      </para>
+     </step>
+     <step>
+      <para>
+       Review the node exporter dashboard. You can click the <guimenu>node</guimenu>
+       drop-down box to select the nodes you want to view. Data from the monitoring
+       server (<literal>localhost</literal>) appears immediately, but data from
+       other nodes might take some time to appear.
+      </para>
+     </step>
+     <step>
+      <para>
+       Click the <guimenu>Save</guimenu> icon, optionally add a note to describe
+       your changes, then click <guimenu>Save</guimenu>.
+      </para>
+     </step>
+    </substeps>
+   </step>
+  </procedure>
+  <itemizedlist>
+   <title>More information</title>
+   <listitem>
+    <para>
+     &prometheus;:
+     <link xlink:href="https://prometheus.io/docs/introduction/overview/"/>
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+     &grafana;:
+     <link xlink:href="https://grafana.com/docs/grafana/latest/getting-started/"/>
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+     &slurm; exporter:
+     <link xlink:href="https://github.com/vpenso/prometheus-slurm-exporter"/>
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+     Node exporter:
+     <link xlink:href="https://github.com/prometheus/node_exporter"/>
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+     Other exporters:
+     <link xlink:href="https://prometheus.io/docs/instrumenting/exporters/"/>
+    </para>
+   </listitem>
+  </itemizedlist>
+ </sect1>
  <sect1 xml:id="sec-monitoring-ganglia">
   <title>Ganglia &mdash; system monitoring</title>
   <para>
