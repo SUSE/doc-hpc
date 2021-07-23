@@ -818,7 +818,7 @@ systemctl enable slurmd.service</screen>
    </para>
   </section>
  </section>
- <section xml:id="sec-pam_slurm_adopt">
+ <section xml:id="sec-pam-slurm-adopt">
   <title>Enabling the <literal>pam_slurm_adopt</literal> Module</title>
   <para>
    The <literal>pam_slurm_adopt</literal> module allows restricting access to
