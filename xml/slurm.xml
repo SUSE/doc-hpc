@@ -354,22 +354,22 @@ systemctl enable slurmd.service</screen>
   <section xml:id="sec-slurm-upgrade-workflow">
    <title>Upgrade Workflow</title>
    <para>
-    For this workflow it is assumed that
-    MUNGE authentication is used and that
-    <literal>pdsh</literal>, the <literal>pdsh</literal> &slurm; plugin and
+    For this workflow we assume that MUNGE authentication is in use and that
+    <literal>pdsh</literal>, the <literal>pdsh</literal> &slurm; plugin, and
     <literal>mrsh</literal> can be used to access all machines of the cluster.
-    That means, <literal>mrshd</literal> is running on all nodes in the cluster.
+    This means that <literal>mrshd</literal> should be running on all nodes in
+    the cluster.
    </para>
    <para>
     If this is not the case, install <literal>pdsh</literal>:
    </para>
  <screen>&prompt;zypper in pdsh-slurm</screen>
    <para>
-    If <literal>mrsh</literal> is not used in the cluster, the
-    SSH back-end for <literal>pdsh</literal> can be used as
-    well for this: Replace the option <literal>-R mrsh</literal> with
-    <literal>-R ssh</literal> in the <literal>pdsh</literal> commands below.
-    This is less scalable and you may run out of usable ports.
+    If you are not using <literal>mrsh</literal> in the cluster, the SSH
+    back-end for <literal>pdsh</literal> can also be used for this. Replace the
+    option <literal>-R mrsh</literal> with <literal>-R ssh</literal> in the
+    <literal>pdsh</literal> commands below. However, note that this is less
+    scalable and you may run out of usable ports.
    </para>
    <warning>
     <title>Upgrade <literal>slurmdbd</literal> databases before other &slurm; components</title>
@@ -377,11 +377,12 @@ systemctl enable slurmd.service</screen>
      If <literal>slurmdbd</literal> is used, always upgrade the
      <literal>slurmdbd</literal> database <emphasis>before</emphasis> starting
      the upgrade of any other &slurm; component.
-     The same database can be connected multiple clusters and must be upgraded
-     before all of them.
+     The same database can be connected to multiple clusters and must be
+     upgraded before all of them.
     </para>
     <para>
-     Upgrading other &slurm; components before the database can lead to data loss.
+     Upgrading other &slurm; components before the database can lead to data
+     loss.
     </para>
    </warning>
    <procedure xml:id="pro-slurm-upgrade-procedure">
@@ -393,19 +394,17 @@ systemctl enable slurmd.service</screen>
      <para>
       Upon the first start of <literal>slurmdbd</literal> after a
       <literal>slurmdbd</literal> upgrade, it will convert its database.
-      If the database is large, the conversion will take several 10s of minutes.
-      During this time, the database is not accessible.
+      If the database is large, the conversion will take several tens of
+      minutes. During this time, the database is not accessible.
      </para>
      <para>
       We strongly recommend creating a backup of the database in case an
-      error occurs during or after the upgrade process.
-      Without a backup, all accounting data collected in the database might
-      be lost in such an event.
-      A database
-      converted to a newer version cannot be converted back to an older one and
-      older versions of <literal>slurmdbd</literal> will not recognize the
-      newer formats. To back up and upgrade <literal>slurmdbd</literal>,
-      follow this procedure:
+      error occurs during or after the upgrade process. Without a backup, all
+      accounting data collected in the database might be lost in such an event.
+      A database converted to a newer version cannot be converted back to an
+      older one and older versions of <literal>slurmdbd</literal> will not
+      recognize the newer formats. To back up and upgrade
+      <literal>slurmdbd</literal>, follow this procedure:
      </para>
      <substeps>
       <step>
@@ -440,7 +439,8 @@ systemctl enable slurmd.service</screen>
       <step>
        <para>
         In preparation of the conversion, make sure the variable
-        <literal>innodb_buffer_size</literal> is set to a value &gt;= 128 Mb:
+        <literal>innodb_buffer_size</literal> is set to a value of 128&nbsp;MB
+        or higher:
        </para>
        <para>
         On the database server, run:
@@ -448,14 +448,14 @@ systemctl enable slurmd.service</screen>
  <screen>&prompt;echo  'SELECT @@innodb_buffer_pool_size/1024/1024;' | \
   mysql --password --batch</screen>
        <para>
-        If the size is less than 128 Mb, it can be changed on the fly for the
+        If the size is less than 128&nbsp;MB, it can be changed on the fly for the
         current session (on <literal>mariadb</literal>):
        </para>
  <screen>&prompt;echo 'set GLOBAL innodb_buffer_pool_size = 134217728;' | \
   mysql --password --batch</screen>
        <para>
         Alternatively, the size can be changed permanently by editing
-        <filename>/etc/my.cnf</filename> and setting it to 128 Mb.
+        <filename>/etc/my.cnf</filename> and setting it to 128&nbsp;MB.
         Then restart the database:
        </para>
        <screen>&prompt;rcmysql restart</screen>
@@ -729,7 +729,7 @@ systemctl enable slurmd.service</screen>
         <xref linkend="st-slurm-configuration-distribute"/>.
        </para>
        <note>
-        <title>Memory Size Seen by <literal>slurmd</literal> Can Change on Update</title>
+        <title>Memory size seen by <literal>slurmd</literal> can change on update</title>
         <para>
          Under certain circumstances, the amount of memory seen by
          <literal>slurmd</literal> can change after an update. If this
@@ -811,10 +811,9 @@ systemctl enable slurmd.service</screen>
     User-provided applications will work, as long as the library version used
     for building is no more than two major versions behind.
     We strongly recommend rebuilding local applications using
-    libslurm&mdash;such as MPI libraries with &slurm; support&mdash;as early as
-    possible.
-    This can require updating user application if new arguments were
-    introduced to existing functions.
+    <literal>libslurm</literal>&mdash;such as MPI libraries with &slurm;
+    support&mdash;as early as possible. This can require updating user
+    applications if new arguments were introduced to existing functions.
    </para>
   </section>
  </section>
@@ -823,7 +822,7 @@ systemctl enable slurmd.service</screen>
   <para>
    The <literal>pam_slurm_adopt</literal> module allows restricting access to
    compute nodes to those users that have jobs running on them. It can also
-   take care of <emphasis>run-away processes</emphasis> from user's jobs and
+   take care of <emphasis>runaway processes</emphasis> from users' jobs, and
    end these processes when the job has finished.
   </para>
   <para>
