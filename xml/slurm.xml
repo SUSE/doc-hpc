@@ -12,11 +12,11 @@
  xmlns="http://docbook.org/ns/docbook" version="5.1"
  xmlns:xi="http://www.w3.org/2001/XInclude"
  xmlns:xlink="http://www.w3.org/1999/xlink">
- <title>Slurm</title>
+ <title>&slurm;</title>
  <info>
   <abstract>
    <para>
-    Slurm is an open-source, fault-tolerant, and highly scalable cluster
+    &slurm; is an open-source, fault-tolerant, and highly scalable cluster
     management and job scheduling system for Linux clusters containing up to
     65,536 nodes. Components include machine status, partition management,
     job management, scheduling and accounting modules.
@@ -28,21 +28,21 @@
   </dm:docmanager>
  </info>
  <section xml:id="sec-slurm-install">
-  <title>Installing Slurm</title>
+  <title>Installing &slurm;</title>
   <para>
-   For a minimal setup to run Slurm with MUNGE support on
+   For a minimal setup to run &slurm; with MUNGE support on
    one control node and multiple compute nodes, follow these instructions:
   </para>
   <procedure>
    <step>
     <para>
-     Before installing Slurm, create a user and a group called
+     Before installing &slurm;, create a user and a group called
      <literal>slurm</literal>.
     </para>
     <important>
-     <title>Make Sure of Consistent UIDs and GIDs for Slurm's Accounts</title>
+     <title>Make Sure of Consistent UIDs and GIDs for &slurm;'s Accounts</title>
      <para>
-      For security reasons, Slurm does not run as the user
+      For security reasons, &slurm; does not run as the user
       <systemitem class="username">root</systemitem> but under its own
       user. It is important that the user
       <systemitem class="username">slurm</systemitem> has the
@@ -190,18 +190,18 @@ systemctl enable slurmd.service</screen>
   </section>
  </section>
  <section xml:id="sec-slurm-upgrade">
-  <title>Upgrading Slurm</title>
+  <title>Upgrading &slurm;</title>
   <section xml:id="sec-slurm-compatibility">
-   <title>Slurm Upgrade Compatibility</title>
+   <title>&slurm; Upgrade Compatibility</title>
    <para>
-    New major versions of Slurm are released in regular intervals. With some
+    New major versions of &slurm; are released in regular intervals. With some
     restrictions (see below), interoperability is guaranteed between 3 consecutive
     versions. However, unlike updates to maintenance releases (that is, releases
     which differ in the last version number), upgrades to newer major versions
     may require more careful planning.
    </para>
    <para>
-    For existing products under general support, version upgrades of Slurm are
+    For existing products under general support, version upgrades of &slurm; are
     provided regularly. Unlike maintenance updates, these upgrades will not be
     installed automatically using <literal>zypper patch</literal> but require the
     administrator to request their installation explicitly. This ensures
@@ -213,7 +213,7 @@ systemctl enable slurmd.service</screen>
     version.
    </para>
    <para>
-    Slurm uses a segmented version number: The first two segments denote the
+    &slurm; uses a segmented version number: The first two segments denote the
     major version, the final segment denotes the patch level.
    </para>
    <para>
@@ -231,11 +231,11 @@ systemctl enable slurmd.service</screen>
    </para>
    <screen>zypper install --force-resolution slurm_18_08</screen>
    <para>
-    To upgrade Slurm subpackages, proceed analogously.
+    To upgrade &slurm; subpackages, proceed analogously.
    </para>
    <important>
     <para>
-     If any additional Slurm packages are installed, make sure to upgrade those as well.
+     If any additional &slurm; packages are installed, make sure to upgrade those as well.
      These include:
     </para>
     <itemizedlist>
@@ -291,7 +291,7 @@ systemctl enable slurmd.service</screen>
      </listitem>
     </itemizedlist>
     <para>
-     All Slurm packages should be upgraded at the same time to avoid
+     All &slurm; packages should be upgraded at the same time to avoid
      conflicts between packages of different versions. This can be done by
      adding them to the <literal>zypper install</literal> command line
      described above.
@@ -328,7 +328,7 @@ systemctl enable slurmd.service</screen>
    <para>
     version(<literal>slurmdbd</literal>) &gt;=
     version(<literal>slurmctld</literal>) &gt;=
-    version(<literal>slurmd</literal>) &gt;= version (Slurm user CLIs).
+    version(<literal>slurmd</literal>) &gt;= version (&slurm; user CLIs).
    </para>
    <para>
     With each version, configuration options for
@@ -343,11 +343,11 @@ systemctl enable slurmd.service</screen>
     restarting a service.
    </para>
    <para>
-    It should be noted that a new major version of Slurm introduces a new version
+    It should be noted that a new major version of &slurm; introduces a new version
     of <literal>libslurm</literal>. Older versions of this library might no longer
-    work with an upgraded Slurm. For all &slea; software depending on
+    work with an upgraded &slurm;. For all &slea; software depending on
     <literal>libslurm </literal> an upgrade will be provided. Any locally
-    developed Slurm modules or tools might require modification and/or
+    developed &slurm; modules or tools might require modification and/or
     recompilation.
    </para>
   </section>
@@ -356,7 +356,7 @@ systemctl enable slurmd.service</screen>
    <para>
     For this workflow it is assumed that
     MUNGE authentication is used and that
-    <literal>pdsh</literal>, the <literal>pdsh</literal> Slurm plugin and
+    <literal>pdsh</literal>, the <literal>pdsh</literal> &slurm; plugin and
     <literal>mrsh</literal> can be used to access all machines of the cluster.
     That means, <literal>mrshd</literal> is running on all nodes in the cluster.
    </para>
@@ -372,20 +372,20 @@ systemctl enable slurmd.service</screen>
     This is less scalable and you may run out of usable ports.
    </para>
    <warning>
-    <title>Upgrade <literal>slurmdbd</literal> databases before other Slurm components</title>
+    <title>Upgrade <literal>slurmdbd</literal> databases before other &slurm; components</title>
     <para>
      If <literal>slurmdbd</literal> is used, always upgrade the
      <literal>slurmdbd</literal> database <emphasis>before</emphasis> starting
-     the upgrade of any other Slurm component.
+     the upgrade of any other &slurm; component.
      The same database can be connected multiple clusters and must be upgraded
      before all of them.
     </para>
     <para>
-     Upgrading other Slurm components before the database can lead to data loss.
+     Upgrading other &slurm; components before the database can lead to data loss.
     </para>
    </warning>
    <procedure xml:id="pro-slurm-upgrade-procedure">
-    <title>Upgrading Slurm</title>
+    <title>Upgrading &slurm;</title>
     <step>
      <para>
       <emphasis role="bold">Upgrade <literal>slurmdbd</literal> Database Daemon</emphasis>
@@ -549,7 +549,7 @@ systemctl enable slurmd.service</screen>
       <emphasis role="bold">Update slurmctld and slurmd</emphasis>
      </para>
      <para>
-      When the Slurm database has been updated, the
+      When the &slurm; database has been updated, the
       <literal>slurmctld</literal> and <literal>slurmd</literal>
       instances can be updated. We recommend updating the head and compute
       nodes all in a single pass. If this is not feasible, the compute nodes
@@ -565,7 +565,7 @@ systemctl enable slurmd.service</screen>
         configuration</emphasis>
        </para>
        <para>
-        It is advisable to create a backup copy of the Slurm configuration
+        It is advisable to create a backup copy of the &slurm; configuration
         before starting the upgrade process. Since the configuration file
         <literal>/etc/slurm/slurm.conf</literal> should be identical across the
         entire cluster, it is sufficient to do so on the master controller node.
@@ -576,8 +576,8 @@ systemctl enable slurmd.service</screen>
         <emphasis role="bold">Increase Timeouts</emphasis>
        </para>
        <para>
-        Set <literal>SlurmdTimeout</literal> and
-        <literal>SlurmctldTimeout</literal> in
+        Set <literal>&slurm;dTimeout</literal> and
+        <literal>&slurm;ctldTimeout</literal> in
         <literal>/etc/slurm/slurm.conf</literal> to sufficiently high values to
         avoid timeouts while <literal>slurmctld</literal> and
         <literal>slurmd</literal> are down. We recommend at least 60 minutes,
@@ -590,8 +590,8 @@ systemctl enable slurmd.service</screen>
           node and set the values for this variable to at least
           <literal>3600</literal> (1 hour).
          </para>
- <screen>SlurmctldTimeout=3600
- SlurmdTimeout=3600</screen>
+ <screen>&slurm;ctldTimeout=3600
+ &slurm;dTimeout=3600</screen>
         </step>
         <step xml:id="st-slurm-configuration-distribute">
          <para>
@@ -794,8 +794,8 @@ systemctl enable slurmd.service</screen>
         <emphasis role="bold">Clean up</emphasis>
        </para>
        <para>
-        Restore the <literal>SlurmdTimeout</literal> and
-        <literal>SlurmctldTimeout</literal> values in
+        Restore the <literal>&slurm;dTimeout</literal> and
+        <literal>&slurm;ctldTimeout</literal> values in
         <literal>/etc/slurm/slurm.conf</literal> on all nodes and run
         <literal>scontrol reconfigure</literal> (see
         <xref linkend="st-slurm-timeout"/>).
@@ -811,7 +811,7 @@ systemctl enable slurmd.service</screen>
     User-provided applications will work, as long as the library version used
     for building is no more than two major versions behind.
     We strongly recommend rebuilding local applications using
-    libslurm&mdash;such as MPI libraries with Slurm support&mdash;as early as
+    libslurm&mdash;such as MPI libraries with &slurm; support&mdash;as early as
     possible.
     This can require updating user application if new arguments were
     introduced to existing functions.
@@ -928,7 +928,7 @@ systemctl enable slurmd.service</screen>
    Administrator Guide</link> and
    <link xlink:href="https://slurm.schedmd.com/quickstart.html">Quick Start User
    Guide</link>. There is further in-depth documentation on the
-   <link xlink:href="https://slurm.schedmd.com/documentation.html">Slurm
+   <link xlink:href="https://slurm.schedmd.com/documentation.html">&slurm;
    documentation page</link>.
   </para>
  </section>
