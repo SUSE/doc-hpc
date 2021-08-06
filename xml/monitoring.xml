@@ -124,14 +124,6 @@
    data visualization dashboards for the metrics collected by &prometheus;.
    You can download pre-configured dashboards from the &grafana; website.
   </para>
-  <!-- Prometheus is able to scrape monitoring data from multiple nodes using
-the http protocol and to collect this data in a time series database.
-
-To collect monitoring data from individual systems so called
-prometheus-exporters are used. These collect data from various system sources
-and prepare them for digestion by Prometheus. Any information on the nature
-of the data is provided by these exporters, Prometheus itself has no knowledge
-of this and thus is able to handle any kind of time-series data.-->
   <para>
    The following &prometheus; exporters are useful for &hpc;:
   </para>
@@ -279,15 +271,6 @@ of this and thus is able to handle any kind of time-series data.-->
      </para>
     </step>
     <step>
-     <!-- TODO: Deciding on an option -->
-     <para>
-      On the left panel, select <guimenu>Configuration</guimenu> (&graf-config-icon;)
-      and click <guimenu>Data Sources</guimenu>.
-     </para>
-     <para>
-      On the left panel, select &graf-config-icon; <guimenu>Configuration</guimenu>
-      and click <guimenu>Data Sources</guimenu>.
-     </para>
      <para>
       On the left panel, select &graf-config-icon; and click <guimenu>Data Sources</guimenu>.
      </para>
@@ -435,15 +418,6 @@ go_gc_duration_seconds{quantile="0.5"} 7.8573e-05
      </para>
     </step>
     <step>
-     <!-- TODO: Deciding on an option -->
-     <para>
-      On the left panel, select <guimenu>Create</guimenu> (&graf-create-icon;)
-      and click <guimenu>Import</guimenu>.
-     </para>
-     <para>
-      On the left panel, select &graf-create-icon; <guimenu>Create</guimenu>
-      and click <guimenu>Import</guimenu>.
-     </para>
      <para>
       On the left panel, select &graf-create-icon; and click <guimenu>Import</guimenu>.
      </para>
@@ -592,15 +566,6 @@ go_gc_duration_seconds{quantile="0.5"} 8.1436e-05
      </para>
     </step>
     <step>
-     <!-- TODO: Deciding on an option -->
-     <para>
-      On the left panel, select <guimenu>Create</guimenu> (&graf-create-icon;)
-      and click <guimenu>Import</guimenu>.
-     </para>
-     <para>
-      On the left panel, select &graf-create-icon; <guimenu>Create</guimenu>
-      and click <guimenu>Import</guimenu>.
-     </para>
      <para>
       On the left panel, select &graf-create-icon; and click <guimenu>Import</guimenu>.
      </para>
