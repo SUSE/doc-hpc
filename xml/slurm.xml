@@ -229,7 +229,7 @@ systemctl enable slurmd.service</screen>
    <para>
     To upgrade the package <package>slurm</package> to 18.08, run the command:
    </para>
-   <screen>zypper install --force-resolution slurm_18_08</screen>
+<screen>zypper install --force-resolution slurm_18_08</screen>
    <para>
     To upgrade &slurm; subpackages, proceed analogously.
    </para>
@@ -363,7 +363,7 @@ systemctl enable slurmd.service</screen>
    <para>
     If this is not the case, install <literal>pdsh</literal>:
    </para>
- <screen>&prompt;zypper in pdsh-slurm</screen>
+<screen>&prompt;zypper in pdsh-slurm</screen>
    <para>
     If you are not using <literal>mrsh</literal> in the cluster, the SSH
     back-end for <literal>pdsh</literal> can also be used for this. Replace the
@@ -411,11 +411,11 @@ systemctl enable slurmd.service</screen>
        <para>
         Stop the <literal>slurmdbd</literal> service:
        </para>
-       <screen>&prompt;rcslurmdbd stop</screen>
+<screen>&prompt;rcslurmdbd stop</screen>
        <para>
         Make sure that <literal>slurmdbd</literal> is not running anymore:
        </para>
-       <screen>&prompt;rcslurmdbd status</screen>
+<screen>&prompt;rcslurmdbd status</screen>
        <para>
         It should be noted that <literal>slurmctld</literal> might remain running
         while the database daemon is down. While it is down, requests intended
@@ -428,12 +428,12 @@ systemctl enable slurmd.service</screen>
        <para>
         Create a backup of the <literal>slurm_acct_db</literal> database:
        </para>
-       <screen>&prompt;mysqldump -p slurm_acct_db &gt; slurm_acct_db.sql</screen>
+<screen>&prompt;mysqldump -p slurm_acct_db &gt; slurm_acct_db.sql</screen>
        <note role="compact">
         <para>
          If needed, this can be restored by running:
         </para>
-        <screen>&prompt;mysql -p slurm_acct_db &lt; slurm_acct_db.sql</screen>
+<screen>&prompt;mysql -p slurm_acct_db &lt; slurm_acct_db.sql</screen>
        </note>
       </step>
       <step>
@@ -445,26 +445,26 @@ systemctl enable slurmd.service</screen>
        <para>
         On the database server, run:
        </para>
- <screen>&prompt;echo  'SELECT @@innodb_buffer_pool_size/1024/1024;' | \
+<screen>&prompt;echo  'SELECT @@innodb_buffer_pool_size/1024/1024;' | \
   mysql --password --batch</screen>
        <para>
         If the size is less than 128&nbsp;MB, it can be changed on the fly for the
         current session (on <literal>mariadb</literal>):
        </para>
- <screen>&prompt;echo 'set GLOBAL innodb_buffer_pool_size = 134217728;' | \
+<screen>&prompt;echo 'set GLOBAL innodb_buffer_pool_size = 134217728;' | \
   mysql --password --batch</screen>
        <para>
         Alternatively, the size can be changed permanently by editing
         <filename>/etc/my.cnf</filename> and setting it to 128&nbsp;MB.
         Then restart the database:
        </para>
-       <screen>&prompt;rcmysql restart</screen>
+<screen>&prompt;rcmysql restart</screen>
       </step>
       <step xml:id="st-slurm-install-slurmdbd">
        <para>
         Install the upgrade of <literal>slurmdbd</literal>:
        </para>
-       <screen>zypper install --force-resolution slurm_<replaceable>version</replaceable>-slurmdbd</screen>
+<screen>zypper install --force-resolution slurm_<replaceable>version</replaceable>-slurmdbd</screen>
        <note>
         <title>Update MariaDB Separately</title>
         <para>
@@ -479,14 +479,14 @@ systemctl enable slurmd.service</screen>
          <para>
           Upgrade MariaDB:
          </para>
-         <screen>&prompt;zypper update mariadb</screen>
+<screen>&prompt;zypper update mariadb</screen>
         </step>
         <step>
          <para>
           Run the conversion of the database tables to the new version of
           MariaDB:
          </para>
-         <screen>mysql_upgrade --user=root --password=<replaceable>root_db_password</replaceable>;</screen>
+<screen>mysql_upgrade --user=root --password=<replaceable>root_db_password</replaceable>;</screen>
         </step>
        </substeps>
       </step>
@@ -500,12 +500,12 @@ systemctl enable slurmd.service</screen>
         to perform the migration manually by running
         <literal>slurmdbd</literal> from the command line in the foreground:
        </para>
- <screen>&prompt;/usr/sbin/slurmdbd -D -v</screen>
+<screen>&prompt;/usr/sbin/slurmdbd -D -v</screen>
        <para>
         When you see the below message, <literal>slurmdbd</literal> can be shut
         down:
        </para>
- <screen>Conversion done:
+<screen>Conversion done:
  success!</screen>
        <para>
          To do so, use signal <literal>SIGTERM</literal> (that is, press
@@ -590,7 +590,7 @@ systemctl enable slurmd.service</screen>
           node and set the values for this variable to at least
           <literal>3600</literal> (1 hour).
          </para>
- <screen>&slurm;ctldTimeout=3600
+<screen>&slurm;ctldTimeout=3600
  &slurm;dTimeout=3600</screen>
         </step>
         <step xml:id="st-slurm-configuration-distribute">
@@ -609,7 +609,7 @@ systemctl enable slurmd.service</screen>
            <para>
             Execute:
            </para>
- <screen>&prompt;cp /etc/slurm/slurm.conf /etc/slurm/slurm.conf.update
+<screen>&prompt;cp /etc/slurm/slurm.conf /etc/slurm/slurm.conf.update
  &prompt;sudo -u slurm /bin/bash -c 'cat /etc/slurm/slurm.conf.update \
   | pdsh -R mrsh -P <replaceable>partitions</replaceable> \
   "cat > /etc/slurm/slurm.conf"'
@@ -621,7 +621,7 @@ systemctl enable slurmd.service</screen>
            <para>
             Verify that the reconfiguration took effect:
            </para>
-           <screen>&prompt;scontrol show config | grep Timeout</screen>
+<screen>&prompt;scontrol show config | grep Timeout</screen>
           </step>
          </substeps>
         </step>
@@ -638,13 +638,13 @@ systemctl enable slurmd.service</screen>
           If applicable, shut down any backup controllers on the backup head
           nodes:
          </para>
-         <screen>&prompt_backup;systemctl stop slurmctld</screen>
+<screen>&prompt_backup;systemctl stop slurmctld</screen>
         </step>
         <step>
          <para>
           Shut down the master controller:
          </para>
- <screen>&prompt_master;systemctl stop slurmctld</screen>
+<screen>&prompt_master;systemctl stop slurmctld</screen>
         </step>
        </substeps>
       </step>
@@ -671,7 +671,7 @@ systemctl enable slurmd.service</screen>
          <para>
           Determine the <literal>StateSaveLocation</literal> directory:
          </para>
- <screen>&prompt;scontrol show config | grep StateSaveLocation</screen>
+<screen>&prompt;scontrol show config | grep StateSaveLocation</screen>
         </step>
         <step>
          <para>
@@ -689,7 +689,7 @@ systemctl enable slurmd.service</screen>
        <para>
         <emphasis role="bold">Shut down <literal>slurmd</literal> on the nodes</emphasis>
        </para>
- <screen>&prompt;pdsh -R ssh -P <replaceable>partitions</replaceable> systemctl stop slurmd</screen>
+<screen>&prompt;pdsh -R ssh -P <replaceable>partitions</replaceable> systemctl stop slurmd</screen>
       </step>
       <step>
        <para>
@@ -702,14 +702,14 @@ systemctl enable slurmd.service</screen>
          <para>
           On the master/backup node(s), run:
          </para>
- <screen>&prompt_master;zypper install \
+<screen>&prompt_master;zypper install \
   --force-resolution slurm_<replaceable>version</replaceable></screen>
         </step>
         <step>
          <para>
           On the master node, run:
          </para>
- <screen>&prompt_master;pdsh -R ssh -P <replaceable>partitions</replaceable> \
+<screen>&prompt_master;pdsh -R ssh -P <replaceable>partitions</replaceable> \
   zypper install --force-resolution \
   slurm_<replaceable>version</replaceable>-node</screen>
         </step>
@@ -738,7 +738,7 @@ systemctl enable slurmd.service</screen>
          memory seem by <literal>slurmd</literal> will change after the update,
          run the following on a single compute node:
         </para>
- <screen>&prompt_node1;slurmd -C</screen>
+<screen>&prompt_node1;slurmd -C</screen>
         <para>
          Compare the output with the settings in
          <filename>slurm.conf</filename>. If required, correct the setting.
@@ -753,12 +753,12 @@ systemctl enable slurmd.service</screen>
        <para>
         On the master controller, run:
        </para>
- <screen>&prompt_master;pdsh -R ssh -P <replaceable>partitions</replaceable> \
+<screen>&prompt_master;pdsh -R ssh -P <replaceable>partitions</replaceable> \
   systemctl start slurmd</screen>
        <para>
         On the master, run:
        </para>
- <screen>&prompt_master;systemctl start slurmctld</screen>
+<screen>&prompt_master;systemctl start slurmctld</screen>
        <para>
         Then execute the same on the backup controller(s).
        </para>
@@ -775,13 +775,13 @@ systemctl enable slurmd.service</screen>
          <para>
           On the master and backup controllers, run:
          </para>
- <screen>&prompt;systemctl status slurmctld</screen>
+<screen>&prompt;systemctl status slurmctld</screen>
         </step>
         <step>
          <para>
           Verify that the services are running without errors using:
          </para>
- <screen>sinfo -R</screen>
+<screen>sinfo -R</screen>
          <para>
           You will see whether there are any down, drained, failing, or
           failed nodes after the restart.
@@ -889,7 +889,7 @@ systemctl enable slurmd.service</screen>
     <para>
      Install the package <package>slurm-pam_slurm</package>:
     </para>
-    <screen>zypper install slurm-pam_slurm</screen>
+<screen>zypper install slurm-pam_slurm</screen>
    </step>
    <step performance="optional">
     <para>
@@ -903,7 +903,7 @@ systemctl enable slurmd.service</screen>
         In the file <literal>/etc/pam.d/ssh</literal>, add the option:
        </para>
       </formalpara>
-      <screen>account     required pam_slurm_adopt.so</screen>
+<screen>account     required pam_slurm_adopt.so</screen>
      </listitem>
      <listitem>
       <formalpara>
@@ -913,7 +913,7 @@ systemctl enable slurmd.service</screen>
         option:
        </para>
       </formalpara>
-      <screen>account    required pam_slurm_adopt.so</screen>
+<screen>account    required pam_slurm_adopt.so</screen>
      </listitem>
     </itemizedlist>
    </step>
