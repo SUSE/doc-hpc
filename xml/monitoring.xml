@@ -152,14 +152,20 @@
    <title>More information</title>
    <listitem>
     <para>
-     &prometheus;:
-     <link xlink:href="https://prometheus.io/docs/introduction/overview/"/>
+     &grafana;:
+     <link xlink:href="https://grafana.com/docs/grafana/latest/getting-started/"/>
     </para>
    </listitem>
    <listitem>
     <para>
-     &grafana;:
-     <link xlink:href="https://grafana.com/docs/grafana/latest/getting-started/"/>
+     &grafana; dashboards:
+     <link xlink:href="https://grafana.com/grafana/dashboards"/>
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+     &prometheus;:
+     <link xlink:href="https://prometheus.io/docs/introduction/overview/"/>
     </para>
    </listitem>
    <listitem>
@@ -586,9 +592,8 @@ go_gc_duration_seconds{quantile="0.5"} 8.1436e-05
     <step>
      <para>
       Review the node exporter dashboard. You can click the <guimenu>node</guimenu>
-      drop-down box to select the nodes you want to view. Data from the monitoring
-      server (<literal>localhost</literal>) appears immediately, but data from
-      other nodes might take some time to appear.
+      drop-down box to select the nodes you want to view. The data might take
+      some time to appear.
      </para>
     </step>
     <step>
