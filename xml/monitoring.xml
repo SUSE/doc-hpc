@@ -482,9 +482,10 @@ go_gc_duration_seconds{quantile="0.5"} 7.8573e-05
     </listitem>
     <listitem>
      <para>
-      If you want to use <command>pdsh</command> to run commands on multiple
-      nodes at once, <command>pdsh</command> must be installed on the client
-      machine, and SSH key authentication must be configured for the nodes.<!--sec-remote-pdsh-->
+      To use <command>pdsh</command> to run commands on multiple nodes at once,
+      <command>pdsh</command> must be installed on the client machine,
+      and SSH key authentication must be configured for the nodes.
+      <!--sec-remote-pdsh-->
      </para>
     </listitem>
    </itemizedlist>
