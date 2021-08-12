@@ -411,7 +411,7 @@ Description="subgroup" Organization=bavaria</screen>
  </sect1>
  <sect1 xml:id="sec-slurm-adm-commands">
   <title>Slurm administration commands</title>
-
+<!-- https://slurm.schedmd.com/man_index.html -->
   <sect2 xml:id="sec-slurm-sconfigure">
    <title>scontrol</title>
    <para>
@@ -506,7 +506,7 @@ Description="subgroup" Organization=bavaria</screen>
      </listitem>
     </varlistentry>
     <varlistentry>
-     <term>reconfigure</term>
+     <term>scontrol reconfigure</term>
      <listitem>
       <para>
        will trigger a reload of the configuration file
@@ -515,7 +515,7 @@ Description="subgroup" Organization=bavaria</screen>
      </listitem>
     </varlistentry>
     <varlistentry>
-     <term>reboot <replaceable>NODELIST</replaceable></term>
+     <term>scontrol reboot <replaceable>NODELIST</replaceable></term>
      <listitem>
       <para>
        can be used to reboot a compute node, as soon as the jobs on it have
