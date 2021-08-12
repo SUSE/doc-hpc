@@ -845,7 +845,69 @@ Description="subgroup" Organization=bavaria</screen>
   <para>
    To upgrade Slurm subpackages, use the analogous commands.
   </para>
-
+  <important>
+   <para>
+    If any additional &slurm; packages are installed, make sure to upgrade
+    those as well. This includes:
+   </para>
+    <itemizedlist>
+     <listitem>
+      <para>
+       slurm-pam_slurm
+      </para>
+     </listitem>
+     <listitem>
+      <para>
+       slurm-sview
+      </para>
+     </listitem>
+     <listitem>
+      <para>
+       perl-slurm
+      </para>
+     </listitem>
+     <listitem>
+      <para>
+       slurm-lua
+      </para>
+     </listitem>
+     <listitem>
+      <para>
+       slurm-torque
+      </para>
+     </listitem>
+     <listitem>
+      <para>
+       slurm-config-man
+      </para>
+     </listitem>
+     <listitem>
+      <para>
+       slurm-doc
+      </para>
+     </listitem>
+     <listitem>
+      <para>
+       slurm-webdoc
+      </para>
+     </listitem>
+     <listitem>
+      <para>
+       slurm-auth-none
+      </para>
+     </listitem>
+     <listitem>
+      <para>
+       pdsh-slurm
+      </para>
+     </listitem>
+    </itemizedlist>
+    <para>
+     All &slurm; packages should be upgraded at the same time to avoid conflicts
+     between packages of different versions. This can be done by adding them to
+     the <literal>zypper install</literal> command line described above.
+   </para>
+  </important>
   <para>
    In addition to the <quote>three major-version rule</quote> mentioned at the
    beginning of this section, obey the following rules regarding the order of
