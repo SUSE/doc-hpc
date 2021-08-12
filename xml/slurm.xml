@@ -925,17 +925,23 @@ Description="subgroup" Organization=bavaria</screen>
     <literal>-R ssh</literal>in the <literal>pdsh</literal>commands below. This
     is less scalable and you may run out of usable ports.
    </para>
+   <warning>
+    <title>Upgrade <literal>slurmdbd</literal> databases before other &slurm; components</title>
+    <para>
+     If <literal>slurmdbd</literal> is used, always upgrade the
+     <literal>slurmdbd</literal> database <emphasis>before</emphasis> starting
+     the upgrade of any other Slurm component. The same database can be connected
+     to multiple clusters and must be upgraded before all of them.
+    </para>
+    <para>
+     Upgrading other Slurm components before the database can lead to data loss.
+    </para>
+   </warning>
    <procedure xml:id="pro-slurm-upgrade-workflow">
     <title>Upgrading Slurm</title>
     <step>
      <para>
-      <emphasis role="bold">Upgrade slurmdbd Database Daemon</emphasis>
-     </para>
-     <para>
-      If the database daemon <literal>slurmdbd</literal> is used, it must be
-      upgraded first. Care must be taken if the same database is used for
-      multiple clusters. The database needs to be updated before any cluster is
-      updated.
+      <emphasis role="bold">Upgrade <literal>slurmdbd</literal> Database Daemon</emphasis>
      </para>
      <para>
       It should be noted that when upgrading <literal>slurmdbd</literal>, a
