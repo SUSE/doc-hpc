@@ -795,6 +795,108 @@ Description="subgroup" Organization=bavaria</screen>
    </variablelist>
   </sect2>
  </sect1>
+ <sect1 xml:id="sec-pam-slurm-adopt">
+  <title>Enabling the <literal>pam_slurm_adopt</literal> Module</title>
+  <para>
+   The <literal>pam_slurm_adopt</literal> module allows restricting access to
+   compute nodes to those users that have jobs running on them. It can also
+   take care of <emphasis>run-away processes</emphasis> from user's jobs and
+   end these processes when the job has finished.
+  </para>
+  <para>
+   <literal>pam_slurm_adopt</literal> works by binding the login process
+   of a user and all its child processes to the <literal>cgroup</literal>
+   of a running job.
+  </para>
+  <para>
+   It can be enabled with following steps:
+  </para>
+  <procedure>
+   <step>
+    <para>
+     In the configuration file <filename>slurm.conf</filename>, set the option
+     <literal>PrologFlags=contain</literal>.
+    </para>
+    <para>
+     Make sure the option <literal>ProctrackType=proctrack/cgroup</literal>
+     is also set.
+    </para>
+   </step>
+   <step>
+    <para>
+     Restart the services
+     <systemitem class="daemon">slurmctld</systemitem> and
+     <systemitem class="daemon">slurmd</systemitem>.
+    </para>
+    <para>
+     For this change to take effect, it is not sufficient to issue the command
+     <command>scontrol reconfigure</command>.
+    </para>
+   </step>
+   <step>
+    <!-- FIXME: Does limiting apply to CPU use only? -->
+    <para>
+     Decide whether to limit resources:
+    </para>
+    <itemizedlist>
+     <listitem>
+      <para>
+       If resources are not limited, user processes can continue running on
+       a node even after the job to which they were bound has finished.
+      </para>
+     </listitem>
+     <listitem>
+      <para>
+       If resources are limited using a <literal>cgroup</literal>, user
+       processes will be killed when the job finishes, and the controlling
+       <literal>cgroup</literal> is deactivated.
+      </para>
+      <para>
+       To activate resource limits via a <literal>cgroup</literal>, in the
+       file <filename>/etc/slurm/cgroup.conf</filename>, set the option
+       <literal>ConstrainCores=yes</literal>.
+      </para>
+     </listitem>
+    </itemizedlist>
+    <para>
+     Due to the complexity of accurately determining RAM requirements of jobs,
+     limiting the RAM space is not recommended.
+    </para>
+   </step>
+   <step>
+    <para>
+     Install the package <package>slurm-pam_slurm</package>:
+    </para>
+    <screen>zypper install slurm-pam_slurm</screen>
+   </step>
+   <step performance="optional">
+    <para>
+     You can disallow logins by users who have no running job in the machine:
+    </para>
+    <itemizedlist>
+     <listitem>
+      <formalpara>
+       <title>Disabling SSH Logins Only:</title>
+       <para>
+        In the file <literal>/etc/pam.d/ssh</literal>, add the option:
+       </para>
+      </formalpara>
+      <screen>account     required pam_slurm_adopt.so</screen>
+     </listitem>
+     <listitem>
+      <formalpara>
+       <title>Disabling All Types of Logins:</title>
+       <para>
+        In the file <filename>/etc/pam.d/common-account</filename>, add the
+        option:
+       </para>
+      </formalpara>
+      <screen>account    required pam_slurm_adopt.so</screen>
+     </listitem>
+    </itemizedlist>
+   </step>
+  </procedure>
+ </sect1>
  <sect1 xml:id="sec-slurm-upgrade">
   <title>Upgrading Slurm</title>
 
