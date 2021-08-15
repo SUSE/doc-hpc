@@ -1094,11 +1094,11 @@ Description="subgroup" Organization=bavaria</screen>
     <para>
      If <literal>slurmdbd</literal> is used, always upgrade the
      <literal>slurmdbd</literal> database <emphasis>before</emphasis> starting
-     the upgrade of any other Slurm component. The same database can be connected
+     the upgrade of any other &slurm; component. The same database can be connected
      to multiple clusters and must be upgraded before all of them.
     </para>
     <para>
-     Upgrading other Slurm components before the database can lead to data loss.
+     Upgrading other &slurm; components before the database can lead to data loss.
     </para>
    </warning>
    <procedure xml:id="pro-slurm-upgrade-workflow">
