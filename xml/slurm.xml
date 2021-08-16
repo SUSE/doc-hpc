@@ -795,7 +795,7 @@ Description="subgroup" Organization=bavaria</screen>
    </variablelist>
   </sect2>
  </sect1>
- <sect1 xml:id="sec-pam-slurm-adopt">
+ <!--sect1 xml:id="sec-pam-slurm-adopt">
   <title>Enabling the <literal>pam_slurm_adopt</literal> module</title>
   <para>
    The <literal>pam_slurm_adopt</literal> module allows restricting access to
@@ -834,7 +834,7 @@ Description="subgroup" Organization=bavaria</screen>
     </para>
    </step>
    <step>
-    <!-- FIXME: Does limiting apply to CPU use only? -->
+    <!- FIXME: Does limiting apply to CPU use only? ->
     <para>
      Decide whether to limit resources:
     </para>
@@ -896,7 +896,7 @@ Description="subgroup" Organization=bavaria</screen>
     </itemizedlist>
    </step>
   </procedure>
- </sect1>
+ </sect1-->
  <sect1 xml:id="sec-slurm-upgrade">
   <title>Upgrading Slurm</title>
 
