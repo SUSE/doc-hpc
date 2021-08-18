@@ -800,8 +800,8 @@ Description="subgroup" Organization=bavaria</screen>
   <para>
    The <literal>pam_slurm_adopt</literal> module allows restricting access to
    compute nodes to those users that have jobs running on them. It can also
-   take care of <emphasis>run-away processes</emphasis> from user's jobs and
-   end these processes when the job has finished.
+   take care of <emphasis>run-away processes</emphasis> from users' jobs and
+   end these processes when the jobs have finished.
   </para>
   <para>
    <literal>pam_slurm_adopt</literal> works by binding the login process
@@ -871,7 +871,7 @@ Description="subgroup" Organization=bavaria</screen>
    </step>
    <step performance="optional">
     <para>
-     You can disallow logins by users who have no running job in the machine:
+     You can disallow logins by users who have no running jobs on the machine:
     </para>
     <itemizedlist>
      <listitem>
