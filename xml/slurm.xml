@@ -411,7 +411,7 @@ Description="subgroup" Organization=bavaria</screen>
  </sect1>
  <sect1 xml:id="sec-slurm-adm-commands">
   <title>Slurm administration commands</title>
-
+<!-- https://slurm.schedmd.com/man_index.html -->
   <sect2 xml:id="sec-slurm-sconfigure">
    <title>scontrol</title>
    <para>
@@ -506,7 +506,7 @@ Description="subgroup" Organization=bavaria</screen>
      </listitem>
     </varlistentry>
     <varlistentry>
-     <term>reconfigure</term>
+     <term>scontrol reconfigure</term>
      <listitem>
       <para>
        will trigger a reload of the configuration file
@@ -515,7 +515,7 @@ Description="subgroup" Organization=bavaria</screen>
      </listitem>
     </varlistentry>
     <varlistentry>
-     <term>reboot <replaceable>NODELIST</replaceable></term>
+     <term>scontrol reboot <replaceable>NODELIST</replaceable></term>
      <listitem>
       <para>
        can be used to reboot a compute node, as soon as the jobs on it have
@@ -795,6 +795,108 @@ Description="subgroup" Organization=bavaria</screen>
    </variablelist>
   </sect2>
  </sect1>
+ <!--sect1 xml:id="sec-pam-slurm-adopt">
+  <title>Enabling the <literal>pam_slurm_adopt</literal> module</title>
+  <para>
+   The <literal>pam_slurm_adopt</literal> module allows restricting access to
+   compute nodes to those users that have jobs running on them. It can also
+   take care of <emphasis>run-away processes</emphasis> from users' jobs and
+   end these processes when the jobs have finished.
+  </para>
+  <para>
+   <literal>pam_slurm_adopt</literal> works by binding the login process
+   of a user and all its child processes to the <literal>cgroup</literal>
+   of a running job.
+  </para>
+  <para>
+   It can be enabled with following steps:
+  </para>
+  <procedure>
+   <step>
+    <para>
+     In the configuration file <filename>slurm.conf</filename>, set the option
+     <literal>PrologFlags=contain</literal>.
+    </para>
+    <para>
+     Make sure the option <literal>ProctrackType=proctrack/cgroup</literal>
+     is also set.
+    </para>
+   </step>
+   <step>
+    <para>
+     Restart the services
+     <systemitem class="daemon">slurmctld</systemitem> and
+     <systemitem class="daemon">slurmd</systemitem>.
+    </para>
+    <para>
+     For this change to take effect, it is not sufficient to issue the command
+     <command>scontrol reconfigure</command>.
+    </para>
+   </step>
+   <step>
+    <!- FIXME: Does limiting apply to CPU use only? ->
+    <para>
+     Decide whether to limit resources:
+    </para>
+    <itemizedlist>
+     <listitem>
+      <para>
+       If resources are not limited, user processes can continue running on
+       a node even after the job to which they were bound has finished.
+      </para>
+     </listitem>
+     <listitem>
+      <para>
+       If resources are limited using a <literal>cgroup</literal>, user
+       processes will be killed when the job finishes, and the controlling
+       <literal>cgroup</literal> is deactivated.
+      </para>
+      <para>
+       To activate resource limits via a <literal>cgroup</literal>, in the
+       file <filename>/etc/slurm/cgroup.conf</filename>, set the option
+       <literal>ConstrainCores=yes</literal>.
+      </para>
+     </listitem>
+    </itemizedlist>
+    <para>
+     Due to the complexity of accurately determining RAM requirements of jobs,
+     limiting the RAM space is not recommended.
+    </para>
+   </step>
+   <step>
+    <para>
+     Install the package <package>slurm-pam_slurm</package>:
+    </para>
+    <screen>zypper install slurm-pam_slurm</screen>
+   </step>
+   <step performance="optional">
+    <para>
+     You can disallow logins by users who have no running jobs on the machine:
+    </para>
+    <itemizedlist>
+     <listitem>
+      <formalpara>
+       <title>Disabling SSH logins only:</title>
+       <para>
+        In the file <literal>/etc/pam.d/ssh</literal>, add the option:
+       </para>
+      </formalpara>
+      <screen>account     required pam_slurm_adopt.so</screen>
+     </listitem>
+     <listitem>
+      <formalpara>
+       <title>Disabling all types of logins:</title>
+       <para>
+        In the file <filename>/etc/pam.d/common-account</filename>, add the
+        option:
+       </para>
+      </formalpara>
+      <screen>account    required pam_slurm_adopt.so</screen>
+     </listitem>
+    </itemizedlist>
+   </step>
+  </procedure>
+ </sect1-->
  <sect1 xml:id="sec-slurm-upgrade">
   <title>Upgrading Slurm</title>
 
@@ -845,7 +947,69 @@ Description="subgroup" Organization=bavaria</screen>
   <para>
    To upgrade Slurm subpackages, use the analogous commands.
   </para>
-
+  <important>
+   <para>
+    If any additional &slurm; packages are installed, make sure to upgrade
+    those as well. This includes:
+   </para>
+    <itemizedlist>
+     <listitem>
+      <para>
+       slurm-pam_slurm
+      </para>
+     </listitem>
+     <listitem>
+      <para>
+       slurm-sview
+      </para>
+     </listitem>
+     <listitem>
+      <para>
+       perl-slurm
+      </para>
+     </listitem>
+     <listitem>
+      <para>
+       slurm-lua
+      </para>
+     </listitem>
+     <listitem>
+      <para>
+       slurm-torque
+      </para>
+     </listitem>
+     <listitem>
+      <para>
+       slurm-config-man
+      </para>
+     </listitem>
+     <listitem>
+      <para>
+       slurm-doc
+      </para>
+     </listitem>
+     <listitem>
+      <para>
+       slurm-webdoc
+      </para>
+     </listitem>
+     <listitem>
+      <para>
+       slurm-auth-none
+      </para>
+     </listitem>
+     <listitem>
+      <para>
+       pdsh-slurm
+      </para>
+     </listitem>
+    </itemizedlist>
+    <para>
+     All &slurm; packages should be upgraded at the same time to avoid conflicts
+     between packages of different versions. This can be done by adding them to
+     the <literal>zypper install</literal> command line described above.
+   </para>
+  </important>
   <para>
    In addition to the <quote>three major-version rule</quote> mentioned at the
    beginning of this section, obey the following rules regarding the order of
@@ -925,17 +1089,23 @@ Description="subgroup" Organization=bavaria</screen>
     <literal>-R ssh</literal>in the <literal>pdsh</literal>commands below. This
     is less scalable and you may run out of usable ports.
    </para>
+   <warning>
+    <title>Upgrade <literal>slurmdbd</literal> databases before other &slurm; components</title>
+    <para>
+     If <literal>slurmdbd</literal> is used, always upgrade the
+     <literal>slurmdbd</literal> database <emphasis>before</emphasis> starting
+     the upgrade of any other &slurm; component. The same database can be connected
+     to multiple clusters and must be upgraded before all of them.
+    </para>
+    <para>
+     Upgrading other &slurm; components before the database can lead to data loss.
+    </para>
+   </warning>
    <procedure xml:id="pro-slurm-upgrade-workflow">
     <title>Upgrading Slurm</title>
     <step>
      <para>
-      <emphasis role="bold">Upgrade slurmdbd Database Daemon</emphasis>
-     </para>
-     <para>
-      If the database daemon <literal>slurmdbd</literal> is used, it must be
-      upgraded first. Care must be taken if the same database is used for
-      multiple clusters. The database needs to be updated before any cluster is
-      updated.
+      <emphasis role="bold">Upgrade <literal>slurmdbd</literal> database daemon</emphasis>
      </para>
      <para>
       It should be noted that when upgrading <literal>slurmdbd</literal>, a
