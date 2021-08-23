@@ -38,61 +38,34 @@
 
  <xi:include href="preface_administration.xml"/>
 
- <part xml:id="part-intro">
-  <title>Introduction</title>
   <xi:include href="introduction.xml"/>
- </part>
- <part xml:id="part-inst">
-  <title>Installation</title>
+
   <xi:include href="installation.xml"/>
- </part>
+
  <!--
- <part xml:id="part-dep">
-  <title>Deployment</title>
   <xi:include href="deployment.xml"/>
- </part>
  -->
- <part xml:id="part-remote">
-  <title>Remote administration</title>
+
   <xi:include href="remote_administration.xml"/>
- </part>
 
- <part xml:id="part-hardware">
-  <title>Hardware</title>
   <xi:include href="hardware.xml"/>
- </part>
 
- <part xml:id="part-slurm">
-  <title>Workload manager</title>
   <xi:include href="slurm.xml"/>
- </part>
 
- <part xml:id="part-monitoring">
-  <title>Monitoring and logging</title>
   <xi:include href="monitoring.xml"/>
- </part>
 
- <part xml:id="part-compute">
-  <title>HPC libraries</title>
   <xi:include href="compute.xml"/>
- </part>
+
  <!--
- <part xml:id="part-compilation">
-  <title>Compilation</title>
   <xi:include href="compilation.xml"/>
- </part>
  -->
+
  <!--
- <part xml:id="part-testing">
-  <title>Testing</title>
   <xi:include href="testing.xml"/>
-  </part>
   -->
+
  <!--
- <part xml:id="part-buildsource">
-  <title>Build source</title>
   <xi:include href="buildsource.xml"/>
- </part>
  -->
  <xi:include href="common_legal.xml"/>
 </book>
