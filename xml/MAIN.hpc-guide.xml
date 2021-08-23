@@ -27,11 +27,9 @@
   <dm:docmanager xmlns:dm="urn:x-suse:ns:docmanager">
    <dm:bugtracker>
     <dm:url>https://bugzilla.suse.com/enter_bug.cgi</dm:url>
-    <!--taroth 2021-05-26: aginies has requested a 'Documentation' component
-    now, update the component as soon as it is in place-->
-    <dm:component>Other</dm:component>
+    <dm:component>Documentation</dm:component>
     <dm:product>SUSE Linux Enterprise HPC 15 SP3</dm:product>
-    <dm:assignee>taroth@suse.com</dm:assignee>
+    <dm:assignee>tahlia.richardson@suse.com</dm:assignee>
    </dm:bugtracker>
   </dm:docmanager>
  </info>
