@@ -16,9 +16,8 @@
  <info>
   <abstract>
    <para>
-    This chapter describes tools which can be used to obtain information
-    about the hardware infrastucture of components of interest for HPC
-    applications.
+    This chapter describes tools that can be used to obtain hardware
+    infrastructure information for &hpca; applications.
    </para>
   </abstract>
   <dm:docmanager xmlns:dm="urn:x-suse:ns:docmanager">
@@ -30,12 +29,12 @@
   <title>cpuid</title>
   <para>
    <literal>cpuid</literal> executes the x86 CPUID instruction and decodes
-   and prints the results to stdout. Its knowledge of Intel, AMD and Cyrix
+   and prints the results to <literal>stdout</literal>. Its knowledge of Intel, AMD and Cyrix
    CPUs is fairly complete. It specifically targets the Intel Xeon Phi
    architecture.
   </para>
   <para>
-   To install <command>cpuid</command>, run: <literal>zypper in cpuid</literal>.
+   To install <command>cpuid</command>, run <command>zypper in cpuid</command>.
   </para>
   <para>
    For information about runtime options for <command>cpuid</command>, see the
@@ -51,17 +50,17 @@
    <literal>hwloc</literal> provides CLI tools and a C API to
    obtain the hierarchical map of key computing elements, such as NUMA
    memory nodes, shared caches, processor packages, processor cores,
-   processing units (logical processors or <quote>threads</quote>) and even I/O
+   processing units (logical processors or <quote>threads</quote>), and I/O
    devices. <literal>hwloc</literal> also gathers various attributes such as
    cache and memory information, and is portable across a variety of different
-   operating systems and platforms. Additionally it can assemble the
-   topologies of multiple machines into a single one, to let applications
-   consult the topology of an entire fabric or cluster at once.
+   operating systems and platforms. It can also assemble the
+   topologies of multiple machines into a single one, so that applications
+   can read the topology of an entire fabric or cluster at once.
   </para>
-  <!-- "consult" above sounds like the wrong word. - sknorr, 2020-12-16 -->
-  
+  <!-- a single one what? topology, or machine? - trichardson, 2021-08-26 -->
+
   <para>
-   <emphasis>lstopo</emphasis> allows the user to obtain the topology
+   <literal>lstopo</literal> allows the user to obtain the topology
    of a machine or convert topology information obtained on a remote
    machine into one of several output formats. In graphical mode (X11),
    it displays the topology in a window. Several other output formats
@@ -70,7 +69,7 @@
    <literal>hwloc</literal> and <literal>lstopo</literal>.
   </para>
   <para>
-   It also features full support for import and export of XML-formatted
+   <literal>hwloc</literal> features full support for import and export of XML-formatted
    topology files via the <literal>libxml2</literal> library.
   </para>
   <para>
