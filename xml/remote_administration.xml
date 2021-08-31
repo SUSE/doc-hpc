@@ -16,10 +16,9 @@
  <info>
   <abstract>
    <para>
-    HPC clusters usually consist of a small set of identical compute
-    nodes. Each cluster may consist of a mere handful of machines, up to
-    thousands. Managing the compute nodes of a cluster may be challenging. This
-    chapter describes a number of tools which aid this task.
+    &hpc; clusters usually consist of a small set of identical compute
+    nodes. However, large clusters could consist of thousands of machines.
+    This chapter describes tools to help manage the compute nodes in a cluster.
    </para>
   </abstract>
   <dm:docmanager xmlns:dm="urn:x-suse:ns:docmanager">
@@ -32,8 +31,8 @@
   <para>
    <emphasis>Genders</emphasis> is a static cluster configuration database used
    for configuration management. It allows grouping and addressing sets of
-   hosts by attributes, and is used by a variety of tools. The Genders
-   database is a text file which is usually replicated on each node in a
+   nodes by attributes, and is used by a variety of tools. The Genders
+   database is a text file that is usually replicated on each node in a
    cluster.
   </para>
   <para>
@@ -44,9 +43,9 @@
   <sect2 xml:id="sec-genders-db">
     <title>Genders database format</title>
   <para>
-   The Genders database in &shpca; is a plain-text file
+   The Genders database in &shpc; is a plain-text file called
    <filename>/etc/genders</filename>. It contains a list of node names with
-   their attributes. Each line of the database may have one of the following
+   their attributes. Each line of the database can have one of the following
    formats.
   </para>
     <screen>nodename                attr[=value],attr[=value],...
@@ -58,7 +57,7 @@ nodenames[A-B]          attr[=value],attr[=value],...</screen>
    attribute can optionally have a value. The substitution string
    <literal>%n</literal> can be used in an attribute value to represent the node
    name. Node names can be listed on multiple lines, so a node's attributes can
-   be specified on multiple lines. However, no single node may have duplicate
+   be specified on multiple lines. However, no single node can have duplicate
    attributes.
   </para>
   <para>
@@ -69,27 +68,30 @@ nodenames[A-B]          attr[=value],attr[=value],...</screen>
    anywhere in the file.
   </para>
   <para>
-   Ranges for node names can be specified in the form:
-   <literal>prefix[n-m,l-k,...]</literal>, where n &gt; m and l &gt; k, etc.,
-   as an alternative to explicit lists of node names.
+   Ranges for node names can be specified in the form
+   <literal>prefix[a-c,n-p,...]</literal> as an alternative to explicit lists
+   of node names. For example, <literal>node[01-03,06]</literal> would specify
+   <literal>node01</literal>, <literal>node02</literal>, <literal>node03</literal>,
+   and <literal>node06</literal>.
   </para>
   </sect2>
 
   <sect2 xml:id="sec-nodeattr">
    <title>Nodeattr usage</title>
+   <!-- REVISIT: This content is all available from the nodeattr man page-->
    <para>
     The command line utility <command>nodeattr</command> can be used to query data
-    in the genders file. When the genders file is replicated on all nodes, a qery
-    can be done wihtout network access. It can be called as follows:
+    in the genders file. When the genders file is replicated on all nodes, a query
+    can be done without network access. The genders file can be called as follows:
    </para>
 <screen>&prompt;nodeattr [-q | -n | -s] [-r] attr[=val]</screen>
   <para>
-   where <literal>-q</literal> is the default option and prints a list nodes
-   with <literal>attr[=val]</literal> as the host range.
+   <literal>-q</literal> is the default option and prints a list of nodes
+   with <literal>attr[=val]</literal>.
   </para>
   <para>
-   The <literal>-c</literal> options will give a comma-separated list, and the
-   <literal>-s</literal> option a space-separated list, of nodes with
+   The <literal>-c</literal> or <literal>-s</literal> options give a
+   comma-separated or space-separated list of nodes with
    <literal>attr[=val]</literal>.
   </para>
   <para>
@@ -97,20 +99,18 @@ nodenames[A-B]          attr[=value],attr[=value],...</screen>
    returns a zero value if the local node has the specified attribute, and
    non-zero otherwise. The <literal>-v</literal> option causes any value
    associated with the attribute to go to <literal>stdout</literal>. If a node
-   name is specified before the attribute, it is queried instead of the
-   local node.
+   name is specified before the attribute, the specified node is queried instead
+   of the local node.
   </para>
   <para>
-    When <command>nodeattr</command> is called with the <literal>-l</literal>
-    parameter, as follows:
+    To print all attributes for a particular node, run the following command:
   </para>
 <screen>&prompt;nodeattr -l [node]</screen>
   <para>
-   all attributes for a particular node are printed out. If no node
-   paramteter is given, all attributes of the local node are printed out.
+   If no node parameter is given, all attributes of the local node are printed.
   </para>
   <para>
-   To perform a syntax check of the genders database, run:
+   To perform a syntax check of the genders database, run the following command:
   </para>
 <screen>&prompt;nodeattr [-f genders] -k</screen>
   <para>
@@ -123,46 +123,46 @@ nodenames[A-B]          attr[=value],attr[=value],...</screen>
  <sect1 xml:id="sec-remote-pdsh">
   <title>pdsh &mdash; parallel remote shell program</title>
   <para>
-   <command>pdsh</command> is a parallel remote shell which can be used
+   <command>pdsh</command> is a parallel remote shell that can be used
    with multiple back-ends for remote connections. It can run a command on
    multiple machines in parallel.
   </para>
   <para>
-   To install <package>pdsh</package>, run the command:
+   To install <package>pdsh</package>, run the command
    <command>zypper in pdsh</command>.
   </para>
   <para>
-   On &shpca; the back-ends <literal>ssh</literal>,
-   <literal>mrsh</literal>, and <literal>exec</literal> are supported. The
+   In &shpc;, the back-ends <literal>ssh</literal>,
+   <literal>&mrsh;</literal>, and <literal>exec</literal> are supported. The
    <literal>ssh</literal> back-end is the default. Non-default login methods
-   can be used by either setting the <literal>PDSH_RCMD_TYPE</literal>
-   environment variable or by using the <literal>-R</literal> command
+   can be used by setting the <literal>PDSH_RCMD_TYPE</literal>
+   environment variable, or by using the <literal>-R</literal> command
    argument.
   </para>
   <para>
-   When using the <literal>ssh</literal> back-end, it is important that a
-   non-interactive (that is, passwordless) login method is used.
+   When using the <literal>ssh</literal> back-end, you must use a
+   non-interactive (passwordless) login method.
   </para>
   <para>
-   The <literal>mrsh</literal> back-end requires the
+   The <literal>&mrsh;</literal> back-end requires the
    <literal>mrshd</literal> daemon to be running on the client. The
-   <literal>mrsh</literal> back-end does not require the use of reserved
-   sockets, so it does not suffer from port exhaustion when executing commands
+   <literal>&mrsh;</literal> back-end does not require the use of reserved
+   sockets, so it does not suffer from port exhaustion when running commands
    on many machines in parallel. For information about setting up the system to
-   use this back-end, see <xref linkend="sec-remote-mrsh"/>
+   use this back-end, see <xref linkend="sec-remote-mrsh"/>.
   </para>
   <para>
    Remote machines can be specified on the command line, or
    <command>pdsh</command> can use a <filename>machines</filename> file
    (<filename>/etc/pdsh/machines</filename>), <command>dsh</command> (Dancer's
-   shell)-style groups or netgroups. Also, it can target nodes based on the
+   shell)-style groups or netgroups. It can also target nodes based on the
    currently running &slurm; jobs.
   </para>
   <para>
    The different ways to select target hosts are realized by modules. Some
    of these modules provide identical options to <command>pdsh</command>.
    The module loaded first will win and handle the option. Therefore, we
-   recommended limiting yourself to a single method and specifying this with
+   recommended using a single method and specifying this with
    the <literal>-M</literal> option.
   </para>
   <para>
@@ -175,7 +175,7 @@ nodenames[A-B]          attr[=value],attr[=value],...</screen>
    <literal>machines</literal>, <literal>slurm</literal>,
    <literal>netgroup</literal> and <literal>dshgroup</literal>.
    Each host-list plugin is provided in a separate package. This avoids
-   conflicts between command-line options for different plugins which
+   conflicts between command line options for different plugins which
    happen to be identical, and helps to keep installations small and free
    of unneeded dependencies. Package dependencies have been set to prevent
    the installation of plugins with conflicting command options. To install one
@@ -189,8 +189,8 @@ nodenames[A-B]          attr[=value],attr[=value],...</screen>
  <sect1 xml:id="sec-remote-powerman">
   <title>PowerMan &mdash; centralized power control for clusters</title>
   <para>
-   PowerMan allows manipulating remote power control devices (RPC) from a
-   central location. It can control:
+   PowerMan can control the following remote power control devices (RPC) from a
+   central location:
   </para>
   <itemizedlist>
    <listitem>
@@ -205,7 +205,7 @@ nodenames[A-B]          attr[=value],attr[=value],...</screen>
    </listitem>
    <listitem>
     <para>
-     RPCs which are accessed through an external program
+     RPCs that are accessed through an external program
     </para>
    </listitem>
   </itemizedlist>
@@ -219,21 +219,21 @@ nodenames[A-B]          attr[=value],attr[=value],...</screen>
    To install PowerMan, run <command>zypper in powerman</command>.
   </para>
   <para>
-   To configure it, include the appropriate device file for your RPC
+   To configure PowerMan, include the appropriate device file for your RPC
    (<filename>/etc/powerman/*.dev</filename>) in
    <filename>/etc/powerman/powerman.conf</filename> and add devices and
    nodes. The device <quote>type</quote> needs to match the
    <quote>specification</quote> name in one
    of the included device files. The list of <quote>plugs</quote> used for
-   nodes need to
+   nodes needs to
    match an entry in the <quote>plug name</quote> list.
   </para>
   <para>
-   After configuring PowerMan, start its service by:
+   After configuring PowerMan, start its service:
   </para>
 <screen>&prompt;systemctl start powerman.service</screen>
   <para>
-   To start PowerMan automatically after every boot, run:
+   To start PowerMan automatically after every boot, run the following command:
   </para>
 <screen>&prompt;systemctl enable powerman.service</screen>
   <para>
@@ -253,16 +253,16 @@ nodenames[A-B]          attr[=value],attr[=value],...</screen>
  <sect1 xml:id="sec-remote-munge">
   <title>&munge; authentication</title>
   <para>
-   &munge; allows for secure communications between different machines which
+   &munge; allows for secure communications between different machines that
    share the same secret key. The most common use case is the &slurm; workload
    manager, which uses &munge; for the encryption of its messages. Another use
-   case is authentication for the parallel shell mrsh.
+   case is authentication for the parallel shell &mrsh;.
   </para>
-  <sect2>
+  <sect2 xml:id="sec-setting-up-munge">
    <title>Setting up &munge; authentication</title>
    <para>
-    &munge; uses UID/GID values to uniquely identify and authenticate users.
-    Thus, you must take care that users who will authenticate across a network
+    &munge; uses UID/GID values to uniquely identify and authenticate users,
+    so you must ensure that users who will authenticate across a network
     have matching UIDs and GIDs across all nodes.
    </para>
    <para>
@@ -271,7 +271,7 @@ nodenames[A-B]          attr[=value],attr[=value],...</screen>
    </para>
    <para>
     &munge; is installed with the command <command>zypper in munge</command>.
-    This will install further required packages. A separate
+    This also installs further required packages. A separate
     <package>munge-devel</package> package is available to build applications
     that require &munge; authentication.
    </para>
@@ -279,63 +279,71 @@ nodenames[A-B]          attr[=value],attr[=value],...</screen>
     When installing the <package>munge</package> package, a new key is generated
     on every system. However, the entire cluster needs to use the same &munge;
     key. Therefore, you must securely copy the &munge; key from one system to
-    all the other nodes in the cluster. Take care that the key is only readable
+    all the other nodes in the cluster. You can accomplish this by using
+    <command>pdsh</command> with SSH. Ensure that the key is only readable
     by the <literal>munge</literal> user (permissions mask
     <literal>0400</literal>).
    </para>
-   <para>
-    <emphasis>pdsh</emphasis> (with SSH) may be used to do this:
-   </para>
-   <para>
-    Check permissions, owner and file type of the key file located under
-    <filename>/etc/munge/munge.key</filename> on the local system:
-   </para>
+   <procedure xml:id="pro-remote-munge">
+    <title>Setting up &munge; authentication</title>
+    <step>
+     <para>
+      On the server where &munge; is installed, check the permissions, owner,
+      and file type of the key file <filename>/etc/munge/munge.key</filename>:
+     </para>
 <screen>&prompt;stat --format "%F %a %G %U %n" /etc/munge/munge.key</screen>
-   <para>
-    The settings should be:
-   </para>
+     <para>
+      The settings should be as follows:
+     </para>
 <screen>400 regular file munge munge /etc/munge/munge.key</screen>
-   <para>
-    Calculate the MD5 sum of <filename>munge.key</filename>:
-   </para>
+    </step>
+    <step>
+     <para>
+      Calculate the MD5 sum of <filename>munge.key</filename>:
+     </para>
 <screen>&prompt;md5sum /etc/munge/munge.key</screen>
-   <para>
-    Copy the key to the listed nodes:
-   </para>
-<screen>&prompt;pdcp -R ssh -w <replaceable>HOSTLIST</replaceable> /etc/munge/munge.key /etc/munge/munge.key</screen>
-   <para>
-    Check the key settings on the remote host:
-   </para>
+    </step>
+    <step>
+     <para>
+      Copy the key to the listed nodes using <command>pdcp</command>:
+     </para>
+<screen>&prompt;pdcp -R ssh -w <replaceable>NODELIST</replaceable> /etc/munge/munge.key /etc/munge/munge.key</screen>
+    </step>
+    <step>
+     <para>
+      Check the key settings on the remote nodes:
+     </para>
 <screen>&prompt;pdsh -R ssh -w <replaceable>HOSTLIST</replaceable> stat --format \"%F %a %G %U %n\" /etc/munge/munge.key
 &prompt;pdsh -R ssh -w <replaceable>HOSTLIST</replaceable> md5sum /etc/munge/munge.key</screen>
-   <para>
-    Make sure that they match.
-   </para>
+     <para>
+      Ensure that they match the settings on the &munge; server.
+     </para>
+    </step>
+   </procedure>
   </sect2>
-  <sect2>
+  <sect2 xml:id="sec-enabling-and-starting-munge">
    <title>Enabling and starting &munge;</title>
    <para>
-    <systemitem class="daemon">munged</systemitem> needs to be run on all nodes
-    where &munge; authentication will take place. If &munge; is used for
+    <systemitem class="daemon">munged</systemitem> must be running on all nodes
+    that use &munge; authentication. If &munge; is used for
     authentication across the network, it needs to run on each side of the
     communications link.
    </para>
    <para>
-    To start the service and make sure it is started after every reboot, on each
-    node, run:
+    To start the service and ensure it is started after every reboot, run
+    the following command on each node:
    </para>
-<screen>&prompt;systemctl enable munge.service
-&prompt;systemctl start munge.service</screen>
+<screen>&prompt;systemctl enable --now munge.service</screen>
     <para>
-     To perform the same on multiple nodes, you can also use
-     <command>pdsh</command>.
+     You can also use <command>pdsh</command> to run this command on multiple
+     nodes at once.
    </para>
   </sect2>
  </sect1>
  <sect1 xml:id="sec-remote-mrsh">
-  <title>mrsh/mrlogin &mdash; remote login using &munge; authentication</title>
+  <title>&mrsh;/mrlogin &mdash; remote login using &munge; authentication</title>
   <para>
-   <emphasis>mrsh</emphasis> is a set of remote shell programs using the
+   <emphasis>&mrsh;</emphasis> is a set of remote shell programs using the
    <emphasis>&munge;</emphasis> authentication system instead of reserved ports
    for security.
   </para>
@@ -344,19 +352,19 @@ nodenames[A-B]          attr[=value],attr[=value],...</screen>
    <literal>rlogin</literal>.
   </para>
   <para>
-   To install <emphasis>mrsh</emphasis>, do the following:
+   To install &mrsh;, do the following:
   </para>
   <itemizedlist>
    <listitem>
     <para>
-     If only the <emphasis>mrsh</emphasis> client is required (without
+     If only the &mrsh; client is required (without
      allowing remote login to this machine), use:
      <command>zypper in mrsh</command>.
     </para>
    </listitem>
    <listitem>
     <para>
-     To allow logging in to a machine, the server needs to be installed:
+     To allow logging in to a machine, the server must be installed:
      <command>zypper in mrsh-server</command>.
     </para>
    </listitem>
@@ -373,20 +381,20 @@ nodenames[A-B]          attr[=value],attr[=value],...</screen>
    To set up a cluster of machines allowing remote login from each other,
    first follow the instructions for setting up and starting &munge;
    authentication in <xref linkend="sec-remote-munge"/>. After the &munge; service
-   has been successfully started, enable and start <command>mrlogin</command>
+   successfully starts, enable and start <command>mrlogin</command>
    on each machine on which the user will log in:
   </para>
 <screen>&prompt;systemctl enable mrlogind.socket mrshd.socket
 &prompt;systemctl start mrlogind.socket mrshd.socket</screen>
   <para>
-   To start mrsh support at boot, run:
+   To start &mrsh; support at boot, run the following command:
   </para>
 <screen>&prompt;systemctl enable munge.service
 &prompt;systemctl enable mrlogin.service</screen>
   <para>
-   We do not recommend using <emphasis>mrsh</emphasis> when logged in as the
+   We do not recommend using &mrsh; when logged in as the
    user <systemitem class="username">root</systemitem>. This is disabled by
-   default. To enable it regardless, run:
+   default. To enable it anyway, run the following command:
   </para>
   <screen>&prompt;echo "mrsh" &gt;&gt; /etc/securetty
 &prompt;echo "mrlogin" &gt;&gt; /etc/securetty</screen>

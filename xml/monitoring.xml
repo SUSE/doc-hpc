@@ -17,10 +17,10 @@
   <abstract>
    <para>
     Obtaining and maintaining an overview over the status and health
-    of a compute cluster nodes helps to ensure a smooth operation.
-    A number of tools are provided which give an administrator an
-    overview over the current cluster status, collect system
-    logs and gather information on certain system failures conditions.
+    of a cluster's compute nodes helps to ensure a smooth operation.
+    This chapter describes tools that give an administrator an
+    overview of the current cluster status, collect system
+    logs, and gather information on certain system failure conditions.
    </para>
   </abstract>
   <dm:docmanager xmlns:dm="urn:x-suse:ns:docmanager">
@@ -31,8 +31,8 @@
   <sect1 xml:id="sec-remote-conman">
   <title>ConMan &mdash; the console manager</title>
   <para>
-   ConMan is a serial console management program designed to support a
-   large number of console devices and simultaneous users. It supports:
+   ConMan is a serial console management program designed to support many
+   console devices and simultaneous users. It supports:
   </para>
   <itemizedlist>
    <listitem>
@@ -64,11 +64,11 @@
    </listitem>
   </itemizedlist>
   <para>
-   ConMan can be used for monitoring, logging and optionally timestamping
+   ConMan can be used for monitoring, logging, and optionally timestamping
    console device output.
   </para>
   <para>
-   To install ConMan, run <literal>zypper in conman</literal>.
+   To install ConMan, run <command>zypper in conman</command>.
   </para>
   <important>
    <title><systemitem class="daemon">conmand</systemitem> sends unencrypted data</title>
@@ -76,58 +76,50 @@
     The daemon <systemitem class="daemon">conmand</systemitem> sends
     unencrypted data over the
     network and its connections are not authenticated. Therefore, it should
-    be used locally only: Listening to the port
+    be used locally only, listening to the port
     <literal>localhost</literal>. However, the IPMI console does offer
     encryption. This makes <literal>conman</literal> a good tool for
-    monitoring a large number of such consoles.
+    monitoring many such consoles.
    </para>
   </important>
   <para>
-   Usage:
+   ConMan provides expect-scripts in the
+   directory <filename>/usr/lib/conman/exec</filename>.
   </para>
-  <itemizedlist>
-   <listitem>
-    <para>
-     ConMan comes with a number of expect-scripts. They can be found in the
-     directory <filename>/usr/lib/conman/exec</filename>.
-    </para>
-   </listitem>
-   <listitem>
-    <para>
-     Input to <literal>conman</literal> is not echoed in interactive mode.
-     This can be changed by entering the escape sequence
-     <literal>&amp;E</literal>.
-    </para>
-   </listitem>
-   <listitem>
-    <para>
-     When pressing <keycap function="enter"/> in interactive mode, no line
-     feed is generated. To generate a line feed, press
-     <keycombo><keycap function="control"/><keycap>L</keycap></keycombo>.
-    </para>
-   </listitem>
-  </itemizedlist>
   <para>
-   For more information about options, see the man page of ConMan.
+   Input to <literal>conman</literal> is not echoed in interactive mode.
+   This can be changed by entering the escape sequence
+   <literal>&amp;E</literal>.
+  </para>
+  <para>
+   When pressing <keycap function="enter"/> in interactive mode, no line
+   feed is generated. To generate a line feed, press
+   <keycombo><keycap function="control"/><keycap>L</keycap></keycombo>.
+  </para>
+  <para>
+   For more information about options, see the ConMan man page.
   </para>
  </sect1>
  <sect1 xml:id="sec-monitoring-ganglia">
   <title>Ganglia &mdash; system monitoring</title>
   <para>
-   Ganglia is a scalable distributed monitoring system for high-performance
+   Ganglia is a scalable, distributed monitoring system for high-performance
    computing systems, such as clusters and grids. It is based on a
    hierarchical design targeted at federations of clusters.
   </para>
   <sect2 xml:id="sec-using-ganglia">
    <title>Using Ganglia</title>
+   <!-- trichardson, 2021-08-26: This and ganglia-web should be procedures,
+    but Ganglia (and therefore this section) will eventually be removed in
+    favour of Grafana (https://jira.suse.com/browse/PM-2566) -->
    <para>
-    To use Ganglia, make sure to install <package>ganglia-gmetad</package>
+    To use Ganglia, install <package>ganglia-gmetad</package>
     on the management server, then start the Ganglia meta-daemon:
     <command>rcgmead start</command>. To make sure the service is started
     after a reboot, run: <command>systemctl enable gmetad</command>. On
     each cluster node which you want to monitor, install
     <package>ganglia-gmond</package>, start the service <command>rcgmond
-    start</command> and make sure it is enabled to be started automatically
+    start</command> and make sure it is enabled to start automatically
     after a reboot: <command>systemctl enable gmond</command>. To test
     whether the <systemitem class="daemon">gmond</systemitem> daemon has
     connected to the
@@ -139,8 +131,8 @@
    <title>Ganglia on Btrfs</title>
    <para>
     When using the Btrfs file system, the monitoring data will be lost after
-    a rollback and the service <systemitem class="daemon">gmetad</systemitem>.
-    To be fix this issue, either install the package
+    a rollback of the service <systemitem class="daemon">gmetad</systemitem>.
+    To fix this issue, either install the package
     <package>ganglia-gmetad-skip-bcheck</package> or create the file
     <filename>/etc/ganglia/no_btrfs_check</filename>.
    </para>
@@ -149,12 +141,11 @@
    <title>Using the Ganglia Web interface</title>
    <para>
     Install <package>ganglia-web</package> on the management server.
-    Depending on which PHP version is used (the default is PHP 7), enable it in
-    Apache2: <command>a2enmod php7</command> or <command>a2enmod
-    php7</command>. Then start Apache2 on this machine: <command>rcapache2
+    Enable PHP in Apache2: <command>a2enmod php7</command>.
+    Then start Apache2 on this machine: <command>rcapache2
     start</command> and make sure it is started automatically after a
     reboot: <command>systemctl enable apache2</command>. The Ganglia Web
-    interface should be accessible from
+    interface is accessible from
     <literal>http://<replaceable>MANAGEMENT_SERVER</replaceable>/ganglia</literal>.
    </para>
   </sect2>
@@ -162,7 +153,7 @@
  <sect1 xml:id="sec-monitoring-ras">
   <title>rasdaemon &mdash; utility to log RAS error tracings</title>
   <para>
-   <systemitem class="daemon">rasdaemon</systemitem> is a RAS
+   <systemitem class="daemon">rasdaemon</systemitem> is an RAS
    (Reliability, Availability and Serviceability) logging tool. It records
    memory errors using EDAC (Error Detection and Correction) tracing events.
    EDAC drivers in the Linux kernel handle detection of ECC (Error Correction
@@ -170,12 +161,12 @@
   </para>
   <para>
    <systemitem class="daemon">rasdaemon</systemitem> can be used on large
-   memory systems to track, record and localize memory errors and how they
+   memory systems to track, record, and localize memory errors and how they
    evolve over time to detect hardware degradation. Furthermore, it can be used
-   to localize a faulty DIMM on the motherboard.
+   to localize a faulty DIMM on the mainboard.
   </para>
   <para>
-   To check whether the EDAC drivers are loaded, execute:
+   To check whether the EDAC drivers are loaded, run the following command:
   </para>
 <screen>&prompt;ras-mc-ctl --status</screen>
   <para>
@@ -187,10 +178,10 @@
    To start <systemitem class="daemon">rasdaemon</systemitem>, run
    <command>systemctl start rasdaemon.service</command>.
    To start <systemitem class="daemon">rasdaemon</systemitem>
-   automatically at boot time, execute <command>systemctl enable
-   rasdaemon.service</command>. The daemon will log information to
+   automatically at boot time, run <command>systemctl enable
+   rasdaemon.service</command>. The daemon logs information to
    <filename>/var/log/messages</filename> and to an internal database. A
-   summary of the stored errors can be obtained with:
+   summary of the stored errors can be obtained with the following command:
   </para>
 <screen>&prompt;ras-mc-ctl --summary</screen>
   <para>
@@ -212,5 +203,6 @@
 <screen>Vendor: <replaceable>MOTHERBOARD-VENDOR-NAME</replaceable>
 Model: <replaceable>MOTHERBOARD-MODEL-NAME</replaceable>
   <replaceable>LABEL</replaceable>: <replaceable>MC</replaceable>.<replaceable>TOP</replaceable>.<replaceable>MID</replaceable>.<replaceable>LOW</replaceable></screen>
+  <!-- trichardson, 2021-08-26: this doesn't look quite right? investigate -->
  </sect1>
 </chapter>

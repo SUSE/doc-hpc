@@ -16,10 +16,10 @@
  <info>
   <abstract>
    <para>
-    &product; comes with a number of preconfigured system roles for HPC. These
+    &product; comes with preconfigured system roles for &hpca;. These
     roles provide a set of preselected packages typical for the specific role,
-    as well as an installation workflow that will configure the system to make
-    the best use of system resources based on a typical use case of a role.
+    and an installation workflow that configures the system to make
+    the best use of system resources based on a typical use case for the role.
    </para>
   </abstract>
   <dm:docmanager xmlns:dm="urn:x-suse:ns:docmanager">
@@ -28,22 +28,16 @@
   </dm:docmanager>
  </info>
 
- <sect1 xml:id="sec-installation">
-  <title>Installation and upgrade</title>
-  <para>
-   This section includes information related to the installation and the
-   upgrade of the &product; &this-version;.
-  </para>
-  <sect2 xml:id="sec2-installation-systemrole">
-   <title>System role for &product; &this-version;</title>
+  <sect1 xml:id="sec2-installation-systemrole">
+   <title>System roles for &product; &this-version;</title>
    <para>
-    With &product; &this-version;, it is possible to choose specific roles
-    for the system based on modules selected during the installation process.
-    When the HPC Module is enabled, these three roles are available:
+    You can choose specific roles for the system based on modules selected
+    during the installation process. When the &hpca; Module is enabled,
+    the following roles are available:
    </para>
    <variablelist>
     <varlistentry>
-     <term>HPC management server (head node)</term>
+     <term>&hpca; management server (head node)</term>
      <listitem>
       <para>
        This role includes the following features:
@@ -56,7 +50,7 @@
        </listitem>
        <listitem>
         <para>
-         Includes HPC-enabled libraries
+         Includes &hpca;-enabled libraries
         </para>
        </listitem>
        <listitem>
@@ -78,7 +72,7 @@
      </listitem>
     </varlistentry>
     <varlistentry>
-     <term>HPC compute node</term>
+     <term>&hpca; compute node</term>
      <listitem>
       <para>
        This role includes the following features:
@@ -86,22 +80,22 @@
       <itemizedlist>
        <listitem>
         <para>
+         Based on the minimal setup configuration
+        </para>
+       </listitem>
+       <listitem>
+        <para>
          Uses XFS as the default root file system
         </para>
        </listitem>
        <listitem>
         <para>
-         Includes HPC-enabled libraries
+         Includes &hpca;-enabled libraries
         </para>
        </listitem>
        <listitem>
         <para>
-         Disables firewall and kdump services
-        </para>
-       </listitem>
-       <listitem>
-        <para>
-         Based upon the minimal setup configuration
+         Disables firewall and Kdump services
         </para>
        </listitem>
        <listitem>
@@ -123,7 +117,7 @@
      </listitem>
     </varlistentry>
     <varlistentry>
-     <term>HPC development node</term>
+     <term>&hpca; development node</term>
      <listitem>
       <para>
        This role includes the following features:
@@ -131,7 +125,7 @@
       <itemizedlist>
        <listitem>
         <para>
-         Includes HPC-enabled libraries
+         Includes &hpca;-enabled libraries
         </para>
        </listitem>
        <listitem>
@@ -144,29 +138,29 @@
     </varlistentry>
    </variablelist>
    <para>
-    The scratch partition <literal>/var/tmp/</literal> will only be created if
+    The scratch partition <literal>/var/tmp/</literal> is only created if
     there is sufficient space available on the installation medium (minimum
     32&nbsp;GB).
    </para>
    <para>
-    The Environment Module <literal>Lmod</literal> will be installed for all
-    roles. It is required at build time and run time of the system. For more
+    The Environment Module <literal>Lmod</literal> is installed for all
+    roles. It is required at build time and runtime of the system. For more
     information, see <xref linkend="sec-compute-lmod"/>.
    </para>
    <para>
-    All libraries specifically built for HPC will be installed under
+    All libraries specifically built for &hpca; are installed under
     <literal>/usr/lib/hpc</literal>. They are not part of the standard search
-    path, thus the <literal>Lmod</literal> environment module system is
+    path, so the <literal>Lmod</literal> environment module system is
     required.
    </para>
    <para>
-    <literal>MUNGE</literal> authentication is installed for all roles. MUNGE
-    keys will be generated and the same keys must be copied to all nodes of a
+    <literal>&munge;</literal> authentication is installed for all roles. &munge;
+    keys are generated and must be copied to all nodes in the
     cluster. For more information, see <xref linkend="sec-remote-munge"/>.
    </para>
    <para>
-    From the Ganglia monitoring system, the data collector
-    <package>ganglia-gmod</package> is installed for every role, while the
+    For the Ganglia monitoring system, the data collector
+    <package>ganglia-gmond</package> is installed for every role, while the
     data aggregator <package>ganglia-gmetad</package> needs to be installed
     manually on the system which is expected to collect the data. For more
     information, see <xref linkend="sec-monitoring-ganglia"/>.
@@ -174,9 +168,9 @@
    <para>
     The system roles are only available for new installations of &product;.
    </para>
-  </sect2>
-  <sect2 xml:id="sec2-upgrade">
-   <title>Upgrade-related notes</title>
+  </sect1>
+  <sect1 xml:id="sec2-upgrade">
+   <title>Upgrading to &product; &this-version;</title>
    <para>
     <!--
         #if <= 15SP2
@@ -211,14 +205,5 @@
     You can upgrade to &shpca; &this-version; from &shpca; &prev-version;.
  <!-- #endif -->
    </para>
-  </sect2>
- </sect1>
- <!--
- <sect1 xml:id="sec-installation-postprocess">
-  <title>Post installation process</title>
-  <para>
-   TOFIX
-  </para>
- </sect1>
- -->
+  </sect1>
 </chapter>

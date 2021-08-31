@@ -16,17 +16,15 @@
  <info>
   <abstract>
    <para>
-    &product; is a highly scalable, high performance open-source operating
-    system designed to utilize the power of parallel computing for modeling,
-    simulation and advanced analytics workloads.
+    &product; is a highly scalable, high-performance parallel computing platform
+    for modeling, simulation, and advanced analytics workloads.
    </para>
   </abstract>
  </info>
  <sect1 xml:id="sec-intro-provides">
   <title>Components provided</title>
   <para>
-   &product; &this-version; provides tools and libraries related to
-   High-Performance Computing.
+   &product; &this-version; provides tools and libraries related to &hpc;.
    This includes:
   </para>
   <itemizedlist>
@@ -110,26 +108,28 @@
   <title>Support and life cycle</title>
   <para>
    &product; &this-version; is supported throughout the life cycle of
-   &slea; &this-version;. Two life-cycle extensions, <emphasis>Extended Service
+   &sle; &this-version;. Two life-cycle extensions, <emphasis>Extended Service
    Overlap Support</emphasis> (ESPOS) and <emphasis>Long Term Support
    Service</emphasis> (LTSS), are also available for this product. Any released
    package is fully maintained and supported until the availability of the next
    release.
   </para>
   <para>
-   For more information, see the Support Policy page
+   For more information, see the Support Policy page at
    <link xlink:href="https://www.suse.com/support/policy.html"/>.
   </para>
  </sect1>
  <sect1 xml:id="sec-introduction-documentation">
   <title>Documentation and other information</title>
+  <!-- FIX ME: Do we need this section? It's extremely similar to "Available
+       documentation" in the Preface -->
   <itemizedlist>
    <listitem>
-    <para>Read the READMEs on the media.</para>
+    <para>Read the README files on the media.</para>
    </listitem>
    <listitem>
     <para>
-      Get the detailed change log information about a particular package
+      Get detailed change log information about a particular package
       from the RPM (where
       <filename><replaceable>FILENAME</replaceable>.rpm</filename>
       is the name of the RPM):
@@ -145,7 +145,7 @@
    </listitem>
    <listitem>
     <para>
-     The most recent version of the release notes are always available at
+     The most recent version of the release notes is always available at
      <link xlink:href="https://www.suse.com/releasenotes"/>.
     </para>
    </listitem>
