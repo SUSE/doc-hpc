@@ -10,7 +10,7 @@
  xmlns:xi="http://www.w3.org/2001/XInclude"
  xmlns:xlink="http://www.w3.org/1999/xlink" xml:base="slurm.xml"
  xml:id="cha-slurm" xml:lang="en" version="5.1">
- <title>&slurm; — utility for HPC workload management</title>
+ <title>&slurm; — utility for &hpca; workload management</title>
  <info>
   <abstract>
    <para>
@@ -1000,9 +1000,9 @@ Description="subgroup" Organization=bavaria</screen>
   <sect2 xml:id="sec-slurm-upgrade-workflow">
    <title>Upgrade workflow</title>
    <para>
-    This workflow assumes that MUNGE authentication is used and that
+    This workflow assumes that &munge; authentication is used and that
     <literal>pdsh</literal>, the <literal>pdsh</literal> &slurm; plugin, and
-    <literal>mrsh</literal> can access all of the machines in the cluster
+    <literal>&mrsh;</literal> can access all of the machines in the cluster
     (that is, <literal>mrshd</literal> is running on all nodes in the cluster).
    </para>
    <para>
@@ -1010,7 +1010,7 @@ Description="subgroup" Organization=bavaria</screen>
    </para>
 <screen>&prompt;zypper in pdsh-slurm</screen>
    <para>
-    If <literal>mrsh</literal> is not used in the cluster, the
+    If <literal>&mrsh;</literal> is not used in the cluster, the
     <literal>ssh</literal> back-end for <literal>pdsh</literal> can be used
     instead. Replace the option <literal>-R mrsh</literal> with
     <literal>-R ssh</literal> in the <literal>pdsh</literal>commands below. This
@@ -1177,7 +1177,7 @@ success!</screen>
       be updated. It is recommended to update the control and compute nodes all in
       a single pass. If this is not feasible, the compute nodes
       (<literal>slurmd</literal>) can be updated on a node-by-node basis.
-      However, the contorl nodes
+      However, the control nodes
       (<literal>slurmctld</literal>) must be updated first.
      </para>
      <substeps>

@@ -16,7 +16,7 @@
  <info>
   <abstract>
    <para>
-    HPC clusters usually consist of a small set of identical compute
+    &hpc; clusters usually consist of a small set of identical compute
     nodes. However, large clusters could consist of thousands of machines.
     This chapter describes tools to help manage the compute nodes in a cluster.
    </para>
@@ -133,7 +133,7 @@ nodenames[A-B]          attr[=value],attr[=value],...</screen>
   </para>
   <para>
    In &shpc;, the back-ends <literal>ssh</literal>,
-   <literal>mrsh</literal>, and <literal>exec</literal> are supported. The
+   <literal>&mrsh;</literal>, and <literal>exec</literal> are supported. The
    <literal>ssh</literal> back-end is the default. Non-default login methods
    can be used by setting the <literal>PDSH_RCMD_TYPE</literal>
    environment variable, or by using the <literal>-R</literal> command
@@ -144,9 +144,9 @@ nodenames[A-B]          attr[=value],attr[=value],...</screen>
    non-interactive (passwordless) login method.
   </para>
   <para>
-   The <literal>mrsh</literal> back-end requires the
+   The <literal>&mrsh;</literal> back-end requires the
    <literal>mrshd</literal> daemon to be running on the client. The
-   <literal>mrsh</literal> back-end does not require the use of reserved
+   <literal>&mrsh;</literal> back-end does not require the use of reserved
    sockets, so it does not suffer from port exhaustion when running commands
    on many machines in parallel. For information about setting up the system to
    use this back-end, see <xref linkend="sec-remote-mrsh"/>.
@@ -256,7 +256,7 @@ nodenames[A-B]          attr[=value],attr[=value],...</screen>
    &munge; allows for secure communications between different machines that
    share the same secret key. The most common use case is the &slurm; workload
    manager, which uses &munge; for the encryption of its messages. Another use
-   case is authentication for the parallel shell mrsh.
+   case is authentication for the parallel shell &mrsh;.
   </para>
   <sect2>
    <title>Setting up &munge; authentication</title>
@@ -330,7 +330,7 @@ nodenames[A-B]          attr[=value],attr[=value],...</screen>
     communications link.
    </para>
    <para>
-    To start the service and make sure it is started after every reboot, run
+    To start the service and ensure it is started after every reboot, run
     the following command on each node:
    </para>
 <screen>&prompt;systemctl enable --now munge.service</screen>
@@ -341,9 +341,9 @@ nodenames[A-B]          attr[=value],attr[=value],...</screen>
   </sect2>
  </sect1>
  <sect1 xml:id="sec-remote-mrsh">
-  <title>mrsh/mrlogin &mdash; remote login using &munge; authentication</title>
+  <title>&mrsh;/mrlogin &mdash; remote login using &munge; authentication</title>
   <para>
-   <emphasis>mrsh</emphasis> is a set of remote shell programs using the
+   <emphasis>&mrsh;</emphasis> is a set of remote shell programs using the
    <emphasis>&munge;</emphasis> authentication system instead of reserved ports
    for security.
   </para>
@@ -352,19 +352,19 @@ nodenames[A-B]          attr[=value],attr[=value],...</screen>
    <literal>rlogin</literal>.
   </para>
   <para>
-   To install <emphasis>mrsh</emphasis>, do the following:
+   To install &mrsh;, do the following:
   </para>
   <itemizedlist>
    <listitem>
     <para>
-     If only the <emphasis>mrsh</emphasis> client is required (without
+     If only the &mrsh; client is required (without
      allowing remote login to this machine), use:
      <command>zypper in mrsh</command>.
     </para>
    </listitem>
    <listitem>
     <para>
-     To allow logging in to a machine, the server needs to be installed:
+     To allow logging in to a machine, the server must be installed:
      <command>zypper in mrsh-server</command>.
     </para>
    </listitem>
@@ -381,20 +381,20 @@ nodenames[A-B]          attr[=value],attr[=value],...</screen>
    To set up a cluster of machines allowing remote login from each other,
    first follow the instructions for setting up and starting &munge;
    authentication in <xref linkend="sec-remote-munge"/>. After the &munge; service
-   has been successfully started, enable and start <command>mrlogin</command>
+   successfully starts, enable and start <command>mrlogin</command>
    on each machine on which the user will log in:
   </para>
 <screen>&prompt;systemctl enable mrlogind.socket mrshd.socket
 &prompt;systemctl start mrlogind.socket mrshd.socket</screen>
   <para>
-   To start mrsh support at boot, run:
+   To start &mrsh; support at boot, run the following command:
   </para>
 <screen>&prompt;systemctl enable munge.service
 &prompt;systemctl enable mrlogin.service</screen>
   <para>
-   We do not recommend using <emphasis>mrsh</emphasis> when logged in as the
+   We do not recommend using &mrsh; when logged in as the
    user <systemitem class="username">root</systemitem>. This is disabled by
-   default. To enable it regardless, run:
+   default. To enable it anyway, run the following command:
   </para>
   <screen>&prompt;echo "mrsh" &gt;&gt; /etc/securetty
 &prompt;echo "mrlogin" &gt;&gt; /etc/securetty</screen>

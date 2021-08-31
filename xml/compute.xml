@@ -149,13 +149,13 @@
   </sect2>
  </sect1>
  <sect1 xml:id="sec-compiler">
-  <title>GNU Compiler Toolchain Collection for HPC</title>
+  <title>GNU Compiler Toolchain Collection for &hpca;</title>
 
   <para>
    In &shpc;, the GNU compiler collection version 7 is provided as the base
    compiler toolchain. The <package>gnu-compilers-hpc</package> package provides the
    environment module for the base version of the GNU compiler suite. This
-   package must be installed when using any of the HPC libraries enabled for
+   package must be installed when using any of the &hpca; libraries enabled for
    environment modules.
   </para>
 
@@ -366,7 +366,7 @@
   </sect2>
 
   <sect2 xml:id="sec2-lib-fftw">
-   <title>FFTW HPC library &mdash; discrete Fourier transforms</title>
+   <title>FFTW &hpca; library &mdash; discrete Fourier transforms</title>
    <para>
     <literal>FFTW</literal> is a C subroutine library for computing the
     Discrete Fourier Transform (DFT) in one or more dimensions, of both real
@@ -952,7 +952,7 @@
   </sect2>
 
   <sect2 xml:id="sec2-lib-scal">
-   <title>ScaLAPACK HPC library &mdash; LAPACK routines</title>
+   <title>ScaLAPACK &hpca; library &mdash; LAPACK routines</title>
    <para>
     The library ScaLAPACK (short for <emphasis>Scalable LAPACK</emphasis>)
     includes a subset of LAPACK routines designed for distributed memory
@@ -1155,7 +1155,7 @@
   </sect2>
 
   <sect2 xml:id="sec2-lib-hdf5">
-   <title>HDF5 HPC library &mdash; model, library, and file format for storing and managing data</title>
+   <title>HDF5 &hpca; library &mdash; model, library, and file format for storing and managing data</title>
    <para>
     HDF5 is a data model, library, and file format for storing and managing
     data. It supports an unlimited variety of data types, and is designed for
@@ -1668,7 +1668,7 @@
   </sect2>
 
   <sect2 xml:id="sec2-lib-papi">
-   <title>PAPI HPC library &mdash; consistent interface for hardware performance counters</title>
+   <title>PAPI &hpca; library &mdash; consistent interface for hardware performance counters</title>
    <para>
     PAPI provides a tool with a consistent
     interface and methodology for the performance counter hardware found

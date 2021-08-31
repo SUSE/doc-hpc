@@ -16,7 +16,7 @@
  <info>
   <abstract>
    <para>
-    &product; comes with preconfigured system roles for HPC. These
+    &product; comes with preconfigured system roles for &hpca;. These
     roles provide a set of preselected packages typical for the specific role,
     as well as an installation workflow that configures the system to make
     the best use of system resources based on a typical use case for the role.
@@ -32,12 +32,12 @@
    <title>System roles for &product; &this-version;</title>
    <para>
     You can choose specific roles for the system based on modules selected
-    during the installation process. When the HPC Module is enabled,
+    during the installation process. When the &hpca; Module is enabled,
     the following roles are available:
    </para>
    <variablelist>
     <varlistentry>
-     <term>HPC management server (head node)</term>
+     <term>&hpca; management server (head node)</term>
      <listitem>
       <para>
        This role includes the following features:
@@ -50,7 +50,7 @@
        </listitem>
        <listitem>
         <para>
-         Includes HPC-enabled libraries
+         Includes &hpca;-enabled libraries
         </para>
        </listitem>
        <listitem>
@@ -72,7 +72,7 @@
      </listitem>
     </varlistentry>
     <varlistentry>
-     <term>HPC compute node</term>
+     <term>&hpca; compute node</term>
      <listitem>
       <para>
        This role includes the following features:
@@ -90,7 +90,7 @@
        </listitem>
        <listitem>
         <para>
-         Includes HPC-enabled libraries
+         Includes &hpca;-enabled libraries
         </para>
        </listitem>
        <listitem>
@@ -117,7 +117,7 @@
      </listitem>
     </varlistentry>
     <varlistentry>
-     <term>HPC development node</term>
+     <term>&hpca; development node</term>
      <listitem>
       <para>
        This role includes the following features:
@@ -125,7 +125,7 @@
       <itemizedlist>
        <listitem>
         <para>
-         Includes HPC-enabled libraries
+         Includes &hpca;-enabled libraries
         </para>
        </listitem>
        <listitem>
@@ -148,13 +148,13 @@
     information, see <xref linkend="sec-compute-lmod"/>.
    </para>
    <para>
-    All libraries specifically built for HPC are installed under
+    All libraries specifically built for &hpca; are installed under
     <literal>/usr/lib/hpc</literal>. They are not part of the standard search
     path, so the <literal>Lmod</literal> environment module system is
     required.
    </para>
    <para>
-    <literal>MUNGE</literal> authentication is installed for all roles. MUNGE
+    <literal>&munge;</literal> authentication is installed for all roles. &munge;
     keys are generated and must be copied to all nodes in the
     cluster. For more information, see <xref linkend="sec-remote-munge"/>.
    </para>
