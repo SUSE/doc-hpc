@@ -31,8 +31,8 @@
   <sect1 xml:id="sec-remote-conman">
   <title>ConMan &mdash; the console manager</title>
   <para>
-   ConMan is a serial console management program designed to support a
-   large number of console devices and simultaneous users. It supports:
+   ConMan is a serial console management program designed to support many
+   console devices and simultaneous users. It supports:
   </para>
   <itemizedlist>
    <listitem>
@@ -79,7 +79,7 @@
     be used locally only, listening to the port
     <literal>localhost</literal>. However, the IPMI console does offer
     encryption. This makes <literal>conman</literal> a good tool for
-    monitoring a large number of such consoles.
+    monitoring many such consoles.
    </para>
   </important>
   <para>
@@ -153,7 +153,7 @@
  <sect1 xml:id="sec-monitoring-ras">
   <title>rasdaemon &mdash; utility to log RAS error tracings</title>
   <para>
-   <systemitem class="daemon">rasdaemon</systemitem> is a RAS
+   <systemitem class="daemon">rasdaemon</systemitem> is an RAS
    (Reliability, Availability and Serviceability) logging tool. It records
    memory errors using EDAC (Error Detection and Correction) tracing events.
    EDAC drivers in the Linux kernel handle detection of ECC (Error Correction
@@ -163,7 +163,7 @@
    <systemitem class="daemon">rasdaemon</systemitem> can be used on large
    memory systems to track, record, and localize memory errors and how they
    evolve over time to detect hardware degradation. Furthermore, it can be used
-   to localize a faulty DIMM on the motherboard.
+   to localize a faulty DIMM on the mainboard.
   </para>
   <para>
    To check whether the EDAC drivers are loaded, run the following command:

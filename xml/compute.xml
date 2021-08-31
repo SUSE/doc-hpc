@@ -159,7 +159,7 @@
    environment modules.
   </para>
 
-  <sect2>
+  <sect2 xml:id="sec-environment-module">
    <title>Environment module</title>
    <para>
     This package requires <package>lua-lmod</package> to supply environment
@@ -177,7 +177,7 @@
 <screen>&prompt;module load gnu</screen>
   </sect2>
 
-  <sect2>
+  <sect2 xml:id="sec-building-software-with-compiler">
    <title>Building &hpc; software with GNU Compiler Suite</title>
    <para>
     To use the GNU compiler collection to build your own libraries and
@@ -193,7 +193,7 @@
    </para>
   </sect2>
 
-  <sect2>
+  <sect2 xml:id="sec-compiler-later-versions">
    <title>Later versions</title>
    <para>
     The Development Tools Module might provide later versions of the GNU compiler
@@ -512,7 +512,7 @@
     The library offers a comprehensive suite of scalable solvers for
     large-scale scientific simulation, featuring parallel multigrid methods for
     both structured and unstructured grid problems. HYPRE is highly portable
-    and supports a number of languages. It is developed at Lawrence Livermore
+    and supports several languages. It is developed at Lawrence Livermore
     National Laboratory.
    </para>
    <para>
@@ -808,7 +808,7 @@
    <para>
     PMIx abstracts the internals of MPI implementations for workload managers
     and unifies the way MPI jobs are started by the workload manager. With
-    PMIx, there is no need to utilize the individual MPI launchers on &slurm;,
+    PMIx, there is no need to use the individual MPI launchers on &slurm;,
     because <command>srun</command> will take care of this. In addition, the
     workload manager can determine the topology of the cluster, so you do not
     need to specify topologies manually.
@@ -921,7 +921,7 @@
     differential equations.
    </para>
    <para>
-    This module requires loading a compiler toolchain as well as an MPI library
+    This module requires loading a compiler toolchain and an MPI library
     flavor beforehand. To load this module, run the following command:
    </para>
 <screen>&prompt;module load <replaceable>TOOLCHAIN</replaceable> <replaceable>MPI_FLAVOR</replaceable> petsc</screen>
@@ -1642,7 +1642,7 @@
     The Intel&thrdmrk; MPI Benchmarks package provides a set of elementary
     benchmarks that conform to the MPI-1, MPI-2, and MPI-3 standards. You can
     run all of the supported benchmarks, or a subset specified in the command
-    line, using a single executable file. Use command-line parameters to
+    line, using a single executable file. Use command line parameters to
     specify various settings, such as time measurement, message lengths, and
     selection of communicators. For details, see the Intel&thrdmrk; MPI
     Benchmarks User's Guide:

@@ -18,7 +18,7 @@
    <para>
     &product; comes with preconfigured system roles for &hpca;. These
     roles provide a set of preselected packages typical for the specific role,
-    as well as an installation workflow that configures the system to make
+    and an installation workflow that configures the system to make
     the best use of system resources based on a typical use case for the role.
    </para>
   </abstract>
@@ -95,7 +95,7 @@
        </listitem>
        <listitem>
         <para>
-         Disables firewall and kdump services
+         Disables firewall and Kdump services
         </para>
        </listitem>
        <listitem>
@@ -144,7 +144,7 @@
    </para>
    <para>
     The Environment Module <literal>Lmod</literal> is installed for all
-    roles. It is required at build time and run time of the system. For more
+    roles. It is required at build time and runtime of the system. For more
     information, see <xref linkend="sec-compute-lmod"/>.
    </para>
    <para>

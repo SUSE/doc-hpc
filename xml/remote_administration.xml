@@ -103,11 +103,11 @@ nodenames[A-B]          attr[=value],attr[=value],...</screen>
    of the local node.
   </para>
   <para>
-    To print out all attributes for a particular node, run the following command:
+    To print all attributes for a particular node, run the following command:
   </para>
 <screen>&prompt;nodeattr -l [node]</screen>
   <para>
-   If no node parameter is given, all attributes of the local node are printed out.
+   If no node parameter is given, all attributes of the local node are printed.
   </para>
   <para>
    To perform a syntax check of the genders database, run the following command:
@@ -175,7 +175,7 @@ nodenames[A-B]          attr[=value],attr[=value],...</screen>
    <literal>machines</literal>, <literal>slurm</literal>,
    <literal>netgroup</literal> and <literal>dshgroup</literal>.
    Each host-list plugin is provided in a separate package. This avoids
-   conflicts between command-line options for different plugins which
+   conflicts between command line options for different plugins which
    happen to be identical, and helps to keep installations small and free
    of unneeded dependencies. Package dependencies have been set to prevent
    the installation of plugins with conflicting command options. To install one
@@ -258,7 +258,7 @@ nodenames[A-B]          attr[=value],attr[=value],...</screen>
    manager, which uses &munge; for the encryption of its messages. Another use
    case is authentication for the parallel shell &mrsh;.
   </para>
-  <sect2>
+  <sect2 xml:id="sec-setting-up-munge">
    <title>Setting up &munge; authentication</title>
    <para>
     &munge; uses UID/GID values to uniquely identify and authenticate users,
@@ -321,7 +321,7 @@ nodenames[A-B]          attr[=value],attr[=value],...</screen>
     </step>
    </procedure>
   </sect2>
-  <sect2>
+  <sect2 xml:id="sec-enabling-and-starting-munge">
    <title>Enabling and starting &munge;</title>
    <para>
     <systemitem class="daemon">munged</systemitem> must be running on all nodes

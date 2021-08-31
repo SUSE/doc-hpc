@@ -221,7 +221,7 @@ echo "finished at $(date)"
      </para>
 <screen>&prompt;sbatch sleeper.sh</screen>
      <para>
-      The shell script is executed as soon as enough resources are available,
+      The shell script is executed when enough resources are available,
       and the output is stored in the file <filename>slurm-${JOBNR}.out</filename>.
      </para>
     </step>
@@ -482,7 +482,7 @@ Description="subgroup" Organization=bavaria</screen>
      <term>scontrol reboot <replaceable>NODELIST</replaceable></term>
      <listitem>
       <para>
-       Reboots a compute node, or group of compute nodes, as soon as the jobs on
+       Reboots a compute node, or group of compute nodes, when the jobs on
        it finish. To use this command, the option
        <literal>RebootProgram="/sbin/reboot"</literal> must be set in
        <filename>slurm.conf</filename>. When the reboot of a compute node takes
@@ -507,7 +507,7 @@ Description="subgroup" Organization=bavaria</screen>
       <para>
        Retrieves information about the state of the compute nodes, and can be
        used for a fast overview of the cluster health. The following
-       command-line switches are available:
+       command line switches are available:
       </para>
       <variablelist>
        <varlistentry>
@@ -538,7 +538,7 @@ Description="subgroup" Organization=bavaria</screen>
         <term><command>-R</command></term>
         <listitem>
          <para>
-          Displays the reason why a node is in the <literal>down</literal>,
+          Displays the reason a node is in the <literal>down</literal>,
           <literal>drained</literal>, or <literal>failing</literal> state.
          </para>
         </listitem>
@@ -655,7 +655,7 @@ Description="subgroup" Organization=bavaria</screen>
         <listitem>
          <para>
           Specifies the maximum clock time (runtime) after which a job is
-          killed. The format of <replaceable>TIME</replaceable> is either
+          terminated. The format of <replaceable>TIME</replaceable> is either
           seconds or <replaceable>[HH:]MM:SS</replaceable>. Not to be confused
           with <command>walltime</command>, which is <literal>clocktime &times;
           threads</literal>.
@@ -1453,7 +1453,7 @@ systemctl start slurmd</screen>
        the time specified in the <literal>ResumeTimeout</literal> parameter, or
        the <literal>ReturnToService</literal> was not changed in the
        configuration file <filename>slurm.conf</filename>, compute nodes stay
-       in the <literal>down</literal> state and have to be set back to the
+       in the <literal>down</literal> state and must be set back to the
        <literal>up</literal> state manually. This can be done for the
        <replaceable>NODE</replaceable> with the following command:
       </para>
@@ -1474,7 +1474,7 @@ systemctl start slurmd</screen>
       </para>
       <para>
        When a node is marked as <literal>down*</literal>, it means that
-       the node is not reachable due to network issues, or that
+       the node is not reachable because of network issues, or that
        <literal>slurmd</literal> is not running on that node.
       </para>
       <para>
