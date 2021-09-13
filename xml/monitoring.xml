@@ -327,10 +327,10 @@
   <sect2 xml:id="sec-monitoring-cluster-workloads">
    <title>Monitoring cluster workloads</title>
    <para>
-    The &prometheus; &slurm; exporter collects the status of the nodes and jobs
-    in an &hpca; cluster. To visualize the metrics collected by the
-    &slurm; exporter, you can import a custom dashboard from the &grafana;
-    website. For more information, see
+    To monitor the status of the nodes and jobs in an &hpca; cluster, install
+    the &prometheus; &slurm; exporter to collect workload data, then import a
+    custom &slurm; dashboard from the &grafana; website to visualize the data.
+    For more information about this dashboard, see
     <link xlink:href="https://grafana.com/grafana/dashboards/4323"/>.
    </para>
    <para>
@@ -483,10 +483,10 @@ go_gc_duration_seconds{quantile="0.5"} 7.8573e-05
   <sect2 xml:id="sec-monitoring-compute-node-performance">
    <title>Monitoring compute node performance</title>
    <para>
-    The &prometheus; node exporter collects performance data from individual
-    compute nodes. To visualize the metrics collected by the node exporter,
-    you can import a custom dashboard from the &grafana; website.
-    For more information, see
+    To monitor the performance and health of each individual compute node,
+    install the &prometheus; node exporter to collect performance data, then
+    import a custom node dashboard from the &grafana; website to visualize
+    the data. For more information about this dashboard, see
     <link xlink:href="https://grafana.com/grafana/dashboards/405"/>.
    </para>
    <itemizedlist>
@@ -504,9 +504,9 @@ go_gc_duration_seconds{quantile="0.5"} 7.8573e-05
     </listitem>
     <listitem>
      <para>
-      (Optional) To use <command>pdsh</command> to run commands on multiple
-      nodes at once, <command>pdsh</command> must be installed on a management
-      server, and SSH key authentication must be configured for the nodes.
+      To run commands on multiple nodes at once, <command>pdsh</command>
+      must be installed on the system your shell is running on, and
+      SSH key authentication must be configured for all of the nodes.
       For more information, see <xref linkend="sec-remote-pdsh"/>.
      </para>
     </listitem>
@@ -521,7 +521,7 @@ go_gc_duration_seconds{quantile="0.5"} 7.8573e-05
     <step>
      <para>
       Install the node exporter on each compute node. You can do this on multiple
-      nodes at once by running the following command from a management server:
+      nodes at once by running the following command:
      </para>
 <screen>&prompt_master;pdsh -R ssh -u root -w "<replaceable>NODE1</replaceable>,<replaceable>NODE2</replaceable>" \
 "zypper in -y golang-github-prometheus-node_exporter"</screen>
@@ -529,7 +529,7 @@ go_gc_duration_seconds{quantile="0.5"} 7.8573e-05
     <step>
      <para>
       Enable and start the node exporter. You can do this on multiple nodes at
-      once by running the following command from a management server:
+      once by running the following command:
     </para>
 <screen>&prompt_master;pdsh -R ssh -u root -w "<replaceable>NODE1</replaceable>,<replaceable>NODE2</replaceable>" \
 "systemctl enable --now prometheus-node_exporter"</screen>
