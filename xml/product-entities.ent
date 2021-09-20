@@ -3,8 +3,13 @@
 
 <!-- PRODUCT NAME AND VERSIONS -->
 <!ENTITY productname   "&slehpc;">
-<!ENTITY productnumber "15 SP3">
 <!ENTITY this-version "15 SP3">
+<!ENTITY product-ga    "15">
+<!ENTITY product-sp    "3">
+<!ENTITY productnumbershort "&product-ga;.&product-sp;">
+<!ENTITY productnumber "&product-ga; SP&product-sp;">
+
+
 
 <!-- PROJECT REPOSITORY URL -->
 <!ENTITY repo-url "https://github.com/SUSE/doc-hpc">
@@ -28,14 +33,17 @@
 <!ENTITY slurm "Slurm">
 <!ENTITY mrsh "mrsh">
 <!ENTITY munge "MUNGE">
+<!ENTITY grafana "Grafana">
+<!ENTITY prometheus "Prometheus">
 
-
+<!-- HPC cluster prompts -->
+<!ENTITY prompt           "<prompt role='root' xmlns='http://docbook.org/ns/docbook'># </prompt>">
+<!ENTITY prompt_master    "<prompt role='root' xmlns='http://docbook.org/ns/docbook'>management # </prompt>">
+<!ENTITY prompt_backup    "<prompt role='root' xmlns='http://docbook.org/ns/docbook'>backup # </prompt>">
+<!ENTITY prompt_node1     "<prompt role='root' xmlns='http://docbook.org/ns/docbook'>node1 # </prompt>">
+<!ENTITY prompt.monitor     "<prompt role='root' xmlns='http://docbook.org/ns/docbook'>monitor # </prompt>">
 
 <!-- Prompts used in 15 SP2 RN -->
-<!ENTITY prompt           "<prompt xmlns='http://docbook.org/ns/docbook'># </prompt>">
-<!ENTITY prompt_master    "<prompt xmlns='http://docbook.org/ns/docbook'>master: # </prompt>">
-<!ENTITY prompt_backup    "<prompt xmlns='http://docbook.org/ns/docbook'>backup: # </prompt>">
-<!ENTITY prompt_node1     "<prompt xmlns='http://docbook.org/ns/docbook'>node1: # </prompt>">
 <!ENTITY prev-sp "SP2">
 <!ENTITY this-ga "15">
 <!ENTITY prev-version     "&this-ga; &prev-sp;">
