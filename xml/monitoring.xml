@@ -286,7 +286,7 @@
     </step>
     <step>
      <para>
-      On the left panel, select &graf-config-icon; and click <guimenu>Data Sources</guimenu>.
+      On the left panel, select the gear icon (&graf-config-icon;) and click <guimenu>Data Sources</guimenu>.
      </para>
     </step>
     <step>
@@ -446,7 +446,7 @@ go_gc_duration_seconds{quantile="0.5"} 7.8573e-05
     </step>
     <step>
      <para>
-      On the left panel, select &graf-create-icon; and click <guimenu>Import</guimenu>.
+      On the left panel, select the plus icon (&graf-create-icon;) and click <guimenu>Import</guimenu>.
      </para>
     </step>
     <step>
@@ -592,7 +592,7 @@ go_gc_duration_seconds{quantile="0.5"} 8.1436e-05
     </step>
     <step>
      <para>
-      On the left panel, select &graf-create-icon; and click <guimenu>Import</guimenu>.
+      On the left panel, select the plus icon (&graf-create-icon;) and click <guimenu>Import</guimenu>.
      </para>
     </step>
     <step>
