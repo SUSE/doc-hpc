@@ -3,17 +3,21 @@
 
 <!-- PRODUCT NAME AND VERSIONS -->
 <!ENTITY productname   "&slehpc;">
-<!ENTITY this-version "15 SP3">
+<!ENTITY productnumber "&product-ga; SP&product-sp;">
+<!ENTITY productnumbershort "&product-ga;.&product-sp;">
+
+<!ENTITY hpc "High Performance Computing">
+<!ENTITY hpca "HPC">
+<!ENTITY slehpca "&slea; &hpca;">
+
 <!ENTITY product-ga    "15">
 <!ENTITY product-sp    "3">
-<!ENTITY productnumbershort "&product-ga;.&product-sp;">
-<!ENTITY productnumber "&product-ga; SP&product-sp;">
 
-
+<!ENTITY prev-version     "&product-ga; SP&prev-sp;">
+<!ENTITY prev-sp "2">
 
 <!-- PROJECT REPOSITORY URL -->
 <!ENTITY repo-url "https://github.com/SUSE/doc-hpc">
-
 <!ENTITY rn-url "https://www.suse.com/releasenotes/x86_64/SLE-HPC/15-SP3">
 
 <!-- START YEAR OF COPYRIGHT -->
@@ -21,29 +25,16 @@
 <!ENTITY copyrightholder "SUSE LLC">
 <!ENTITY mdash "—">
 
-<!ENTITY suse "SUSE">
-
-<!ENTITY hpc "High Performance Computing">
-<!ENTITY hpca "HPC">
-<!ENTITY shpc "&sle; &hpc;">
-<!ENTITY product "&shpc;">
-<!ENTITY sle "&suse; Linux Enterprise">
-<!ENTITY shpca "&slea; &hpca;">
-
+<!-- PRODUCT-SPECIFIC ENTITIES -->
 <!ENTITY slurm "Slurm">
 <!ENTITY mrsh "mrsh">
 <!ENTITY munge "MUNGE">
 <!ENTITY grafana "Grafana">
 <!ENTITY prometheus "Prometheus">
 
-<!-- HPC cluster prompts -->
-<!ENTITY prompt           "<prompt role='root' xmlns='http://docbook.org/ns/docbook'># </prompt>">
-<!ENTITY prompt_master    "<prompt role='root' xmlns='http://docbook.org/ns/docbook'>management # </prompt>">
-<!ENTITY prompt_backup    "<prompt role='root' xmlns='http://docbook.org/ns/docbook'>backup # </prompt>">
-<!ENTITY prompt_node1     "<prompt role='root' xmlns='http://docbook.org/ns/docbook'>node1 # </prompt>">
-<!ENTITY prompt.monitor     "<prompt role='root' xmlns='http://docbook.org/ns/docbook'>monitor # </prompt>">
-
-<!-- Prompts used in 15 SP2 RN -->
-<!ENTITY prev-sp "SP2">
-<!ENTITY this-ga "15">
-<!ENTITY prev-version     "&this-ga; &prev-sp;">
+<!-- HPC PROMPTS -->
+<!ENTITY prompt        "<prompt role='root' xmlns='http://docbook.org/ns/docbook'># </prompt>">
+<!ENTITY prompt.mgmt   "<prompt role='root' xmlns='http://docbook.org/ns/docbook'>management # </prompt>">
+<!ENTITY prompt.backup "<prompt role='root' xmlns='http://docbook.org/ns/docbook'>backup # </prompt>">
+<!ENTITY prompt.node1  "<prompt role='root' xmlns='http://docbook.org/ns/docbook'>node1 # </prompt>">
+<!ENTITY prompt.mntr   "<prompt role='root' xmlns='http://docbook.org/ns/docbook'>monitor # </prompt>">

@@ -20,10 +20,10 @@
     instances of the same libraries might exist, differing in version, build
     configuration, compiler, and MPI implementation. To manage these
     dependencies, you can use an Environment Module system. Most &hpca;
-    libraries provided with &shpc; are built with support for environment
+    libraries provided with &slehpc; are built with support for environment
     modules. This chapter describes the Environment Module system
     <emphasis>Lmod</emphasis>, and a set of &hpca;
-    compute libraries shipped with &shpca;.
+    compute libraries shipped with &slehpca;.
    </para>
   </abstract>
   <dm:docmanager xmlns:dm="urn:x-suse:ns:docmanager">
@@ -152,7 +152,7 @@
   <title>GNU Compiler Toolchain Collection for &hpca;</title>
 
   <para>
-   In &shpc;, the GNU compiler collection version 7 is provided as the base
+   In &slehpc;, the GNU compiler collection version 7 is provided as the base
    compiler toolchain. The <package>gnu-compilers-hpc</package> package provides the
    environment module for the base version of the GNU compiler suite. This
    package must be installed when using any of the &hpca; libraries enabled for
@@ -284,7 +284,7 @@
   </para>
 
   <para>
-   The GNU compiler collection version 7 as provided with &shpca;
+   The GNU compiler collection version 7 as provided with &slehpca;
    and the MPI flavors Open MPI v.3, Open MPI v.4, MPICH, and MVAPICH2 are
    currently supported.
   </para>
@@ -1632,7 +1632,7 @@
   <title>Profiling and benchmarking libraries and tools</title>
 
   <para>
-   &shpc; provides tools for profiling MPI applications and benchmarking
+   &slehpc; provides tools for profiling MPI applications and benchmarking
    MPI performance.
   </para>
 

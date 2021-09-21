@@ -1264,13 +1264,13 @@ pdsh -R mrsh -P <replaceable>partitions</replaceable> \
           If applicable, shut down any backup controllers on the backup control
           nodes:
          </para>
-<screen>&prompt_backup;systemctl stop slurmctld</screen>
+<screen>&prompt.backup;systemctl stop slurmctld</screen>
         </step>
         <step>
          <para>
           Shut down the main controller:
          </para>
-<screen>&prompt_master;systemctl stop slurmctld</screen>
+<screen>&prompt.mgmt;systemctl stop slurmctld</screen>
         </step>
        </substeps>
       </step>
@@ -1329,14 +1329,14 @@ pdsh -R mrsh -P <replaceable>partitions</replaceable> \
          <para>
           On the main and backup control nodes, run the following command:
          </para>
-<screen>&prompt_master;zypper zypper install \
+<screen>&prompt.mgmt;zypper zypper install \
 --force-resolution slurm_<replaceable>version</replaceable></screen>
         </step>
         <step>
          <para>
           On the control node, run the following command:
          </para>
-<screen>&prompt_master;pdsh -R ssh -P <replaceable>partitions</replaceable> \
+<screen>&prompt.mgmt;pdsh -R ssh -P <replaceable>partitions</replaceable> \
 zypper install --force-resolution \
 slurm_<replaceable>version</replaceable>-node</screen>
         </step>
@@ -1351,7 +1351,7 @@ slurm_<replaceable>version</replaceable>-node</screen>
          memory seem by <literal>slurmd</literal> changed after the update,
          run the following command on a single compute node:
         </para>
-<screen>&prompt_node1;slurmd -C</screen>
+<screen>&prompt.node1;slurmd -C</screen>
         <para>
          Compare the output with the settings in
          <filename>slurm.conf</filename>. If required, correct the setting.
@@ -1377,12 +1377,12 @@ slurm_<replaceable>version</replaceable>-node</screen>
        <para>
         On the main control node, run the following command:
        </para>
-<screen>&prompt_master;pdsh -R ssh -P <replaceable>partitions</replaceable> \
+<screen>&prompt.mgmt;pdsh -R ssh -P <replaceable>partitions</replaceable> \
 systemctl start slurmd</screen>
        <para>
         On the main and backups control nodes, run the following command:
        </para>
-<screen>&prompt_master;systemctl start slurmctld</screen>
+<screen>&prompt.mgmt;systemctl start slurmctld</screen>
       </step>
       <step>
        <para>
@@ -1424,7 +1424,7 @@ systemctl start slurmd</screen>
    </procedure>
    <para>
     A new major version of <package>libslurm</package> is provided with each
-    service pack of &product;. The old version is not uninstalled on
+    service pack of &productname;. The old version is not uninstalled on
     upgrade, and user-provided applications built with an old version should
     continue to work if the old library used is not older than the past two
     versions. It is strongly recommended to rebuild local applications using
