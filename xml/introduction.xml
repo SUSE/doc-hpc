@@ -24,7 +24,7 @@
  <sect1 xml:id="sec-intro-provides">
   <title>Components provided</title>
   <para>
-   &productname; &this-version; provides tools and libraries related to &hpc;.
+   &productname; &productnumber; provides tools and libraries related to &hpc;.
    This includes:
   </para>
   <itemizedlist>
@@ -100,15 +100,15 @@
  <sect1 xml:id="sec-introduction-hw">
   <title>Hardware platform support</title>
   <para>
-   &productname; &this-version; is available for the
+   &productname; &productnumber; is available for the
    Intel 64/AMD64 (x86-64) and AArch64 platforms.
   </para>
  </sect1>
  <sect1 xml:id="sec-introduction-life">
   <title>Support and life cycle</title>
   <para>
-   &productname; &this-version; is supported throughout the life cycle of
-   &sle; &this-version;. Two life-cycle extensions, <emphasis>Extended Service
+   &productname; &productnumber; is supported throughout the life cycle of
+   &sle; &productnumber;. Two life-cycle extensions, <emphasis>Extended Service
    Overlap Support</emphasis> (ESPOS) and <emphasis>Long Term Support
    Service</emphasis> (LTSS), are also available for this product. Any released
    package is fully maintained and supported until the availability of the next
