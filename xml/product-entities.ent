@@ -8,7 +8,9 @@
 <!ENTITY product-sp    "3">
 <!ENTITY productnumbershort "&product-ga;.&product-sp;">
 <!ENTITY productnumber "&product-ga; SP&product-sp;">
-
+<!ENTITY hpc "High Performance Computing">
+<!ENTITY hpca "HPC">
+<!ENTITY slehpca "&slea; &hpca;">
 
 
 <!-- PROJECT REPOSITORY URL -->
@@ -21,15 +23,7 @@
 <!ENTITY copyrightholder "SUSE LLC">
 <!ENTITY mdash "—">
 
-<!ENTITY suse "SUSE">
-
-<!ENTITY hpc "High Performance Computing">
-<!ENTITY hpca "HPC">
-<!ENTITY shpc "&sle; &hpc;">
-<!ENTITY product "&shpc;">
-<!ENTITY sle "&suse; Linux Enterprise">
-<!ENTITY shpca "&slea; &hpca;">
-
+<!-- PRODUCT-SPECIFIC ENTITIES -->
 <!ENTITY slurm "Slurm">
 <!ENTITY mrsh "mrsh">
 <!ENTITY munge "MUNGE">

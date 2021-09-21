@@ -43,7 +43,7 @@
   <sect2 xml:id="sec-genders-db">
     <title>Genders database format</title>
   <para>
-   The Genders database in &shpc; is a plain-text file called
+   The Genders database in &slehpc; is a plain-text file called
    <filename>/etc/genders</filename>. It contains a list of node names with
    their attributes. Each line of the database can have one of the following
    formats.
@@ -132,7 +132,7 @@ nodenames[A-B]          attr[=value],attr[=value],...</screen>
    <command>zypper in pdsh</command>.
   </para>
   <para>
-   In &shpc;, the back-ends <literal>ssh</literal>,
+   In &slehpc;, the back-ends <literal>ssh</literal>,
    <literal>&mrsh;</literal>, and <literal>exec</literal> are supported. The
    <literal>ssh</literal> back-end is the default. Non-default login methods
    can be used by setting the <literal>PDSH_RCMD_TYPE</literal>
