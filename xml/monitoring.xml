@@ -226,13 +226,13 @@
      <para>
       Install the &prometheus; and &grafana; packages:
      </para>
-<screen>&prompt.monitor;zypper in golang-github-prometheus-prometheus grafana</screen>
+<screen>&prompt.mntr;zypper in golang-github-prometheus-prometheus grafana</screen>
     </step>
     <step>
      <para>
       Enable and start &prometheus;:
      </para>
-<screen>&prompt.monitor;systemctl enable --now prometheus</screen>
+<screen>&prompt.mntr;systemctl enable --now prometheus</screen>
     </step>
     <step>
      <para>
@@ -261,7 +261,7 @@
      <para>
       Enable and start &grafana;:
      </para>
-<screen>&prompt.monitor;systemctl enable --now grafana-server</screen>
+<screen>&prompt.mntr;systemctl enable --now grafana-server</screen>
     </step>
     <step>
      <para>
@@ -358,13 +358,13 @@
      <para>
       Install the &slurm; exporter:
      </para>
-<screen>&prompt_master;zypper in golang-github-vpenso-prometheus_slurm_exporter</screen>
+<screen>&prompt.mgmt;zypper in golang-github-vpenso-prometheus_slurm_exporter</screen>
     </step>
     <step>
      <para>
       Enable and start the &slurm; exporter:
     </para>
-<screen>&prompt_master;systemctl enable --now prometheus-slurm_exporter</screen>
+<screen>&prompt.mgmt;systemctl enable --now prometheus-slurm_exporter</screen>
      <important>
       <title>&slurm; exporter fails when GPU monitoring is enabled</title>
       <para>
@@ -425,7 +425,7 @@ go_gc_duration_seconds{quantile="0.5"} 7.8573e-05
      <para>
       Restart the &prometheus; service:
      </para>
-     <screen>&prompt.monitor;systemctl restart prometheus</screen>
+     <screen>&prompt.mntr;systemctl restart prometheus</screen>
     </step>
     <step>
      <para>
@@ -512,7 +512,7 @@ go_gc_duration_seconds{quantile="0.5"} 7.8573e-05
       Install the node exporter on each compute node. You can do this on multiple
       nodes at once by running the following command:
      </para>
-<screen>&prompt_master;pdsh -R ssh -u root -w "<replaceable>NODE1</replaceable>,<replaceable>NODE2</replaceable>" \
+<screen>&prompt.mgmt;pdsh -R ssh -u root -w "<replaceable>NODE1</replaceable>,<replaceable>NODE2</replaceable>" \
 "zypper in -y golang-github-prometheus-node_exporter"</screen>
     </step>
     <step>
@@ -520,7 +520,7 @@ go_gc_duration_seconds{quantile="0.5"} 7.8573e-05
       Enable and start the node exporter. You can do this on multiple nodes at
       once by running the following command:
     </para>
-<screen>&prompt_master;pdsh -R ssh -u root -w "<replaceable>NODE1</replaceable>,<replaceable>NODE2</replaceable>" \
+<screen>&prompt.mgmt;pdsh -R ssh -u root -w "<replaceable>NODE1</replaceable>,<replaceable>NODE2</replaceable>" \
 "systemctl enable --now prometheus-node_exporter"</screen>
     </step>
     <step>
@@ -571,7 +571,7 @@ go_gc_duration_seconds{quantile="0.5"} 8.1436e-05
      <para>
       Restart the &prometheus; service:
      </para>
-     <screen>&prompt.monitor;systemctl restart prometheus</screen>
+     <screen>&prompt.mntr;systemctl restart prometheus</screen>
     </step>
     <step>
      <para>

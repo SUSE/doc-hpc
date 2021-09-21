@@ -15,7 +15,6 @@
 
 <!-- PROJECT REPOSITORY URL -->
 <!ENTITY repo-url "https://github.com/SUSE/doc-hpc">
-
 <!ENTITY rn-url "https://www.suse.com/releasenotes/x86_64/SLE-HPC/15-SP3">
 
 <!-- START YEAR OF COPYRIGHT -->
@@ -30,12 +29,12 @@
 <!ENTITY grafana "Grafana">
 <!ENTITY prometheus "Prometheus">
 
-<!-- HPC cluster prompts -->
+<!-- HPC PROMPTS -->
 <!ENTITY prompt           "<prompt role='root' xmlns='http://docbook.org/ns/docbook'># </prompt>">
-<!ENTITY prompt_master    "<prompt role='root' xmlns='http://docbook.org/ns/docbook'>management # </prompt>">
-<!ENTITY prompt_backup    "<prompt role='root' xmlns='http://docbook.org/ns/docbook'>backup # </prompt>">
-<!ENTITY prompt_node1     "<prompt role='root' xmlns='http://docbook.org/ns/docbook'>node1 # </prompt>">
-<!ENTITY prompt.monitor     "<prompt role='root' xmlns='http://docbook.org/ns/docbook'>monitor # </prompt>">
+<!ENTITY prompt.mgmt      "<prompt role='root' xmlns='http://docbook.org/ns/docbook'>management # </prompt>">
+<!ENTITY prompt.backup    "<prompt role='root' xmlns='http://docbook.org/ns/docbook'>backup # </prompt>">
+<!ENTITY prompt.node1     "<prompt role='root' xmlns='http://docbook.org/ns/docbook'>node1 # </prompt>">
+<!ENTITY prompt.mntr      "<prompt role='root' xmlns='http://docbook.org/ns/docbook'>monitor # </prompt>">
 
 <!-- Prompts used in 15 SP2 RN -->
 <!ENTITY prev-sp "SP2">
