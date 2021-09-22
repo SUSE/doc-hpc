@@ -252,17 +252,17 @@ echo "finished at $(date)"
      <title>&mariadb;</title>
      <para>
       If you want to use an external SQL database (or you already have a
-      database installed on the management server), you can skip the
-      &mariadb; steps.
+      database installed on the management server), you can skip
+      <xref linkend="st-install-mariadb"/> and <xref linkend="st-start-mariadb"/>.
      </para>
     </note>
-    <step>
+    <step xml:id="st-install-mariadb">
      <para>
       Install the &mariadb; SQL database with <command>zypper in
       mariadb</command>.
      </para>
     </step>
-    <step>
+    <step xml:id="st-start-mariadb">
      <para>
       Start and enable &mariadb;:
      </para>
@@ -281,22 +281,13 @@ echo "finished at $(date)"
      </para>
     </step>
     <step xml:id="sec-sum-sqldb">
-     <!-- FIX ME: Clarify the password stuff -->
      <para>
-      After a successful connection to the database and the creation of a
-      secure password
-      <footnote>
-       <para>
-        You can use the command <command>openssl rand -base64 32</command> to
-        create a secure random password
-       </para>
-      </footnote>
-      , create the &slurm; user and the database with the following commands:
+      Create the &slurm; user and the database with the following commands:
      </para>
 <screen>
-create user 'slurm'@'localhost' identified by 'password';
-grant all on slurm_acct_db.* TO 'slurm'@'localhost';
-create database slurm_acct_db;</screen>
+&prompt.db;create user 'slurm'@'localhost' identified by '<replaceable>PASSWORD</replaceable>';
+&prompt.db;grant all on slurm_acct_db.* TO 'slurm'@'localhost';
+&prompt.db;create database slurm_acct_db;</screen>
      <para>
       After these steps are complete, exit the database.
      </para>
