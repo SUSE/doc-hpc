@@ -25,7 +25,7 @@
     <emphasis>slurmctld</emphasis>, which handles job scheduling, and the
     &slurm; daemon <emphasis>slurmd</emphasis>, responsible for launching compute
     jobs. Nodes running <command>slurmctld</command> are called
-    <emphasis>control nodes</emphasis> and nodes running
+    <emphasis>management servers</emphasis> and nodes running
     <command>slurmd</command> are called <emphasis>compute nodes</emphasis>.
    </para>
 
@@ -45,7 +45,7 @@
   <title>Installing &slurm;</title>
   <para>
    These instructions describe a minimal installation of &slurm; with one
-   control node and multiple compute nodes.
+   management server and multiple compute nodes.
   </para>
   <sect2 xml:id="sec-slurm-minimal">
    <title>Minimal installation</title>
@@ -80,7 +80,7 @@
     <title>Installing the &slurm; packages</title>
     <step>
      <para>
-      On the control node, install the <package>slurm</package> package with the
+      On the management server, install the <package>slurm</package> package with the
       command <command>zypper in slurm</command>.
      </para>
     </step>
@@ -92,9 +92,9 @@
     </step>
     <step>
      <para>
-      On the control node and the compute nodes, the package
+      On the management server and the compute nodes, the package
       <package>munge</package> is installed automatically. Configure, enable
-      and start &munge; on the control and compute nodes as
+      and start &munge; on the management server and compute nodes as
       described in <xref linkend="sec-remote-munge"/>. Ensure that the same
       <literal>munge</literal> key is shared across all nodes.
      </para>
@@ -104,7 +104,7 @@
     <title>Configuring &slurm;</title>
     <step>
      <para>
-      On the control node, edit the main configuration file
+      On the management server, edit the main configuration file
       <filename>/etc/slurm/slurm.conf</filename>:
      </para>
      <substeps>
@@ -112,13 +112,13 @@
        <para>
         Configure the parameter
         <literal>ControlMachine=<replaceable>CONTROL_MACHINE</replaceable></literal>
-        with the host name of the control node.
+        with the host name of the management server.
        </para>
        <!-- REVISIT: The slurm.conf file I'm looking at says SlurmctldHost
             instead of ControlMachine -->
        <para>
         To find the correct host name, run <command>hostname -s</command>
-        on the control node.
+        on the management server.
        </para>
       </step>
       <step>
@@ -148,14 +148,14 @@ PartitionName=normal Nodes=<replaceable>NODE_LIST</replaceable> Default=YES MaxT
     <step>
      <para>
       Copy the modified configuration file
-      <filename>/etc/slurm/slurm.conf</filename> from the control node to all
+      <filename>/etc/slurm/slurm.conf</filename> from the management server to all
       compute nodes:
      </para>
 <screen>&prompt;scp /etc/slurm/slurm.conf <replaceable>COMPUTE_NODE</replaceable>:/etc/slurm/</screen>
     </step>
     <step>
      <para>
-      On the control node, start <systemitem class="daemon">slurmctld</systemitem>
+      On the management server, start <systemitem class="daemon">slurmctld</systemitem>
       and enable it so that it starts on every boot:
      </para>
 <screen>&prompt;systemctl enable --now slurmctld.service</screen>
@@ -252,7 +252,7 @@ echo "finished at $(date)"
      <title>&mariadb;</title>
      <para>
       If you want to use an external SQL database (or you already have a
-      database installed on the control node), you can skip the
+      database installed on the management server), you can skip the
       &mariadb; steps.
      </para>
     </note>
@@ -1174,10 +1174,10 @@ success!</screen>
      <para>
       After the &slurm; database is updated, the
       <literal>slurmctld</literal> and <literal>slurmd</literal> instances can
-      be updated. It is recommended to update the control and compute nodes all in
+      be updated. It is recommended to update the management servers and compute nodes all in
       a single pass. If this is not feasible, the compute nodes
       (<literal>slurmd</literal>) can be updated on a node-by-node basis.
-      However, the control nodes
+      However, the management servers
       (<literal>slurmctld</literal>) must be updated first.
      </para>
      <substeps>
@@ -1191,8 +1191,8 @@ success!</screen>
         Create a backup copy of the &slurm; configuration
         before starting the upgrade process. Since the configuration file
         <filename>/etc/slurm/slurm.conf</filename> should be identical across
-        the entire cluster, it is sufficient to do so only on the main control
-        node.
+        the entire cluster, it is sufficient to do so only on the main management
+        server.
        </para>
       </step>
       <step xml:id="st-slurm-timeout">
@@ -1211,7 +1211,7 @@ success!</screen>
        <substeps>
         <step>
          <para>
-          On the main control node, edit <filename>/etc/slurm/slurm.conf</filename>
+          On the main management server, edit <filename>/etc/slurm/slurm.conf</filename>
           and set the values for the following variables to at least 3600
           (one hour):
          </para>
@@ -1261,8 +1261,8 @@ pdsh -R mrsh -P <replaceable>partitions</replaceable> \
        <substeps>
         <step>
          <para>
-          If applicable, shut down any backup controllers on the backup control
-          nodes:
+          If applicable, shut down any backup controllers on the backup management
+          servers:
          </para>
 <screen>&prompt.backup;systemctl stop slurmctld</screen>
         </step>
@@ -1320,21 +1320,21 @@ pdsh -R mrsh -P <replaceable>partitions</replaceable> \
       </step>
       <step>
        <para>
-        <emphasis role="bold">Upgrade <literal>slurmctld</literal> on the control
-        and backup nodes as well as <literal>slurmd</literal> on the compute
+        <emphasis role="bold">Upgrade <literal>slurmctld</literal> on the main
+        and backup management servers as well as <literal>slurmd</literal> on the compute
         nodes</emphasis>
        </para>
        <substeps>
         <step>
          <para>
-          On the main and backup control nodes, run the following command:
+          On the main and backup management servers, run the following command:
          </para>
 <screen>&prompt.mgmt;zypper zypper install \
 --force-resolution slurm_<replaceable>version</replaceable></screen>
         </step>
         <step>
          <para>
-          On the control node, run the following command:
+          On the management server, run the following command:
          </para>
 <screen>&prompt.mgmt;pdsh -R ssh -P <replaceable>partitions</replaceable> \
 zypper install --force-resolution \
@@ -1364,8 +1364,8 @@ slurm_<replaceable>version</replaceable>-node</screen>
        </para>
        <para>
         If you replace deprecated options in the configuration files,
-        these configuration files can be distributed to all controllers and
-        nodes in the cluster by using the method described in
+        these configuration files can be distributed to all management servers and
+        compute nodes in the cluster by using the method described in
         <xref linkend="st-copy-file-to-nodes"/>.
        </para>
       </step>
@@ -1375,12 +1375,12 @@ slurm_<replaceable>version</replaceable>-node</screen>
         nodes</emphasis>
        </para>
        <para>
-        On the main control node, run the following command:
+        On the main management server, run the following command:
        </para>
 <screen>&prompt.mgmt;pdsh -R ssh -P <replaceable>partitions</replaceable> \
 systemctl start slurmd</screen>
        <para>
-        On the main and backups control nodes, run the following command:
+        On the main and backup management servers, run the following command:
        </para>
 <screen>&prompt.mgmt;systemctl start slurmctld</screen>
       </step>
@@ -1391,8 +1391,8 @@ systemctl start slurmd</screen>
        <substeps>
         <step>
          <para>
-          Check the status of the control nodes. On the main and backup
-          control nodes, run the following command:
+          Check the status of the management servers. On the main and backup
+          management servers, run the following command:
          </para>
 <screen>&prompt;systemctl status slurmctld</screen>
         </step>
