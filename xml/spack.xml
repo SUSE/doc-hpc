@@ -77,14 +77,14 @@ Maintainers: @WardF
 Tags:
     None
 
-Preferred version:
+Preferred version: <co xml:id="spack-info-version"/>
     4.3.1    ftp://ftp.unidata.ucar.edu/pub/netcdf/netcdf-cxx4-4.3.1.tar.gz
 
 Safe versions:
     4.3.1    ftp://ftp.unidata.ucar.edu/pub/netcdf/netcdf-cxx4-4.3.1.tar.gz
     4.3.0    ftp://ftp.unidata.ucar.edu/pub/netcdf/netcdf-cxx4-4.3.0.tar.gz
 
-Variants:
+Variants: <co xml:id="spack-info-variants"/>
     Name [Default]    Allowed values    Description
     ==============    ==============    ===================================================
 
@@ -96,7 +96,7 @@ Variants:
 Installation Phases:
     autoreconf    configure    build    install
 
-Build Dependencies:
+Build Dependencies: <co xml:id="spack-info-deps"/>
     autoconf  automake  doxygen  libtool  m4  netcdf-c
 
 Link Dependencies:
@@ -107,7 +107,23 @@ Run Dependencies:
 
 Virtual Packages:
     None</screen>
-
+      <calloutlist>
+       <callout arearefs="spack-info-version">
+        <para>
+         Prefered version will be the default one if none of other are choose
+        </para>
+       </callout>
+       <callout arearefs="spack-info-variants">
+        <para>
+         You can disable variants option using <literal>-<replaceable>VARIANT</replaceable></literal> and enable them using <literal>+<replaceable>VARIANT</replaceable></literal>. ie: <literal>spack install <replaceable>SOFTWARE</replaceable> <replaceable>+VARIANT</replaceable></literal>
+        </para>
+       </callout>
+       <callout arearefs="spack-info-deps">
+        <para>
+         Packages which needs to be already build as requires
+        </para>
+       </callout>
+      </calloutlist>
     <para>
      There is multiple version available, and you can use some variant to build it.
      By default spack will use the latest one (4.3.1).
@@ -217,7 +233,7 @@ util-macros@1.19.1  /usr/opt/spack/linux-sle_hpc15-skylake/gcc-7.5.0/util-macros
 xz@5.2.3            /usr
 zlib@1.2.11         /usr/opt/spack/linux-sle_hpc15-skylake/gcc-7.5.0/zlib-1.2.11-z6y74kgd73yc23kr5252slbydmk4posh</screen>
 <screen>
-&prompt;cd /usr/opt/spack/linux-sle_hpc15-skylake/gcc-7.5.0 
+&prompt;cd /usr/opt/spack/linux-sle_hpc15-skylake/gcc-7.5.0
 &prompt;diff -ru netcdf-cxx4-4.3.1-msiysdrdua3vv6izluhaeos4nyo5gslq/.spack/spec.yaml  netcdf-cxx4-4.3.1-tiyqyxb3eqpptrlcll6rlf27aisekluy/.spack/spec.yaml
 --- netcdf-cxx4-4.3.1-msiysdrdua3vv6izluhaeos4nyo5gslq/.spack/spec.yaml 2021-10-04 11:42:23.444000000 +0200
 +++ netcdf-cxx4-4.3.1-tiyqyxb3eqpptrlcll6rlf27aisekluy/.spack/spec.yaml 2021-10-04 11:51:49.880000000 +0200
@@ -225,11 +241,11 @@ zlib@1.2.11         /usr/opt/spack/linux-sle_hpc15-skylake/gcc-7.5.0/zlib-1.2.11
        version: 7.5.0
      namespace: builtin
      parameters:
--      doxygen: false
+-      doxygen: false <co xml:id="spack-diff-doxygen"/>
 +      doxygen: true
        pic: true
        shared: true
--      static: false
+-      static: false <co xml:id="spack-diff-static"/>
 +      static: true
        cflags: []
        cppflags: []
@@ -244,7 +260,15 @@ zlib@1.2.11         /usr/opt/spack/linux-sle_hpc15-skylake/gcc-7.5.0/zlib-1.2.11
 +    full_hash: i6btamzuyoo343n63f3rqopkz7ymkapq
  - netcdf-c:
      version: 4.7.4
-     arch: </screen>
+arch: </screen>
+<calloutlist>
+<callout arearefs="spack-diff-doxygen">
+ <para><literal>doxygen</literal> variant is disable</para>
+</callout>
+<callout arearefs="spack-diff-static">
+ <para><literal>static</literal>variant is disable</para>
+</callout>
+</calloutlist>
      <para>
       So the differences are parameters wile building: <literal>doxygen</literal> and <literal>static</literal>.
      </para>
@@ -409,6 +433,7 @@ mpich@3.3.2
       </para>
       <screen>
 &prompt;spack install gcc@10.2.0
+.....
 [+] /usr/opt/spack/linux-sle_hpc15-skylake/gcc-7.5.0/gcc-10.2.0-tkcq6d6xnyfgyqsnpzq36dlk2etylgp7</screen>
 
 <para>
@@ -416,16 +441,18 @@ mpich@3.3.2
 </para>
 
 <screen>
-&prompt;module load gcc-10.2.0-gcc-7.5.0-tkcq6d6
+&prompt;module load gcc-10.2.0-gcc-7.5.0-tkcq6d6 <co xml:id="spack-module-load"/>
 &prompt;gcc --version
 gcc (Spack GCC) 10.2.0
 Copyright (C) 2020 Free Software Foundation, Inc.
 This is free software; see the source for copying conditions.  There is NO
 warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 </screen>
-
+<calloutlist>
+ <callout aerarefs="spack-module-load"><para><literal>module load gcc-10.2.0</literal> is also working if you have only one version of gcc-10.2.0 available in spack.</para></callout>
+</calloutlist>
 <para>
- Lets use the <literal>purcent</literal> to specify we want to use <literal>gcc-10.2.0</literal>
+ Lets use the <literal>%</literal> to specify we want to use <literal>gcc-10.2.0</literal>
 </para>
 
 <screen>
@@ -439,10 +466,10 @@ Run 'spack compiler find' to add compilers or 'spack compilers' to see which com
 
 <screen>
 &prompt;spack compiler find
-==> Added 1 new compiler to /root/.spack/linux/compilers.yaml
+==> Added 1 new compiler to /home/aginies/.spack/linux/compilers.yaml
     gcc@10.2.0
 ==> Compilers are defined in the following files:
-    /root/.spack/linux/compilers.yaml</screen>
+    /home/aginies/.spack/linux/compilers.yaml</screen>
 
     <para>
      Now we can rebuild <literal>mpich</literal> with <literal>gcc-10.2.0</literal>
@@ -450,7 +477,7 @@ Run 'spack compiler find' to add compilers or 'spack compilers' to see which com
 
     <screen>
 &prompt;spack install mpich@3.2.1 %gcc@10.2.0
-........
+.....
 [+] /usr/opt/spack/linux-sle_hpc15-skylake/gcc-10.2.0/mpich-3.2.1-e56rcwtqofh2xytep5pjgq6wrxwmsy25</screen>
      </sect1>
 
