@@ -25,6 +25,16 @@
    <dm:translation>yes</dm:translation>
   </dm:docmanager>
  </info>
+
+ <sect1 xml:id="spack-introduction">
+   <title>Introduction</title>
+   <para></para>
+   FIXME
+   <para>
+    Purpose of this chapter is too quickly present <literal>spack</literal> usage,
+    for more information please go to <xref linkend="spack-external-link"/>.
+   </para>
+ </sect1>
  <sect1 xml:id="spack-preparation">
   <title>Prepare to use spack</title>
   <para>Be sure that spack is installed on your system: <command>zypper in spack</command></para>
@@ -43,7 +53,7 @@
 
 <para>
  It is recommended to install <literal>bash-completion</literal> to easily use spack on your system, this will provide
- auto-completion option using the tab key:
+ auto-completion option using the <keycap>TAB</keycap> key:
 </para>
 
 <screen>
@@ -274,7 +284,7 @@ arch: </screen>
 </callout>
 </calloutlist>
      <para>
-      So the differences are parameters wile building: <literal>doxygen</literal> and <literal>static</literal>.
+      So the differences are the variants to build <literal>netcdf-cxx4</literal>: <literal>doxygen</literal> and <literal>static</literal>.
      </para>
     </sect1>
     <sect1 xml:id="spack-complex-example">
