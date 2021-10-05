@@ -456,6 +456,7 @@ sle15sp31:~ # spack install mpich@3.2.1 %gcc@10.2.0
      </sect1>
 
      <sect1 xml:id="spack-external-link">
+         <title>External Documentation</title>
       <para>
        For further and mode complete documentation, see the
        <link xlink:href="https://spack-tutorial.readthedocs.io/en/latest/">Spack Documentation</link>
