@@ -295,7 +295,8 @@ arch: </screen>
     <sect1 xml:id="spack-complex-example">
      <title>Complex example with mpich</title>
      <para>
-      To list available versions of a package use <literal>versions</literal>, for <literal>mpich</literal>:
+      To list available versions of a package, use the <option>versions</option>
+      option. For example, for <literal>mpich</literal>:
      </para>
      <screen>
 &prompt;spack versions mpich
