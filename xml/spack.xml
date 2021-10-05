@@ -1,0 +1,464 @@
+<?xml-stylesheet href="urn:x-suse:xslt:profiling:docbook51-profile.xsl"
+ type="text/xml"
+ title="Profiling step"?>
+<!DOCTYPE chapter
+[
+  <!ENTITY % entities SYSTEM "generic-entities.ent">
+    %entities;
+]>
+<chapter xmlns="http://docbook.org/ns/docbook"
+ xmlns:xi="http://www.w3.org/2001/XInclude"
+ xmlns:xlink="http://www.w3.org/1999/xlink" xml:base="spack.xml"
+ xml:id="cha-spack" xml:lang="en" version="5.1">
+ <title>spack package management tool</title>
+ <info>
+  <abstract>
+   <para>
+    Spack is a package management tool designed to support multiple versions and configurations of software on a wide variety of platforms and environments.
+   </para>
+  </abstract>
+  <dm:docmanager xmlns:dm="urn:x-suse:ns:docmanager">
+   <dm:bugtracker/>
+   <dm:translation>yes</dm:translation>
+  </dm:docmanager>
+ </info>
+ <sect1 xml:id="spack-preparation">
+  <title>Prepare to use Spack</title>
+  <para>
+   You need to setup your environement with the appropriate script for your shell:
+  </para>
+  <screen>
+# For bash/zsh/sh
+$ . spack/share/spack/setup-env.sh
+
+# For tcsh/csh
+$ source spack/share/spack/setup-env.csh
+
+# For fish
+$ . spack/share/spack/setup-env.fish
+
+. /usr/share/spack/setup-env.sh</screen>
+
+<para>
+ It is recommended to install <literal>bash-completion</literal> to help you use spack on your system, this will
+ auto-complete the right option using the tab key:
+</para>
+
+<screen>
+sle15sp31:~ # spack [TAB]
+activate      clone         dependencies  fetch         list          providers     solve         url
+add           commands      dependents    find          load          pydoc         spec          verify
+arch          compiler      deprecate     flake8        location      python        stage         versions
+blame         compilers     dev-build     gc            log-parse     reindex       test          view
+buildcache    concretize    develop       gpg           maintainers   remove        test-env
+build-env     config        docs          graph         mark          repo          tutorial
+cd            containerize  edit          help          mirror        resource      undevelop
+checksum      create        env           info          module        restage       uninstall
+ci            deactivate    extensions    install       patch         rm            unit-test
+clean         debug         external      license       pkg           setup         unload</screen>
+</sect1>
+
+<sect1 xml:id="spack-example">
+ <title>Simple example with netcdf-cxx4</title>
+ <para>
+  To get get detailed information on <literal>netcdf-cxx4</literal>:
+ </para>
+<screen>
+sle15sp31:~ # spack info netcdf-cxx4
+AutotoolsPackage:   netcdf-cxx4
+
+Description:
+    NetCDF (network Common Data Form) is a set of software libraries and
+    machine-independent data formats that support the creation, access, and
+    sharing of array-oriented scientific data. This is the C++ distribution.
+
+Homepage: https://www.unidata.ucar.edu/software/netcdf
+
+Maintainers: @WardF
+
+Tags:
+    None
+
+Preferred version:
+    4.3.1    ftp://ftp.unidata.ucar.edu/pub/netcdf/netcdf-cxx4-4.3.1.tar.gz
+
+Safe versions:
+    4.3.1    ftp://ftp.unidata.ucar.edu/pub/netcdf/netcdf-cxx4-4.3.1.tar.gz
+    4.3.0    ftp://ftp.unidata.ucar.edu/pub/netcdf/netcdf-cxx4-4.3.0.tar.gz
+
+Variants:
+    Name [Default]    Allowed values    Description
+    ==============    ==============    ===================================================
+
+    doxygen [on]      on, off           Enable doxygen docs
+    pic [on]          on, off           Produce position-independent code (for shared libs)
+    shared [on]       on, off           Enable shared library
+    static [on]       on, off           Enable building static libraries
+
+Installation Phases:
+    autoreconf    configure    build    install
+
+Build Dependencies:
+    autoconf  automake  doxygen  libtool  m4  netcdf-c
+
+Link Dependencies:
+    netcdf-c
+
+Run Dependencies:
+    None
+
+Virtual Packages:
+    None</screen>
+
+    <para>
+     There is multiple version available, and you can use some variant to build it.
+     By default spack will use the latest one (4.3.1).
+     Lets built it without <literal>static</literal> and <literal>doxygen</literal>:
+    </para>
+
+    <screen>
+spack install netcdf-cxx4 -static -doxygen
+==> netcdf-c: Executing phase: 'autoreconf'
+==> netcdf-c: Executing phase: 'configure'
+==> netcdf-c: Executing phase: 'build'
+==> netcdf-c: Executing phase: 'install'
+[+] /usr/opt/spack/linux-sle_hpc15-skylake/gcc-7.5.0/netcdf-c-4.7.4-vry3tfp6kpq364gyxrj6fali4kqhirx7
+==> Installing netcdf-cxx4-4.3.1-msiysdrdua3vv6izluhaeos4nyo5gslq
+==> No binary for netcdf-cxx4-4.3.1-msiysdrdua3vv6izluhaeos4nyo5gslq found: installing from source
+==> Fetching https://spack-llnl-mirror.s3-us-west-2.amazonaws.com/_source-cache/archive/6a/6a1189a181eed043b5859e15d5c080c30d0e107406fbb212c8fb9814e90f3445.tar.gz
+#################################################################################################################### 100.0%
+==> netcdf-cxx4: Executing phase: 'autoreconf'
+==> netcdf-cxx4: Executing phase: 'configure'
+==> netcdf-cxx4: Executing phase: 'build'
+==> netcdf-cxx4: Executing phase: 'install'
+[+] /usr/opt/spack/linux-sle_hpc15-skylake/gcc-7.5.0/netcdf-cxx4-4.3.1-msiysdrdua3vv6izluhaeos4nyo5gslq</screen>
+
+<para>
+ We can rebuild it with default spec for <literal>netcdf-cxx4</literal>, adding <literal>@4.3.1</literal> to specify the version:
+</para>
+
+<screen>
+sle15sp31:~ # spack install netcdf-cxx4@4.3.1
+==> Warning: Missing a source id for python@3.6.13
+==> Warning: Missing a source id for pkgconf@1.5.3
+[+] /usr (external autoconf-2.69-tatq2aqbhboxbyjt2fsraoapgqwf3y5x)
+[+] /usr (external automake-1.15.1-3d7wkh42v52c6n77t4p7l2i7nguryisl)
+[+] /usr (external bison-3.0.4-y6ckc7e7mqnnkgmkbgcfbw5vgqzg5b6m)
+[+] /usr (external cmake-3.17.0-jr4evnjsgd7uh5stt33woclti37743kg)
+[+] /usr (external flex-2.6.4-vea2lhgajmeyjm6ei5d2bqvpss4ipors)
+[+] /usr/opt/spack/linux-sle_hpc15-skylake/gcc-7.5.0/libiconv-1.16-itovpc5jssshcgpeejrro6l7jn4ynaq7
+[+] /usr (external python-3.6.13-rpf47wa6wfn7h3rnydpxijoczc6opno2)
+[+] /usr (external libtool-2.4.6-ddch2qlie7t4ypbqg6kmf3uswqg2uylp)
+[+] /usr (external m4-1.4.18-tloh56qj47ahddst5g2xqsawffuz5ew6)
+[+] /usr (external pkgconf-1.5.3-gmxadsjg6q3xqwjwws5a4v4b4ugvi6p4)
+[+] /usr/opt/spack/linux-sle_hpc15-skylake/gcc-7.5.0/util-macros-1.19.1-rpnlbst6v3oqjm7tfoxasmn7wlilpqut
+[+] /usr (external xz-5.2.3-x3glm5yp2ixldbe7n557evglhygvlkqh)
+[+] /usr/opt/spack/linux-sle_hpc15-skylake/gcc-7.5.0/zlib-1.2.11-z6y74kgd73yc23kr5252slbydmk4posh
+[+] /usr/opt/spack/linux-sle_hpc15-skylake/gcc-7.5.0/doxygen-1.8.20-3griwieblqgb6ykc5avzkzrxmtaw4s2g
+[+] /usr/opt/spack/linux-sle_hpc15-skylake/gcc-7.5.0/numactl-2.0.14-tcuvjjtkhnyf5ijrazenjra5h5dbj4in
+[+] /usr/opt/spack/linux-sle_hpc15-skylake/gcc-7.5.0/libpciaccess-0.16-y3w7dlktz22lmdj6fei4aj2f4t2rqu6l
+[+] /usr/opt/spack/linux-sle_hpc15-skylake/gcc-7.5.0/libxml2-2.9.10-d4c7cskvhn7qwzzb2wiq7rl67vbl44je
+[+] /usr/opt/spack/linux-sle_hpc15-skylake/gcc-7.5.0/hwloc-1.11.11-rjdqchtk6i27lqxxwi4cvfyvrxxgwq7k
+[+] /usr/opt/spack/linux-sle_hpc15-skylake/gcc-7.5.0/openmpi-3.1.6-ks5elgg25bbnzwa7fmv7lewbkrcp2qsx
+[+] /usr/opt/spack/linux-sle_hpc15-skylake/gcc-7.5.0/hdf5-1.10.7-3cyidn4yvikyyuxehak7ftey2l57ku37
+[+] /usr/opt/spack/linux-sle_hpc15-skylake/gcc-7.5.0/netcdf-c-4.7.4-vry3tfp6kpq364gyxrj6fali4kqhirx7
+==> Installing netcdf-cxx4-4.3.1-tiyqyxb3eqpptrlcll6rlf27aisekluy
+==> No binary for netcdf-cxx4-4.3.1-tiyqyxb3eqpptrlcll6rlf27aisekluy found: installing from source
+==> Using cached archive: /var/spack/cache/_source-cache/archive/6a/6a1189a181eed043b5859e15d5c080c30d0e107406fbb212c8fb9814e90f3445.tar.gz
+==> netcdf-cxx4: Executing phase: 'autoreconf'
+==> netcdf-cxx4: Executing phase: 'configure'
+==> netcdf-cxx4: Executing phase: 'build'
+==> netcdf-cxx4: Executing phase: 'install'
+[+] /usr/opt/spack/linux-sle_hpc15-skylake/gcc-7.5.0/netcdf-cxx4-4.3.1-tiyqyxb3eqpptrlcll6rlf27aisekluy</screen>
+
+<para>
+ Lets see the package now available with spack:
+</para>
+<screen>
+sle15sp31:~ # spack find
+==> 14 installed packages
+-- linux-sle_hpc15-skylake / gcc@7.5.0 --------------------------
+doxygen@1.8.20  hwloc@1.11.11  libpciaccess@0.16  netcdf-c@4.7.4     netcdf-cxx4@4.3.1  openmpi@3.1.6       xz@5.2.3
+hdf5@1.10.7     libiconv@1.16  libxml2@2.9.10     netcdf-cxx4@4.3.1  numactl@2.0.14     util-macros@1.19.1  zlib@1.2.11</screen>
+
+<para>
+ There is two versions of <literal>netcdf-cxx4</literal>, and all build requires are also present.
+ If you want to show dependency hashes as well as versions use the <literal>-l</literal> option:
+</para>
+
+<screen>
+sle15sp31:~ # spack find -l
+==> 14 installed packages
+-- linux-sle_hpc15-skylake / gcc@7.5.0 --------------------------
+3griwie doxygen@1.8.20  y3w7dlk libpciaccess@0.16  tiyqyxb netcdf-cxx4@4.3.1   x3glm5y xz@5.2.3
+3cyidn4 hdf5@1.10.7     d4c7csk libxml2@2.9.10     tcuvjjt numactl@2.0.14      z6y74kg zlib@1.2.11
+rjdqcht hwloc@1.11.11   vry3tfp netcdf-c@4.7.4     ks5elgg openmpi@3.1.6
+itovpc5 libiconv@1.16   msiysdr netcdf-cxx4@4.3.1  rpnlbst util-macros@1.19.1</screen>
+
+<para>
+ What are the differences between the two versions of <literal>netcdf-cxx4</literal>?
+ You just need to do a diff between the <literal>spec.yaml</literal> of the versions (this file describe how the package will be created), and first you should know wehre is the package available on your system:
+</para>
+<screen>
+sle15sp31:~ #  spack find --paths
+==> 15 installed packages
+-- linux-sle_hpc15-skylake / gcc@7.5.0 --------------------------
+doxygen@1.8.20      /usr/opt/spack/linux-sle_hpc15-skylake/gcc-7.5.0/doxygen-1.8.20-3griwieblqgb6ykc5avzkzrxmtaw4s2g
+hdf5@1.10.7         /usr/opt/spack/linux-sle_hpc15-skylake/gcc-7.5.0/hdf5-1.10.7-3cyidn4yvikyyuxehak7ftey2l57ku37
+hwloc@1.11.11       /usr/opt/spack/linux-sle_hpc15-skylake/gcc-7.5.0/hwloc-1.11.11-rjdqchtk6i27lqxxwi4cvfyvrxxgwq7k
+hwloc@2.2.0         /usr/opt/spack/linux-sle_hpc15-skylake/gcc-7.5.0/hwloc-2.2.0-4lxxw65tzjeqhyxelowclnwqfb3m3rmk
+libiconv@1.16       /usr/opt/spack/linux-sle_hpc15-skylake/gcc-7.5.0/libiconv-1.16-itovpc5jssshcgpeejrro6l7jn4ynaq7
+libpciaccess@0.16   /usr/opt/spack/linux-sle_hpc15-skylake/gcc-7.5.0/libpciaccess-0.16-y3w7dlktz22lmdj6fei4aj2f4t2rqu6l
+libxml2@2.9.10      /usr/opt/spack/linux-sle_hpc15-skylake/gcc-7.5.0/libxml2-2.9.10-d4c7cskvhn7qwzzb2wiq7rl67vbl44je
+netcdf-c@4.7.4      /usr/opt/spack/linux-sle_hpc15-skylake/gcc-7.5.0/netcdf-c-4.7.4-vry3tfp6kpq364gyxrj6fali4kqhirx7
+netcdf-cxx4@4.3.1   /usr/opt/spack/linux-sle_hpc15-skylake/gcc-7.5.0/netcdf-cxx4-4.3.1-msiysdrdua3vv6izluhaeos4nyo5gslq
+netcdf-cxx4@4.3.1   /usr/opt/spack/linux-sle_hpc15-skylake/gcc-7.5.0/netcdf-cxx4-4.3.1-tiyqyxb3eqpptrlcll6rlf27aisekluy
+numactl@2.0.14      /usr/opt/spack/linux-sle_hpc15-skylake/gcc-7.5.0/numactl-2.0.14-tcuvjjtkhnyf5ijrazenjra5h5dbj4in
+openmpi@3.1.6       /usr/opt/spack/linux-sle_hpc15-skylake/gcc-7.5.0/openmpi-3.1.6-ks5elgg25bbnzwa7fmv7lewbkrcp2qsx
+util-macros@1.19.1  /usr/opt/spack/linux-sle_hpc15-skylake/gcc-7.5.0/util-macros-1.19.1-rpnlbst6v3oqjm7tfoxasmn7wlilpqut
+xz@5.2.3            /usr
+zlib@1.2.11         /usr/opt/spack/linux-sle_hpc15-skylake/gcc-7.5.0/zlib-1.2.11-z6y74kgd73yc23kr5252slbydmk4posh</screen>
+<screen>
+sle15sp31:/usr/opt/spack/linux-sle_hpc15-skylake/gcc-7.5.0 # diff -ru netcdf-cxx4-4.3.1-msiysdrdua3vv6izluhaeos4nyo5gslq/.spack/spec.yaml  netcdf-cxx4-4.3.1-tiyqyxb3eqpptrlcll6rlf27aisekluy/.spack/spec.yaml
+--- netcdf-cxx4-4.3.1-msiysdrdua3vv6izluhaeos4nyo5gslq/.spack/spec.yaml 2021-10-04 11:42:23.444000000 +0200
++++ netcdf-cxx4-4.3.1-tiyqyxb3eqpptrlcll6rlf27aisekluy/.spack/spec.yaml 2021-10-04 11:51:49.880000000 +0200
+@@ -38,10 +38,10 @@
+       version: 7.5.0
+     namespace: builtin
+     parameters:
+-      doxygen: false
++      doxygen: true
+       pic: true
+       shared: true
+-      static: false
++      static: true
+       cflags: []
+       cppflags: []
+       cxxflags: []
+@@ -54,8 +54,8 @@
+         type:
+         - build
+         - link
+-    hash: msiysdrdua3vv6izluhaeos4nyo5gslq
+-    full_hash: oeylqzvergh3ckviaqyhy3idn7vyk3hi
++    hash: tiyqyxb3eqpptrlcll6rlf27aisekluy
++    full_hash: i6btamzuyoo343n63f3rqopkz7ymkapq
+ - netcdf-c:
+     version: 4.7.4
+     arch: </screen>
+     <para>
+      So the differences are parameters wile building: <literal>doxygen</literal> and <literal>static</literal>.
+     </para>
+    </sect1>
+    <sect1 xml:id="spack-complex-example">
+     <title>More complex example with mpich</title>
+     <para>
+      To list available versions of a package use <literal>versions</literal>, for <literal>mpich</literal>:
+     </para>
+     <screen>
+sle15sp31:~ # spack versions mpich
+==> Safe versions (already checksummed):
+  develop  3.3.2  3.3.1  3.3  3.2.1  3.2  3.1.4  3.1.3  3.1.2  3.1.1  3.1  3.0.4
+==> Remote versions (not yet checksummed):
+==> Warning: Found no unchecksummed versions for mpich</screen>
+
+<para>
+ Lets get some more info about <literal>mpich</literal>:
+</para>
+<screen>
+sle15sp31:~ # spack info mpich
+AutotoolsPackage:   mpich
+
+Description:
+    MPICH is a high performance and widely portable implementation of the
+    Message Passing Interface (MPI) standard.
+
+Homepage: http://www.mpich.org
+
+Maintainers: @raffenet @yfguo
+
+Tags:
+    None
+
+Preferred version:
+    3.3.2      http://www.mpich.org/static/downloads/3.3.2/mpich-3.3.2.tar.gz
+
+Safe versions:
+    develop    [git] https://github.com/pmodels/mpich.git
+    3.3.2      http://www.mpich.org/static/downloads/3.3.2/mpich-3.3.2.tar.gz
+    3.3.1      http://www.mpich.org/static/downloads/3.3.1/mpich-3.3.1.tar.gz
+    3.3        http://www.mpich.org/static/downloads/3.3/mpich-3.3.tar.gz
+    3.2.1      http://www.mpich.org/static/downloads/3.2.1/mpich-3.2.1.tar.gz
+    3.2        http://www.mpich.org/static/downloads/3.2/mpich-3.2.tar.gz
+    3.1.4      http://www.mpich.org/static/downloads/3.1.4/mpich-3.1.4.tar.gz
+    3.1.3      http://www.mpich.org/static/downloads/3.1.3/mpich-3.1.3.tar.gz
+    3.1.2      http://www.mpich.org/static/downloads/3.1.2/mpich-3.1.2.tar.gz
+    3.1.1      http://www.mpich.org/static/downloads/3.1.1/mpich-3.1.1.tar.gz
+    3.1        http://www.mpich.org/static/downloads/3.1/mpich-3.1.tar.gz
+    3.0.4      http://www.mpich.org/static/downloads/3.0.4/mpich-3.0.4.tar.gz
+
+Variants:
+    Name [Default]       Allowed values          Description
+    =================    ====================    ========================================================================
+
+    argobots [off]       on, off                 Enable Argobots support
+    device [ch3]         ch3, ch4                Abstract Device Interface (ADI) implementation. The ch4 device is
+                                                 currently in experimental state
+    fortran [on]         on, off                 Enable Fortran support
+    hwloc [on]           on, off                 Use external hwloc package
+    hydra [on]           on, off                 Build the hydra process manager
+    libxml2 [on]         on, off                 Use libxml2 for XML support instead of the custom minimalistic
+                                                 implementation
+    netmod [tcp]         tcp, mxm, ofi, ucx      Network module. Only single netmod builds are supported. For ch3 device
+                                                 configurations, this presumes the ch3:nemesis communication channel.
+                                                 ch3:sock is not supported by this spack package at this time.
+    pci [on]             on, off                 Support analyzing devices on PCI bus
+    pmi [pmi]            off, pmi, pmi2, pmix    PMI interface.
+    romio [on]           on, off                 Enable ROMIO MPI I/O implementation
+    slurm [off]          on, off                 Enable SLURM support
+    verbs [off]          on, off                 Build support for OpenFabrics verbs.
+    wrapperrpath [on]    on, off                 Enable wrapper rpath
+
+Installation Phases:
+    autoreconf    configure    build    install
+
+Build Dependencies:
+    argobots  automake   hwloc      libpciaccess  libxml2  pkgconfig  python  ucx
+    autoconf  findutils  libfabric  libtool       m4       pmix       slurm
+
+Link Dependencies:
+    argobots  hwloc  libfabric  libpciaccess  libxml2  pmix  slurm  ucx
+
+Run Dependencies:
+    None
+
+Virtual Packages:
+    mpich@3: provides mpi@:3.0
+    mpich@1: provides mpi@:1.3
+    mpich provides mpi</screen>
+
+    <para>
+     Lets build <literal>mpich</literal> with some variants:
+    </para>
+
+    <screen>
+sle15sp31:~ # spack install mpich@3.3.2 -romio -libxml2 -hydra -fortran
+==> mpich: Executing phase: 'autoreconf'
+==> mpich: Executing phase: 'configure'
+==> mpich: Executing phase: 'build'
+==> mpich: Executing phase: 'install'
+[+] /usr/opt/spack/linux-sle_hpc15-skylake/gcc-7.5.0/mpich-3.3.2-3nexqqx2r4m7p2y7lmovuwvvobi2bygw</screen>
+
+<para>
+ Lets do it again with default parameter:
+</para>
+
+<screen>
+sle15sp31:~ # spack install mpich@3.3.2
+.....
+[+] /usr/opt/spack/linux-sle_hpc15-skylake/gcc-7.5.0/mpich-3.3.2-sahjm2uhsoc3bi2cljtypwuqaflhamnx</screen>
+
+<para>
+ Another build of <literal>mpich-3.3.2</literal> with a <literal>cppflags</literal> and a specific <literal>libxml</literal> version (2.9.4)
+</para>
+
+<screen>
+sle15sp31:~ # spack install mpich@3.3.2 cppflags="-O3 -fPIC" target=x86_64 ^libxml2@2.9.4</screen>
+
+<para>
+ Lets list all available packages:
+</para>
+
+<screen>
+sle15sp31:~ # spack find -l
+==> 33 installed packages
+-- linux-sle_hpc15-skylake / gcc@7.5.0 --------------------------
+3griwie doxygen@1.8.20  y3w7dlk libpciaccess@0.16  vry3tfp netcdf-c@4.7.4      x3glm5y xz@5.2.3
+3cyidn4 hdf5@1.10.7     to2atk6 libpciaccess@0.16  msiysdr netcdf-cxx4@4.3.1   bzeebyp xz@5.2.3
+rjdqcht hwloc@1.11.11   4cyoxau libxml2@2.9.4      tiyqyxb netcdf-cxx4@4.3.1   z6y74kg zlib@1.2.11
+4lxxw65 hwloc@2.2.0     d4c7csk libxml2@2.9.10     tcuvjjt numactl@2.0.14      m4zmub6 zlib@1.2.11
+yof3lps hwloc@2.2.0     3nexqqx mpich@3.3.2        ks5elgg openmpi@3.1.6
+itovpc5 libiconv@1.16   sahjm2u mpich@3.3.2        rpnlbst util-macros@1.19.1
+5mvdlgl libiconv@1.16   jxbspwk mpich@3.3.2        boclx6a util-macros@1.19.1
+
+-- linux-sle_hpc15-x86_64 / gcc@7.5.0 ---------------------------
+yzxibyd hwloc@2.2.0    7wmqik2 libpciaccess@0.16  6xjiutf mpich@3.3.2         zmfrpzf xz@5.2.3
+mm7at5h libiconv@1.16  jrtvvdj libxml2@2.9.4      jjxbukq util-macros@1.19.1  jxqtsne zlib@1.2.11</screen>
+
+<para>
+ To show output dependencies along with found specs of <literal>/6xjiutf</literal> (<literal>mpich</literal>):
+</para>
+
+<screen>
+sle15sp31:~ # spack find --deps /6xjiutf
+==> 1 installed package
+-- linux-sle_hpc15-x86_64 / gcc@7.5.0 ---------------------------
+mpich@3.3.2
+    hwloc@2.2.0
+        libpciaccess@0.16
+        libxml2@2.9.4
+            libiconv@1.16
+            xz@5.2.3
+            zlib@1.2.11</screen>
+
+     </sect1>
+     <sect1 xml:id="spack-compiler">
+      <title>Use a specific compiler</title>
+      <para>
+       The goal is to build <literal>mpich</literal> with <literal>gcc-10.2.0</literal>
+       First install/build <literal>gcc-10.2.0</literal>
+      </para>
+      <screen>
+sle15sp31:~ # spack install gcc@10.2.0
+[+] /usr/opt/spack/linux-sle_hpc15-skylake/gcc-7.5.0/gcc-10.2.0-tkcq6d6xnyfgyqsnpzq36dlk2etylgp7</screen>
+
+<para>
+ We can now test <literal>gcc</literal> is usable on the system loading it:
+</para>
+
+<screen>
+sle15sp31:~ # module load gcc-10.2.0-gcc-7.5.0-tkcq6d6
+sle15sp31:~ # gcc --version
+gcc (Spack GCC) 10.2.0
+Copyright (C) 2020 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+</screen>
+
+<para>
+ Lets use the <literal>purcent</literal> to specify we want to use <literal>gcc-10.2.0</literal>
+</para>
+
+<screen>
+sle15sp31:~ # spack install mpich@3.2.1 %gcc@10.2.0
+==> Error: No compilers with spec gcc@10.2.0 found for operating system sle_hpc15 and target skylake.
+Run 'spack compiler find' to add compilers or 'spack compilers' to see which compilers are already recognized by spack.</screen>
+
+<para>
+ The compiler was not found yet, we need to update the list of available compiler doing:
+</para>
+
+<screen>
+sle15sp31:~ # spack compiler find
+==> Added 1 new compiler to /root/.spack/linux/compilers.yaml
+    gcc@10.2.0
+==> Compilers are defined in the following files:
+    /root/.spack/linux/compilers.yaml</screen>
+
+    <para>
+     Now we can rebuild <literal>mpich</literal> with <literal>gcc-10.2.0</literal>
+    </para>
+
+    <screen>
+sle15sp31:~ # spack install mpich@3.2.1 %gcc@10.2.0
+........
+[+] /usr/opt/spack/linux-sle_hpc15-skylake/gcc-10.2.0/mpich-3.2.1-e56rcwtqofh2xytep5pjgq6wrxwmsy25</screen>
+     </sect1>
+
+     <sect1 xml:id="spack-external-link">
+      <para>
+       For further and mode complete documentation, see the
+       <link xlink:href="https://spack-tutorial.readthedocs.io/en/latest/">Spack Documentation</link>
+      </para>
+  </sect1>
+</chapter>
