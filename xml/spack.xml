@@ -482,7 +482,8 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 Run 'spack compiler find' to add compilers or 'spack compilers' to see which compilers are already recognized by spack.</screen>
 
 <para>
- The compiler was not found yet, we need to update the list of available compiler doing:
+ The compiler was not found yet, so we need to update the list of available
+ compilers by doing:
 </para>
 
 <screen>
