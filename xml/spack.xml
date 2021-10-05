@@ -29,15 +29,13 @@
   </para>
   <screen>
 # For bash/zsh/sh
-$ . spack/share/spack/setup-env.sh
+&prompt;. spack/share/spack/setup-env.sh
 
 # For tcsh/csh
-$ source spack/share/spack/setup-env.csh
+&prompt;source spack/share/spack/setup-env.csh
 
 # For fish
-$ . spack/share/spack/setup-env.fish
-
-. /usr/share/spack/setup-env.sh</screen>
+&prompt;. spack/share/spack/setup-env.fish</screen>
 
 <para>
  It is recommended to install <literal>bash-completion</literal> to help you use spack on your system, this will
@@ -45,7 +43,7 @@ $ . spack/share/spack/setup-env.fish
 </para>
 
 <screen>
-sle15sp31:~ # spack [TAB]
+&prompt;spack [TAB]
 activate      clone         dependencies  fetch         list          providers     solve         url
 add           commands      dependents    find          load          pydoc         spec          verify
 arch          compiler      deprecate     flake8        location      python        stage         versions
@@ -64,7 +62,7 @@ clean         debug         external      license       pkg           setup     
   To get get detailed information on <literal>netcdf-cxx4</literal>:
  </para>
 <screen>
-sle15sp31:~ # spack info netcdf-cxx4
+&prompt;spack info netcdf-cxx4
 AutotoolsPackage:   netcdf-cxx4
 
 Description:
@@ -117,7 +115,7 @@ Virtual Packages:
     </para>
 
     <screen>
-spack install netcdf-cxx4 -static -doxygen
+&prompt;spack install netcdf-cxx4 -static -doxygen
 ==> netcdf-c: Executing phase: 'autoreconf'
 ==> netcdf-c: Executing phase: 'configure'
 ==> netcdf-c: Executing phase: 'build'
@@ -138,7 +136,7 @@ spack install netcdf-cxx4 -static -doxygen
 </para>
 
 <screen>
-sle15sp31:~ # spack install netcdf-cxx4@4.3.1
+&prompt;spack install netcdf-cxx4@4.3.1
 ==> Warning: Missing a source id for python@3.6.13
 ==> Warning: Missing a source id for pkgconf@1.5.3
 [+] /usr (external autoconf-2.69-tatq2aqbhboxbyjt2fsraoapgqwf3y5x)
@@ -175,7 +173,7 @@ sle15sp31:~ # spack install netcdf-cxx4@4.3.1
  Lets see the package now available with spack:
 </para>
 <screen>
-sle15sp31:~ # spack find
+&prompt;spack find
 ==> 14 installed packages
 -- linux-sle_hpc15-skylake / gcc@7.5.0 --------------------------
 doxygen@1.8.20  hwloc@1.11.11  libpciaccess@0.16  netcdf-c@4.7.4     netcdf-cxx4@4.3.1  openmpi@3.1.6       xz@5.2.3
@@ -187,7 +185,7 @@ hdf5@1.10.7     libiconv@1.16  libxml2@2.9.10     netcdf-cxx4@4.3.1  numactl@2.0
 </para>
 
 <screen>
-sle15sp31:~ # spack find -l
+&prompt;spack find -l
 ==> 14 installed packages
 -- linux-sle_hpc15-skylake / gcc@7.5.0 --------------------------
 3griwie doxygen@1.8.20  y3w7dlk libpciaccess@0.16  tiyqyxb netcdf-cxx4@4.3.1   x3glm5y xz@5.2.3
@@ -200,7 +198,7 @@ itovpc5 libiconv@1.16   msiysdr netcdf-cxx4@4.3.1  rpnlbst util-macros@1.19.1</s
  You just need to do a diff between the <literal>spec.yaml</literal> of the versions (this file describe how the package will be created), and first you should know wehre is the package available on your system:
 </para>
 <screen>
-sle15sp31:~ #  spack find --paths
+&prompt;spack find --paths
 ==> 15 installed packages
 -- linux-sle_hpc15-skylake / gcc@7.5.0 --------------------------
 doxygen@1.8.20      /usr/opt/spack/linux-sle_hpc15-skylake/gcc-7.5.0/doxygen-1.8.20-3griwieblqgb6ykc5avzkzrxmtaw4s2g
@@ -219,7 +217,8 @@ util-macros@1.19.1  /usr/opt/spack/linux-sle_hpc15-skylake/gcc-7.5.0/util-macros
 xz@5.2.3            /usr
 zlib@1.2.11         /usr/opt/spack/linux-sle_hpc15-skylake/gcc-7.5.0/zlib-1.2.11-z6y74kgd73yc23kr5252slbydmk4posh</screen>
 <screen>
-sle15sp31:/usr/opt/spack/linux-sle_hpc15-skylake/gcc-7.5.0 # diff -ru netcdf-cxx4-4.3.1-msiysdrdua3vv6izluhaeos4nyo5gslq/.spack/spec.yaml  netcdf-cxx4-4.3.1-tiyqyxb3eqpptrlcll6rlf27aisekluy/.spack/spec.yaml
+&prompt;cd /usr/opt/spack/linux-sle_hpc15-skylake/gcc-7.5.0 
+&prompt;diff -ru netcdf-cxx4-4.3.1-msiysdrdua3vv6izluhaeos4nyo5gslq/.spack/spec.yaml  netcdf-cxx4-4.3.1-tiyqyxb3eqpptrlcll6rlf27aisekluy/.spack/spec.yaml
 --- netcdf-cxx4-4.3.1-msiysdrdua3vv6izluhaeos4nyo5gslq/.spack/spec.yaml 2021-10-04 11:42:23.444000000 +0200
 +++ netcdf-cxx4-4.3.1-tiyqyxb3eqpptrlcll6rlf27aisekluy/.spack/spec.yaml 2021-10-04 11:51:49.880000000 +0200
 @@ -38,10 +38,10 @@
@@ -256,7 +255,7 @@ sle15sp31:/usr/opt/spack/linux-sle_hpc15-skylake/gcc-7.5.0 # diff -ru netcdf-cxx
       To list available versions of a package use <literal>versions</literal>, for <literal>mpich</literal>:
      </para>
      <screen>
-sle15sp31:~ # spack versions mpich
+&prompt;spack versions mpich
 ==> Safe versions (already checksummed):
   develop  3.3.2  3.3.1  3.3  3.2.1  3.2  3.1.4  3.1.3  3.1.2  3.1.1  3.1  3.0.4
 ==> Remote versions (not yet checksummed):
@@ -266,7 +265,7 @@ sle15sp31:~ # spack versions mpich
  Lets get some more info about <literal>mpich</literal>:
 </para>
 <screen>
-sle15sp31:~ # spack info mpich
+&prompt;spack info mpich
 AutotoolsPackage:   mpich
 
 Description:
@@ -342,7 +341,7 @@ Virtual Packages:
     </para>
 
     <screen>
-sle15sp31:~ # spack install mpich@3.3.2 -romio -libxml2 -hydra -fortran
+&prompt;spack install mpich@3.3.2 -romio -libxml2 -hydra -fortran
 ==> mpich: Executing phase: 'autoreconf'
 ==> mpich: Executing phase: 'configure'
 ==> mpich: Executing phase: 'build'
@@ -354,7 +353,7 @@ sle15sp31:~ # spack install mpich@3.3.2 -romio -libxml2 -hydra -fortran
 </para>
 
 <screen>
-sle15sp31:~ # spack install mpich@3.3.2
+&prompt;spack install mpich@3.3.2
 .....
 [+] /usr/opt/spack/linux-sle_hpc15-skylake/gcc-7.5.0/mpich-3.3.2-sahjm2uhsoc3bi2cljtypwuqaflhamnx</screen>
 
@@ -363,14 +362,14 @@ sle15sp31:~ # spack install mpich@3.3.2
 </para>
 
 <screen>
-sle15sp31:~ # spack install mpich@3.3.2 cppflags="-O3 -fPIC" target=x86_64 ^libxml2@2.9.4</screen>
+&prompt;spack install mpich@3.3.2 cppflags="-O3 -fPIC" target=x86_64 ^libxml2@2.9.4</screen>
 
 <para>
  Lets list all available packages:
 </para>
 
 <screen>
-sle15sp31:~ # spack find -l
+&prompt;spack find -l
 ==> 33 installed packages
 -- linux-sle_hpc15-skylake / gcc@7.5.0 --------------------------
 3griwie doxygen@1.8.20  y3w7dlk libpciaccess@0.16  vry3tfp netcdf-c@4.7.4      x3glm5y xz@5.2.3
@@ -390,7 +389,7 @@ mm7at5h libiconv@1.16  jrtvvdj libxml2@2.9.4      jjxbukq util-macros@1.19.1  jx
 </para>
 
 <screen>
-sle15sp31:~ # spack find --deps /6xjiutf
+&prompt;spack find --deps /6xjiutf
 ==> 1 installed package
 -- linux-sle_hpc15-x86_64 / gcc@7.5.0 ---------------------------
 mpich@3.3.2
@@ -409,7 +408,7 @@ mpich@3.3.2
        First install/build <literal>gcc-10.2.0</literal>
       </para>
       <screen>
-sle15sp31:~ # spack install gcc@10.2.0
+&prompt;spack install gcc@10.2.0
 [+] /usr/opt/spack/linux-sle_hpc15-skylake/gcc-7.5.0/gcc-10.2.0-tkcq6d6xnyfgyqsnpzq36dlk2etylgp7</screen>
 
 <para>
@@ -417,8 +416,8 @@ sle15sp31:~ # spack install gcc@10.2.0
 </para>
 
 <screen>
-sle15sp31:~ # module load gcc-10.2.0-gcc-7.5.0-tkcq6d6
-sle15sp31:~ # gcc --version
+&prompt;module load gcc-10.2.0-gcc-7.5.0-tkcq6d6
+&prompt;gcc --version
 gcc (Spack GCC) 10.2.0
 Copyright (C) 2020 Free Software Foundation, Inc.
 This is free software; see the source for copying conditions.  There is NO
@@ -430,7 +429,7 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 </para>
 
 <screen>
-sle15sp31:~ # spack install mpich@3.2.1 %gcc@10.2.0
+&prompt;spack install mpich@3.2.1 %gcc@10.2.0
 ==> Error: No compilers with spec gcc@10.2.0 found for operating system sle_hpc15 and target skylake.
 Run 'spack compiler find' to add compilers or 'spack compilers' to see which compilers are already recognized by spack.</screen>
 
@@ -439,7 +438,7 @@ Run 'spack compiler find' to add compilers or 'spack compilers' to see which com
 </para>
 
 <screen>
-sle15sp31:~ # spack compiler find
+&prompt;spack compiler find
 ==> Added 1 new compiler to /root/.spack/linux/compilers.yaml
     gcc@10.2.0
 ==> Compilers are defined in the following files:
@@ -450,7 +449,7 @@ sle15sp31:~ # spack compiler find
     </para>
 
     <screen>
-sle15sp31:~ # spack install mpich@3.2.1 %gcc@10.2.0
+&prompt;spack install mpich@3.2.1 %gcc@10.2.0
 ........
 [+] /usr/opt/spack/linux-sle_hpc15-skylake/gcc-10.2.0/mpich-3.2.1-e56rcwtqofh2xytep5pjgq6wrxwmsy25</screen>
      </sect1>
