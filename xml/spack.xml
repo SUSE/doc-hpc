@@ -287,7 +287,9 @@ arch: </screen>
 </callout>
 </calloutlist>
      <para>
-      So the differences are the variants to build <literal>netcdf-cxx4</literal>: <literal>doxygen</literal> and <literal>static</literal>.
+      So the differences are the variants to build
+      <literal>netcdf-cxx4</literal>:
+      <literal>doxygen</literal> and <literal>static</literal>.
      </para>
     </sect1>
     <sect1 xml:id="spack-complex-example">
