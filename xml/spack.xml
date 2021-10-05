@@ -31,7 +31,7 @@
    <para></para>
    FIXME
    <para>
-    Purpose of this chapter is too quickly present <literal>spack</literal> usage,
+    The purpose of this chapter is to briefly present <literal>spack</literal> and its usage.
     for more information please go to <xref linkend="spack-external-link"/>.
    </para>
  </sect1>
