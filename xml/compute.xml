@@ -168,13 +168,13 @@
    <para>
     To install <package>gnu-compilers-hpc</package>, run the following command:
    </para>
-<screen>&prompt;zypper in gnu-compilers-hpc</screen>
+<screen>&prompt.user;sudo zypper in gnu-compilers-hpc</screen>
    <para>
     To make libraries built with the base compilers available, you must set
     up the environment appropriately and select the GNU toolchain. To do so,
     run the following command:
    </para>
-<screen>&prompt;module load gnu</screen>
+<screen>&prompt.user;module load gnu</screen>
   </sect2>
 
   <sect2 xml:id="sec-building-software-with-compiler">
@@ -199,14 +199,14 @@
     The Development Tools Module might provide later versions of the GNU compiler
     suite. To determine the available compiler suites, run the following command:
    </para>
-<screen>&prompt;zypper search '*-compilers-hpc'</screen>
+<screen>&prompt.user;zypper search '*-compilers-hpc'</screen>
    <para>
     If you have more than one version of the compiler suite installed,
     <emphasis>Lmod</emphasis> picks the latest one by default. If you
     require an older version, or the base version, append the version
     number:
    </para>
-<screen>&prompt;module load gnu/7</screen>
+<screen>&prompt.user;module load gnu/7</screen>
    <para>
     For more information, see <xref linkend="sec-compute-lmod"/>.
    </para>
@@ -294,7 +294,7 @@
    suite. To view available compilers, run the following command:
   </para>
 
-<screen>&prompt;zypper search '*-compilers-hpc'</screen>
+<screen>&prompt.user;zypper search '*-compilers-hpc'</screen>
 
   <sect2 xml:id="sec2-lib-boost">
    <title><literal>boost</literal> &mdash; Boost C++ Libraries</title>
@@ -309,11 +309,11 @@
     To load the highest available serial version of this module, run the following
     command:
    </para>
-<screen>&prompt;module load <replaceable>TOOLCHAIN</replaceable> boost</screen>
+<screen>&prompt.user;module load <replaceable>TOOLCHAIN</replaceable> boost</screen>
    <para>
     To use MPI-specific boost libraries, run the following command:
    </para>
-<screen>&prompt;module load <replaceable>TOOLCHAIN</replaceable> <replaceable>MPI_FLAVOR</replaceable> boost</screen>
+<screen>&prompt.user;module load <replaceable>TOOLCHAIN</replaceable> <replaceable>MPI_FLAVOR</replaceable> boost</screen>
    <para>
     For information about the toolchain to load, see <xref
     linkend="sec-compiler"/>. For information about available MPI flavors, see
@@ -378,11 +378,11 @@
     variant, the respective MPI module must be loaded beforehand. To load
     this module, run the following command:
    </para>
-<screen>&prompt;module load <replaceable>TOOLCHAIN</replaceable> fftw3</screen>
+<screen>&prompt.user;module load <replaceable>TOOLCHAIN</replaceable> fftw3</screen>
    <para>
     To load the MPI-enabled variant, run the following command:
    </para>
-<screen>&prompt;module load <replaceable>TOOLCHAIN</replaceable> <replaceable>MPI_FLAVOR</replaceable> fftw3</screen>
+<screen>&prompt.user;module load <replaceable>TOOLCHAIN</replaceable> <replaceable>MPI_FLAVOR</replaceable> fftw3</screen>
    <para>
     For information about the toolchain to load, see <xref
     linkend="sec-compiler"/>. For information about available MPI flavors, see
@@ -442,7 +442,7 @@
     module for the Python version used needs to be specified when loading this
     module. To load this module, run the following command:
    </para>
-<screen>&prompt;module load <replaceable>TOOLCHAIN</replaceable> python<replaceable>VERSION</replaceable>-numpy</screen>
+<screen>&prompt.user;module load <replaceable>TOOLCHAIN</replaceable> python<replaceable>VERSION</replaceable>-numpy</screen>
    <para>
     For information about the toolchain to load see: <xref
      linkend="sec-compiler"/>.
@@ -480,7 +480,7 @@
     specified when loading this module. To load this module, run the following
     command:
    </para>
-<screen>&prompt;module load <replaceable>TOOLCHAIN</replaceable> python<replaceable>VERSION</replaceable>-scipy</screen>
+<screen>&prompt.user;module load <replaceable>TOOLCHAIN</replaceable> python<replaceable>VERSION</replaceable>-scipy</screen>
    <para>
     For information about the toolchain to load, see <xref
      linkend="sec-compiler"/>.
@@ -519,7 +519,7 @@
     For this library, a compiler toolchain and an MPI flavor needs to be loaded
     beforehand. To load this module, run the following command:
    </para>
-<screen>&prompt;module load <replaceable>TOOLCHAIN</replaceable> <replaceable>MPI_FLAVOR</replaceable> hypre</screen>
+<screen>&prompt.user;module load <replaceable>TOOLCHAIN</replaceable> <replaceable>MPI_FLAVOR</replaceable> hypre</screen>
    <para>
     For information about the toolchain to load, see <xref
      linkend="sec-compiler"/>. For information on available MPI
@@ -555,7 +555,7 @@
     For this library, a compiler toolchain must be loaded beforehand. To
     load METIS, run the following command:
    </para>
-<screen>&prompt;module load <replaceable>TOOLCHAIN</replaceable> metis</screen>
+<screen>&prompt.user;module load <replaceable>TOOLCHAIN</replaceable> metis</screen>
    <para>
     For information about the toolchain to load, see <xref
      linkend="sec-compiler"/>.
@@ -610,7 +610,7 @@
     For this library, a compiler toolchain must be loaded beforehand. To
     load GSL, run the following command:
    </para>
-<screen>&prompt;module load <replaceable>TOOLCHAIN</replaceable> gsl</screen>
+<screen>&prompt.user;module load <replaceable>TOOLCHAIN</replaceable> gsl</screen>
    <para>
     For information about the toolchain to load, see <xref
      linkend="sec-compiler"/>.
@@ -664,11 +664,11 @@
     library, a compiler toolchain, and if applicable an MPI flavor, must be
     loaded beforehand. To load <package>ocr</package>, run the following command:
    </para>
-<screen>&prompt;module load <replaceable>TOOLCHAIN</replaceable> ocr</screen>
+<screen>&prompt.user;module load <replaceable>TOOLCHAIN</replaceable> ocr</screen>
    <para>
     To load <package>ocr</package> with MPI support, run the following command:
    </para>
-<screen>&prompt;module load <replaceable>TOOLCHAIN</replaceable> <replaceable>MPI_FLAVOR</replaceable> ocr</screen>
+<screen>&prompt.user;module load <replaceable>TOOLCHAIN</replaceable> <replaceable>MPI_FLAVOR</replaceable> ocr</screen>
    <para>
     For information about the toolchain to load, see <xref
     linkend="sec-compiler"/>. For information on available MPI flavors, see
@@ -770,7 +770,7 @@
     This library requires a compiler toolchain and an MPI flavor to be loaded
     beforehand. To load this module, run the following command:
    </para>
-<screen>&prompt;module load <replaceable>TOOLCHAIN</replaceable> <replaceable>MPI_FLAVOR</replaceable> mumps</screen>
+<screen>&prompt.user;module load <replaceable>TOOLCHAIN</replaceable> <replaceable>MPI_FLAVOR</replaceable> mumps</screen>
    <para>
     For information about the toolchain to load, see <xref
      linkend="sec-compiler"/>. For information on available MPI
@@ -873,13 +873,13 @@
      <para>
       Standard version:
      </para>
-<screen>&prompt;module load <replaceable>TOOLCHAIN</replaceable> openblas</screen>
+<screen>&prompt.user;module load <replaceable>TOOLCHAIN</replaceable> openblas</screen>
     </listitem>
     <listitem>
      <para>
       OpenMP/pthreads version:
      </para>
-<screen>&prompt;module load <replaceable>TOOLCHAIN</replaceable> openblas-pthreads</screen>
+<screen>&prompt.user;module load <replaceable>TOOLCHAIN</replaceable> openblas-pthreads</screen>
     </listitem>
    </itemizedlist>
    <para>
@@ -924,7 +924,7 @@
     This module requires loading a compiler toolchain and an MPI library
     flavor beforehand. To load this module, run the following command:
    </para>
-<screen>&prompt;module load <replaceable>TOOLCHAIN</replaceable> <replaceable>MPI_FLAVOR</replaceable> petsc</screen>
+<screen>&prompt.user;module load <replaceable>TOOLCHAIN</replaceable> <replaceable>MPI_FLAVOR</replaceable> petsc</screen>
    <para>
     For information about the toolchain to load, see <xref
     linkend="sec-compiler"/>. For information about available MPI flavors, see
@@ -962,7 +962,7 @@
     This library requires loading both a compiler toolchain and an MPI library
     flavor beforehand. To load this module, run the following command:
    </para>
-<screen>&prompt;module load <replaceable>TOOLCHAIN</replaceable> <replaceable>MPI_FLAVOR</replaceable> scalapack</screen>
+<screen>&prompt.user;module load <replaceable>TOOLCHAIN</replaceable> <replaceable>MPI_FLAVOR</replaceable> scalapack</screen>
    <para>
     For information about the toolchain to load, see <xref
     linkend="sec-compiler"/>. For information about available MPI flavors, see
@@ -1006,7 +1006,7 @@
     For this library a compiler toolchain and an MPI flavor must be loaded
     beforehand. To load this module, run the following command:
    </para>
-<screen>&prompt;module load <replaceable>TOOLCHAIN</replaceable> <replaceable>MPI_FLAVOR</replaceable> scotch</screen>
+<screen>&prompt.user;module load <replaceable>TOOLCHAIN</replaceable> <replaceable>MPI_FLAVOR</replaceable> scotch</screen>
    <para>
     For information about the toolchain to load, see <xref
     linkend="sec-compiler"/>. For information about available MPI flavors, see
@@ -1046,7 +1046,7 @@
     This library requires a compiler toolchain and an MPI flavor to be loaded
     beforehand. To load this module, run the following command:
    </para>
-<screen>&prompt;module load <replaceable>TOOLCHAIN</replaceable> superlu</screen>
+<screen>&prompt.user;module load <replaceable>TOOLCHAIN</replaceable> superlu</screen>
    <para>
     For information about the toolchain to load, see <xref
      linkend="sec-compiler"/>.
@@ -1090,7 +1090,7 @@
     This library needs a compiler toolchain and MPI flavor to be loaded
     beforehand. To load this module, run the following command:
    </para>
-<screen>&prompt;module load <replaceable>TOOLCHAIN</replaceable> <replaceable>MPI_FLAVOR</replaceable> trilinos</screen>
+<screen>&prompt.user;module load <replaceable>TOOLCHAIN</replaceable> <replaceable>MPI_FLAVOR</replaceable> trilinos</screen>
    <para>
     For information about the toolchain to load, see <xref
      linkend="sec-compiler"/>. For information on available MPI
@@ -1127,7 +1127,7 @@
    <para>
     To load this module, run the following command:
    </para>
-<screen>&prompt;module load <replaceable>TOOLCHAIN</replaceable> <replaceable>MPI_FLAVOR</replaceable> adios</screen>
+<screen>&prompt.user;module load <replaceable>TOOLCHAIN</replaceable> <replaceable>MPI_FLAVOR</replaceable> adios</screen>
    <para>
     For information about the toolchain to load, see <xref
     linkend="sec-compiler"/>. For information about available MPI flavors, see
@@ -1172,12 +1172,12 @@
     To load the highest available serial version of this module, run the following
     command:
    </para>
-<screen>&prompt;module load <replaceable>TOOLCHAIN</replaceable> hdf5</screen>
+<screen>&prompt.user;module load <replaceable>TOOLCHAIN</replaceable> hdf5</screen>
    <para>
     When an MPI flavor is loaded, you can load the MPI version of this module
     by running the following command:
    </para>
-<screen>&prompt;module load <replaceable>TOOLCHAIN</replaceable> <replaceable>MPI_FLAVOR</replaceable> phpdf5</screen>
+<screen>&prompt.user;module load <replaceable>TOOLCHAIN</replaceable> <replaceable>MPI_FLAVOR</replaceable> phpdf5</screen>
    <para>
     For information about the toolchain to load, see <xref
     linkend="sec-compiler"/>. For information about available MPI flavors, see
@@ -1279,7 +1279,7 @@
     the highest version of the non-MPI <literal>netcdf</literal> module, run
     the following command:
    </para>
-<screen>&prompt;module load <replaceable>TOOLCHAIN</replaceable> <replaceable>MPI_FLAVOR</replaceable> netcdf</screen>
+<screen>&prompt.user;module load <replaceable>TOOLCHAIN</replaceable> <replaceable>MPI_FLAVOR</replaceable> netcdf</screen>
    <para>
     For information about the toolchain to load, see <xref
      linkend="sec-compiler"/>. For information on available MPI
@@ -1338,7 +1338,7 @@
     This module requires loading a compiler toolchain module beforehand. To
     load this module, run the following command:
    </para>
-<screen>&prompt;module load <replaceable>TOOLCHAIN</replaceable> netcdf-cxx4</screen>
+<screen>&prompt.user;module load <replaceable>TOOLCHAIN</replaceable> netcdf-cxx4</screen>
    <para>
     For information about the toolchain to load, see: <xref
      linkend="sec-compiler"/>.
@@ -1380,11 +1380,11 @@
     the highest version of the non-MPI <literal>netcdf-fortran</literal>
     module, run the following command:
    </para>
-<screen>&prompt;module load <replaceable>TOOLCHAIN</replaceable> netcdf-fortran</screen>
+<screen>&prompt.user;module load <replaceable>TOOLCHAIN</replaceable> netcdf-fortran</screen>
    <para>
     To load the MPI variant, run the following command:
    </para>
-<screen>&prompt;module load <replaceable>TOOLCHAIN</replaceable> <replaceable>MPI_FLAVOR</replaceable> netcdf-fortran</screen>
+<screen>&prompt.user;module load <replaceable>TOOLCHAIN</replaceable> <replaceable>MPI_FLAVOR</replaceable> netcdf-fortran</screen>
    <para>
     For information about the toolchain to load, see <xref
      linkend="sec-compiler"/>, For information on available MPI
@@ -1447,7 +1447,7 @@
     To load the highest available serial version of this module, run the following
     command:
    </para>
-<screen>&prompt;module load <replaceable>TOOLCHAIN</replaceable> <replaceable>MPI_FLAVOR</replaceable> pnetcdf</screen>
+<screen>&prompt.user;module load <replaceable>TOOLCHAIN</replaceable> <replaceable>MPI_FLAVOR</replaceable> pnetcdf</screen>
    <para>
     For information about the toolchain to load, see <xref
      linkend="sec-compiler"/>. For information on available MPI
@@ -1601,25 +1601,25 @@
     <para>
      For Open MPI v.3:
     </para>
-<screen>&prompt;module load <replaceable>TOOLCHAIN</replaceable> openmpi/3</screen>
+<screen>&prompt.user;module load <replaceable>TOOLCHAIN</replaceable> openmpi/3</screen>
    </listitem>
    <listitem>
     <para>
      For Open MPI v.4:
     </para>
-<screen>&prompt;module load <replaceable>TOOLCHAIN</replaceable> openmpi/4</screen>
+<screen>&prompt.user;module load <replaceable>TOOLCHAIN</replaceable> openmpi/4</screen>
    </listitem>
    <listitem>
     <para>
      For MVAPICH2:
     </para>
-<screen>&prompt;module load <replaceable>TOOLCHAIN</replaceable> mvapich2</screen>
+<screen>&prompt.user;module load <replaceable>TOOLCHAIN</replaceable> mvapich2</screen>
    </listitem>
    <listitem>
     <para>
      For MPICH:
     </para>
-<screen>&prompt;module load <replaceable>TOOLCHAIN</replaceable> mpich</screen>
+<screen>&prompt.user;module load <replaceable>TOOLCHAIN</replaceable> mpich</screen>
    </listitem>
   </itemizedlist>
 
@@ -1652,7 +1652,7 @@
     For the IMB binaries to be found, a compiler toolchain and an MPI flavor
     must be loaded beforehand. To load this module, run the following command:
    </para>
-<screen>&prompt;module load <replaceable>TOOLCHAIN</replaceable> <replaceable>MPI_FLAVOR</replaceable> imb</screen>
+<screen>&prompt.user;module load <replaceable>TOOLCHAIN</replaceable> <replaceable>MPI_FLAVOR</replaceable> imb</screen>
    <para>
     For information about the toolchain to load, see <xref
      linkend="sec-compiler"/>. For information on available MPI
@@ -1679,7 +1679,7 @@
     compiler toolchain to be selected. Load the latest version provided by running
     the following command:
    </para>
-<screen>&prompt;module load <replaceable>TOOLCHAIN</replaceable> papi</screen>
+<screen>&prompt.user;module load <replaceable>TOOLCHAIN</replaceable> papi</screen>
    <para>
     For information about the toolchain to load, see <xref
      linkend="sec-compiler"/>.
@@ -1719,7 +1719,7 @@
     For this library a compiler toolchain and MPI flavor must be loaded
     beforehand. To load this module, run the following command:
    </para>
-<screen>&prompt;module load <replaceable>TOOLCHAIN</replaceable> <replaceable>MPI_FLAVOR</replaceable> mpip</screen>
+<screen>&prompt.user;module load <replaceable>TOOLCHAIN</replaceable> <replaceable>MPI_FLAVOR</replaceable> mpip</screen>
    <para>
     For information about the toolchain to load, see <xref
      linkend="sec-compiler"/>. For information on available MPI
