@@ -26,7 +26,7 @@
   </dm:docmanager>
  </info>
  <sect1 xml:id="spack-preparation">
-  <title>Prepare to use Spack</title>
+  <title>Prepare to use spack</title>
   <para>Be sure that spack is installed on your system: <command>zypper in spack</command></para>
   <para>
    You need to setup your environement with the appropriate script for your shell:
@@ -278,7 +278,7 @@ arch: </screen>
      </para>
     </sect1>
     <sect1 xml:id="spack-complex-example">
-     <title>More complex example with mpich</title>
+     <title>Complex example with mpich</title>
      <para>
       To list available versions of a package use <literal>versions</literal>, for <literal>mpich</literal>:
      </para>
@@ -486,7 +486,7 @@ Run 'spack compiler find' to add compilers or 'spack compilers' to see which com
      </sect1>
 
      <sect1 xml:id="spack-external-link">
-         <title>External Documentation</title>
+         <title>Spack external documentation</title>
       <para>
        For further and mode complete documentation, see the
        <link xlink:href="https://spack-tutorial.readthedocs.io/en/latest/">Spack Documentation</link>
