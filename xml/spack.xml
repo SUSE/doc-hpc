@@ -124,7 +124,7 @@ Virtual Packages:
       <calloutlist>
        <callout arearefs="spack-info-version">
         <para>
-         Prefered version will be the default one if none of other are choose
+         The preferred version will be the default if none of the others are chosen.
         </para>
        </callout>
        <callout arearefs="spack-info-variants">
