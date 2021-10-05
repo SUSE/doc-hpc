@@ -141,7 +141,7 @@ PartitionName=normal Nodes=<replaceable>NODE_LIST</replaceable> Default=YES MaxT
         or <literal>CPU</literal>. The actual values of these can be
         obtained by running the following command on the compute nodes:
        </para>
-<screen>&prompt;slurmd -C</screen>
+<screen>&prompt.node1;slurmd -C</screen>
       </step>
      </substeps>
     </step>
@@ -151,21 +151,21 @@ PartitionName=normal Nodes=<replaceable>NODE_LIST</replaceable> Default=YES MaxT
       <filename>/etc/slurm/slurm.conf</filename> from the management server to all
       compute nodes:
      </para>
-<screen>&prompt;scp /etc/slurm/slurm.conf <replaceable>COMPUTE_NODE</replaceable>:/etc/slurm/</screen>
+<screen>&prompt.mgmt;scp /etc/slurm/slurm.conf <replaceable>COMPUTE_NODE</replaceable>:/etc/slurm/</screen>
     </step>
     <step>
      <para>
       On the management server, start <systemitem class="daemon">slurmctld</systemitem>
       and enable it so that it starts on every boot:
      </para>
-<screen>&prompt;systemctl enable --now slurmctld.service</screen>
+<screen>&prompt.mgmt;systemctl enable --now slurmctld.service</screen>
     </step>
     <step>
      <para>
-      On the compute nodes, start <systemitem class="daemon">slurmd</systemitem>
+      On each compute node, start <systemitem class="daemon">slurmd</systemitem>
       and enable it so that it starts on every boot:
      </para>
-<screen>&prompt;systemctl enable --now slurmd.service</screen>
+<screen>&prompt.node1;systemctl enable --now slurmd.service</screen>
     </step>
    </procedure>
    <procedure xml:id="pro-testing-slurm-installation">
@@ -190,7 +190,7 @@ normal*      up 1-00:00:00      2   idle node[01-02]
      <para>
       Test the &slurm; installation by running the following command:
      </para>
-<screen>&prompt;srun sleep 30</screen>
+<screen>&prompt.mgmt;srun sleep 30</screen>
      <para>
       This runs the <command>sleep</command> command on a free compute node
       for 30 seconds.
@@ -219,7 +219,7 @@ echo "finished at $(date)"
      <para>
       Run the shell script in the queue:
      </para>
-<screen>&prompt;sbatch sleeper.sh</screen>
+<screen>&prompt.mgmt;sbatch sleeper.sh</screen>
      <para>
       The shell script is executed when enough resources are available,
       and the output is stored in the file <filename>slurm-${JOBNR}.out</filename>.
@@ -243,8 +243,8 @@ echo "finished at $(date)"
     The &slurm; database has two components: the <literal>slurmdbd</literal>
     daemon itself, and an SQL database. &mariadb; is recommended. The
     database can be installed on the same node that runs <literal>slurmdbd</literal>,
-    or on a separate node. For a minimal setup, all these services run on the same
-    node.
+    or on a separate node. For a minimal setup, all these services run on the
+    management server.
    </para>
    <procedure>
     <title>Install <package>slurmdbd</package></title>
@@ -266,7 +266,7 @@ echo "finished at $(date)"
      <para>
       Start and enable &mariadb;:
      </para>
-<screen>&prompt;systemctl enable --now mariadb</screen>
+<screen>&prompt.mgmt;systemctl enable --now mariadb</screen>
     </step>
     <step>
      <para>
@@ -296,7 +296,7 @@ echo "finished at $(date)"
      <para>
       Install the <package>slurmdbd</package> package:
      </para>
-<screen>&prompt;zypper in slurm-slurmdbd</screen>
+<screen>&prompt.mgmt;zypper in slurm-slurmdbd</screen>
     </step>
     <step>
      <para>
@@ -319,7 +319,7 @@ DbdHost=localhost</screen>
      <para>
       Start and enable <literal>slurmdbd</literal>:
      </para>
-<screen>&prompt;systemctl enable --now slurmdbd</screen>
+<screen>&prompt.mgmt;systemctl enable --now slurmdbd</screen>
      <para>
       The first start of <literal>slurmdbd</literal> will take some time.
      </para>
@@ -356,7 +356,7 @@ AccountingStorageHost=localhost</screen>
      <para>
       Restart <literal>slurmctld</literal>:
      </para>
-<screen>&prompt;systemctl restart slurmctld</screen>
+<screen>&prompt.mgmt;systemctl restart slurmctld</screen>
     </step>
     <step performance="optional">
      <para>
@@ -370,15 +370,15 @@ AccountingStorageHost=localhost</screen>
       The following example creates an umbrella group <literal>bavaria</literal>
       for two subgroups called <literal>nuremberg</literal> and <literal>munich</literal>:
      </para>
-<screen>&prompt;sacctmgr add account bavaria \
-Description="umbrella group for subgroups" Organization=bavaria
-&prompt;sacctmgr add account nuremberg,munich parent=bavaria \
+<screen>&prompt.mgmt;sacctmgr add account bavaria \
+Description="umbrella group for subgroups" Organization=bavaria</screen>
+<screen>&prompt.mgmt;sacctmgr add account nuremberg,munich parent=bavaria \
 Description="subgroup" Organization=bavaria</screen>
      <para>
       The following example adds a user called <literal>tux</literal> to the
       subgroup <literal>nuremberg</literal>:
      </para>
-<screen>&prompt;sacctmgr add user tux Account=nuremberg</screen>
+<screen>&prompt.mgmt;sacctmgr add user tux Account=nuremberg</screen>
     </step>
    </procedure>
   </sect2>
@@ -908,10 +908,9 @@ Description="subgroup" Organization=bavaria</screen>
    <literal>slurm_18_08-*.rpm</literal>.
   </para>
   <para>
-   To upgrade the package <package>slurm</package> to 18.08, run the following
-   command:
+   To upgrade the package <package>slurm</package> to 18.08, run
+   <command>zypper install --force-resolution slurm_18_08</command>.
   </para>
-<screen>zypper install --force-resolution slurm_18_08</screen>
   <para>
    To upgrade &slurm; subpackages, use the analogous commands.
   </para>
@@ -997,9 +996,9 @@ Description="subgroup" Organization=bavaria</screen>
     (that is, <literal>mrshd</literal> is running on all nodes in the cluster).
    </para>
    <para>
-    If this is not the case, install <literal>pdsh</literal>:
+    If this is not the case, install <literal>pdsh</literal> by running
+    <command>zypper in pdsh-slurm</command>.
    </para>
-<screen>&prompt;zypper in pdsh-slurm</screen>
    <para>
     If <literal>&mrsh;</literal> is not used in the cluster, the
     <literal>ssh</literal> back-end for <literal>pdsh</literal> can be used
@@ -1048,11 +1047,11 @@ Description="subgroup" Organization=bavaria</screen>
        <para>
         Stop the <literal>slurmdbd</literal> service:
        </para>
-<screen>&prompt;rcslurmdbd stop</screen>
+<screen>&prompt.DBnode;rcslurmdbd stop</screen>
        <para>
         Ensure that <literal>slurmdbd</literal> is not running anymore:
        </para>
-<screen>&prompt;rcslurmdbd status</screen>
+<screen>&prompt.DBnode;rcslurmdbd status</screen>
        <para>
         <literal>slurmctld</literal> might remain
         running while the database daemon is down. During this time, requests
@@ -1065,11 +1064,11 @@ Description="subgroup" Organization=bavaria</screen>
        <para>
         Create a backup of the <literal>slurm_acct_db</literal> database:
        </para>
-<screen>&prompt;mysqldump -p slurm_acct_db &gt; slurm_acct_db.sql</screen>
+<screen>&prompt.DBnode;mysqldump -p slurm_acct_db &gt; slurm_acct_db.sql</screen>
        <para>
         If needed, this can be restored with the following command:
        </para>
-<screen>&prompt;mysql -p slurm_acct_db &lt; slurm_acct_db.sql</screen>
+<screen>&prompt.DBnode;mysql -p slurm_acct_db &lt; slurm_acct_db.sql</screen>
       </step>
       <step>
        <para>
@@ -1080,37 +1079,37 @@ Description="subgroup" Organization=bavaria</screen>
        <para>
         On the database server, run the following command:
        </para>
-<screen>&prompt;echo  'SELECT @@innodb_buffer_pool_size/1024/1024;' | \
+<screen>&prompt.DBnode;echo  'SELECT @@innodb_buffer_pool_size/1024/1024;' | \
 mysql --password --batch</screen>
        <para>
         If the size is less than 128&nbsp;MB, you can change it for the
         duration of the current session (on <literal>mariadb</literal>):
        </para>
-<screen>&prompt;echo 'set GLOBAL innodb_buffer_pool_size = 134217728;' | \
+<screen>&prompt.DBnode;echo 'set GLOBAL innodb_buffer_pool_size = 134217728;' | \
 mysql --password --batch</screen>
        <para>
         To permanently change the size, edit the <filename>/etc/my.cnf</filename>
         file, set <literal>innodb_buffer_pool_size</literal> to 128&nbsp;MB,
         then restart the database:
        </para>
-<screen>&prompt;rcmysql restart</screen>
+<screen>&prompt.DBnode;rcmysql restart</screen>
       </step>
       <step>
        <para>
         If you also need to update <literal>mariadb</literal>, run the following
         command:
        </para>
-<screen>&prompt;zypper update mariadb</screen>
+<screen>&prompt.DBnode;zypper update mariadb</screen>
        <para>
         Convert the database tables to the new version of &mariadb;:
        </para>
-<screen>&prompt;mysql_upgrade --user=root --password=<replaceable>root_db_password</replaceable>;</screen>
+<screen>&prompt.DBnode;mysql_upgrade --user=root --password=<replaceable>root_db_password</replaceable>;</screen>
       </step>
       <step xml:id="step-slurm-upgrade-workflow-install-slurmdbd">
        <para>
         Install the new version of <literal>slurmdbd</literal>:
        </para>
-<screen>&prompt;zypper install --force-resolution slurm_<replaceable>version</replaceable>-slurmdbd</screen>
+<screen>&prompt.DBnode;zypper install --force-resolution slurm_<replaceable>version</replaceable>-slurmdbd</screen>
       </step>
       <step>
        <para>
@@ -1122,7 +1121,7 @@ mysql --password --batch</screen>
         Therefore, we recommend performing the migration manually by running
         <literal>slurmdbd</literal> from the command line in the foreground:
        </para>
-<screen>&prompt;/usr/sbin/slurmdbd -D -v</screen>
+<screen>&prompt.DBnode;/usr/sbin/slurmdbd -D -v</screen>
        <para>
         Once you see the following message, you can shut down
         <literal>slurmdbd</literal> by pressing
@@ -1146,7 +1145,7 @@ success!</screen>
         <link xlink:href="&rn-url;"><citetitle>Release Notes</citetitle></link>.
         After this is complete, restart <literal>slurmdbd</literal>:
        </para>
-<screen>&prompt;systemctl start slurmdbd</screen>
+<screen>&prompt.DBnode;systemctl start slurmdbd</screen>
        <note>
         <title>No daemonization during rebuild</title>
         <para>
@@ -1226,19 +1225,18 @@ SlurmdTimeout=3600</screen>
            <para>
             Run the following commands:
            </para>
-<screen>&prompt;cp /etc/slurm/slurm.conf /etc/slurm/slurm.conf.update
-&prompt;sudo -u slurm /bin/bash -c 'cat /etc/slurm/slurm.conf.update | \
-pdsh -R mrsh -P <replaceable>partitions</replaceable> \
-"cat > /etc/slurm/slurm.conf"'
-&prompt;rm /etc/slurm/slurm.conf.update
-&prompt;scontrol reconfigure
+<screen>&prompt.mgmt;cp /etc/slurm/slurm.conf /etc/slurm/slurm.conf.update
+&prompt.mgmt;sudo -u slurm /bin/bash -c 'cat /etc/slurm/slurm.conf.update | \
+pdsh -R mrsh -P <replaceable>partitions</replaceable> "cat > /etc/slurm/slurm.conf"'
+&prompt.mgmt;rm /etc/slurm/slurm.conf.update
+&prompt.mgmt;scontrol reconfigure
 </screen>
           </step>
           <step>
            <para>
             Verify that the reconfiguration took effect:
            </para>
-<screen>&prompt;scontrol show config | grep Timeout</screen>
+<screen>&prompt.mgmt;scontrol show config | grep Timeout</screen>
           </step>
          </substeps>
         </step>
@@ -1289,7 +1287,7 @@ pdsh -R mrsh -P <replaceable>partitions</replaceable> \
          <para>
           Determine the <literal>StateSaveLocation</literal> directory:
          </para>
-<screen>&prompt;scontrol show config | grep StateSaveLocation</screen>
+<screen>&prompt.mgmt;scontrol show config | grep StateSaveLocation</screen>
         </step>
         <step>
          <para>
@@ -1307,7 +1305,7 @@ pdsh -R mrsh -P <replaceable>partitions</replaceable> \
         <emphasis role="bold">Shut down <literal>slurmd</literal> on the
         nodes</emphasis>
        </para>
-<screen>&prompt;pdsh -R ssh -P <replaceable>partitions</replaceable> systemctl stop slurmd</screen>
+<screen>&prompt.mgmt;pdsh -R ssh -P <replaceable>partitions</replaceable> systemctl stop slurmd</screen>
       </step>
       <step>
        <para>
@@ -1385,7 +1383,7 @@ systemctl start slurmd</screen>
           Check the status of the management servers. On the main and backup
           management servers, run the following command:
          </para>
-<screen>&prompt;systemctl status slurmctld</screen>
+<screen>&prompt.mgmt;systemctl status slurmctld</screen>
         </step>
         <step>
          <para>
@@ -1394,7 +1392,7 @@ systemctl start slurmd</screen>
           <literal>drained</literal>, <literal>failing</literal>, or
           <literal>failed</literal> nodes:
          </para>
-<screen>&prompt;sinfo -R</screen>
+<screen>&prompt.mgmt;sinfo -R</screen>
         </step>
        </substeps>
       </step>
@@ -1448,7 +1446,7 @@ systemctl start slurmd</screen>
        <literal>up</literal> state manually. This can be done for the
        <replaceable>NODE</replaceable> with the following command:
       </para>
-<screen>&prompt;scontrol update state=resume NodeName=<replaceable>NODE</replaceable></screen>
+<screen>&prompt.mgmt;scontrol update state=resume NodeName=<replaceable>NODE</replaceable></screen>
      </answer>
     </qandaentry>
     <qandaentry>
@@ -1488,7 +1486,7 @@ systemctl start slurmd</screen>
        To find the node values that go into the configuration file
        <filename>slurm.conf</filename>, run the following command:
       </para>
-<screen>&prompt;slurmd -C</screen>
+<screen>&prompt.node1;slurmd -C</screen>
      </answer>
     </qandaentry>
    </qandaset>
