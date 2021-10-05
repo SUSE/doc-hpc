@@ -224,8 +224,11 @@ rjdqcht hwloc@1.11.11   vry3tfp netcdf-c@4.7.4     ks5elgg openmpi@3.1.6
 itovpc5 libiconv@1.16   msiysdr netcdf-cxx4@4.3.1  rpnlbst util-macros@1.19.1</screen>
 
 <para>
- What are the differences between the two versions of <literal>netcdf-cxx4</literal>?
- You just need to do a diff between the <literal>spec.yaml</literal> of the versions (this file describe how the package will be created), and first you should know wehre is the package available on your system:
+ If you want to see the differences between the two versions of
+ <literal>netcdf-cxx4</literal>, just do a <command>diff</command>
+ between the <literal>spec.yaml</literal> of the versions. This file
+ describes how the package will be created. First, you should know
+ if the package is available on your system, and where:
 </para>
 <screen>
 &prompt;spack find --paths
