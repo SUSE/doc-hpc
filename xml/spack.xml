@@ -14,7 +14,10 @@
  <info>
   <abstract>
    <para>
-    Spack is a package management tool designed to support multiple versions and configurations of software on a wide variety of platforms and environments.
+    Spack is a configurable Python-based package manager, automating
+    the installation and fine-tuning of simulations and libraries.
+    Spack can install many variants of the same build
+    using different compilers, options, and MPI implementations.
    </para>
   </abstract>
   <dm:docmanager xmlns:dm="urn:x-suse:ns:docmanager">
@@ -24,6 +27,7 @@
  </info>
  <sect1 xml:id="spack-preparation">
   <title>Prepare to use Spack</title>
+  <para>Be sure that spack is installed on your system: <command>zypper in spack</command></para>
   <para>
    You need to setup your environement with the appropriate script for your shell:
   </para>
@@ -38,15 +42,15 @@
 &prompt;. spack/share/spack/setup-env.fish</screen>
 
 <para>
- It is recommended to install <literal>bash-completion</literal> to help you use spack on your system, this will
- auto-complete the right option using the tab key:
+ It is recommended to install <literal>bash-completion</literal> to easily use spack on your system, this will provide
+ auto-completion option using the tab key:
 </para>
 
 <screen>
-&prompt;spack [TAB]
+&prompt;spack <keycap function="tab"></keycap>
 activate      clone         dependencies  fetch         list          providers     solve         url
 add           commands      dependents    find          load          pydoc         spec          verify
-arch          compiler      deprecate     flake8        location      python        stage         versions
+arch          compiler      deprecate     flake9        location      python        stage         versions
 blame         compilers     dev-build     gc            log-parse     reindex       test          view
 buildcache    concretize    develop       gpg           maintainers   remove        test-env
 build-env     config        docs          graph         mark          repo          tutorial
@@ -115,7 +119,7 @@ Virtual Packages:
        </callout>
        <callout arearefs="spack-info-variants">
         <para>
-         You can disable variants option using <literal>-<replaceable>VARIANT</replaceable></literal> and enable them using <literal>+<replaceable>VARIANT</replaceable></literal>. ie: <literal>spack install <replaceable>SOFTWARE</replaceable> <replaceable>+VARIANT</replaceable></literal>
+         You can disable variants option using <literal>-<replaceable>VARIANT</replaceable></literal> and enable them using <literal>+<replaceable>VARIANT</replaceable></literal>. ie: <command>spack install <replaceable>SOFTWARE</replaceable> <replaceable>+VARIANT</replaceable></command>
         </para>
        </callout>
        <callout arearefs="spack-info-deps">
@@ -148,7 +152,7 @@ Virtual Packages:
 [+] /usr/opt/spack/linux-sle_hpc15-skylake/gcc-7.5.0/netcdf-cxx4-4.3.1-msiysdrdua3vv6izluhaeos4nyo5gslq</screen>
 
 <para>
- We can rebuild it with default spec for <literal>netcdf-cxx4</literal>, adding <literal>@4.3.1</literal> to specify the version:
+ We can rebuild it with default spec for <literal>netcdf-cxx4</literal>, adding <literal>@<replaceable>4.3.1</replaceable></literal> to specify the version:
 </para>
 
 <screen>
@@ -449,7 +453,7 @@ This is free software; see the source for copying conditions.  There is NO
 warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 </screen>
 <calloutlist>
- <callout arearefs="spack-module-load"><para><literal>module load gcc-10.2.0</literal> is also working if you have only one version of gcc-10.2.0 available in spack.</para></callout>
+ <callout arearefs="spack-module-load"><para><command>module load gcc-10.2.0</command> is also working if you have only one version of gcc-10.2.0 available in spack.</para></callout>
 </calloutlist>
 <para>
  Lets use the <literal>%</literal> to specify we want to use <literal>gcc-10.2.0</literal>
