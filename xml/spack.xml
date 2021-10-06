@@ -468,7 +468,7 @@ This is free software; see the source for copying conditions.  There is NO
 warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 </screen>
 <calloutlist>
- <callout arearefs="spack-module-load"><para><command>module load gcc-10.2.0</command> is also working if you have only one version of gcc-10.2.0 available in spack.</para></callout>
+ <callout arearefs="spack-module-load"><para><command>module load gcc-10.2.0</command> also works if you have only one version of gcc-10.2.0 available in spack.</para></callout>
 </calloutlist>
 <para>
  We can use the <literal>%</literal> option to specify that we want to use
