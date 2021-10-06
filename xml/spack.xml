@@ -31,7 +31,7 @@
    <para>FIXME</para>
    <para>
     The purpose of this chapter is to briefly present <literal>spack</literal> and its usage.
-    For more information please go to <xref linkend="spack-external-link"/>.
+    For more information, see <xref linkend="spack-external-link"/>.
    </para>
  </sect1>
  <sect1 xml:id="spack-preparation">
