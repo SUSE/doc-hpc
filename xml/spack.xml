@@ -56,7 +56,7 @@
 </para>
 
 <screen>
-&prompt;spack <keycap function="tab"></keycap>
+&prompt;spack <emphasis>TAB</emphasis>
 activate      clone         dependencies  fetch         list          providers     solve         url
 add           commands      dependents    find          load          pydoc         spec          verify
 arch          compiler      deprecate     flake9        location      python        stage         versions
