@@ -28,8 +28,7 @@
 
  <sect1 xml:id="spack-introduction">
    <title>Introduction</title>
-   <para></para>
-   FIXME
+   <para>FIXME</para>
    <para>
     The purpose of this chapter is to briefly present <literal>spack</literal> and its usage.
     For more information please go to <xref linkend="spack-external-link"/>.
