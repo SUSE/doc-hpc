@@ -38,7 +38,7 @@
   <title>Preparing to use spack</title>
   <para>Ensure that spack is installed on your system: <command>zypper in spack</command></para>
   <para>
-   You need to setup your environment with the appropriate script for your shell:
+   Set up your environment with the appropriate script for your shell:
   </para>
   <screen>
 # For bash/zsh/sh
