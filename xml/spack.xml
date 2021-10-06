@@ -10,7 +10,7 @@
  xmlns:xi="http://www.w3.org/2001/XInclude"
  xmlns:xlink="http://www.w3.org/1999/xlink" xml:base="spack.xml"
  xml:id="cha-spack" xml:lang="en" version="5.1">
- <title>spack package management tool</title>
+ <title>Spack package management tool</title>
  <info>
   <abstract>
    <para>
