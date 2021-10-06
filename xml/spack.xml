@@ -456,7 +456,7 @@ mpich@3.3.2
 [+] /usr/opt/spack/linux-sle_hpc15-skylake/gcc-7.5.0/gcc-10.2.0-tkcq6d6xnyfgyqsnpzq36dlk2etylgp7</screen>
 
 <para>
- We can now test <literal>gcc</literal> is usable on the system loading it:
+ We can now test whether <literal>gcc</literal> is usable on the system by loading it:
 </para>
 
 <screen>
