@@ -292,7 +292,7 @@ arch: </screen>
 </callout>
 </calloutlist>
      <para>
-      So the differences are the variants to build
+      So the differences between the versions are the variants used to build
       <literal>netcdf-cxx4</literal>:
       <literal>doxygen</literal> and <literal>static</literal>.
      </para>
