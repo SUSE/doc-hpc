@@ -164,7 +164,8 @@ Virtual Packages:
 [+] /usr/opt/spack/linux-sle_hpc15-skylake/gcc-7.5.0/netcdf-cxx4-4.3.1-msiysdrdua3vv6izluhaeos4nyo5gslq</screen>
 
 <para>
- We can rebuild it with default spec for <literal>netcdf-cxx4</literal>, adding <literal>@<replaceable>4.3.1</replaceable></literal> to specify the version:
+ We can rebuild it with the default specification for <literal>netcdf-cxx4</literal>,
+ adding <literal>@<replaceable>4.3.1</replaceable></literal> to specify the version:
 </para>
 
 <screen>
