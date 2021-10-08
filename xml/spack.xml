@@ -285,7 +285,7 @@ zlib@1.2.11         /usr/opt/spack/linux-sle_hpc15-skylake/gcc-7.5.0/zlib-1.2.11
 arch: </screen>
 <calloutlist>
 <callout arearefs="spack-diff-doxygen">
- <para><literal>doxygen</literal> variant is disable</para>
+ <para>The <literal>doxygen</literal> variant is disabled</para>
 </callout>
 <callout arearefs="spack-diff-static">
  <para><literal>static</literal>variant is disable</para>
