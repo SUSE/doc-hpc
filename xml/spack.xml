@@ -141,7 +141,7 @@ Virtual Packages:
        </callout>
       </calloutlist>
     <para>
-     There is multiple version available, and you can use some variant to build it.
+     There are multiple versions available, and you can use some variant to build them.
      By default spack will use the latest one (4.3.1).
      For example, we can build it without <literal>static</literal> and <literal>doxygen</literal>:
     </para>
