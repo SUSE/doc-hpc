@@ -414,7 +414,7 @@ Virtual Packages:
 &prompt;spack install mpich@3.3.2 cppflags="-O3 -fPIC" target=x86_64 ^libxml2@2.9.4</screen>
 
 <para>
- Lets list all available packages:
+ To list all available packages:
 </para>
 
 <screen>
