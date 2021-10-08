@@ -407,7 +407,7 @@ Virtual Packages:
 [+] /usr/opt/spack/linux-sle_hpc15-skylake/gcc-7.5.0/mpich-3.3.2-sahjm2uhsoc3bi2cljtypwuqaflhamnx</screen>
 
 <para>
- Another build of <literal>mpich-3.3.2</literal> with a <literal>cppflags</literal> and a specific <literal>libxml</literal> version (2.9.4)
+ To build <literal>mpich-3.3.2</literal> with a <literal>cppflags</literal> and a specific <literal>libxml</literal> version (2.9.4):
 </para>
 
 <screen>
