@@ -228,7 +228,7 @@ itovpc5 libiconv@1.16   msiysdr netcdf-cxx4@4.3.1  rpnlbst util-macros@1.19.1</s
 
 <para>
  If you want to see the differences between the two versions of
- <literal>netcdf-cxx4</literal>, just do a <command>diff</command>
+ <literal>netcdf-cxx4</literal>, do a <command>diff</command>
  between the <literal>spec.yaml</literal> of the versions. This file
  describes how the package will be created. First, you should know
  if the package is available on your system, and where:
