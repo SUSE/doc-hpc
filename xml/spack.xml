@@ -127,7 +127,11 @@ Virtual Packages:
        </callout>
        <callout arearefs="spack-info-variants">
         <para>
-         You can disable variants option using <literal>-<replaceable>VARIANT</replaceable></literal> and enable them using <literal>+<replaceable>VARIANT</replaceable></literal>. ie: <command>spack install <replaceable>SOFTWARE</replaceable> <replaceable>+VARIANT</replaceable></command>
+         You can disable the variants option using
+         <literal>-<replaceable>VARIANT</replaceable></literal> and enable
+         them using <literal>+<replaceable>VARIANT</replaceable></literal>.
+         For example: <command>spack install <replaceable>SOFTWARE</replaceable>
+         <replaceable>+VARIANT</replaceable></command>
         </para>
        </callout>
        <callout arearefs="spack-info-deps">
