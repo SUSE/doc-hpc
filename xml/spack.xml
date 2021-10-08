@@ -354,10 +354,10 @@ Variants:
                                                  currently in experimental state
     fortran [on]         on, off                 Enable Fortran support
     hwloc [on]           on, off                 Use external hwloc package
-    hydra [on]           on, off                 Build the hydra process manager
+    hydra [on]<co xml:id="spack-boolean-variant"/>        on, off                 Build the hydra process manager
     libxml2 [on]         on, off                 Use libxml2 for XML support instead of the custom minimalistic
                                                  implementation
-    netmod [tcp]         tcp, mxm, ofi, ucx      Network module. Only single netmod builds are supported. For ch3 device
+    netmod [tcp]<co xml:id="spack-nonboolean-variant"/>     tcp, mxm, ofi, ucx      Network module. Only single netmod builds are supported. For ch3 device
                                                  configurations, this presumes the ch3:nemesis communication channel.
                                                  ch3:sock is not supported by this spack package at this time.
     pci [on]             on, off                 Support analyzing devices on PCI bus
@@ -384,7 +384,14 @@ Virtual Packages:
     mpich@3: provides mpi@:3.0
     mpich@1: provides mpi@:1.3
     mpich provides mpi</screen>
-
+    <calloutlist>
+     <callout arearefs="spack-boolean-variant">
+      <para><literal><replaceable>NAME</replaceable> [on]</literal> a boolean variant</para>
+     </callout>
+     <callout arearefs="spack-nonboolean-variant">
+      <para><replaceable>NAME=VALUE</replaceable> a non boolean variant</para>
+     </callout>
+    </calloutlist>
     <para>
      To build <literal>mpich</literal> with some variants:
     </para>
@@ -407,12 +414,49 @@ Virtual Packages:
 [+] /usr/opt/spack/linux-sle_hpc15-skylake/gcc-7.5.0/mpich-3.3.2-sahjm2uhsoc3bi2cljtypwuqaflhamnx</screen>
 
 <para>
- To build <literal>mpich-3.3.2</literal> with a <literal>cppflags</literal> and a specific <literal>libxml</literal> version (2.9.4):
+  To build <literal>mpich</literal> version <literal>3.3.2</literal> with a <literal>cppflags</literal>, a specific <literal>libxml</literal> version <literal>2.9.4</literal>, an x86_64 <literal>target</literal> and a non boolean option <literal>netmod=<replaceable>ofi</replaceable></literal>:
 </para>
 
 <screen>
-&prompt;spack install mpich@3.3.2 cppflags="-O3 -fPIC" target=x86_64 ^libxml2@2.9.4</screen>
-
+&prompt;spack install mpich@<co xml:id="spack-comples-at"/>3.3.2 -<co xml:id="spack-complex-variants"/>static cppflags<co xml:id="spack-complex-compilerflag"/>="-O3 -fPIC" target<co xml:id="spack-complex-target"/>=x86_64 ^<co xml:id="spack-complex-hat"/>libxml2@2.9.4 netmod<co xml:id="spack-complex-name"/>=tcp</screen>
+<calloutlist>
+ <callout arearefs="spack-comples-at">
+  <para>
+   <literal>@</literal> optional version specifier
+  </para>
+ </callout>
+ <callout arearefs="spack-complex-variants">
+  <para>
+   <literal>+</literal>, <literal>-</literal> specifies a boolean variant (on/off)
+  </para>
+ </callout>
+ <callout arearefs="spack-complex-compilerflag">
+  <para>
+   <literal>cflags, cxxflags, fflags, cppflags, ldflags</literal> and <literal>ldlibs</literal> are variants for compiler flag
+  </para>
+ </callout>
+ <callout arearefs="spack-complex-target">
+  <para>
+   <literal>target=<replaceable>value</replaceable>, os=<replaceable>value</replaceable></literal> specifies architecture and OS
+  </para>
+ </callout>
+ <callout arearefs="spack-complex-hat">
+  <para>
+   <literal>^</literal> represents a dependency spec
+  </para>
+ </callout>
+ <callout arearefs="spack-complex-name">
+  <para>
+   <literal><replaceable>name</replaceable>=<replaceable>value</replaceable></literal> specifies a non boolean variant
+  </para>
+ </callout>
+</calloutlist>
+<note>
+  <title>List know targets</title>
+  <para>
+    To list all available targets use: <command>spack arch --known-targets</command>
+  </para>
+</note>
 <para>
  To list all available packages:
 </para>
@@ -474,7 +518,7 @@ This is free software; see the source for copying conditions.  There is NO
 warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 </screen>
 <calloutlist>
- <callout arearefs="spack-module-load"><para><command>module load gcc-10.2.0</command> also works if you have only one version of gcc-10.2.0 available in spack.</para></callout>
+ <callout arearefs="spack-module-load"><para><command>module load gcc-10.2.0</command> also works if you have only one version of <literal>gcc-10.2.0</literal> available in spack.</para></callout>
 </calloutlist>
 <para>
  We can use the <literal>%</literal> option to specify that we want to use
