@@ -213,7 +213,8 @@ doxygen@1.8.20  hwloc@1.11.11  libpciaccess@0.16  netcdf-c@4.7.4     netcdf-cxx4
 hdf5@1.10.7     libiconv@1.16  libxml2@2.9.10     netcdf-cxx4@4.3.1  numactl@2.0.14     util-macros@1.19.1  zlib@1.2.11</screen>
 
 <para>
- There is two versions of <literal>netcdf-cxx4</literal>, and all build requires are also present.
+ There are two versions of <literal>netcdf-cxx4</literal>, and all build
+ requirements are also present.
  If you want to show dependency hashes as well as versions use the <literal>-l</literal> option:
 </para>
 
