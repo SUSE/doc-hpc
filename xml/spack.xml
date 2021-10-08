@@ -386,7 +386,7 @@ Virtual Packages:
     mpich provides mpi</screen>
 
     <para>
-     Lets build <literal>mpich</literal> with some variants:
+     To build <literal>mpich</literal> with some variants:
     </para>
 
     <screen>
