@@ -448,7 +448,7 @@ mpich@3.3.2
 
      </sect1>
      <sect1 xml:id="spack-compiler">
-      <title>Use a specific compiler</title>
+      <title>Using a specific compiler</title>
       <para>
        The goal is to build <literal>mpich</literal> with <literal>gcc-10.2.0</literal>.
        First install <literal>gcc-10.2.0</literal>:
