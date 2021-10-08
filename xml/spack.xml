@@ -50,8 +50,8 @@
 &prompt;. spack/share/spack/setup-env.fish</screen>
 
 <para>
- It is recommended to install <literal>bash-completion</literal> to easily use spack on your system. This will provide
- auto-completion option using the <keycap>TAB</keycap> key:
+ It is recommended to install <literal>bash-completion</literal> so that you can
+ use <keycap>TAB</keycap> key auto-completion for spack commands:
 </para>
 
 <screen>
