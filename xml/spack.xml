@@ -71,7 +71,7 @@ clean         debug         external      license       pkg           setup     
 <sect1 xml:id="spack-example">
  <title>Simple example with netcdf-cxx4</title>
  <para>
-  To get get detailed information on <literal>netcdf-cxx4</literal>:
+  To get detailed information on <literal>netcdf-cxx4</literal>:
  </para>
 <screen>
 &prompt;spack info netcdf-cxx4
