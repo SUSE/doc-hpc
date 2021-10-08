@@ -215,7 +215,8 @@ hdf5@1.10.7     libiconv@1.16  libxml2@2.9.10     netcdf-cxx4@4.3.1  numactl@2.0
 <para>
  There are two versions of <literal>netcdf-cxx4</literal>, and all build
  requirements are also present.
- If you want to show dependency hashes as well as versions use the <literal>-l</literal> option:
+ If you want to show dependency hashes as well as versions, use the
+ <literal>-l</literal> option:
 </para>
 
 <screen>
