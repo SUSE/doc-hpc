@@ -203,7 +203,7 @@ Virtual Packages:
 [+] /usr/opt/spack/linux-sle_hpc15-skylake/gcc-7.5.0/netcdf-cxx4-4.3.1-tiyqyxb3eqpptrlcll6rlf27aisekluy</screen>
 
 <para>
- Lets see the package now available with spack:
+ Now, we can see which package is available with spack:
 </para>
 <screen>
 &prompt;spack find
