@@ -136,7 +136,7 @@ Virtual Packages:
        </callout>
        <callout arearefs="spack-info-deps">
         <para>
-         Packages which needs to be already build as requires
+         Packages which must already be built as requirements.
         </para>
        </callout>
       </calloutlist>
