@@ -398,7 +398,7 @@ Virtual Packages:
 [+] /usr/opt/spack/linux-sle_hpc15-skylake/gcc-7.5.0/mpich-3.3.2-3nexqqx2r4m7p2y7lmovuwvvobi2bygw</screen>
 
 <para>
- Lets do it again with default parameter:
+ To build <literal>mpich</literal> with the default parameters:
 </para>
 
 <screen>
