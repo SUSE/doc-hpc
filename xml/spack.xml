@@ -311,7 +311,7 @@ arch: </screen>
 ==> Warning: Found no unchecksummed versions for mpich</screen>
 
 <para>
- Lets get some more info about <literal>mpich</literal>:
+ To see more information about <literal>mpich</literal>:
 </para>
 <screen>
 &prompt;spack info mpich
