@@ -143,7 +143,7 @@ Virtual Packages:
     <para>
      There is multiple version available, and you can use some variant to build it.
      By default spack will use the latest one (4.3.1).
-     Lets built it without <literal>static</literal> and <literal>doxygen</literal>:
+     For example, we can build it without <literal>static</literal> and <literal>doxygen</literal>:
     </para>
 
     <screen>
