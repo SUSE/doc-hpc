@@ -288,7 +288,7 @@ arch: </screen>
  <para>The <literal>doxygen</literal> variant is disabled</para>
 </callout>
 <callout arearefs="spack-diff-static">
- <para><literal>static</literal>variant is disable</para>
+ <para>The <literal>static</literal>variant is disabled</para>
 </callout>
 </calloutlist>
      <para>
