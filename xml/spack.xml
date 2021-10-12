@@ -437,7 +437,7 @@ Virtual Packages:
  </callout>
  <callout arearefs="spack-complex-target">
   <para>
-   <literal>target=<replaceable>value</replaceable>, os=<replaceable>value</replaceable></literal> specifies architecture and OS
+   <literal>target=<replaceable>value</replaceable></literal> and <literal>os=<replaceable>value</replaceable></literal> specify the architecture and the operating system
   </para>
  </callout>
  <callout arearefs="spack-complex-hat">
