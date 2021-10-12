@@ -414,7 +414,7 @@ Virtual Packages:
 [+] /usr/opt/spack/linux-sle_hpc15-skylake/gcc-7.5.0/mpich-3.3.2-sahjm2uhsoc3bi2cljtypwuqaflhamnx</screen>
 
 <para>
-  To build <literal>mpich</literal> version <literal>3.3.2</literal> with a <literal>cppflags</literal>, a specific <literal>libxml</literal> version <literal>2.9.4</literal>, an x86_64 <literal>target</literal> and a non boolean option <literal>netmod=<replaceable>ofi</replaceable></literal>:
+  To build <literal>mpich</literal> version <literal>3.3.2</literal> with a <literal>cppflags</literal>, a specific <literal>libxml</literal> version of <literal>2.9.4</literal>, an x86_64 <literal>target</literal> and a non-boolean option <literal>netmod=<replaceable>ofi</replaceable></literal>:
 </para>
 
 <screen>
