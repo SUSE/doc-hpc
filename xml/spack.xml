@@ -452,7 +452,7 @@ Virtual Packages:
  </callout>
 </calloutlist>
 <note>
-  <title>List know targets</title>
+  <title>List known targets</title>
   <para>
     To list all available targets use: <command>spack arch --known-targets</command>
   </para>
