@@ -432,7 +432,7 @@ Virtual Packages:
  </callout>
  <callout arearefs="spack-complex-compilerflag">
   <para>
-   <literal>cflags, cxxflags, fflags, cppflags, ldflags</literal> and <literal>ldlibs</literal> are variants for compiler flag
+   <literal>cflags, cxxflags, fflags, cppflags, ldflags</literal> and <literal>ldlibs</literal> are variants for the compiler flag
   </para>
  </callout>
  <callout arearefs="spack-complex-target">
