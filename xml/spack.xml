@@ -422,7 +422,7 @@ Virtual Packages:
 <calloutlist>
  <callout arearefs="spack-comples-at">
   <para>
-   <literal>@</literal> optional version specifier
+   <literal>@</literal> is an optional version specifier
   </para>
  </callout>
  <callout arearefs="spack-complex-variants">
