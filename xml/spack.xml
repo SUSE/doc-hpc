@@ -389,7 +389,7 @@ Virtual Packages:
       <para><literal><replaceable>NAME</replaceable> [on]</literal> is a boolean variant</para>
      </callout>
      <callout arearefs="spack-nonboolean-variant">
-      <para><replaceable>NAME=VALUE</replaceable> a non boolean variant</para>
+      <para><replaceable>NAME=VALUE</replaceable> is a non-boolean variant</para>
      </callout>
     </calloutlist>
     <para>
