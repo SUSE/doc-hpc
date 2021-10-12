@@ -447,7 +447,7 @@ Virtual Packages:
  </callout>
  <callout arearefs="spack-complex-name">
   <para>
-   <literal><replaceable>name</replaceable>=<replaceable>value</replaceable></literal> specifies a non boolean variant
+   <literal><replaceable>name</replaceable>=<replaceable>value</replaceable></literal> specifies a non-boolean variant
   </para>
  </callout>
 </calloutlist>
