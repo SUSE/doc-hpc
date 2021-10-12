@@ -427,7 +427,7 @@ Virtual Packages:
  </callout>
  <callout arearefs="spack-complex-variants">
   <para>
-   <literal>+</literal>, <literal>-</literal> specifies a boolean variant (on/off)
+   <literal>+</literal> or <literal>-</literal> specifies the boolean variant (on or off)
   </para>
  </callout>
  <callout arearefs="spack-complex-compilerflag">
