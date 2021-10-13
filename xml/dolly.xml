@@ -349,7 +349,7 @@ endconfig<co xml:id="dolly-config-end"/></screen>
    </para>
   </listitem>
   <listitem>
-   <para>the benchmakr switch <option>segsize</option> it not supported</para>
+   <para>the benchmark switch <option>segsize</option> it not supported</para>
   </listitem>
   <listitem>
    <para>
