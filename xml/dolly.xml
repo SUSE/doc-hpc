@@ -15,7 +15,7 @@
   <abstract>
    <para>
     Dolly is used to send data from a master node to many other nodes.
-    It can distribute files (even gnu-zipped), container image,
+    It can distribute files, container image,
     partition or whole storage device.
    </para>
   </abstract>
