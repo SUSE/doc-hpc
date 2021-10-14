@@ -84,7 +84,7 @@ nodenames[A-B]          attr[=value],attr[=value],...</screen>
     in the genders file. When the genders file is replicated on all nodes, a query
     can be done without network access. The genders file can be called as follows:
    </para>
-<screen>&prompt;nodeattr [-q | -n | -s] [-r] attr[=val]</screen>
+<screen>&prompt.user;nodeattr [-q | -n | -s] [-r] attr[=val]</screen>
   <para>
    <literal>-q</literal> is the default option and prints a list of nodes
    with <literal>attr[=val]</literal>.
@@ -105,14 +105,14 @@ nodenames[A-B]          attr[=value],attr[=value],...</screen>
   <para>
     To print all attributes for a particular node, run the following command:
   </para>
-<screen>&prompt;nodeattr -l [node]</screen>
+<screen>&prompt.user;nodeattr -l [node]</screen>
   <para>
    If no node parameter is given, all attributes of the local node are printed.
   </para>
   <para>
    To perform a syntax check of the genders database, run the following command:
   </para>
-<screen>&prompt;nodeattr [-f genders] -k</screen>
+<screen>&prompt.user;nodeattr [-f genders] -k</screen>
   <para>
    To specify an alternative database location, use the option
    <literal>-f</literal>.
@@ -181,7 +181,7 @@ nodenames[A-B]          attr[=value],attr[=value],...</screen>
    the installation of plugins with conflicting command options. To install one
    of the plugins, run:
   </para>
-<screen>&prompt;zypper in pdsh-<replaceable>PLUGIN_NAME</replaceable></screen>
+<screen>&prompt.user;sudo zypper in pdsh-<replaceable>PLUGIN_NAME</replaceable></screen>
   <para>
    For more information, see the <command>man</command> page <command>pdsh</command>.
   </para>
@@ -231,11 +231,11 @@ nodenames[A-B]          attr[=value],attr[=value],...</screen>
   <para>
    After configuring PowerMan, start its service:
   </para>
-<screen>&prompt;systemctl start powerman.service</screen>
+<screen>&prompt.user;sudo systemctl start powerman.service</screen>
   <para>
    To start PowerMan automatically after every boot, run the following command:
   </para>
-<screen>&prompt;systemctl enable powerman.service</screen>
+<screen>&prompt.user;sudo systemctl enable powerman.service</screen>
   <para>
    Optionally, PowerMan can connect to a remote PowerMan instance. To
    enable this, add the option <literal>listen</literal> to
@@ -291,7 +291,7 @@ nodenames[A-B]          attr[=value],attr[=value],...</screen>
       On the server where &munge; is installed, check the permissions, owner,
       and file type of the key file <filename>/etc/munge/munge.key</filename>:
      </para>
-<screen>&prompt;stat --format "%F %a %G %U %n" /etc/munge/munge.key</screen>
+<screen>&prompt.user;sudo stat --format "%F %a %G %U %n" /etc/munge/munge.key</screen>
      <para>
       The settings should be as follows:
      </para>
@@ -301,20 +301,20 @@ nodenames[A-B]          attr[=value],attr[=value],...</screen>
      <para>
       Calculate the MD5 sum of <filename>munge.key</filename>:
      </para>
-<screen>&prompt;md5sum /etc/munge/munge.key</screen>
+<screen>&prompt.user;sudo md5sum /etc/munge/munge.key</screen>
     </step>
     <step>
      <para>
       Copy the key to the listed nodes using <command>pdcp</command>:
      </para>
-<screen>&prompt;pdcp -R ssh -w <replaceable>NODELIST</replaceable> /etc/munge/munge.key /etc/munge/munge.key</screen>
+<screen>&prompt.user;pdcp -R ssh -w <replaceable>NODELIST</replaceable> /etc/munge/munge.key /etc/munge/munge.key</screen>
     </step>
     <step>
      <para>
       Check the key settings on the remote nodes:
      </para>
-<screen>&prompt;pdsh -R ssh -w <replaceable>HOSTLIST</replaceable> stat --format \"%F %a %G %U %n\" /etc/munge/munge.key
-&prompt;pdsh -R ssh -w <replaceable>HOSTLIST</replaceable> md5sum /etc/munge/munge.key</screen>
+<screen>&prompt.user;pdsh -R ssh -w <replaceable>HOSTLIST</replaceable> stat --format \"%F %a %G %U %n\" /etc/munge/munge.key
+&prompt.user;pdsh -R ssh -w <replaceable>HOSTLIST</replaceable> md5sum /etc/munge/munge.key</screen>
      <para>
       Ensure that they match the settings on the &munge; server.
      </para>
@@ -333,7 +333,7 @@ nodenames[A-B]          attr[=value],attr[=value],...</screen>
     To start the service and ensure it is started after every reboot, run
     the following command on each node:
    </para>
-<screen>&prompt;systemctl enable --now munge.service</screen>
+<screen>&prompt.user;sudo systemctl enable --now munge.service</screen>
     <para>
      You can also use <command>pdsh</command> to run this command on multiple
      nodes at once.
@@ -384,19 +384,19 @@ nodenames[A-B]          attr[=value],attr[=value],...</screen>
    successfully starts, enable and start <command>mrlogin</command>
    on each machine on which the user will log in:
   </para>
-<screen>&prompt;systemctl enable mrlogind.socket mrshd.socket
-&prompt;systemctl start mrlogind.socket mrshd.socket</screen>
+<screen>&prompt.user;sudo systemctl enable mrlogind.socket mrshd.socket
+&prompt.user;sudo systemctl start mrlogind.socket mrshd.socket</screen>
   <para>
    To start &mrsh; support at boot, run the following command:
   </para>
-<screen>&prompt;systemctl enable munge.service
-&prompt;systemctl enable mrlogin.service</screen>
+<screen>&prompt.user;sudo systemctl enable munge.service
+&prompt.user;sudo systemctl enable mrlogin.service</screen>
   <para>
    We do not recommend using &mrsh; when logged in as the
    user <systemitem class="username">root</systemitem>. This is disabled by
    default. To enable it anyway, run the following command:
   </para>
-  <screen>&prompt;echo "mrsh" &gt;&gt; /etc/securetty
-&prompt;echo "mrlogin" &gt;&gt; /etc/securetty</screen>
+  <screen>&prompt.user;sudo echo "mrsh" &gt;&gt; /etc/securetty
+&prompt.user;sudo echo "mrlogin" &gt;&gt; /etc/securetty</screen>
  </sect1>
 </chapter>
