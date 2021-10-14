@@ -217,7 +217,7 @@ Transmitted.</screen>
  </sect1>
 
  <sect1 xml:id="dolly-config">
-  <title>Dolly configuration</title>
+  <title>Dolly configuration file</title>
   <para>
    <command>dolly</command> can also use a configuration file for the cloning process.
    The format is strict but simple. Following is a typical configuration file example:
