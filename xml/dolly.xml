@@ -246,7 +246,7 @@ endconfig<co xml:id="dolly-config-end"/></screen>
    </callout>
    <callout arearefs="dolly-config-server">
     <para>
-     <literal>server <replaceable>MASTER_NODE</replaceable></literal>: name of the master node
+     <literal>server <replaceable>DOLLY_SERVER</replaceable></literal>: the name of the dolly server
     </para>
    </callout>
    <callout arearefs="dolly-config-first">
