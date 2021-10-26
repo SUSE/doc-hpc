@@ -293,7 +293,7 @@ endconfig<co xml:id="dolly-config-end"/></screen>
  </para>
  <itemizedlist>
   <listitem>
-   <para>to clone a partition they must be identical in size on the master node and the client node</para>
+   <para>to clone a partition, they must be identical in size on the dolly server and the client node</para>
   </listitem>
   <listitem>
    <para>
