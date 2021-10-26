@@ -327,7 +327,7 @@ endconfig<co xml:id="dolly-config-end"/></screen>
   </listitem>
   <listitem>
    <para>
-    <option>-c</option> should be only used for performance statistic
+    <option>-c</option> should only be used for performance statistics
    </para>
   </listitem>
  </itemizedlist>
