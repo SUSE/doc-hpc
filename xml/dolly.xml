@@ -241,7 +241,7 @@ endconfig<co xml:id="dolly-config-end"/></screen>
    </callout>
    <callout arearefs="dolly-config-out">
     <para>
-     <literal>outfile <replaceable>DATA</replaceable></literal>: file or device to store data on the client node
+     <literal>outfile <replaceable>DATA</replaceable></literal>: the file or device to store data on the client node
     </para>
    </callout>
    <callout arearefs="dolly-config-server">
