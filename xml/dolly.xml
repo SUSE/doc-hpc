@@ -103,7 +103,7 @@
    </callout>
    <callout arearefs="dolly-server-nodes">
     <para>
-     <literal>-H <replaceable>NODE1</replaceable>,<replaceable>NODE2</replaceable>.. </literal> list of dolly client separated by a comma (,)
+     <literal>-H <replaceable>NODE1</replaceable>,<replaceable>NODE2</replaceable>.. </literal> a comma-separated list of dolly clients to receive the data 
     </para>
    </callout>
   </calloutlist>
