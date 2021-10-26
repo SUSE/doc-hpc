@@ -110,7 +110,7 @@
   <para>On the client, start <command>dolly</command>:</para>
   <screen>
     &prompt;dolly -v</screen>
-  <para>Typical verbose log on server side:</para>
+  <para>This example shows a typical verbose log on the server side:</para>
   <screen>
 &prompt; dolly -s -v -o /tmp/dolly.log -I /dev/sdc1 -O /dev/sdc1 -H sle15sp32,sle15sp33,sle15sp34,sle15sp35
 writing '192.168.11.102'
