@@ -261,7 +261,7 @@ endconfig<co xml:id="dolly-config-end"/></screen>
    </callout>
    <callout arearefs="dolly-config-nbclients">
     <para>
-     <literal>clients <replaceable>NUMBER</replaceable></literal> how many dolly clients are in the ring
+     <literal>clients <replaceable>NUMBER</replaceable></literal>: how many dolly clients are in the ring
     </para>
    </callout>
    <callout arearefs="dolly-config-nodes">
