@@ -68,7 +68,7 @@
     <para>target for the data on clients: it should be adjusted based on the input from the server</para>
    </listitem>
    <listitem>
-    <para>list of client node: list of all the clients nodes where you want to send the data</para>
+    <para>list of client nodes: a list of all the client nodes where you want to send the data</para>
    </listitem>
   </itemizedlist>
   <para>Any other parameter is optionnal.</para>
