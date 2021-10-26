@@ -14,9 +14,9 @@
  <info>
   <abstract>
    <para>
-    Dolly is used to send data from a master node to many other nodes.
-    It can distribute files, container image,
-    partition or whole storage device.
+    Dolly is used to send data from a management server to many other nodes.
+    It can distribute files, container images,
+    partitions, or whole storage devices.
    </para>
   </abstract>
   <dm:docmanager xmlns:dm="urn:x-suse:ns:docmanager">
