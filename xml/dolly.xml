@@ -28,15 +28,15 @@
  <sect1 xml:id="dolly-introduction">
   <title>Dolly cloning process</title>
   <para>
-   One machine is the master and distributes the data to the others.
-   The master stores the image or the partition or the disk or the data
+   One machine is the management server and distributes the data to the nodes.
+   The management server stores the image, partition, disk, or data
    to be cloned.
-   This master will run <command>dolly</command> as server.
+   This machine runs <command>dolly</command> as a server.
    All other nodes are <command>dolly</command> clients. They receive
-   the data from the ring, store it localy and send it to
+   the data from the ring, store it locally, and send it to
    the next node in the ring. It is important to note that all of
-   this happens at the same time, so tranfering data to one node or to
-   hundreds nodes take the same amount of time.
+   this happens at the same time, so transferring data to one node or to
+   hundreds of nodes takes the same amount of time.
   </para>
   <para>
    <command>dolly</command> creates a virtual TCP ring to distribute data.
