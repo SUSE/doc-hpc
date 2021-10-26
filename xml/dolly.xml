@@ -236,7 +236,7 @@ endconfig<co xml:id="dolly-config-end"/></screen>
   <calloutlist>
    <callout arearefs="dolly-config-in">
     <para>
-     <literal>infile <replaceable>DATA</replaceable></literal> the data you send over the network
+     <literal>infile <replaceable>DATA</replaceable></literal>: the data to send over the network
     </para>
    </callout>
    <callout arearefs="dolly-config-out">
