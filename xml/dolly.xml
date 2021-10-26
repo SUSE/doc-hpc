@@ -78,7 +78,7 @@
   <calloutlist>
    <callout arearefs="dolly-server-parameter">
     <para>
-     <literal>-s</literal> this node will be a master node (node which send the data)
+     <literal>-s</literal> this node is the dolly server (the node that sends the data)
     </para>
    </callout>
    <callout arearefs="dolly-server-verbose">
