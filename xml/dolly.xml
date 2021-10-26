@@ -345,7 +345,7 @@ endconfig<co xml:id="dolly-config-end"/></screen>
   </listitem>
   <listitem>
    <para>
-    <option>fanout</option> must be set to 1: a linear list, any other binary tree or more is not supported
+    <option>fanout</option> must be set to 1 (a linear list). Any other binary tree or more is not supported.
    </para>
   </listitem>
   <listitem>
