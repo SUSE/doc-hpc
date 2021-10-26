@@ -93,7 +93,7 @@
    </callout>
    <callout arearefs="dolly-server-input">
     <para>
-     <literal>-I <replaceable>INPUT</replaceable></literal> the input data to clone (file, disk, storage devices, etc...)
+     <literal>-I <replaceable>INPUT</replaceable></literal> the input data to clone (file, disk, storage devices, etc.)
     </para>
    </callout>
    <callout arearefs="dolly-server-output">
