@@ -58,7 +58,7 @@
   <title>How to use dolly </title>
   <para>Ensure that <command>dolly</command> is installed on the management server and all clients: <command>zypper in dolly</command></para>
   <para>
-   The <command>dolly</command> server requires mandatory parameters:
+   The <command>dolly</command> command requires the following mandatory parameters:
   </para>
   <itemizedlist mark="bullet" spacing="normal">
    <listitem>
