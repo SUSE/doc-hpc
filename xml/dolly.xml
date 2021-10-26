@@ -107,7 +107,7 @@
     </para>
    </callout>
   </calloutlist>
-  <para>On the client start <command>dolly</command>:</para>
+  <para>On the client, start <command>dolly</command>:</para>
   <screen>
     &prompt;dolly -v</screen>
   <para>Typical verbose log on server side:</para>
