@@ -251,7 +251,7 @@ endconfig<co xml:id="dolly-config-end"/></screen>
    </callout>
    <callout arearefs="dolly-config-first">
     <para>
-     <literal>firstclient <replaceable>NODE</replaceable></literal>: first client on the ring
+     <literal>firstclient <replaceable>NODE</replaceable></literal>: the first client in the ring
     </para>
    </callout>
    <callout arearefs="dolly-config-last">
