@@ -62,7 +62,7 @@
   </para>
   <itemizedlist mark="bullet" spacing="normal">
    <listitem>
-    <para>data to send over the network: it could be a storage device, a file (gzip or not), an image (containers or any other data)</para>
+    <para>data to send over the network: this could be a storage device, a file (gzip or not), or an image (containers or any other data)</para>
    </listitem>
    <listitem>
     <para>target for the data on clients: it should be adjusted based on the input from the server</para>
