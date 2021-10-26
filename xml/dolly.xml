@@ -302,7 +302,7 @@ endconfig<co xml:id="dolly-config-end"/></screen>
   </listitem>
   <listitem>
    <para>
-    storage device: its mandatory to clone stricly identical storage devices or corruption may occur
+    storage device: it is mandatory to clone strictly identical storage devices, or corruption can occur
    </para>
   </listitem>
   <listitem>
