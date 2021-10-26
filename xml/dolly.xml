@@ -275,7 +275,7 @@ endconfig<co xml:id="dolly-config-end"/></screen>
     </para>
    </callout>
   </calloutlist>
-  <para>The only change is on the master node, you need to use the <option>-f <replaceable>CONFIGURATION_FILE</replaceable></option> on the <command>dolly</command> command line:</para>
+  <para>To use this configuration file, you must use the <option>-f <replaceable>CONFIGURATION_FILE</replaceable></option> option on the <command>dolly</command> command line:</para>
   <screen>&prompt; dolly -v -s<co xml:id="dolly-config-command"/> -f /etc/dolly.cfg</screen>
   <calloutlist>
    <callout arearefs="dolly-config-command">
