@@ -266,7 +266,7 @@ endconfig<co xml:id="dolly-config-end"/></screen>
    </callout>
    <callout arearefs="dolly-config-nodes">
     <para>
-     <literal><replaceable>NODENAME</replaceable></literal>: the list of dolly client, one per line
+     <literal><replaceable>NODENAME</replaceable></literal>: the list of dolly clients, one per line
     </para>
    </callout>
    <callout arearefs="dolly-config-end">
