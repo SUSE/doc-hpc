@@ -322,7 +322,7 @@ endconfig<co xml:id="dolly-config-end"/></screen>
   </listitem>
   <listitem>
    <para>
-    <option>-d</option> dummy mode should be only used for benchmark and it is not supported
+    <option>-d</option> dummy mode should only be used for benchmarking and is not supported
    </para>
   </listitem>
   <listitem>
