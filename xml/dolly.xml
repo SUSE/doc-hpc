@@ -172,7 +172,7 @@ Time: 534.627532
 MBytes/s: 29.655
 Aggregate MBytes/s: 118.621
 Transmitted.</screen>
-<para>Verbose log on client side:</para>
+<para>This example shows a typical verbose log on the client side:</para>
   <screen>
 Trying to build ring...
 Buffer size: 98304
