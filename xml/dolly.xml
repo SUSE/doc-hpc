@@ -297,7 +297,7 @@ endconfig<co xml:id="dolly-config-end"/></screen>
   </listitem>
   <listitem>
    <para>
-    cloning a device, disk, partition, file: you should properly set the input and the output option based on the data you want to clone, mixing type of input output can lead to data corruption
+    when cloning a device, disk, partition, or file, you must properly set the input and output options based on the data you want to clone. Mixing the type of input and output can lead to data corruption.
    </para>
   </listitem>
   <listitem>
