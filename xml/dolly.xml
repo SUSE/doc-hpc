@@ -317,7 +317,7 @@ endconfig<co xml:id="dolly-config-end"/></screen>
   </listitem>
   <listitem>
    <para>
-    <option>-n</option> do not do a sync() before existing is not supported as this can lead to data corruption
+    <option>-n</option> (do not do a sync before exiting) is not supported as this can lead to data corruption
    </para>
   </listitem>
   <listitem>
