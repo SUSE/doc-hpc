@@ -307,7 +307,7 @@ endconfig<co xml:id="dolly-config-end"/></screen>
   </listitem>
   <listitem>
    <para>
-    <option>-S</option> ignoring FQDN is not supported
+    <option>-S</option> ignoring the FQDN is not supported
    </para>
   </listitem>
   <listitem>
