@@ -256,7 +256,7 @@ endconfig<co xml:id="dolly-config-end"/></screen>
    </callout>
    <callout arearefs="dolly-config-last">
     <para>
-     <literal>lastclient <replaceable>NODE</replaceable></literal>: last client in the ring
+     <literal>lastclient <replaceable>NODE</replaceable></literal>: the last client in the ring
     </para>
    </callout>
    <callout arearefs="dolly-config-nbclients">
