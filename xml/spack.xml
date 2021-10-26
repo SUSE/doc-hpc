@@ -18,6 +18,8 @@
     the installation and fine-tuning of simulations and libraries.
     Spack can install many variants of the same build
     using different compilers, options, and MPI implementations.
+    For more information, see the
+    <link xlink:href="https://spack-tutorial.readthedocs.io/en/latest/">Spack Documentation</link>.
    </para>
   </abstract>
   <dm:docmanager xmlns:dm="urn:x-suse:ns:docmanager">
@@ -26,34 +28,50 @@
   </dm:docmanager>
  </info>
 
- <sect1 xml:id="spack-introduction">
-   <title>Introduction</title>
-   <para>
-    The purpose of this chapter is to briefly present <literal>spack</literal> and its usage.
-    For more information, see <xref linkend="spack-external-link"/>.
-   </para>
- </sect1>
- <sect1 xml:id="spack-preparation">
-  <title>Preparing to use spack</title>
-  <para>Ensure that spack is installed on your system: <command>zypper in spack</command></para>
+ <sect1 xml:id="spack-installation">
+  <title>Installing spack</title>
   <para>
-   Set up your environment with the appropriate script for your shell:
+   Use this procedure to install spack on any node in the cluster.
   </para>
-  <screen>
-# For bash/zsh/sh
-&prompt;. spack/share/spack/setup-env.sh
-
-# For tcsh/csh
-&prompt;source spack/share/spack/setup-env.csh
-
-# For fish
-&prompt;. spack/share/spack/setup-env.fish</screen>
-
-<para>
- It is recommended to install <literal>bash-completion</literal> so that you can
- use <keycap>TAB</keycap> key auto-completion for spack commands:
-</para>
-
+  <procedure xml:id="pro-spack-installation">
+   <title>Installing and configuring spack</title>
+   <step>
+    <para>
+     Install spack:
+    </para>
+<screen>&prompt;zypper in spack</screen>
+   </step>
+   <step>
+    <para>
+     Set up your environment with the appropriate script for your shell:
+    </para>
+    <stepalternatives>
+     <step>
+      <para>
+       For bash/zsh/sh:
+      </para>
+<screen>&prompt;. spack/share/spack/setup-env.sh</screen>
+     </step>
+     <step>
+      <para>
+       For tcsh/csh:
+      </para>
+<screen>&prompt;source spack/share/spack/setup-env.csh</screen>
+     </step>
+     <step>
+      <para>
+       For fish:
+      </para>
+<screen>&prompt;. spack/share/spack/setup-env.fish</screen>
+     </step>
+    </stepalternatives>
+   </step>
+   <step>
+    <para>
+     It is recommended to install <literal>bash-completion</literal> so you can
+     use <keycap>TAB</keycap> key auto-completion for spack commands:
+    </para>
+<screen>&prompt;zypper in bash-completion</screen>
 <screen>
 &prompt;spack <emphasis>TAB</emphasis>
 activate      clone         dependencies  fetch         list          providers     solve         url
@@ -66,15 +84,23 @@ cd            containerize  edit          help          mirror        resource  
 checksum      create        env           info          module        restage       uninstall
 ci            deactivate    extensions    install       patch         rm            unit-test
 clean         debug         external      license       pkg           setup         unload</screen>
+   </step>
+  </procedure>
 </sect1>
 
-<sect1 xml:id="spack-example">
- <title>Simple example with netcdf-cxx4</title>
+<sect1 xml:id="spack-simple-example">
+ <title>Using spack: simple example with netcdf-cxx4</title>
  <para>
-  To get detailed information on <literal>netcdf-cxx4</literal>:
+  This example procedure shows you different ways to build
+  <literal>netcdf-cxx4</literal> with spack.
  </para>
-<screen>
-&prompt;spack info netcdf-cxx4
+ <procedure xml:id="pro-spack-simple-example">
+  <title>Building <literal>netcdf-cxx4</literal> with spack</title>
+  <step>
+   <para>
+    Show detailed information on <literal>netcdf-cxx4</literal>:
+   </para>
+<screen>&prompt;spack info netcdf-cxx4
 AutotoolsPackage:   netcdf-cxx4
 
 Description:
@@ -119,35 +145,33 @@ Run Dependencies:
 
 Virtual Packages:
     None</screen>
-      <calloutlist>
-       <callout arearefs="spack-info-version">
-        <para>
-         The preferred version will be the default if none of the others are chosen.
-        </para>
-       </callout>
-       <callout arearefs="spack-info-variants">
-        <para>
-         You can disable the variants option using
-         <literal>-<replaceable>VARIANT</replaceable></literal> and enable
-         them using <literal>+<replaceable>VARIANT</replaceable></literal>.
-         For example: <command>spack install <replaceable>SOFTWARE</replaceable>
-         <replaceable>+VARIANT</replaceable></command>
-        </para>
-       </callout>
-       <callout arearefs="spack-info-deps">
-        <para>
-         Packages which must already be built as requirements.
-        </para>
-       </callout>
-      </calloutlist>
-    <para>
-     There are multiple versions available, and you can use some variant to build them.
-     By default spack will use the latest one (4.3.1).
-     For example, we can build it without <literal>static</literal> and <literal>doxygen</literal>:
-    </para>
-
-    <screen>
-&prompt;spack install netcdf-cxx4 -static -doxygen
+   <calloutlist>
+    <callout arearefs="spack-info-version">
+     <para>
+      Spack uses the latest version by default, unless you specify otherwise
+      with <literal>@<replaceable>VERSION</replaceable></literal>.
+     </para>
+    </callout>
+    <callout arearefs="spack-info-variants">
+     <para>
+      You can disable the variant options using
+      <literal>-<replaceable>VARIANT</replaceable></literal> or enable
+      them using <literal>+<replaceable>VARIANT</replaceable></literal>.
+     </para>
+    </callout>
+    <callout arearefs="spack-info-deps">
+     <para>
+      The packages required by <literal>netcdf-cxx4</literal> must already be built.
+     </para>
+    </callout>
+   </calloutlist>
+  </step>
+  <step>
+   <para>
+    Build <literal>netcdf-cxx4</literal> with the variants <literal>static</literal>
+    and <literal>doxygen</literal> disabled:
+   </para>
+<screen>&prompt;spack install netcdf-cxx4 -static -doxygen
 ==> netcdf-c: Executing phase: 'autoreconf'
 ==> netcdf-c: Executing phase: 'configure'
 ==> netcdf-c: Executing phase: 'build'
@@ -162,14 +186,13 @@ Virtual Packages:
 ==> netcdf-cxx4: Executing phase: 'build'
 ==> netcdf-cxx4: Executing phase: 'install'
 [+] /usr/opt/spack/linux-sle_hpc15-skylake/gcc-7.5.0/netcdf-cxx4-4.3.1-msiysdrdua3vv6izluhaeos4nyo5gslq</screen>
-
-<para>
- We can rebuild it with the default specification for <literal>netcdf-cxx4</literal>,
- adding <literal>@<replaceable>4.3.1</replaceable></literal> to specify the version:
-</para>
-
-<screen>
-&prompt;spack install netcdf-cxx4@4.3.1
+  </step>
+  <step>
+   <para>
+    Rebuild <literal>netcdf-cxx4</literal> with the default variants, and
+    specify the version:
+   </para>
+<screen>&prompt;spack install netcdf-cxx4@4.3.1
 ==> Warning: Missing a source id for python@3.6.13
 ==> Warning: Missing a source id for pkgconf@1.5.3
 [+] /usr (external autoconf-2.69-tatq2aqbhboxbyjt2fsraoapgqwf3y5x)
@@ -201,42 +224,40 @@ Virtual Packages:
 ==> netcdf-cxx4: Executing phase: 'build'
 ==> netcdf-cxx4: Executing phase: 'install'
 [+] /usr/opt/spack/linux-sle_hpc15-skylake/gcc-7.5.0/netcdf-cxx4-4.3.1-tiyqyxb3eqpptrlcll6rlf27aisekluy</screen>
-
-<para>
- Now, we can see which package is available with spack:
-</para>
-<screen>
-&prompt;spack find
+  </step>
+  <step>
+   <para>
+    Check which packages are now available with spack:
+   </para>
+<screen>&prompt;spack find
 ==> 14 installed packages
 -- linux-sle_hpc15-skylake / gcc@7.5.0 --------------------------
 doxygen@1.8.20  hwloc@1.11.11  libpciaccess@0.16  netcdf-c@4.7.4     netcdf-cxx4@4.3.1  openmpi@3.1.6       xz@5.2.3
 hdf5@1.10.7     libiconv@1.16  libxml2@2.9.10     netcdf-cxx4@4.3.1  numactl@2.0.14     util-macros@1.19.1  zlib@1.2.11</screen>
-
-<para>
- There are two versions of <literal>netcdf-cxx4</literal>, and all build
- requirements are also present.
- If you want to show dependency hashes as well as versions, use the
- <literal>-l</literal> option:
-</para>
-
-<screen>
-&prompt;spack find -l
+   <para>
+    In this example, there are now two versions of <literal>netcdf-cxx4</literal>.
+    All of the build requirements for <literal>netcdf-cxx4</literal> are also present.
+    If you want to show dependency hashes as well as versions, use the
+    <literal>-l</literal> option:
+   </para>
+<screen>&prompt;spack find -l
 ==> 14 installed packages
 -- linux-sle_hpc15-skylake / gcc@7.5.0 --------------------------
 3griwie doxygen@1.8.20  y3w7dlk libpciaccess@0.16  tiyqyxb netcdf-cxx4@4.3.1   x3glm5y xz@5.2.3
 3cyidn4 hdf5@1.10.7     d4c7csk libxml2@2.9.10     tcuvjjt numactl@2.0.14      z6y74kg zlib@1.2.11
 rjdqcht hwloc@1.11.11   vry3tfp netcdf-c@4.7.4     ks5elgg openmpi@3.1.6
 itovpc5 libiconv@1.16   msiysdr netcdf-cxx4@4.3.1  rpnlbst util-macros@1.19.1</screen>
-
-<para>
- If you want to see the differences between the two versions of
- <literal>netcdf-cxx4</literal>, do a <command>diff</command>
- between the <literal>spec.yaml</literal> of the versions. This file
- describes how the package will be created. First, you should know
- if the package is available on your system, and where:
-</para>
-<screen>
-&prompt;spack find --paths
+  </step>
+  <step>
+   <para>
+    Show the differences between the two versions of <literal>netcdf-cxx4</literal>:
+   </para>
+   <substeps>
+    <step>
+     <para>
+      Find the paths to the <literal>netcdf-cxx4</literal> packages:
+     </para>
+<screen>&prompt;spack find --paths
 ==> 15 installed packages
 -- linux-sle_hpc15-skylake / gcc@7.5.0 --------------------------
 doxygen@1.8.20      /usr/opt/spack/linux-sle_hpc15-skylake/gcc-7.5.0/doxygen-1.8.20-3griwieblqgb6ykc5avzkzrxmtaw4s2g
@@ -254,20 +275,30 @@ openmpi@3.1.6       /usr/opt/spack/linux-sle_hpc15-skylake/gcc-7.5.0/openmpi-3.1
 util-macros@1.19.1  /usr/opt/spack/linux-sle_hpc15-skylake/gcc-7.5.0/util-macros-1.19.1-rpnlbst6v3oqjm7tfoxasmn7wlilpqut
 xz@5.2.3            /usr
 zlib@1.2.11         /usr/opt/spack/linux-sle_hpc15-skylake/gcc-7.5.0/zlib-1.2.11-z6y74kgd73yc23kr5252slbydmk4posh</screen>
-<screen>
-&prompt;cd /usr/opt/spack/linux-sle_hpc15-skylake/gcc-7.5.0
-&prompt;diff -ru netcdf-cxx4-4.3.1-msiysdrdua3vv6izluhaeos4nyo5gslq/.spack/spec.yaml  netcdf-cxx4-4.3.1-tiyqyxb3eqpptrlcll6rlf27aisekluy/.spack/spec.yaml
+    </step>
+    <step>
+     <para>
+      Move into the parent directory:
+     </para>
+<screen>&prompt;cd /usr/opt/spack/linux-sle_hpc15-skylake/gcc-7.5.0</screen>
+    </step>
+    <step>
+     <para>
+      Run a <command>diff</command> between each version's <filename>spec.yaml</filename>
+      file. This file describes how the package was built.
+     </para>
+<screen>&prompt;diff -ru netcdf-cxx4-4.3.1-msiysdrdua3vv6izluhaeos4nyo5gslq/.spack/spec.yaml netcdf-cxx4-4.3.1-tiyqyxb3eqpptrlcll6rlf27aisekluy/.spack/spec.yaml
 --- netcdf-cxx4-4.3.1-msiysdrdua3vv6izluhaeos4nyo5gslq/.spack/spec.yaml 2021-10-04 11:42:23.444000000 +0200
 +++ netcdf-cxx4-4.3.1-tiyqyxb3eqpptrlcll6rlf27aisekluy/.spack/spec.yaml 2021-10-04 11:51:49.880000000 +0200
 @@ -38,10 +38,10 @@
        version: 7.5.0
      namespace: builtin
      parameters:
--      doxygen: false <co xml:id="spack-diff-doxygen"/>
+-      doxygen: false
 +      doxygen: true
        pic: true
        shared: true
--      static: false <co xml:id="spack-diff-static"/>
+-      static: false
 +      static: true
        cflags: []
        cppflags: []
@@ -283,38 +314,41 @@ zlib@1.2.11         /usr/opt/spack/linux-sle_hpc15-skylake/gcc-7.5.0/zlib-1.2.11
  - netcdf-c:
      version: 4.7.4
 arch: </screen>
-<calloutlist>
-<callout arearefs="spack-diff-doxygen">
- <para>The <literal>doxygen</literal> variant is disabled</para>
-</callout>
-<callout arearefs="spack-diff-static">
- <para>The <literal>static</literal>variant is disabled</para>
-</callout>
-</calloutlist>
      <para>
-      So the differences between the versions are the variants used to build
-      <literal>netcdf-cxx4</literal>:
-      <literal>doxygen</literal> and <literal>static</literal>.
+      This example shows that one version of <literal>netcdf-cxx4</literal> was
+      built with <literal>doxygen</literal> and <literal>static</literal> enabled,
+      and the other version of <literal>netcdf-cxx4</literal> was built with
+      <literal>doxygen</literal> and <literal>static</literal> disabled.
      </para>
-    </sect1>
-    <sect1 xml:id="spack-complex-example">
-     <title>Complex example with mpich</title>
-     <para>
-      To list the available versions of a package, use the <option>versions</option>
-      option. For example, for <literal>mpich</literal>:
-     </para>
-     <screen>
-&prompt;spack versions mpich
+    </step>
+   </substeps>
+  </step>
+ </procedure>
+ </sect1>
+
+ <sect1 xml:id="spack-complex-example">
+  <title>Using spack: complex example with mpich</title>
+  <para>
+   This example procedure shows you different ways to build <literal>mpich</literal>
+   with spack.
+  </para>
+  <procedure xml:id="pro-spack-complex-example">
+   <title>Building <literal>mpich</literal> with spack</title>
+   <step>
+    <para>
+     List the available versions of <literal>mpich</literal>:
+    </para>
+<screen>&prompt;spack versions mpich
 ==> Safe versions (already checksummed):
   develop  3.3.2  3.3.1  3.3  3.2.1  3.2  3.1.4  3.1.3  3.1.2  3.1.1  3.1  3.0.4
 ==> Remote versions (not yet checksummed):
 ==> Warning: Found no unchecksummed versions for mpich</screen>
-
-<para>
- To see more information about <literal>mpich</literal>:
-</para>
-<screen>
-&prompt;spack info mpich
+   </step>
+   <step>
+    <para>
+     Show detailed information on <literal>mpich</literal>:
+    </para>
+<screen>&prompt;spack info mpich
 AutotoolsPackage:   mpich
 
 Description:
@@ -386,83 +420,84 @@ Virtual Packages:
     mpich provides mpi</screen>
     <calloutlist>
      <callout arearefs="spack-boolean-variant">
-      <para><literal><replaceable>NAME</replaceable> [on]</literal> is a boolean variant</para>
+      <para><literal><replaceable>NAME</replaceable> [on]</literal> is a boolean variant.</para>
      </callout>
      <callout arearefs="spack-nonboolean-variant">
-      <para><replaceable>NAME=VALUE</replaceable> is a non-boolean variant</para>
+      <para><replaceable>NAME=VALUE</replaceable> is a non-boolean variant.</para>
      </callout>
     </calloutlist>
+   </step>
+   <step>
     <para>
-     To build <literal>mpich</literal> with some variants:
+     Build <literal>mpich</literal> with some variants disabled:
     </para>
-
-    <screen>
-&prompt;spack install mpich@3.3.2 -romio -libxml2 -hydra -fortran
+<screen>&prompt;spack install mpich@3.3.2 -romio -libxml2 -hydra -fortran
 ==> mpich: Executing phase: 'autoreconf'
 ==> mpich: Executing phase: 'configure'
 ==> mpich: Executing phase: 'build'
 ==> mpich: Executing phase: 'install'
 [+] /usr/opt/spack/linux-sle_hpc15-skylake/gcc-7.5.0/mpich-3.3.2-3nexqqx2r4m7p2y7lmovuwvvobi2bygw</screen>
-
-<para>
- To build <literal>mpich</literal> with the default parameters:
-</para>
-
-<screen>
-&prompt;spack install mpich@3.3.2
+   </step>
+   <step>
+    <para>
+     Rebuild <literal>mpich</literal> with the default variants:
+    </para>
+<screen>&prompt;spack install mpich@3.3.2
 .....
 [+] /usr/opt/spack/linux-sle_hpc15-skylake/gcc-7.5.0/mpich-3.3.2-sahjm2uhsoc3bi2cljtypwuqaflhamnx</screen>
-
-<para>
-  To build <literal>mpich</literal> version <literal>3.3.2</literal> with a <literal>cppflags</literal>, a specific <literal>libxml</literal> version of <literal>2.9.4</literal>, an x86_64 <literal>target</literal> and a non-boolean option <literal>netmod=<replaceable>ofi</replaceable></literal>:
-</para>
-
-<screen>
-&prompt;spack install mpich@<co xml:id="spack-comples-at"/>3.3.2 -<co xml:id="spack-complex-variants"/>static cppflags<co xml:id="spack-complex-compilerflag"/>="-O3 -fPIC" target<co xml:id="spack-complex-target"/>=x86_64 ^<co xml:id="spack-complex-hat"/>libxml2@2.9.4 netmod<co xml:id="spack-complex-name"/>=tcp</screen>
-<calloutlist>
- <callout arearefs="spack-comples-at">
-  <para>
-   <literal>@</literal> is an optional version specifier
-  </para>
- </callout>
- <callout arearefs="spack-complex-variants">
-  <para>
-   <literal>+</literal> or <literal>-</literal> specifies the boolean variant (on or off)
-  </para>
- </callout>
- <callout arearefs="spack-complex-compilerflag">
-  <para>
-   <literal>cflags, cxxflags, fflags, cppflags, ldflags</literal> and <literal>ldlibs</literal> are variants for the compiler flag
-  </para>
- </callout>
- <callout arearefs="spack-complex-target">
-  <para>
-   <literal>target=<replaceable>value</replaceable></literal> and <literal>os=<replaceable>value</replaceable></literal> specify the architecture and the operating system
-  </para>
- </callout>
- <callout arearefs="spack-complex-hat">
-  <para>
-   <literal>^</literal> represents a dependency spec
-  </para>
- </callout>
- <callout arearefs="spack-complex-name">
-  <para>
-   <literal><replaceable>name</replaceable>=<replaceable>value</replaceable></literal> specifies a non-boolean variant
-  </para>
- </callout>
-</calloutlist>
-<note>
-  <title>List known targets</title>
-  <para>
-    To list all available targets use: <command>spack arch --known-targets</command>
-  </para>
-</note>
-<para>
- To list all available packages:
-</para>
-
-<screen>
-&prompt;spack find -l
+   </step>
+   <step>
+    <para>
+     Rebuild <literal>mpich</literal> with the compiler flag <literal>cppflags</literal>,
+     a specific <literal>libxml</literal> version of <literal>2.9.4</literal>,
+     an x86_64 <literal>target</literal>, and a non-boolean <literal>netmod</literal>
+     option:
+    </para>
+<screen>&prompt;spack install mpich@3.3.2<co xml:id="spack-comples-at"/> -static<co xml:id="spack-complex-variants"/> cppflags="-O3 -fPIC"<co xml:id="spack-complex-compilerflag"/> target=x86_64<co xml:id="spack-complex-target"/> ^libxml2@2.9.4<co xml:id="spack-complex-hat"/> netmod=tcp<co xml:id="spack-complex-name"/></screen>
+    <calloutlist>
+     <callout arearefs="spack-comples-at">
+      <para>
+       <literal>@</literal> is an optional version specifier.
+      </para>
+     </callout>
+     <callout arearefs="spack-complex-variants">
+      <para>
+       <literal>+</literal> or <literal>-</literal> specifies the boolean variant
+       (on or off).
+      </para>
+     </callout>
+     <callout arearefs="spack-complex-compilerflag">
+      <para>
+       <literal>cflags, cxxflags, fflags, cppflags, ldflags</literal>, and
+       <literal>ldlibs</literal> are variants for the compiler flag.
+      </para>
+     </callout>
+     <callout arearefs="spack-complex-target">
+      <para>
+       <literal>target=<replaceable>value</replaceable></literal> and
+       <literal>os=<replaceable>value</replaceable></literal> specify the
+       architecture and the operating system. You can list all of the available
+       targets by running the command <command>spack arch --known-targets</command>.
+      </para>
+     </callout>
+     <callout arearefs="spack-complex-hat">
+      <para>
+       <literal>^</literal> specifies a dependency.
+      </para>
+     </callout>
+     <callout arearefs="spack-complex-name">
+      <para>
+       <literal><replaceable>name</replaceable>=<replaceable>value</replaceable></literal>
+       specifies a non-boolean variant.
+      </para>
+     </callout>
+    </calloutlist>
+   </step>
+   <step>
+    <para>
+     List all of the available packages and their dependency hashes:
+    </para>
+<screen>&prompt;spack find -l
 ==> 33 installed packages
 -- linux-sle_hpc15-skylake / gcc@7.5.0 --------------------------
 3griwie doxygen@1.8.20  y3w7dlk libpciaccess@0.16  vry3tfp netcdf-c@4.7.4      x3glm5y xz@5.2.3
@@ -476,13 +511,13 @@ itovpc5 libiconv@1.16   sahjm2u mpich@3.3.2        rpnlbst util-macros@1.19.1
 -- linux-sle_hpc15-x86_64 / gcc@7.5.0 ---------------------------
 yzxibyd hwloc@2.2.0    7wmqik2 libpciaccess@0.16  6xjiutf mpich@3.3.2         zmfrpzf xz@5.2.3
 mm7at5h libiconv@1.16  jrtvvdj libxml2@2.9.4      jjxbukq util-macros@1.19.1  jxqtsne zlib@1.2.11</screen>
-
-<para>
- To show output dependencies along with found specs of <literal>/6xjiutf</literal> (<literal>mpich</literal>):
-</para>
-
-<screen>
-&prompt;spack find --deps /6xjiutf
+   </step>
+   <step>
+    <para>
+     Show the specifications and output dependencies of
+     <literal>/6xjiutf</literal> (<literal>mpich</literal>):
+    </para>
+<screen>&prompt;spack find --deps /6xjiutf
 ==> 1 installed package
 -- linux-sle_hpc15-x86_64 / gcc@7.5.0 ---------------------------
 mpich@3.3.2
@@ -492,71 +527,70 @@ mpich@3.3.2
             libiconv@1.16
             xz@5.2.3
             zlib@1.2.11</screen>
+   </step>
+  </procedure>
+ </sect1>
 
-     </sect1>
-     <sect1 xml:id="spack-compiler">
-      <title>Using a specific compiler</title>
-      <para>
-       The goal is to build <literal>mpich</literal> with <literal>gcc-10.2.0</literal>.
-       First install <literal>gcc-10.2.0</literal>:
-      </para>
-      <screen>
-&prompt;spack install gcc@10.2.0
+ <sect1 xml:id="spack-compiler">
+  <title>Using a specific compiler</title>
+  <para>
+   In this example procedure, the goal is to build <literal>mpich</literal>
+   with <literal>gcc-10.2.0</literal>.
+  </para>
+  <procedure xml:id="pro-spack-compiler">
+   <title>Using a specific compiler with spack</title>
+   <step>
+    <para>
+     Install <literal>gcc-10.2.0</literal>:
+    </para>
+<screen>&prompt;spack install gcc@10.2.0
 .....
 [+] /usr/opt/spack/linux-sle_hpc15-skylake/gcc-7.5.0/gcc-10.2.0-tkcq6d6xnyfgyqsnpzq36dlk2etylgp7</screen>
-
-<para>
- We can now test whether <literal>gcc</literal> is usable on the system by loading it:
-</para>
-
+   </step>
+   <step>
+    <para>
+     Test whether <literal>gcc</literal> is usable by loading it and attempting
+     to build <literal>mpich</literal>, using the <literal>%</literal>
+     option to specify that you want to use <literal>gcc-10.2.0</literal>:
+    </para>
 <screen>
 &prompt;module load gcc-10.2.0-gcc-7.5.0-tkcq6d6 <co xml:id="spack-module-load"/>
 &prompt;gcc --version
 gcc (Spack GCC) 10.2.0
-Copyright (C) 2020 Free Software Foundation, Inc.
-This is free software; see the source for copying conditions.  There is NO
-warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-</screen>
-<calloutlist>
- <callout arearefs="spack-module-load"><para><command>module load gcc-10.2.0</command> also works if you have only one version of <literal>gcc-10.2.0</literal> available in spack.</para></callout>
-</calloutlist>
-<para>
- We can use the <literal>%</literal> option to specify that we want to use
- <literal>gcc-10.2.0</literal>:
-</para>
-
-<screen>
 &prompt;spack install mpich@3.2.1 %gcc@10.2.0
 ==> Error: No compilers with spec gcc@10.2.0 found for operating system sle_hpc15 and target skylake.
 Run 'spack compiler find' to add compilers or 'spack compilers' to see which compilers are already recognized by spack.</screen>
-
-<para>
- The compiler was not found yet, so we need to update the list of available
- compilers by doing:
-</para>
-
-<screen>
-&prompt;spack compiler find
-==> Added 1 new compiler to /home/aginies/.spack/linux/compilers.yaml
+    <calloutlist>
+     <callout arearefs="spack-module-load">
+      <para>
+       <command>module load gcc-10.2.0</command> also works if you have only
+       one version of <literal>gcc-10.2.0</literal> available in spack.
+      </para>
+     </callout>
+    </calloutlist>
+    <para>
+     In this example, the compiler cannot be found yet.
+    </para>
+   </step>
+   <step>
+    <para>
+     Update the list of available compilers:
+    </para>
+<screen>&prompt;spack compiler find
+==> Added 1 new compiler to /home/tux/.spack/linux/compilers.yaml
     gcc@10.2.0
 ==> Compilers are defined in the following files:
-    /home/aginies/.spack/linux/compilers.yaml</screen>
-
+    /home/tux/.spack/linux/compilers.yaml</screen>
+   </step>
+   <step>
     <para>
-     Now we can rebuild <literal>mpich</literal> with <literal>gcc-10.2.0</literal>:
+     Rerun the command to build <literal>mpich</literal> with <literal>gcc-10.2.0</literal>:
     </para>
-
-    <screen>
-&prompt;spack install mpich@3.2.1 %gcc@10.2.0
+<screen>&prompt;spack install mpich@3.2.1 %gcc@10.2.0
 .....
 [+] /usr/opt/spack/linux-sle_hpc15-skylake/gcc-10.2.0/mpich-3.2.1-e56rcwtqofh2xytep5pjgq6wrxwmsy25</screen>
-     </sect1>
+   </step>
+  </procedure>
+ </sect1>
 
-     <sect1 xml:id="spack-external-link">
-         <title>Spack external documentation</title>
-      <para>
-       For further and more complete documentation, see the
-       <link xlink:href="https://spack-tutorial.readthedocs.io/en/latest/">Spack Documentation</link>.
-      </para>
-  </sect1>
 </chapter>
