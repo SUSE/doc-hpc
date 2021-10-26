@@ -312,7 +312,7 @@ endconfig<co xml:id="dolly-config-end"/></screen>
   </listitem>
   <listitem>
    <para>
-    <option>-6</option> using ipv6 is not supported
+    <option>-6</option> using IPv6 is not supported
    </para>
   </listitem>
   <listitem>
