@@ -287,9 +287,9 @@ endconfig<co xml:id="dolly-config-end"/></screen>
  <sect1 xml:id="dolly-support">
  <title>Dolly limitations</title>
  <para>
-  <command>dolly</command> provides some specifics parameters which are not supported because
-  they are unsafe, untested, dedicated for benchmarking or doing statistics. They are provided
-  as technology preview.
+  <command>dolly</command> provides some specific parameters which are not supported because
+  they are unsafe, untested, or dedicated for benchmarking or doing statistics. They are provided
+  as a technology preview only.
  </para>
  <itemizedlist>
   <listitem>
