@@ -335,7 +335,7 @@ endconfig<co xml:id="dolly-config-end"/></screen>
  <itemizedlist>
    <listitem>
    <para>
-    using compression option is not supported (<option>compressed</option>)
+    using the compression option is not supported (<option>compressed</option>)
    </para>
   </listitem>
   <listitem>
