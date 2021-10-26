@@ -71,7 +71,7 @@
     <para>list of client nodes: a list of all the client nodes where you want to send the data</para>
    </listitem>
   </itemizedlist>
-  <para>Any other parameter is optionnal.</para>
+  <para>Any other parameter is optional.</para>
   <para>Following example will send <replaceable>/dev/sdc</replaceable> to <replaceable>sle15sp32,sle15sp33,sle15sp34,sle15sp35</replaceable> nodes. On the master node, aka the <command>dolly</command> server start:</para>
   <screen>
   &prompt;dolly -s<co xml:id="dolly-server-parameter"/> -v<co xml:id="dolly-server-verbose"/> -o<co xml:id="dolly-server-log"/> /tmp/dolly.log -I<co xml:id="dolly-server-input"/> /dev/sdc1 -O<co xml:id="dolly-server-output"/> /dev/sdc1 -H<co xml:id="dolly-server-nodes"/> sle15sp32,sle15sp33,sle15sp34,sle15sp35</screen>
