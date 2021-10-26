@@ -98,7 +98,7 @@
    </callout>
    <callout arearefs="dolly-server-output">
     <para>
-     <literal>-O <replaceable>OUTPUT</replaceable></literal> output target to store the data
+     <literal>-O <replaceable>OUTPUT</replaceable></literal> the output target to store the data on each dolly client
     </para>
    </callout>
    <callout arearefs="dolly-server-nodes">
