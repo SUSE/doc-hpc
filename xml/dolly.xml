@@ -220,7 +220,7 @@ Transmitted.</screen>
   <title>Dolly configuration file</title>
   <para>
    <command>dolly</command> can also use a configuration file for the cloning process.
-   The format is strict but simple. Following is a typical configuration file example:
+   The format is strict but simple. The following example shows a typical configuration file:
   </para>
   <screen>
 infile /tmp/sle15sp3.sif<co xml:id="dolly-config-in"/>
