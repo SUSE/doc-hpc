@@ -25,139 +25,174 @@
   </dm:docmanager>
  </info>
 
- <sect1 xml:id="dolly-introduction">
+ <sect1 xml:id="dolly-cloning-process">
   <title>Dolly cloning process</title>
   <para>
    One machine is the management server and distributes the data to the nodes.
-   The management server stores the image, partition, disk, or data
-   to be cloned.
-   This machine runs <command>dolly</command> as a server.
-   All other nodes are <command>dolly</command> clients. They receive
-   the data from the ring, store it locally, and send it to
-   the next node in the ring. It is important to note that all of
-   this happens at the same time, so transferring data to one node or to
-   hundreds of nodes takes the same amount of time.
+   The management server stores the image, partition, disk, or data to be cloned.
+   This machine runs dolly as a server. All other nodes are dolly clients. They
+   receive the data from the ring, store it locally, and send it to the next node
+   in the ring. All of this happens at the same time, so transferring data to
+   one node or to hundreds of nodes takes the same amount of time.
   </para>
   <para>
-   <command>dolly</command> creates a virtual TCP ring to distribute data.
+   Dolly creates a virtual TCP ring to distribute data.
   </para>
-  <figure xml:id="dolly-cloning-process">
+  <figure xml:id="fig-dolly-cloning-process">
    <title>Dolly cloning process</title>
    <mediaobject>
     <imageobject role="html">
-     <imagedata fileref="dolly_cloning_process.svg" width="50%"/>
+     <imagedata fileref="dolly_cloning_process.png" width="50%"/>
     </imageobject>
     <imageobject role="fo">
-     <imagedata fileref="dolly_cloning_process.svg" width="50%"/>
+     <imagedata fileref="dolly_cloning_process.png" width="50%"/>
     </imageobject>
    </mediaobject>
   </figure>
  </sect1>
 
- <sect1 xml:id="dolly-server">
-  <title>How to use dolly </title>
-  <para>Ensure that <command>dolly</command> is installed on the management server and all clients: <command>zypper in dolly</command></para>
+ <sect1 xml:id="using-dolly">
+  <title>Using dolly </title>
+  <para>
+   Install dolly on the management server and all dolly client nodes:
+  </para>
+<screen>&prompt;zypper in dolly</screen>
   <para>
    The <command>dolly</command> command requires the following mandatory parameters:
   </para>
   <itemizedlist mark="bullet" spacing="normal">
    <listitem>
-    <para>data to send over the network: this could be a storage device, a file (gzip or not), or an image (containers or any other data)</para>
+    <para>
+     <literal>-I</literal>: Data to send over the network from the dolly
+     server. This could be a storage device, a file (<filename>gzip</filename>
+     or other file types), or an image (containers or other data).
+    </para>
    </listitem>
    <listitem>
-    <para>target for the data on clients: it should be adjusted based on the input from the server</para>
+    <para>
+     <literal>-O</literal>: A target on the dolly clients. The target must be
+     the same data type as the input from the dolly server. For example, dolly
+     cannot send a <filename>gzip</filename> file to a storage device.
+    </para>
    </listitem>
    <listitem>
-    <para>list of client nodes: a list of all the client nodes where you want to send the data</para>
+    <para>
+     <literal>-H</literal>: A list of the dolly client nodes where you want to
+     send the data.
+    </para>
    </listitem>
   </itemizedlist>
-  <para>Any other parameter is optional.</para>
-  <para>The following example sends <replaceable>/dev/sdc1</replaceable> to <replaceable>sle15sp32,sle15sp33,sle15sp34,sle15sp35</replaceable> nodes. On the management server (the <command>dolly</command> server), run the following command:</para>
-  <screen>
-  &prompt;dolly -s<co xml:id="dolly-server-parameter"/> -v<co xml:id="dolly-server-verbose"/> -o<co xml:id="dolly-server-log"/> /tmp/dolly.log -I<co xml:id="dolly-server-input"/> /dev/sdc1 -O<co xml:id="dolly-server-output"/> /dev/sdc1 -H<co xml:id="dolly-server-nodes"/> sle15sp32,sle15sp33,sle15sp34,sle15sp35</screen>
-  <calloutlist>
-   <callout arearefs="dolly-server-parameter">
+  <para>
+   Any other parameters are optional.
+  </para>
+  <procedure xml:id="pro-using-dolly">
+   <title>Cloning data from a dolly server to dolly clients</title>
+   <step>
     <para>
-     <literal>-s</literal> this node is the dolly server (the node that sends the data)
+     On the dolly server, run the following command:
     </para>
-   </callout>
-   <callout arearefs="dolly-server-verbose">
+<screen>&prompt;dolly -s<co xml:id="dolly-server-parameter"/> -v<co xml:id="dolly-server-verbose"/> -o <replaceable>LOGFILE</replaceable><co xml:id="dolly-server-log"/> -I <replaceable>INPUT</replaceable><co xml:id="dolly-server-input"/> -O <replaceable>OUTPUT</replaceable><co xml:id="dolly-server-output"/> -H <replaceable>NODE1,NODE2,..</replaceable><co xml:id="dolly-server-nodes"/></screen>
+    <calloutlist>
+     <callout arearefs="dolly-server-parameter">
+      <para>
+       Specifies that this node is the dolly server (the node that sends the data).
+      </para>
+     </callout>
+     <callout arearefs="dolly-server-verbose">
+      <para>
+       Switches dolly to verbose mode (helpful for debugging).
+      </para>
+     </callout>
+     <callout arearefs="dolly-server-log">
+      <para>
+       The file that statistical information is written to.
+      </para>
+     </callout>
+     <callout arearefs="dolly-server-input">
+      <para>
+       The data to clone.
+      </para>
+     </callout>
+     <callout arearefs="dolly-server-output">
+      <para>
+       The target that will store the data on each dolly client.
+      </para>
+     </callout>
+     <callout arearefs="dolly-server-nodes">
+      <para>
+       A comma-separated list of dolly clients to receive the data.
+      </para>
+     </callout>
+    </calloutlist>
     <para>
-     <literal>-v</literal> switch dolly to verbose mode (helpful for debugging)
+     For example, the following command sends <literal>/dev/sdc1</literal> to
+     the nodes <literal>sle152</literal>, <literal>sle153</literal>,
+     <literal>sle154</literal>, and <literal>sle155</literal>:
     </para>
-   </callout>
-   <callout arearefs="dolly-server-log">
+<screen>&prompt;dolly -s -v -o /tmp/dolly.log -I /dev/sdc1 -O /dev/sdc1 -H sle152,sle153,sle154,sle155</screen>
+   </step>
+   <step>
     <para>
-     <literal>-o <replaceable>LOGFILE</replaceable></literal> statistical information will be written in this file
+     On each client node, start <command>dolly</command>:
     </para>
-   </callout>
-   <callout arearefs="dolly-server-input">
+<screen>&prompt;dolly -v</screen>
     <para>
-     <literal>-I <replaceable>INPUT</replaceable></literal> the input data to clone (file, disk, storage devices, etc.)
+     You can run this command on multiple nodes at once using <command>pdsh</command>.
+     See <xref linkend="sec-remote-pdsh"/>.
     </para>
-   </callout>
-   <callout arearefs="dolly-server-output">
-    <para>
-     <literal>-O <replaceable>OUTPUT</replaceable></literal> the output target to store the data on each dolly client
-    </para>
-   </callout>
-   <callout arearefs="dolly-server-nodes">
-    <para>
-     <literal>-H <replaceable>NODE1</replaceable>,<replaceable>NODE2</replaceable>.. </literal> a comma-separated list of dolly clients to receive the data 
-    </para>
-   </callout>
-  </calloutlist>
-  <para>On the client, start <command>dolly</command>:</para>
-  <screen>
-    &prompt;dolly -v</screen>
-  <para>This example shows a typical verbose log on the server side:</para>
-  <screen>
-&prompt; dolly -s -v -o /tmp/dolly.log -I /dev/sdc1 -O /dev/sdc1 -H sle15sp32,sle15sp33,sle15sp34,sle15sp35
-writing '192.168.11.102'
-'writing '192.168.11.103'
-'writing '192.168.11.104'
-'writing '192.168.11.105'
+   </step>
+  </procedure>
+  <example xml:id="ex-dolly-server-verbose-output">
+   <title>Dolly server verbose output</title>
+   <para>
+    This example shows typical verbose output from the <command>dolly</command>
+    command on the dolly server:
+   </para>
+<screen>'writing '192.168.255.2'
+'writing '192.168.255.3'
+'writing '192.168.255.4'
+'writing '192.168.255.5'
 'Parameter file:
 infile = '/dev/sdc1'
 outfile = '/dev/sdc1'
 using data port 9998
 using ctrl port 9997
-myhostname = 'sle15sp31'
+myhostname = 'sle151'
 fanout = 1
 nr_childs = 1
-server = 'sle15sp31'
+server = 'sle151'
 I'm the server.
 I'm not the last host.
 There are 4 hosts in the ring (excluding server):
-        '192.168.11.102'
-        '192.168.11.103'
-        '192.168.11.104'
-        '192.168.11.105'
+        '192.168.255.2'
+        '192.168.255.3'
+        '192.168.255.4'
+        '192.168.255.5'
 Next hosts in ring:
-        192.168.11.102 (0)
+        192.168.255.2 (0)
 All parameters read successfully.
 No compression used.
 Using transfer size 4096 bytes.
 
 Trying to build ring...
-Connecting to host 192.168.11.102... Send buffer 0 is 131072 bytes
+Connecting to host 192.168.255.2... Send buffer 0 is 131072 bytes
 data control.
 Waiting for ring to build...
-Host got parameters '192.168.11.102'.
+Host got parameters '192.168.255.2'.
 Machines left to wait for: 4
-Host ready '192.168.11.102'.
+Host ready '192.168.255.2'.
 Machines left to wait for: 3
-Host got parameters '192.168.11.103'.
+Host got parameters '192.168.255.3'.
 Machines left to wait for: 3
-Host ready '192.168.11.103'.
+Host ready '192.168.255.3'.
 Machines left to wait for: 2
-Host got parameters '192.168.11.104'.
+Host got parameters '192.168.255.4'.
 Machines left to wait for: 2
-Host ready '192.168.11.104'.
+Host ready '192.168.255.4'.
 Machines left to wait for: 1
-Host got parameters '192.168.11.105'.
+Host got parameters '192.168.255.5'.
 Machines left to wait for: 1
-Host ready '192.168.11.105'.
+Host ready '192.168.255.5'.
 Machines left to wait for: 0
 Accepted.
 Server: Sending data...
@@ -172,39 +207,44 @@ Time: 534.627532
 MBytes/s: 29.655
 Aggregate MBytes/s: 118.621
 Transmitted.</screen>
-<para>This example shows a typical verbose log on the client side:</para>
-  <screen>
-Trying to build ring...
+  </example>
+  <example xml:id="dolly-client-verbose-output">
+   <title>Dolly client verbose output</title>
+   <para>
+    This example shows typical verbose output from the <command>dolly</command>
+    command on the dolly clients:
+   </para>
+<screen>Trying to build ring...
 Buffer size: 98304
 Receive buffer is 196608 bytes
 Accepting...control...
 Trying to read parameters...done.
 Parsing parameters...
 done.
-192.168.11.102 is number 0
+192.168.255.2 is number 0
 Parameter file:
 infile = '/dev/sdc1'
 outfile = '/dev/sdc1'
 using data port 9998
 using ctrl port 9997
-myhostname = '192.168.11.102'
+myhostname = '192.168.255.2'
 fanout = 1
 nr_childs = 1
-server = 'sle15sp31'
+server = 'sle151'
 I'm not the server.
 I'm not the last host.
 There are 4 hosts in the ring (excluding server):
-        '192.168.11.102'
-        '192.168.11.103'
-        '192.168.11.104'
-        '192.168.11.105'
+        '192.168.255.2'
+        '192.168.255.3'
+        '192.168.255.4'
+        '192.168.255.5'
 Next hosts in ring:
-192.168.11.103 (1)
+192.168.255.3 (1)
 All parameters read successfully.
 No compression used.
 Using transfer size 4096 bytes.
 Connected data...done.
-Connecting to host 192.168.11.103...
+Connecting to host 192.168.255.3...
 data control.
 Accepted.
 Receiving...
@@ -214,9 +254,14 @@ Transfered MB: 15854, MB/s: 29.655
 
 Synced.
 Transmitted.</screen>
+  </example>
+
+
+
+
  </sect1>
 
- <sect1 xml:id="dolly-config">
+ <sect1 xml:id="dolly-configuration-file">
   <title>Dolly configuration file</title>
   <para>
    <command>dolly</command> can also use a configuration file for the cloning process.
@@ -225,13 +270,13 @@ Transmitted.</screen>
   <screen>
 infile /tmp/sle15sp3.sif<co xml:id="dolly-config-in"/>
 outfile /data/sle15sp3.sif<co xml:id="dolly-config-out"/>
-server sle15sp31<co xml:id="dolly-config-server"/>
-firstclient sle15sp32<co xml:id="dolly-config-first"/>
-lastclient sle15sp34<co xml:id="dolly-config-last"/>
+server sle151<co xml:id="dolly-config-server"/>
+firstclient sle152<co xml:id="dolly-config-first"/>
+lastclient sle154<co xml:id="dolly-config-last"/>
 clients 3<co xml:id="dolly-config-nbclients"/>
-sle15sp32<co xml:id="dolly-config-nodes"/>
-sle15sp33
-sle15sp34
+sle152<co xml:id="dolly-config-nodes"/>
+sle153
+sle154
 endconfig<co xml:id="dolly-config-end"/></screen>
   <calloutlist>
    <callout arearefs="dolly-config-in">
