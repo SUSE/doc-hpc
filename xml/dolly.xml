@@ -103,7 +103,7 @@
    </callout>
    <callout arearefs="dolly-server-nodes">
     <para>
-     <literal>-H <replaceable>NODE1</replaceable>,<replaceable>NODE2</replaceable>.. </literal> a comma-separated list of dolly clients to receive the data 
+     <literal>-H <replaceable>NODE1</replaceable>,<replaceable>NODE2</replaceable>.. </literal> a comma-separated list of dolly clients to receive the data
     </para>
    </callout>
   </calloutlist>
@@ -216,7 +216,7 @@ Synced.
 Transmitted.</screen>
  </sect1>
 
- <sect1 xml:id="dolly-config">
+ <!--sect1 xml:id="dolly-config">
   <title>Dolly configuration file</title>
   <para>
    <command>dolly</command> can also use a configuration file for the cloning process.
@@ -282,7 +282,7 @@ endconfig<co xml:id="dolly-config-end"/></screen>
     <para><option>-s</option> is mandatory if you are using <option>-f</option></para>
    </callout>
   </calloutlist>
- </sect1>
+ </sect1-->
 
  <sect1 xml:id="dolly-support">
  <title>Dolly limitations</title>
