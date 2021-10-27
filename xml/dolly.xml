@@ -1,0 +1,362 @@
+<?xml-stylesheet href="urn:x-suse:xslt:profiling:docbook51-profile.xsl"
+ type="text/xml"
+ title="Profiling step"?>
+<!DOCTYPE chapter
+[
+  <!ENTITY % entities SYSTEM "generic-entities.ent">
+    %entities;
+]>
+<chapter xmlns="http://docbook.org/ns/docbook"
+ xmlns:xi="http://www.w3.org/2001/XInclude"
+ xmlns:xlink="http://www.w3.org/1999/xlink" xml:base="dolly.xml"
+ xml:id="cha-dolly" xml:lang="en" version="5.1">
+ <title>Dolly clone tool</title>
+ <info>
+  <abstract>
+   <para>
+    Dolly is used to send data from a management server to many other nodes.
+    It can distribute files, container images,
+    partitions, or whole storage devices.
+   </para>
+  </abstract>
+  <dm:docmanager xmlns:dm="urn:x-suse:ns:docmanager">
+   <dm:bugtracker/>
+   <dm:translation>yes</dm:translation>
+  </dm:docmanager>
+ </info>
+
+ <sect1 xml:id="dolly-introduction">
+  <title>Dolly cloning process</title>
+  <para>
+   One machine is the management server and distributes the data to the nodes.
+   The management server stores the image, partition, disk, or data
+   to be cloned.
+   This machine runs <command>dolly</command> as a server.
+   All other nodes are <command>dolly</command> clients. They receive
+   the data from the ring, store it locally, and send it to
+   the next node in the ring. It is important to note that all of
+   this happens at the same time, so transferring data to one node or to
+   hundreds of nodes takes the same amount of time.
+  </para>
+  <para>
+   <command>dolly</command> creates a virtual TCP ring to distribute data.
+  </para>
+  <figure xml:id="dolly-cloning-process">
+   <title>Dolly cloning process</title>
+   <mediaobject>
+    <imageobject role="html">
+     <imagedata fileref="dolly_cloning_process.svg" width="50%"/>
+    </imageobject>
+    <imageobject role="fo">
+     <imagedata fileref="dolly_cloning_process.svg" width="50%"/>
+    </imageobject>
+   </mediaobject>
+  </figure>
+ </sect1>
+
+ <sect1 xml:id="dolly-server">
+  <title>How to use dolly </title>
+  <para>Ensure that <command>dolly</command> is installed on the management server and all clients: <command>zypper in dolly</command></para>
+  <para>
+   The <command>dolly</command> command requires the following mandatory parameters:
+  </para>
+  <itemizedlist mark="bullet" spacing="normal">
+   <listitem>
+    <para>data to send over the network: this could be a storage device, a file (gzip or not), or an image (containers or any other data)</para>
+   </listitem>
+   <listitem>
+    <para>target for the data on clients: it should be adjusted based on the input from the server</para>
+   </listitem>
+   <listitem>
+    <para>list of client nodes: a list of all the client nodes where you want to send the data</para>
+   </listitem>
+  </itemizedlist>
+  <para>Any other parameter is optional.</para>
+  <para>The following example sends <replaceable>/dev/sdc1</replaceable> to <replaceable>sle15sp32,sle15sp33,sle15sp34,sle15sp35</replaceable> nodes. On the management server (the <command>dolly</command> server), run the following command:</para>
+  <screen>
+  &prompt;dolly -s<co xml:id="dolly-server-parameter"/> -v<co xml:id="dolly-server-verbose"/> -o<co xml:id="dolly-server-log"/> /tmp/dolly.log -I<co xml:id="dolly-server-input"/> /dev/sdc1 -O<co xml:id="dolly-server-output"/> /dev/sdc1 -H<co xml:id="dolly-server-nodes"/> sle15sp32,sle15sp33,sle15sp34,sle15sp35</screen>
+  <calloutlist>
+   <callout arearefs="dolly-server-parameter">
+    <para>
+     <literal>-s</literal> this node is the dolly server (the node that sends the data)
+    </para>
+   </callout>
+   <callout arearefs="dolly-server-verbose">
+    <para>
+     <literal>-v</literal> switch dolly to verbose mode (helpful for debugging)
+    </para>
+   </callout>
+   <callout arearefs="dolly-server-log">
+    <para>
+     <literal>-o <replaceable>LOGFILE</replaceable></literal> statistical information will be written in this file
+    </para>
+   </callout>
+   <callout arearefs="dolly-server-input">
+    <para>
+     <literal>-I <replaceable>INPUT</replaceable></literal> the input data to clone (file, disk, storage devices, etc.)
+    </para>
+   </callout>
+   <callout arearefs="dolly-server-output">
+    <para>
+     <literal>-O <replaceable>OUTPUT</replaceable></literal> the output target to store the data on each dolly client
+    </para>
+   </callout>
+   <callout arearefs="dolly-server-nodes">
+    <para>
+     <literal>-H <replaceable>NODE1</replaceable>,<replaceable>NODE2</replaceable>.. </literal> a comma-separated list of dolly clients to receive the data 
+    </para>
+   </callout>
+  </calloutlist>
+  <para>On the client, start <command>dolly</command>:</para>
+  <screen>
+    &prompt;dolly -v</screen>
+  <para>This example shows a typical verbose log on the server side:</para>
+  <screen>
+&prompt; dolly -s -v -o /tmp/dolly.log -I /dev/sdc1 -O /dev/sdc1 -H sle15sp32,sle15sp33,sle15sp34,sle15sp35
+writing '192.168.11.102'
+'writing '192.168.11.103'
+'writing '192.168.11.104'
+'writing '192.168.11.105'
+'Parameter file:
+infile = '/dev/sdc1'
+outfile = '/dev/sdc1'
+using data port 9998
+using ctrl port 9997
+myhostname = 'sle15sp31'
+fanout = 1
+nr_childs = 1
+server = 'sle15sp31'
+I'm the server.
+I'm not the last host.
+There are 4 hosts in the ring (excluding server):
+        '192.168.11.102'
+        '192.168.11.103'
+        '192.168.11.104'
+        '192.168.11.105'
+Next hosts in ring:
+        192.168.11.102 (0)
+All parameters read successfully.
+No compression used.
+Using transfer size 4096 bytes.
+
+Trying to build ring...
+Connecting to host 192.168.11.102... Send buffer 0 is 131072 bytes
+data control.
+Waiting for ring to build...
+Host got parameters '192.168.11.102'.
+Machines left to wait for: 4
+Host ready '192.168.11.102'.
+Machines left to wait for: 3
+Host got parameters '192.168.11.103'.
+Machines left to wait for: 3
+Host ready '192.168.11.103'.
+Machines left to wait for: 2
+Host got parameters '192.168.11.104'.
+Machines left to wait for: 2
+Host ready '192.168.11.104'.
+Machines left to wait for: 1
+Host got parameters '192.168.11.105'.
+Machines left to wait for: 1
+Host ready '192.168.11.105'.
+Machines left to wait for: 0
+Accepted.
+Server: Sending data...
+Sent MB: 15854, MB/s: 29.655, Current MB/s: 111.111
+Read 15854469120 bytes from file(s).
+Writing maxbytes = 15854469120 to ctrlout
+Sent MB: 15854.
+Synced.
+Waiting for child 0.
+Clients done.
+Time: 534.627532
+MBytes/s: 29.655
+Aggregate MBytes/s: 118.621
+Transmitted.</screen>
+<para>This example shows a typical verbose log on the client side:</para>
+  <screen>
+Trying to build ring...
+Buffer size: 98304
+Receive buffer is 196608 bytes
+Accepting...control...
+Trying to read parameters...done.
+Parsing parameters...
+done.
+192.168.11.102 is number 0
+Parameter file:
+infile = '/dev/sdc1'
+outfile = '/dev/sdc1'
+using data port 9998
+using ctrl port 9997
+myhostname = '192.168.11.102'
+fanout = 1
+nr_childs = 1
+server = 'sle15sp31'
+I'm not the server.
+I'm not the last host.
+There are 4 hosts in the ring (excluding server):
+        '192.168.11.102'
+        '192.168.11.103'
+        '192.168.11.104'
+        '192.168.11.105'
+Next hosts in ring:
+192.168.11.103 (1)
+All parameters read successfully.
+No compression used.
+Using transfer size 4096 bytes.
+Connected data...done.
+Connecting to host 192.168.11.103...
+data control.
+Accepted.
+Receiving...
+Transfered MB: 15854, MB/s: 29.655, Current MB/s: 116.661
+Max. bytes will be 15854469120 bytes. 49152 bytes left.
+Transfered MB: 15854, MB/s: 29.655
+
+Synced.
+Transmitted.</screen>
+ </sect1>
+
+ <sect1 xml:id="dolly-config">
+  <title>Dolly configuration file</title>
+  <para>
+   <command>dolly</command> can also use a configuration file for the cloning process.
+   The format is strict but simple. The following example shows a typical configuration file:
+  </para>
+  <screen>
+infile /tmp/sle15sp3.sif<co xml:id="dolly-config-in"/>
+outfile /data/sle15sp3.sif<co xml:id="dolly-config-out"/>
+server sle15sp31<co xml:id="dolly-config-server"/>
+firstclient sle15sp32<co xml:id="dolly-config-first"/>
+lastclient sle15sp34<co xml:id="dolly-config-last"/>
+clients 3<co xml:id="dolly-config-nbclients"/>
+sle15sp32<co xml:id="dolly-config-nodes"/>
+sle15sp33
+sle15sp34
+endconfig<co xml:id="dolly-config-end"/></screen>
+  <calloutlist>
+   <callout arearefs="dolly-config-in">
+    <para>
+     <literal>infile <replaceable>DATA</replaceable></literal>: the data to send over the network
+    </para>
+   </callout>
+   <callout arearefs="dolly-config-out">
+    <para>
+     <literal>outfile <replaceable>DATA</replaceable></literal>: the file or device to store data on the client node
+    </para>
+   </callout>
+   <callout arearefs="dolly-config-server">
+    <para>
+     <literal>server <replaceable>DOLLY_SERVER</replaceable></literal>: the name of the dolly server
+    </para>
+   </callout>
+   <callout arearefs="dolly-config-first">
+    <para>
+     <literal>firstclient <replaceable>NODE</replaceable></literal>: the first client in the ring
+    </para>
+   </callout>
+   <callout arearefs="dolly-config-last">
+    <para>
+     <literal>lastclient <replaceable>NODE</replaceable></literal>: the last client in the ring
+    </para>
+   </callout>
+   <callout arearefs="dolly-config-nbclients">
+    <para>
+     <literal>clients <replaceable>NUMBER</replaceable></literal>: how many dolly clients are in the ring
+    </para>
+   </callout>
+   <callout arearefs="dolly-config-nodes">
+    <para>
+     <literal><replaceable>NODENAME</replaceable></literal>: the list of dolly clients, one per line
+    </para>
+   </callout>
+   <callout arearefs="dolly-config-end">
+    <para>
+     <literal>endconfig</literal>: mandatory parameter to specify the end of the configuration file
+    </para>
+   </callout>
+  </calloutlist>
+  <para>To use this configuration file, you must use the <option>-f <replaceable>CONFIGURATION_FILE</replaceable></option> option on the <command>dolly</command> command line:</para>
+  <screen>&prompt; dolly -v -s<co xml:id="dolly-config-command"/> -f /etc/dolly.cfg</screen>
+  <calloutlist>
+   <callout arearefs="dolly-config-command">
+    <para><option>-s</option> is mandatory if you are using <option>-f</option></para>
+   </callout>
+  </calloutlist>
+ </sect1>
+
+ <sect1 xml:id="dolly-support">
+ <title>Dolly limitations</title>
+ <para>
+  <command>dolly</command> provides some specific parameters which are not supported because
+  they are unsafe, untested, or dedicated for benchmarking or doing statistics. They are provided
+  as a technology preview only.
+ </para>
+ <itemizedlist>
+  <listitem>
+   <para>to clone a partition, they must be identical in size on the dolly server and the client node</para>
+  </listitem>
+  <listitem>
+   <para>
+    when cloning a device, disk, partition, or file, you must properly set the input and output options based on the data you want to clone. Mixing the type of input and output can lead to data corruption.
+   </para>
+  </listitem>
+  <listitem>
+   <para>
+    storage device: it is mandatory to clone strictly identical storage devices, or corruption can occur
+   </para>
+  </listitem>
+  <listitem>
+   <para>
+    <option>-S</option> ignoring the FQDN is not supported
+   </para>
+  </listitem>
+  <listitem>
+   <para>
+    <option>-6</option> using IPv6 is not supported
+   </para>
+  </listitem>
+  <listitem>
+   <para>
+    <option>-n</option> (do not do a sync before exiting) is not supported as this can lead to data corruption
+   </para>
+  </listitem>
+  <listitem>
+   <para>
+    <option>-d</option> dummy mode should only be used for benchmarking and is not supported
+   </para>
+  </listitem>
+  <listitem>
+   <para>
+    <option>-c</option> should only be used for performance statistics
+   </para>
+  </listitem>
+ </itemizedlist>
+ <para>Specific configuration file options:</para>
+ <itemizedlist>
+   <listitem>
+   <para>
+    using the compression option is not supported (<option>compressed</option>)
+   </para>
+  </listitem>
+  <listitem>
+   <para>
+    <option>split</option> is not supported (infile or outfile)
+   </para>
+  </listitem>
+  <listitem>
+   <para>
+    <option>fanout</option> must be set to 1 (a linear list). Any other binary tree or more is not supported.
+   </para>
+  </listitem>
+  <listitem>
+   <para>the benchmark switch <option>segsize</option> is not supported</para>
+  </listitem>
+  <listitem>
+   <para>
+    using more than one interface to clone data is not supported (<option>add</option> parameter)
+   </para>
+  </listitem>
+ </itemizedlist>
+ </sect1>
+
+</chapter>
