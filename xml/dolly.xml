@@ -58,32 +58,33 @@
   </para>
 <screen>&prompt;zypper in dolly</screen>
   <para>
-   The <command>dolly</command> command requires the following mandatory parameters:
+   The <command>dolly</command> command requires the following information,
+   either directly on the command line or from a configuration file:
   </para>
   <itemizedlist mark="bullet" spacing="normal">
    <listitem>
     <para>
-     <literal>-I</literal>: Data to send over the network from the dolly
-     server. This could be a storage device, a file (<filename>gzip</filename>
-     or other file types), or an image (containers or other data).
+     Data to send over the network from the dolly server. This could be a
+     storage device, a file (<filename>gzip</filename> or other file types),
+     or an image (containers or other data).
     </para>
    </listitem>
    <listitem>
     <para>
-     <literal>-O</literal>: A target on the dolly clients. The target must be
-     the same data type as the input from the dolly server. For example, dolly
-     cannot send a <filename>gzip</filename> file to a storage device.
+     A target on the dolly clients. The target must be the same data type as
+     the input from the dolly server. For example, dolly cannot send a
+     <filename>gzip</filename> file to a storage device.
     </para>
    </listitem>
    <listitem>
     <para>
-     <literal>-H</literal>: A list of the dolly client nodes where you want to
-     send the data.
+     A list of the dolly client nodes where you want to send the data.
     </para>
    </listitem>
   </itemizedlist>
   <para>
-   Any other parameters are optional.
+   Any other parameters are optional. For more information, see
+   <command>man dolly</command> and <xref linkend="dolly-support"/>.
   </para>
   <procedure xml:id="pro-using-dolly">
    <title>Cloning data from a dolly server to dolly clients</title>
@@ -100,7 +101,7 @@
      </callout>
      <callout arearefs="dolly-server-verbose">
       <para>
-       Switches dolly to verbose mode (helpful for debugging).
+       Switches dolly to verbose mode, which is helpful for debugging.
       </para>
      </callout>
      <callout arearefs="dolly-server-log">
@@ -133,7 +134,7 @@
    </step>
    <step>
     <para>
-     On each client node, start <command>dolly</command>:
+     On each dolly client, start <command>dolly</command>:
     </para>
 <screen>&prompt;dolly -v</screen>
     <para>
@@ -255,21 +256,16 @@ Transfered MB: 15854, MB/s: 29.655
 Synced.
 Transmitted.</screen>
   </example>
-
-
-
-
  </sect1>
 
  <sect1 xml:id="dolly-configuration-file">
   <title>Dolly configuration file</title>
   <para>
-   <command>dolly</command> can also use a configuration file for the cloning process.
-   The format is strict but simple. The following example shows a typical configuration file:
+   You can use a dolly configuration file with the <option>-f</option> parameter instead of providing the information manually on the command line.
+   The following example shows a typical configuration file called <filename>/etc/dolly.cfg</filename>:
   </para>
-  <screen>
-infile /tmp/sle15sp3.sif<co xml:id="dolly-config-in"/>
-outfile /data/sle15sp3.sif<co xml:id="dolly-config-out"/>
+<screen>infile /tmp/sle15.sif<co xml:id="dolly-config-in"/>
+outfile /data/sle15.sif<co xml:id="dolly-config-out"/>
 server sle151<co xml:id="dolly-config-server"/>
 firstclient sle152<co xml:id="dolly-config-first"/>
 lastclient sle154<co xml:id="dolly-config-last"/>
@@ -281,127 +277,141 @@ endconfig<co xml:id="dolly-config-end"/></screen>
   <calloutlist>
    <callout arearefs="dolly-config-in">
     <para>
-     <literal>infile <replaceable>DATA</replaceable></literal>: the data to send over the network
+     The data to send over the network from the dolly server.
     </para>
    </callout>
    <callout arearefs="dolly-config-out">
     <para>
-     <literal>outfile <replaceable>DATA</replaceable></literal>: the file or device to store data on the client node
+     The file or device that will store the data on the dolly clients.
     </para>
    </callout>
    <callout arearefs="dolly-config-server">
     <para>
-     <literal>server <replaceable>DOLLY_SERVER</replaceable></literal>: the name of the dolly server
+     The name of the dolly server.
     </para>
    </callout>
    <callout arearefs="dolly-config-first">
     <para>
-     <literal>firstclient <replaceable>NODE</replaceable></literal>: the first client in the ring
+     The first dolly client in the ring.
     </para>
    </callout>
    <callout arearefs="dolly-config-last">
     <para>
-     <literal>lastclient <replaceable>NODE</replaceable></literal>: the last client in the ring
+     The last dolly client in the ring.
     </para>
    </callout>
    <callout arearefs="dolly-config-nbclients">
     <para>
-     <literal>clients <replaceable>NUMBER</replaceable></literal>: how many dolly clients are in the ring
+     Specifies how many dolly clients are in the ring.
     </para>
    </callout>
    <callout arearefs="dolly-config-nodes">
     <para>
-     <literal><replaceable>NODENAME</replaceable></literal>: the list of dolly clients, one per line
+     The list of dolly clients, one per line.
     </para>
    </callout>
    <callout arearefs="dolly-config-end">
     <para>
-     <literal>endconfig</literal>: mandatory parameter to specify the end of the configuration file
+     Specifies the end of the configuration file.
     </para>
    </callout>
   </calloutlist>
-  <para>To use this configuration file, you must use the <option>-f <replaceable>CONFIGURATION_FILE</replaceable></option> option on the <command>dolly</command> command line:</para>
-  <screen>&prompt; dolly -v -s<co xml:id="dolly-config-command"/> -f /etc/dolly.cfg</screen>
-  <calloutlist>
-   <callout arearefs="dolly-config-command">
-    <para><option>-s</option> is mandatory if you are using <option>-f</option></para>
-   </callout>
-  </calloutlist>
+  <para>
+   To use this configuration file, run the following command on the dolly server:
+  </para>
+  <screen>&prompt; dolly -v -s -f /etc/dolly.cfg</screen>
  </sect1>
 
  <sect1 xml:id="dolly-support">
- <title>Dolly limitations</title>
- <para>
-  <command>dolly</command> provides some specific parameters which are not supported because
-  they are unsafe, untested, or dedicated for benchmarking or doing statistics. They are provided
-  as a technology preview only.
- </para>
- <itemizedlist>
-  <listitem>
-   <para>to clone a partition, they must be identical in size on the dolly server and the client node</para>
-  </listitem>
-  <listitem>
-   <para>
-    when cloning a device, disk, partition, or file, you must properly set the input and output options based on the data you want to clone. Mixing the type of input and output can lead to data corruption.
-   </para>
-  </listitem>
-  <listitem>
-   <para>
-    storage device: it is mandatory to clone strictly identical storage devices, or corruption can occur
-   </para>
-  </listitem>
-  <listitem>
-   <para>
-    <option>-S</option> ignoring the FQDN is not supported
-   </para>
-  </listitem>
-  <listitem>
-   <para>
-    <option>-6</option> using IPv6 is not supported
-   </para>
-  </listitem>
-  <listitem>
-   <para>
-    <option>-n</option> (do not do a sync before exiting) is not supported as this can lead to data corruption
-   </para>
-  </listitem>
-  <listitem>
-   <para>
-    <option>-d</option> dummy mode should only be used for benchmarking and is not supported
-   </para>
-  </listitem>
-  <listitem>
-   <para>
-    <option>-c</option> should only be used for performance statistics
-   </para>
-  </listitem>
- </itemizedlist>
- <para>Specific configuration file options:</para>
- <itemizedlist>
+  <title>Dolly limitations</title>
+  <para>
+   Be aware of the following restrictions:
+  </para>
+  <itemizedlist>
    <listitem>
-   <para>
-    using the compression option is not supported (<option>compressed</option>)
-   </para>
-  </listitem>
-  <listitem>
-   <para>
-    <option>split</option> is not supported (infile or outfile)
-   </para>
-  </listitem>
-  <listitem>
-   <para>
-    <option>fanout</option> must be set to 1 (a linear list). Any other binary tree or more is not supported.
-   </para>
-  </listitem>
-  <listitem>
-   <para>the benchmark switch <option>segsize</option> is not supported</para>
-  </listitem>
-  <listitem>
-   <para>
-    using more than one interface to clone data is not supported (<option>add</option> parameter)
-   </para>
-  </listitem>
- </itemizedlist>
+    <para>
+     The output data type must be the same as the input data type. Mixing the
+     type of input and output can lead to data corruption.
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+     Only clone partitions that are identical in size on the dolly server and
+     the client node.
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+     Only clone strictly identical storage devices, or corruption can occur.
+    </para>
+   </listitem>
+  </itemizedlist>
+  <para>
+   The following command line parameters are not supported and are provided as a
+   technology preview only:
+  </para>
+  <itemizedlist>
+   <listitem>
+    <para>
+     <option>-S</option>: Ignoring the FQDN is not supported.
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+     <option>-6</option>: Using IPv6 is not supported.
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+     <option>-n</option>: Not doing a sync before exiting is not supported as
+     this can lead to data corruption.
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+     <option>-d</option>: Dummy mode should only be used for benchmarking and
+     is not supported.
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+     <option>-c</option>: Specifying the uncompressed size of a compressed file
+     should only be used for performance statistics.
+    </para>
+   </listitem>
+  </itemizedlist>
+  <para>
+   The following configuration file options are not supported and are provided as
+   a technology preview only:
+  </para>
+  <itemizedlist>
+    <listitem>
+    <para>
+     <option>compressed</option>: Using the compression option is not supported.
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+     <option>split</option>: Splitting files is not supported (infile or outfile).
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+     <option>fanout</option>: This option must be set to 1 (a linear list).
+     A binary tree or more is not supported.
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+     <option>segsize</option>: This benchmark switch is not supported.
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+     <option>add</option>: Using more than one interface to clone data is not supported.
+    </para>
+   </listitem>
+  </itemizedlist>
  </sect1>
 
 </chapter>
