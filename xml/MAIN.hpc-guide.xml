@@ -21,7 +21,8 @@
   <xi:include href="common_copyright_gfdl.xml"/>
   <abstract>
    <para>
-    &slehpc;
+    This guide covers system administration tasks such as remote administration,
+    workload management, and monitoring.
    </para>
   </abstract>
   <dm:docmanager xmlns:dm="urn:x-suse:ns:docmanager">
