@@ -1,10 +1,12 @@
-= SUSE Linux Enterprise for High Performance-Computing (SLE-HPC) Documentation
+= SUSE Linux Enterprise for High Performance Computing (SLE-HPC) Documentation
 
-This is the source for the official High Performance-Computing (SLE-HPC) documentation.
+This is the source for the official High Performance Computing (SLE-HPC) documentation.
 
 This repository hosts the documentation sources including translations (if available).
 
-Released versions of the documentation will be published at https://documentation.suse.com/sle-hpc/.
+Released versions of the documentation are published at https://documentation.suse.com/sle-hpc/.
+
+Beta documentation versions are available at https://susedoc.github.io/, where all commits to `main` and maintenance branches are automatically built.
 
 
 == Branches
@@ -14,45 +16,56 @@ Released versions of the documentation will be published at https://documentatio
 |=======================================================================
 | Name                             | Purpose
 | `main`                           | Current working branch
+| `maintenance/*`                  | Maintenance for released versions
 |=======================================================================
 
 ***On Feb 20, 2021, we switched to a new default branch.***
 ***The default branch is now called `main`.***
 
-*Use the main branch* as the basis of your commits/of new feature branches.
+*Use the main branch* as the basis of your commits/new feature branches.
 
 
 === How to update your local repository
 
 If you *created* a local clone or GitHub fork of this repo *before Feb 20, 2021, do the following*:
 
-[code]
-====
+----
 git branch -m master main
 git fetch origin
 git branch -u origin/main main
 git pull -r
-====
+----
+
+
+== Reporting bugs
+
+Bugs are collected on https://bugzilla.suse.com.
+If possible, please check for duplicates before creating a new report.
+When creating a new report, use `SUSE Linux Enterprise HPC` as the product, and in the next step select the version.
+Select `Documentation` as the component.
 
 
 == Contributing
 
 Thank you for contributing to this repo. Please adhere to the following guidelines when creating a pull request:
 
-. Make your pull request against the __main__ branch if you are contributing to the most recent release
-(currently SLE-HPC 15 SP3). This branch is is protected.
+. If you are contributing to the most recent release (currently SLE-HPC 15 SP4), create your pull request against the _main_ branch.
+This branch is protected.
 
-. If you are contributing to a previous release, please see _maintenance/_<RELEASENUMBER>_. These branches are also protected.
+. If you are contributing to a previous release, create your pull request against the respective _maintenance/<RELEASENUMBER>_ branch.
+These branches are also protected.
 
-. Make sure all validation (Travis CI) checks are passed, and tag relevant SMEs from the development team (if applicable)
-  and members of the SLE-HPC doc team: Tanja Roth (@taroth21).
+. Make sure all validation (Travis CI) checks are passed.
 
-  **NOTE:** If your pull request has multiple files and reorganisation changes, please build locally using DAPS or daps2docker
-  (see instructions below) to verify and build the files. Travis CI only validates, and does not ensure the XML builds
-  are correct.
+. For your pull request to be reviewed, tag relevant SMEs from the development team (if applicable) and a member of the SLE-HPC doc team: Tahlia Richardson (@tahliar).
++
+NOTE: If your pull request has multiple files and reorganisation changes, please build locally using DAPS or daps2docker (see instructions below) to verify and build the files.
+Travis CI only validates, and does not ensure the XML builds are correct.
 
-. Implement any required changes, or fix any merge conflicts if relevant. If you have any questions, ping a documentation team
-  member in #susedoc on RocketChat.
+. Implement any required changes, or fix any merge conflicts if relevant.
+If you have any questions, ping a documentation team member in #team-suse-docs on Slack.
+
+. For help on style and structure, refer to the https://documentation.suse.com/style/current[Documentation Style Guide].
 
 
 == Editing DocBook
@@ -60,32 +73,28 @@ Thank you for contributing to this repo. Please adhere to the following guidelin
 To contribute to the documentation, you need to write DocBook.
 
 * You can learn about DocBook syntax at http://docbook.org/tdg5/en/html .
-* SUSE documents are generally built with DAPS (package `daps`) and the
-  SUSE XSL Stylesheets (package `suse-xsl-stylesheets`). Ideally, you should
-  get these from the repository `Documentation:Tools`. However, slightly
-  older versions are also available from the SLE and openSUSE repositories.
+* SUSE documents are generally built with DAPS (package `daps`) and the SUSE XSL Stylesheets (package `suse-xsl-stylesheets`).
+Ideally, you should get these from the repository `Documentation:Tools`.
+However, slightly older versions are also available from the SLE and openSUSE repositories.
 
 == Building documentation
 
-If you are interested in building DAPS documentation (defaulting to HTML and PDF), you can utilize
-either DAPS directly or use daps2docker. Both tools only work on Linux.
+If you are interested in building DAPS documentation (defaulting to HTML and PDF), you can either use DAPS directly or use daps2docker. Both tools only work on Linux.
 
-* Use daps2docker if you use any Linux distribution that includes Docker and Systemd and only want to
-  build HTML, PDF, or EPUB and want to be set up as quickly as possible.
-* Use DAPS directly if you are using a recent version of openSUSE, and want to use any of the advanced
-  features of DAPS, such as building Mobipocket or spell-checking documents.
+* Use daps2docker if you use any Linux distribution that includes Docker and Systemd, want to be set up as quickly as possible, and only want to build HTML, PDF, or EPUB.
+* Use DAPS directly if you are using a recent version of openSUSE, and want to use any of the advanced features of DAPS, such as building Mobipocket or spell-checking documents.
 
 === Using daps2docker
 
-1. Install Docker
+1. Install Docker.
 2. Clone the daps2docker repository from https://github.com/openSUSE/daps2docker.
-3. Within the cloned repository, run `./daps2docker.sh /PATH/TO/DOC-DIR`
-   This builds HTML and PDF documents.
+3. Within the cloned repository, run `./daps2docker.sh /PATH/TO/DOC-DIR` to build HTML and PDF documents.
 
 === Using DAPS directly
 
-** `$ daps -d DC-<YOUR_BOOK> validate`: Make sure what you have written is
+** `daps -d DC-<YOUR_BOOK> validate`: Make sure what you have written is
     well-formed XML and valid DocBook 5
-** `$ daps -d DC-<YOUR_BOOK> pdf`: Build a PDF document
-** `$ daps -d DC-<YOUR_BOOK> html`: Build multi-page HTML document
+** `daps -d DC-<YOUR_BOOK> pdf`: Build a PDF document
+** `daps -d DC-<YOUR_BOOK> html`: Build multi-page HTML document
+** `daps -d DC-<YOUR_BOOK> html --single`: Build single-page HTML document
 ** Learn more at https://opensuse.github.io/daps
