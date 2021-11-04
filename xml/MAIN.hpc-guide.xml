@@ -26,6 +26,7 @@
    </para>
   </abstract>
   <dm:docmanager xmlns:dm="urn:x-suse:ns:docmanager">
+   <dm:editurl>https://github.com/SUSE/doc-hpc/edit/maintenance/SLE15SP3/xml/</dm:editurl>
    <dm:bugtracker>
     <dm:url>https://bugzilla.suse.com/enter_bug.cgi</dm:url>
     <dm:component>Documentation</dm:component>
