@@ -35,6 +35,19 @@
     <emphasis>slurmdbd</emphasis>, which stores the job history and user
     hierarchy.
    </para>
+
+   <para>
+    For further documentation, see the
+    <link
+     xlink:href="https://slurm.schedmd.com/quickstart_admin.html">Quick
+    Start Administrator Guide</link> and
+    <link
+     xlink:href="https://slurm.schedmd.com/quickstart.html"> Quick
+    Start User Guide</link>. There is further in-depth documentation on the
+    <link
+     xlink:href="https://slurm.schedmd.com/documentation.html">&slurm;
+    documentation page</link>.
+   </para>
   </abstract>
   <dm:docmanager xmlns:dm="urn:x-suse:ns:docmanager">
    <dm:bugtracker/>
@@ -1423,10 +1436,7 @@ systemctl start slurmd</screen>
    </para>
   </sect2>
  </sect1>
- <sect1 xml:id="sec-slurm-additional-res">
-  <title>Additional resources</title>
-
-  <sect2 xml:id="sec-slurm-faq">
+ <sect1 xml:id="sec-slurm-faq">
    <title>Frequently asked questions</title>
    <qandaset>
     <qandaentry>
@@ -1490,22 +1500,5 @@ systemctl start slurmd</screen>
      </answer>
     </qandaentry>
    </qandaset>
-  </sect2>
-
-  <sect2 xml:id="sec-slurm-ext-doc">
-   <title>External documentation</title>
-   <para>
-    For further documentation, see the
-    <link
-     xlink:href="https://slurm.schedmd.com/quickstart_admin.html">Quick
-    Start Administrator Guide</link> and
-    <link
-     xlink:href="https://slurm.schedmd.com/quickstart.html"> Quick
-    Start User Guide</link>. There is further in-depth documentation on the
-    <link
-     xlink:href="https://slurm.schedmd.com/documentation.html">&slurm;
-    documentation page</link>.
-   </para>
-  </sect2>
  </sect1>
 </chapter>
