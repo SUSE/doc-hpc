@@ -1122,17 +1122,14 @@ mysql --password --batch</screen>
     </step>
     <step>
      <para>
-      <emphasis role="bold">Rebuild database</emphasis>
-     </para>
-     <para>
-      Because a conversion might take a considerable amount of time, the
+      Rebuild the database. Because a conversion might take a considerable amount of time, the
       <literal>systemd</literal> service might time out during the conversion.
       Therefore, we recommend performing the migration manually by running
       <literal>slurmdbd</literal> from the command line in the foreground:
      </para>
 <screen>&prompt.DBnode;/usr/sbin/slurmdbd -D -v</screen>
      <para>
-      Once you see the following message, you can shut down
+      When you see the following message, you can shut down
       <literal>slurmdbd</literal> by pressing
       <keycombo><keycap function="control"/><keycap>C</keycap></keycombo>:
      </para>
@@ -1180,22 +1177,14 @@ success!</screen>
     <title>Upgrading <literal>slurmctld</literal> and <literal>slurmd</literal></title>
     <step>
      <para>
-      <emphasis role="bold">Back up the
-      <literal>slurmctld</literal> and <literal>slurmd</literal>
-      configuration</emphasis>
-     </para>
-     <para>
-      Create a backup copy of the &slurm; configuration
-      before starting the upgrade process. Since the configuration file
-      <filename>/etc/slurm/slurm.conf</filename> should be identical across
+      Back up the <literal>slurmctld</literal> and <literal>slurmd</literal>
+      configuration before starting the upgrade process. Because the configuration
+      file <filename>/etc/slurm/slurm.conf</filename> should be identical across
       the entire cluster, it is sufficient to do so only on the main management
       server.
      </para>
     </step>
     <step xml:id="st-slurm-timeout">
-     <para>
-      <emphasis role="bold">Increase Timeouts</emphasis>
-     </para>
      <para>
       Edit <filename>/etc/slurm/slurm.conf</filename> and set
       <literal>SlurmdTimeout</literal> and
@@ -1251,8 +1240,7 @@ pdsh -R mrsh -P <replaceable>partitions</replaceable> "cat > /etc/slurm/slurm.co
     </step>
     <step>
      <para>
-      <emphasis role="bold">Shut down any running
-      <literal>slurmctld</literal> instances</emphasis>
+      Shut down any running <literal>slurmctld</literal> instances:
      </para>
      <substeps>
       <step>
@@ -1272,14 +1260,10 @@ pdsh -R mrsh -P <replaceable>partitions</replaceable> "cat > /etc/slurm/slurm.co
     </step>
     <step>
      <para>
-      <emphasis role="bold">Back up the <literal>slurmctld</literal> state
-      files</emphasis>
-     </para>
-     <para>
-      <literal>slurmctld</literal> maintains persistent
-      state information. Almost every major version
-      involves changes to the <literal>slurmctld</literal> state files. This
-      state information is upgraded if the upgrade remains
+      Back up the <literal>slurmctld</literal> state files.
+      <literal>slurmctld</literal> maintains persistent state information.
+      Almost every major version involves changes to the <literal>slurmctld</literal>
+      state files. This state information is upgraded if the upgrade remains
       within the supported version range and no data is lost.
      </para>
      <para>
@@ -1298,10 +1282,8 @@ pdsh -R mrsh -P <replaceable>partitions</replaceable> "cat > /etc/slurm/slurm.co
       </step>
       <step>
        <para>
-        Create a backup of the content of this directory.
-       </para>
-       <para>
-        If a downgrade is required, restore the content of
+        Create a backup of the content of this directory. If a downgrade is
+        required, restore the content of
         the <literal>StateSaveLocation</literal> directory from this backup.
        </para>
       </step>
@@ -1309,16 +1291,14 @@ pdsh -R mrsh -P <replaceable>partitions</replaceable> "cat > /etc/slurm/slurm.co
     </step>
     <step>
      <para>
-      <emphasis role="bold">Shut down <literal>slurmd</literal> on the
-      nodes</emphasis>
+      Shut down <literal>slurmd</literal> on the nodes:
      </para>
 <screen>&prompt.mgmt;pdsh -R ssh -P <replaceable>partitions</replaceable> systemctl stop slurmd</screen>
     </step>
     <step>
      <para>
-      <emphasis role="bold">Upgrade <literal>slurmctld</literal> on the main
-      and backup management servers as well as <literal>slurmd</literal> on the compute
-      nodes</emphasis>
+      Upgrade <literal>slurmctld</literal> on the main and backup management
+      servers, and <literal>slurmd</literal> on the compute nodes:
      </para>
      <substeps>
       <step>
@@ -1356,19 +1336,15 @@ slurm_<replaceable>version</replaceable>-node</screen>
     </step>
     <step>
      <para>
-      <emphasis role="bold">Replace deprecated options</emphasis>
-     </para>
-     <para>
-      If you replace deprecated options in the configuration files,
-      these configuration files can be distributed to all management servers and
-      compute nodes in the cluster by using the method described in
-      <xref linkend="st-copy-file-to-nodes"/>.
+      Replace deprecated options. If you replace deprecated options in the
+      configuration files, these configuration files can be distributed to all
+      management servers and compute nodes in the cluster by using the method
+      described in <xref linkend="st-copy-file-to-nodes"/>.
      </para>
     </step>
     <step>
      <para>
-      <emphasis role="bold">Restart <literal>slurmd</literal> on all compute
-      nodes</emphasis>
+      Restart <literal>slurmd</literal> on all compute nodes:
      </para>
      <para>
       On the main management server, run the following command:
@@ -1382,7 +1358,7 @@ systemctl start slurmd</screen>
     </step>
     <step>
      <para>
-      <emphasis role="bold">Verify that the system operates properly</emphasis>
+      Verify that the system operates properly:
      </para>
      <substeps>
       <step>
@@ -1404,9 +1380,6 @@ systemctl start slurmd</screen>
      </substeps>
     </step>
     <step>
-     <para>
-      <emphasis role="bold">Clean up</emphasis>
-     </para>
      <para>
       Restore the <literal>SlurmdTimeout</literal> and
       <literal>SlurmctldTimeout</literal> values in
