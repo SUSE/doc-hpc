@@ -860,52 +860,19 @@ Description="subgroup" Organization=bavaria</screen>
  </sect1-->
  <sect1 xml:id="sec-slurm-upgrade">
   <title>Upgrading &slurm;</title>
-  <para>
-   This workflow assumes that &munge; authentication is used and that
-   <literal>pdsh</literal>, the <literal>pdsh</literal> &slurm; plugin, and
-   <literal>&mrsh;</literal> can access all of the machines in the cluster
-   (that is, <literal>mrshd</literal> is running on all nodes in the cluster).
-  </para>
-  <para>
-   If this is not the case, install <literal>pdsh</literal> by running
-   <command>zypper in pdsh-slurm</command>.
-  </para>
-  <para>
-   If <literal>&mrsh;</literal> is not used in the cluster, the
-   <literal>ssh</literal> back-end for <literal>pdsh</literal> can be used
-   instead. Replace the option <literal>-R mrsh</literal> with
-   <literal>-R ssh</literal> in the <literal>pdsh</literal>commands below. This
-   is less scalable and you might run out of usable ports.
-  </para>
-  <warning>
-   <title>Upgrade <literal>slurmdbd</literal> databases before other &slurm; components</title>
-   <para>
-    If <literal>slurmdbd</literal> is used, always upgrade the
-    <literal>slurmdbd</literal> database <emphasis>before</emphasis> starting
-    the upgrade of any other &slurm; component. The same database can be connected
-    to multiple clusters and must be upgraded before all of them.
-   </para>
-   <para>
-    Upgrading other &slurm; components before the database can lead to data loss.
-   </para>
-  </warning>
-  <sect2 xml:id="sec-slurm-upgrade-workflow">
-   <title>Upgrade workflow</title>
    <para>
     For existing products under general support, version upgrades of &slurm; are
-    provided regularly. With some restrictions, interoperability is
-    guaranteed between three consecutive versions.
-   </para>
-   <para>
-    Unlike maintenance updates, these upgrades are not
+    provided regularly. Unlike maintenance updates, these upgrades are not
     installed automatically using <literal>zypper patch</literal> but require
-    the administrator to request their installation explicitly. This
-    ensures that these upgrades are not installed unintentionally and gives the
-    administrator the opportunity to plan version upgrades beforehand.
+    you to request their installation explicitly. This ensures that these
+    upgrades are not installed unintentionally and gives you the opportunity
+    to plan version upgrades beforehand.
    </para>
+  <sect2 xml:id="sec-slurm-upgrade-workflow">
+   <title>&slurm; upgrade workflow</title>
    <para>
-    In addition to the <quote>three major-version rule</quote>,
-    obey the following rules regarding the order of updates:
+    Interoperability is guaranteed between three consecutive versions of &slurm;,
+    with the following restrictions:
    </para>
    <orderedlist>
     <listitem>
@@ -934,15 +901,6 @@ Description="subgroup" Organization=bavaria</screen>
     version(<literal>slurmd</literal>) &gt;= version (&slurm; user CLIs).
    </para>
    <para>
-    With each version, configuration options for
-    <literal>slurmctld</literal>/<literal>slurmd</literal> or
-    <literal>slurmdbd</literal> might be deprecated. While deprecated, they
-    remain valid for this version and the two consecutive versions, but they might
-    be removed later. Therefore, it is advisable to update the configuration files
-    after the upgrade and replace deprecated configuration options before the
-    final restart of a service.
-   </para>
-   <para>
     &slurm; uses a segmented version number: the first two segments denote the
     major version, and the final segment denotes the patch level.
     Upgrade packages (that is, packages that were not initially supplied with
@@ -952,85 +910,23 @@ Description="subgroup" Organization=bavaria</screen>
     <literal>slurm_18_08-*.rpm</literal>.
    </para>
    <para>
-    To upgrade the package <package>slurm</package> to 18.08, run
-    <command>zypper install --force-resolution slurm_18_08</command>.
+    With each version, configuration options for
+    <literal>slurmctld</literal>, <literal>slurmd</literal>, or
+    <literal>slurmdbd</literal> might be deprecated. While deprecated, they
+    remain valid for this version and the two consecutive versions, but they might
+    be removed later. Therefore, it is advisable to update the configuration files
+    after the upgrade and replace deprecated configuration options before the
+    final restart of a service.
    </para>
    <para>
-    To upgrade &slurm; subpackages, use the analogous commands.
+    A new major version of &slurm; introduces a new version of
+    <literal>libslurm</literal>. Older versions of this library might not work
+    with an upgraded &slurm;. An upgrade is provided for all &sle; software that
+    depends on <literal>libslurm </literal>. It is strongly recommended to rebuild
+    local applications using <literal>libslurm</literal>, such as MPI libraries
+    with &slurm; support, as early as possible. This might require updating the
+    user applications, as new arguments might be introduced to existing functions.
    </para>
-   <important>
-    <para>
-     If any additional &slurm; packages are installed, you must upgrade
-     those as well. This includes:
-    </para>
-     <itemizedlist>
-      <listitem>
-       <para>
-        slurm-pam_slurm
-       </para>
-      </listitem>
-      <listitem>
-       <para>
-        slurm-sview
-       </para>
-      </listitem>
-      <listitem>
-       <para>
-        perl-slurm
-       </para>
-      </listitem>
-      <listitem>
-       <para>
-        slurm-lua
-       </para>
-      </listitem>
-      <listitem>
-       <para>
-        slurm-torque
-       </para>
-      </listitem>
-      <listitem>
-       <para>
-        slurm-config-man
-       </para>
-      </listitem>
-      <listitem>
-       <para>
-        slurm-doc
-       </para>
-      </listitem>
-      <listitem>
-       <para>
-        slurm-webdoc
-       </para>
-      </listitem>
-      <listitem>
-       <para>
-        slurm-auth-none
-       </para>
-      </listitem>
-      <listitem>
-       <para>
-        pdsh-slurm
-       </para>
-      </listitem>
-     </itemizedlist>
-     <para>
-      All &slurm; packages must be upgraded at the same time to avoid conflicts
-      between packages of different versions. This can be done by adding them to
-      the <literal>zypper install</literal> command line described above.
-    </para>
-   </important>
-   <note>
-    <para>
-     A new major version of &slurm; introduces a new
-     version of <literal>libslurm</literal>. Older versions of this library might
-     not work with an upgraded &slurm;. An upgrade is provided for all &sle;
-     software that depends on <literal>libslurm </literal>. Any
-     locally-developed &slurm; modules or tools might require modification or
-     recompilation.
-    </para>
-   </note>
   </sect2>
   <sect2 xml:id="sec-slurm-upgrade-database">
    <title>Upgrading the <literal>slurmdbd</literal> database daemon</title>
@@ -1162,7 +1058,7 @@ success!</screen>
     </step>
    </procedure>
   </sect2>
-  <sect2>
+  <sect2 xml:id="sec-slurm-upgrade-controller">
    <title>Upgrading <literal>slurmctld</literal> and <literal>slurmd</literal></title>
    <para>
     After the &slurm; database is updated, the
@@ -1172,6 +1068,35 @@ success!</screen>
     (<literal>slurmd</literal>) can be updated on a node-by-node basis.
     However, the management servers
     (<literal>slurmctld</literal>) must be updated first.
+   </para>
+   <warning>
+    <title>Upgrade <literal>slurmdbd</literal> databases before other &slurm; components</title>
+    <para>
+     If <literal>slurmdbd</literal> is used, always upgrade the
+     <literal>slurmdbd</literal> database <emphasis>before</emphasis> starting
+     the upgrade of any other &slurm; component. The same database can be connected
+     to multiple clusters and must be upgraded before all of them.
+    </para>
+    <para>
+     Upgrading other &slurm; components before the database can lead to data loss.
+    </para>
+   </warning>
+   <para>
+    This procedure assumes that &munge; authentication is used and that
+    <literal>pdsh</literal>, the <literal>pdsh</literal> &slurm; plugin, and
+    <literal>&mrsh;</literal> can access all of the machines in the cluster
+    (that is, <literal>mrshd</literal> is running on all nodes in the cluster).
+   </para>
+   <para>
+    If this is not the case, install <literal>pdsh</literal> by running
+    <command>zypper in pdsh-slurm</command>.
+   </para>
+   <para>
+    If <literal>&mrsh;</literal> is not used in the cluster, the
+    <literal>ssh</literal> back-end for <literal>pdsh</literal> can be used
+    instead. Replace the option <literal>-R mrsh</literal> with
+    <literal>-R ssh</literal> in the <literal>pdsh</literal>commands below. This
+    is less scalable and you might run out of usable ports.
    </para>
    <procedure xml:id="pro-slurm-upgrade-controller">
     <title>Upgrading <literal>slurmctld</literal> and <literal>slurmd</literal></title>
@@ -1284,7 +1209,70 @@ pdsh -R mrsh -P <replaceable>PARTITIONS</replaceable> "cat > /etc/slurm/slurm.co
       Upgrade <literal>slurmctld</literal> on the main and backup management
       servers:
      </para>
-<screen>&prompt.mgmt;zypper zypper install --force-resolution slurm_<replaceable>VERSION</replaceable></screen>
+<screen>&prompt.mgmt;zypper install --force-resolution slurm_<replaceable>VERSION</replaceable></screen>
+     <important>
+      <para>
+       If any additional &slurm; packages are installed, you must upgrade
+       those as well. This includes:
+      </para>
+       <itemizedlist>
+        <listitem>
+         <para>
+          slurm-pam_slurm
+         </para>
+        </listitem>
+        <listitem>
+         <para>
+          slurm-sview
+         </para>
+        </listitem>
+        <listitem>
+         <para>
+          perl-slurm
+         </para>
+        </listitem>
+        <listitem>
+         <para>
+          slurm-lua
+         </para>
+        </listitem>
+        <listitem>
+         <para>
+          slurm-torque
+         </para>
+        </listitem>
+        <listitem>
+         <para>
+          slurm-config-man
+         </para>
+        </listitem>
+        <listitem>
+         <para>
+          slurm-doc
+         </para>
+        </listitem>
+        <listitem>
+         <para>
+          slurm-webdoc
+         </para>
+        </listitem>
+        <listitem>
+         <para>
+          slurm-auth-none
+         </para>
+        </listitem>
+        <listitem>
+         <para>
+          pdsh-slurm
+         </para>
+        </listitem>
+       </itemizedlist>
+       <para>
+        All &slurm; packages must be upgraded at the same time to avoid conflicts
+        between packages of different versions. This can be done by adding them to
+        the <literal>zypper install</literal> command line described above.
+      </para>
+     </important>
     </step>
     <step>
      <para>
@@ -1356,16 +1344,6 @@ systemctl start slurmd</screen>
      </para>
     </step>
    </procedure>
-   <para>
-    A new major version of <package>libslurm</package> is provided with each
-    service pack of &productname;. The old version is not uninstalled on
-    upgrade, and user-provided applications built with an old version should
-    continue to work if the old library used is not older than the past two
-    versions. It is strongly recommended to rebuild local applications using
-    <literal>libslurm</literal> &mdash; such as MPI libraries with &slurm;
-    support &mdash; as early as possible. This might require updating the user
-    applications, as new arguments might be introduced to existing functions.
-   </para>
   </sect2>
  </sect1>
  <sect1 xml:id="sec-slurm-faq">
