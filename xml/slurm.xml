@@ -1186,77 +1186,61 @@ success!</screen>
     </step>
     <step xml:id="st-slurm-timeout">
      <para>
-      Edit <filename>/etc/slurm/slurm.conf</filename> and set
-      <literal>SlurmdTimeout</literal> and
-      <literal>SlurmctldTimeout</literal>
-      to sufficiently high values
-      to avoid timeouts while <literal>slurmctld</literal> and
-      <literal>slurmd</literal> are down. We recommend at least 60 minutes,
-      and more on larger clusters.
+      On the main management server, edit <filename>/etc/slurm/slurm.conf</filename>
+      and set <literal>SlurmdTimeout</literal> and <literal>SlurmctldTimeout</literal>
+      to sufficiently high values to avoid timeouts while <literal>slurmctld</literal>
+      and <literal>slurmd</literal> are down:
+     </para>
+<screen>SlurmctldTimeout=3600
+SlurmdTimeout=3600</screen>
+     <para>
+      We recommend at least 60 minutes (<literal>3600</literal>), and more for
+      larger clusters.
+     </para>
+    </step>
+    <step>
+     <para>
+      Copy the updated <filename>/etc/slurm/slurm.conf</filename> from the
+      management server to all nodes. To do so using the following steps,
+      &munge; authentication must be used in the cluster.
      </para>
      <substeps>
       <step>
        <para>
-        On the main management server, edit <filename>/etc/slurm/slurm.conf</filename>
-        and set the values for the following variables to at least 3600
-        (one hour):
+        Obtain the list of partitions in
+        <filename>/etc/slurm/slurm.conf</filename>.
        </para>
-<screen>SlurmctldTimeout=3600
-SlurmdTimeout=3600</screen>
+      </step>
+      <step xml:id="st-copy-file-to-nodes">
+       <para>
+        Copy the updated configuration to the compute nodes:
+       </para>
+<screen>&prompt.mgmt;cp /etc/slurm/slurm.conf /etc/slurm/slurm.conf.update
+&prompt.mgmt;sudo -u slurm /bin/bash -c 'cat /etc/slurm/slurm.conf.update | \
+pdsh -R mrsh -P <replaceable>PARTITIONS</replaceable> "cat > /etc/slurm/slurm.conf"'
+&prompt.mgmt;rm /etc/slurm/slurm.conf.update
+</screen>
       </step>
       <step>
        <para>
-        Copy <filename>/etc/slurm/slurm.conf</filename> to all nodes. To do so
-        using the following steps, &munge; authentication must be used in the
-        cluster as recommended.
+        Reload the configuration file on all compute nodes:
        </para>
-       <substeps>
-        <step>
-         <para>
-          Obtain the list of partitions in
-          <filename>/etc/slurm/slurm.conf</filename>.
-         </para>
-        </step>
-        <step xml:id="st-copy-file-to-nodes">
-         <para>
-          Run the following commands:
-         </para>
-<screen>&prompt.mgmt;cp /etc/slurm/slurm.conf /etc/slurm/slurm.conf.update
-&prompt.mgmt;sudo -u slurm /bin/bash -c 'cat /etc/slurm/slurm.conf.update | \
-pdsh -R mrsh -P <replaceable>partitions</replaceable> "cat > /etc/slurm/slurm.conf"'
-&prompt.mgmt;rm /etc/slurm/slurm.conf.update
-&prompt.mgmt;scontrol reconfigure
-</screen>
-        </step>
-        <step>
-         <para>
-          Verify that the reconfiguration took effect:
-         </para>
+<screen>&prompt.mgmt;scontrol reconfigure</screen>
+      </step>
+      <step>
+       <para>
+        Verify that the reconfiguration took effect:
+       </para>
 <screen>&prompt.mgmt;scontrol show config | grep Timeout</screen>
-        </step>
-       </substeps>
       </step>
      </substeps>
     </step>
     <step>
      <para>
-      Shut down any running <literal>slurmctld</literal> instances:
+      Shut down all running <literal>slurmctld</literal> instances, first on
+      any backup management servers, and then on the main management server:
      </para>
-     <substeps>
-      <step>
-       <para>
-        If applicable, shut down any backup controllers on the backup management
-        servers:
-       </para>
-<screen>&prompt.backup;systemctl stop slurmctld</screen>
-      </step>
-      <step>
-       <para>
-        Shut down the main controller:
-       </para>
 <screen>&prompt.mgmt;systemctl stop slurmctld</screen>
-      </step>
-     </substeps>
     </step>
     <step>
      <para>
@@ -1291,32 +1275,23 @@ pdsh -R mrsh -P <replaceable>partitions</replaceable> "cat > /etc/slurm/slurm.co
     </step>
     <step>
      <para>
-      Shut down <literal>slurmd</literal> on the nodes:
+      Shut down <literal>slurmd</literal> on the compute nodes:
      </para>
-<screen>&prompt.mgmt;pdsh -R ssh -P <replaceable>partitions</replaceable> systemctl stop slurmd</screen>
+<screen>&prompt.mgmt;pdsh -R ssh -P <replaceable>PARTITIONS</replaceable> systemctl stop slurmd</screen>
     </step>
     <step>
      <para>
       Upgrade <literal>slurmctld</literal> on the main and backup management
-      servers, and <literal>slurmd</literal> on the compute nodes:
+      servers:
      </para>
-     <substeps>
-      <step>
-       <para>
-        On the main and backup management servers, run the following command:
-       </para>
-<screen>&prompt.mgmt;zypper zypper install \
---force-resolution slurm_<replaceable>version</replaceable></screen>
-      </step>
-      <step>
-       <para>
-        On the management server, run the following command:
-       </para>
-<screen>&prompt.mgmt;pdsh -R ssh -P <replaceable>partitions</replaceable> \
-zypper install --force-resolution \
-slurm_<replaceable>version</replaceable>-node</screen>
-      </step>
-     </substeps>
+<screen>&prompt.mgmt;zypper zypper install --force-resolution slurm_<replaceable>VERSION</replaceable></screen>
+    </step>
+    <step>
+     <para>
+      Upgrade <literal>slurmd</literal> on the compute nodes:
+     </para>
+<screen>&prompt.mgmt;pdsh -R ssh -P <replaceable>PARTITIONS</replaceable> \
+zypper install --force-resolution slurm_<replaceable>VERSION</replaceable>-node</screen>
      <note>
       <title>Memory size seen by <literal>slurmd</literal> might change on update</title>
       <para>
@@ -1346,38 +1321,30 @@ slurm_<replaceable>version</replaceable>-node</screen>
      <para>
       Restart <literal>slurmd</literal> on all compute nodes:
      </para>
-     <para>
-      On the main management server, run the following command:
-     </para>
-<screen>&prompt.mgmt;pdsh -R ssh -P <replaceable>partitions</replaceable> \
+<screen>&prompt.mgmt;pdsh -R ssh -P <replaceable>PARTITIONS</replaceable> \
 systemctl start slurmd</screen>
+    </step>
+    <step>
      <para>
-      On the main and backup management servers, run the following command:
+      Restart <literal>slurmctld</literal> on the main and backup management servers:
      </para>
 <screen>&prompt.mgmt;systemctl start slurmctld</screen>
     </step>
     <step>
      <para>
-      Verify that the system operates properly:
+      Check the status of the management servers. On the main and backup
+      management servers, run the following command:
      </para>
-     <substeps>
-      <step>
-       <para>
-        Check the status of the management servers. On the main and backup
-        management servers, run the following command:
-       </para>
 <screen>&prompt.mgmt;systemctl status slurmctld</screen>
-      </step>
-      <step>
-       <para>
-        Verify that the services are running without errors. Run the
-        following command to check whether there are any <literal>down</literal>,
-        <literal>drained</literal>, <literal>failing</literal>, or
-        <literal>failed</literal> nodes:
-       </para>
+    </step>
+    <step>
+     <para>
+      Verify that the services are running without errors. Run the
+      following command to check whether there are any <literal>down</literal>,
+      <literal>drained</literal>, <literal>failing</literal>, or
+      <literal>failed</literal> nodes:
+     </para>
 <screen>&prompt.mgmt;sinfo -R</screen>
-      </step>
-     </substeps>
     </step>
     <step>
      <para>
