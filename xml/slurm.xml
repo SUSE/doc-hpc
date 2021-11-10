@@ -927,6 +927,18 @@ Description="subgroup" Organization=bavaria</screen>
     with &slurm; support, as early as possible. This might require updating the
     user applications, as new arguments might be introduced to existing functions.
    </para>
+   <warning>
+    <title>Upgrade <literal>slurmdbd</literal> databases before other &slurm; components</title>
+    <para>
+     If <literal>slurmdbd</literal> is used, always upgrade the
+     <literal>slurmdbd</literal> database <emphasis>before</emphasis> starting
+     the upgrade of any other &slurm; component. The same database can be connected
+     to multiple clusters and must be upgraded before all of them.
+    </para>
+    <para>
+     Upgrading other &slurm; components before the database can lead to data loss.
+    </para>
+   </warning>
   </sect2>
   <sect2 xml:id="sec-slurm-upgrade-database">
    <title>Upgrading the <literal>slurmdbd</literal> database daemon</title>
@@ -946,6 +958,14 @@ Description="subgroup" Organization=bavaria</screen>
     and older versions of <literal>slurmdbd</literal> do not recognize the
     newer formats.
    </para>
+   <note>
+    <title>Convert primary <systemitem class="daemon">slurmdbd</systemitem> first</title>
+    <para>
+     If you are using a backup <literal>slurmdbd</literal>, the conversion must
+     be performed on the primary <literal>slurmdbd</literal> first. The backup
+     <literal>slurmdbd</literal> only starts after the conversion is complete.
+    </para>
+   </note>
    <procedure xml:id="pro-slurm-upgrade-database">
     <title>Upgrading the <literal>slurmdbd</literal> database daemon</title>
     <step>
@@ -977,23 +997,22 @@ Description="subgroup" Organization=bavaria</screen>
     </step>
     <step>
      <para>
-      In preparation for the conversion, ensure that the variable
-      <literal>innodb_buffer_pool_size</literal> is set to a value of 128 Mb
-      or more:
-     </para>
-     <para>
-      On the database server, run the following command:
+      During the database conversion, the variable <literal>innodb_buffer_pool_size</literal>
+      must be set to a value of 128&nbsp;MB or more. Check the current size:
      </para>
 <screen>&prompt.DBnode;echo  'SELECT @@innodb_buffer_pool_size/1024/1024;' | \
 mysql --password --batch</screen>
+    </step>
+    <step>
      <para>
-      If the size is less than 128&nbsp;MB, you can change it for the
-      duration of the current session (on <literal>mariadb</literal>):
+      If the value of <literal>innodb_buffer_pool_size</literal> is less than
+      128&nbsp;MB, you can change it for the duration of the current session
+      (on <literal>mariadb</literal>):
      </para>
 <screen>&prompt.DBnode;echo 'set GLOBAL innodb_buffer_pool_size = 134217728;' | \
 mysql --password --batch</screen>
      <para>
-      To permanently change the size, edit the <filename>/etc/my.cnf</filename>
+      Alternatively, to permanently change the size, edit the <filename>/etc/my.cnf</filename>
       file, set <literal>innodb_buffer_pool_size</literal> to 128&nbsp;MB,
       then restart the database:
      </para>
@@ -1001,24 +1020,27 @@ mysql --password --batch</screen>
     </step>
     <step>
      <para>
-      If you also need to update <literal>mariadb</literal>, run the following
-      command:
+      If you need to update &mariadb;, run the following command:
      </para>
 <screen>&prompt.DBnode;zypper update mariadb</screen>
      <para>
       Convert the database tables to the new version of &mariadb;:
      </para>
-<screen>&prompt.DBnode;mysql_upgrade --user=root --password=<replaceable>root_db_password</replaceable>;</screen>
-    </step>
-    <step xml:id="step-slurm-upgrade-workflow-install-slurmdbd">
-     <para>
-      Install the new version of <literal>slurmdbd</literal>:
-     </para>
-<screen>&prompt.DBnode;zypper install --force-resolution slurm_<replaceable>version</replaceable>-slurmdbd</screen>
+<screen>&prompt.DBnode;mysql_upgrade --user=root --password=<replaceable>ROOT_DB_PASSWORD</replaceable>;</screen>
     </step>
     <step>
      <para>
-      Rebuild the database. Because a conversion might take a considerable amount of time, the
+      Install the new version of <literal>slurmdbd</literal>:
+     </para>
+<screen>&prompt.DBnode;zypper install --force-resolution slurm_<replaceable>VERSION</replaceable>-slurmdbd</screen>
+    </step>
+    <step>
+     <para>
+      Rebuild the database. If you are using a backup <literal>slurmdbd</literal>,
+      perform this step on the primary <literal>slurmdbd</literal> first.
+     </para>
+     <para>
+      Because a conversion might take a considerable amount of time, the
       <literal>systemd</literal> service might time out during the conversion.
       Therefore, we recommend performing the migration manually by running
       <literal>slurmdbd</literal> from the command line in the foreground:
@@ -1031,21 +1053,17 @@ mysql --password --batch</screen>
      </para>
 <screen>Conversion done:
 success!</screen>
-     <note>
-      <title>Convert primary <systemitem class="daemon">slurmdbd</systemitem> first</title>
-      <para>
-       If you are using a backup <literal>slurmdbd</literal>, the conversion must
-       be performed on the primary <literal>slurmdbd</literal> first. The backup
-       <literal>slurmdbd</literal> only starts after the conversion is complete.
-      </para>
-     </note>
     </step>
     <step>
      <para>
       Before restarting the service, remove or replace any deprecated
       configuration options. Check the deprecated options in the
       <link xlink:href="&rn-url;"><citetitle>Release Notes</citetitle></link>.
-      After this is complete, restart <literal>slurmdbd</literal>:
+     </para>
+    </step>
+    <step>
+     <para>
+      Restart <literal>slurmdbd</literal>:
      </para>
 <screen>&prompt.DBnode;systemctl start slurmdbd</screen>
      <note>
@@ -1061,55 +1079,48 @@ success!</screen>
   <sect2 xml:id="sec-slurm-upgrade-controller">
    <title>Upgrading <literal>slurmctld</literal> and <literal>slurmd</literal></title>
    <para>
-    After the &slurm; database is updated, the
-    <literal>slurmctld</literal> and <literal>slurmd</literal> instances can
-    be updated. It is recommended to update the management servers and compute nodes all in
-    a single pass. If this is not feasible, the compute nodes
-    (<literal>slurmd</literal>) can be updated on a node-by-node basis.
-    However, the management servers
+    After the &slurm; database is upgraded, the <literal>slurmctld</literal> and
+    <literal>slurmd</literal> instances can be upgraded. It is recommended to
+    update the management servers and compute nodes all at once.
+    If this is not feasible, the compute nodes (<literal>slurmd</literal>) can
+    be updated on a node-by-node basis. However, the management servers
     (<literal>slurmctld</literal>) must be updated first.
    </para>
-   <warning>
-    <title>Upgrade <literal>slurmdbd</literal> databases before other &slurm; components</title>
-    <para>
-     If <literal>slurmdbd</literal> is used, always upgrade the
-     <literal>slurmdbd</literal> database <emphasis>before</emphasis> starting
-     the upgrade of any other &slurm; component. The same database can be connected
-     to multiple clusters and must be upgraded before all of them.
-    </para>
-    <para>
-     Upgrading other &slurm; components before the database can lead to data loss.
-    </para>
-   </warning>
-   <para>
-    This procedure assumes that &munge; authentication is used and that
-    <literal>pdsh</literal>, the <literal>pdsh</literal> &slurm; plugin, and
-    <literal>&mrsh;</literal> can access all of the machines in the cluster
-    (that is, <literal>mrshd</literal> is running on all nodes in the cluster).
-   </para>
-   <para>
-    If this is not the case, install <literal>pdsh</literal> by running
-    <command>zypper in pdsh-slurm</command>.
-   </para>
-   <para>
-    If <literal>&mrsh;</literal> is not used in the cluster, the
-    <literal>ssh</literal> back-end for <literal>pdsh</literal> can be used
-    instead. Replace the option <literal>-R mrsh</literal> with
-    <literal>-R ssh</literal> in the <literal>pdsh</literal>commands below. This
-    is less scalable and you might run out of usable ports.
-   </para>
+   <itemizedlist>
+    <title>Prerequisites</title>
+    <listitem>
+     <para>
+      <xref linkend="sec-slurm-upgrade-database"/>. Upgrading other &slurm;
+      components before the database can lead to data loss.
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      This procedure assumes that &munge; authentication is used and that
+      <literal>pdsh</literal>, the <literal>pdsh</literal> &slurm; plugin, and
+      <literal>&mrsh;</literal> can access all of the machines in the cluster.
+      If this is not the case, install <literal>pdsh</literal> by running
+      <command>zypper in pdsh-slurm</command>.
+     </para>
+     <para>
+      If <literal>&mrsh;</literal> is not used in the cluster, the
+      <literal>ssh</literal> back-end for <literal>pdsh</literal> can be used
+      instead. Replace the option <literal>-R mrsh</literal> with
+      <literal>-R ssh</literal> in the <literal>pdsh</literal>commands below. This
+      is less scalable and you might run out of usable ports.
+     </para>
+    </listitem>
+   </itemizedlist>
    <procedure xml:id="pro-slurm-upgrade-controller">
     <title>Upgrading <literal>slurmctld</literal> and <literal>slurmd</literal></title>
     <step>
      <para>
-      Back up the <literal>slurmctld</literal> and <literal>slurmd</literal>
-      configuration before starting the upgrade process. Because the configuration
-      file <filename>/etc/slurm/slurm.conf</filename> should be identical across
-      the entire cluster, it is sufficient to do so only on the main management
-      server.
+      Back up the configuration file<filename>/etc/slurm/slurm.conf</filename>.
+      Because this file should be identical across the entire cluster, it is
+      sufficient to do so only on the main management server.
      </para>
     </step>
-    <step xml:id="st-slurm-timeout">
+    <step>
      <para>
       On the main management server, edit <filename>/etc/slurm/slurm.conf</filename>
       and set <literal>SlurmdTimeout</literal> and <literal>SlurmctldTimeout</literal>
@@ -1123,11 +1134,10 @@ SlurmdTimeout=3600</screen>
       larger clusters.
      </para>
     </step>
-    <step>
+    <step xml:id="st-copy-file-to-nodes">
      <para>
       Copy the updated <filename>/etc/slurm/slurm.conf</filename> from the
-      management server to all nodes. To do so using the following steps,
-      &munge; authentication must be used in the cluster.
+      management server to all nodes:
      </para>
      <substeps>
       <step>
@@ -1136,7 +1146,7 @@ SlurmdTimeout=3600</screen>
         <filename>/etc/slurm/slurm.conf</filename>.
        </para>
       </step>
-      <step xml:id="st-copy-file-to-nodes">
+      <step>
        <para>
         Copy the updated configuration to the compute nodes:
        </para>
@@ -1211,6 +1221,7 @@ pdsh -R mrsh -P <replaceable>PARTITIONS</replaceable> "cat > /etc/slurm/slurm.co
      </para>
 <screen>&prompt.mgmt;zypper install --force-resolution slurm_<replaceable>VERSION</replaceable></screen>
      <important>
+      <title>Upgrade all &slurm; packages at the same time</title>
       <para>
        If any additional &slurm; packages are installed, you must upgrade
        those as well. This includes:
@@ -1299,18 +1310,22 @@ zypper install --force-resolution slurm_<replaceable>VERSION</replaceable>-node<
     </step>
     <step>
      <para>
-      Replace deprecated options. If you replace deprecated options in the
-      configuration files, these configuration files can be distributed to all
-      management servers and compute nodes in the cluster by using the method
-      described in <xref linkend="st-copy-file-to-nodes"/>.
+      Before restarting the service, remove or replace any deprecated
+      configuration options. Check the deprecated options in the
+      <link xlink:href="&rn-url;"><citetitle>Release Notes</citetitle></link>.
+     </para>
+     <para>
+      If you replace deprecated options in the configuration files, these
+      configuration files can be distributed to all management servers and
+      compute nodes in the cluster by using the method described in
+      <xref linkend="st-copy-file-to-nodes"/>.
      </para>
     </step>
     <step>
      <para>
       Restart <literal>slurmd</literal> on all compute nodes:
      </para>
-<screen>&prompt.mgmt;pdsh -R ssh -P <replaceable>PARTITIONS</replaceable> \
-systemctl start slurmd</screen>
+<screen>&prompt.mgmt;pdsh -R ssh -P <replaceable>PARTITIONS</replaceable> systemctl start slurmd</screen>
     </step>
     <step>
      <para>
@@ -1336,11 +1351,10 @@ systemctl start slurmd</screen>
     </step>
     <step>
      <para>
-      Restore the <literal>SlurmdTimeout</literal> and
-      <literal>SlurmctldTimeout</literal> values in
-      <literal>/etc/slurm/slurm.conf</literal> on all nodes, then run
-      <literal>scontrol reconfigure</literal> (see
-      <xref linkend="st-slurm-timeout"/>).
+      Restore the original values of <literal>SlurmdTimeout</literal> and
+      <literal>SlurmctldTimeout</literal> in <literal>/etc/slurm/slurm.conf</literal>,
+      then copy the restored configuration to all nodes by using the method
+      described in <xref linkend="st-copy-file-to-nodes"/>.
      </para>
     </step>
    </procedure>
