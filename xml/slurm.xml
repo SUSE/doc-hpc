@@ -431,7 +431,7 @@ Description="subgroup" Organization=bavaria</screen>
       </para>
       <variablelist>
        <varlistentry>
-        <term>nodename=<replaceable>NODE</replaceable> state=down reason=<replaceable>REASON</replaceable></term>
+        <term><command>nodename=<replaceable>NODE</replaceable> state=down reason=<replaceable>REASON</replaceable></command></term>
         <listitem>
          <para>
           Removes all jobs from the compute node, and aborts any jobs already
@@ -440,7 +440,7 @@ Description="subgroup" Organization=bavaria</screen>
         </listitem>
        </varlistentry>
        <varlistentry>
-        <term>nodename=<replaceable>NODE</replaceable> state=drain reason=<replaceable>REASON</replaceable></term>
+        <term><command>nodename=<replaceable>NODE</replaceable> state=drain reason=<replaceable>REASON</replaceable></command></term>
         <listitem>
          <para>
           Drains the compute node so that no <emphasis>new</emphasis> jobs
@@ -452,7 +452,7 @@ Description="subgroup" Organization=bavaria</screen>
         </listitem>
        </varlistentry>
        <varlistentry>
-        <term>nodename=<replaceable>NODE</replaceable> state=resume</term>
+        <term><command>nodename=<replaceable>NODE</replaceable> state=resume</command></term>
         <listitem>
          <para>
           Marks the compute node as ready to return to the <literal>idle</literal>
@@ -461,8 +461,8 @@ Description="subgroup" Organization=bavaria</screen>
         </listitem>
        </varlistentry>
        <varlistentry>
-        <term>jobid=<replaceable>JOBID</replaceable>
-         <replaceable>REQUIREMENT</replaceable>=<replaceable>VALUE</replaceable></term>
+        <term><command>jobid=<replaceable>JOBID</replaceable>
+         <replaceable>REQUIREMENT</replaceable>=<replaceable>VALUE</replaceable></command></term>
         <listitem>
          <para>
           Updates the given requirement, such as <literal>NumNodes</literal>,
@@ -474,7 +474,7 @@ Description="subgroup" Organization=bavaria</screen>
      </listitem>
     </varlistentry>
     <varlistentry>
-     <term>scontrol reconfigure</term>
+     <term><command>scontrol reconfigure</command></term>
      <listitem>
       <para>
        Triggers a reload of the configuration file
@@ -483,7 +483,7 @@ Description="subgroup" Organization=bavaria</screen>
      </listitem>
     </varlistentry>
     <varlistentry>
-     <term>scontrol reboot <replaceable>NODELIST</replaceable></term>
+     <term><command>scontrol reboot <replaceable>NODELIST</replaceable></command></term>
      <listitem>
       <para>
        Reboots a compute node, or group of compute nodes, when the jobs on
