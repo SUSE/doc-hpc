@@ -396,9 +396,15 @@ Description="subgroup" Organization=bavaria</screen>
    </procedure>
   </sect2>
  </sect1>
- <sect1 xml:id="sec-slurm-adm-commands">
+ <sect1 xml:id="sec-slurm-admin-commands">
   <title>&slurm; administration commands</title>
 <!-- https://slurm.schedmd.com/man_index.html -->
+  <para>
+   This section lists some useful options for common &slurm; commands. For more
+   information and a full list of options, see the <command>man</command> page
+   for each command. For more &slurm; commands, see
+   <link xlink:href="https://slurm.schedmd.com/man_index.html"/>.
+  </para>
   <sect2 xml:id="sec-slurm-sconfigure">
    <title>scontrol</title>
    <para>
@@ -408,9 +414,12 @@ Description="subgroup" Organization=bavaria</screen>
     compute nodes.
    </para>
    <para>
-    Useful options for this command are <literal>--details</literal>, which
-    prints more verbose output, and <literal>--oneliner</literal>, which forces
+    Useful options for this command are <option>--details</option>, which
+    prints more verbose output, and <option>--oneliner</option>, which forces
     the output onto a single line, which is more useful in shell scripts.
+   </para>
+   <para>
+    For more information, see <command>man scontrol</command>.
    </para>
    <variablelist>
     <varlistentry>
@@ -495,6 +504,67 @@ Description="subgroup" Organization=bavaria</screen>
       </para>
      </listitem>
     </varlistentry>
+   </variablelist>
+  </sect2>
+  <sect2 xml:id="sec-slurm-sinfo">
+   <title>sinfo</title>
+   <para>
+    The command <command>sinfo</command> retrieves information about the state
+    of the compute nodes, and can be used for a fast overview of the cluster
+    health. For more information, see <command>man sinfo</command>.
+   </para>
+   <variablelist>
+    <varlistentry>
+     <term><command>--dead</command></term>
+     <listitem>
+      <para>
+       Displays information about unresponsive nodes.
+      </para>
+     </listitem>
+    </varlistentry>
+    <varlistentry>
+     <term><command>--long</command></term>
+     <listitem>
+      <para>
+       Shows more detailed information.
+      </para>
+     </listitem>
+    </varlistentry>
+    <varlistentry>
+     <term><command>--reservation</command></term>
+     <listitem>
+      <para>
+       Prints information about advanced reservations.
+      </para>
+     </listitem>
+    </varlistentry>
+    <varlistentry>
+     <term><command>-R</command></term>
+     <listitem>
+      <para>
+       Displays the reason a node is in the <literal>down</literal>,
+       <literal>drained</literal>, or <literal>failing</literal> state.
+      </para>
+     </listitem>
+    </varlistentry>
+    <varlistentry>
+     <term><command>--state=<replaceable>STATE</replaceable></command></term>
+     <listitem>
+      <para>
+       Limits the output only to nodes with the specified
+       <replaceable>STATE</replaceable>.
+      </para>
+     </listitem>
+    </varlistentry>
+   </variablelist>
+  </sect2>
+  <sect2 xml:id="sec-slurm-sacctmgr-sacct">
+   <title>sacctmgr and sacct</title>
+   <para>
+    These commands are used for managing accounting. For more information, see
+    <command>man sacctmgr</command> and <command>man sacct</command>.
+   </para>
+   <variablelist>
     <varlistentry>
      <term><command>sacctmgr</command></term>
      <listitem>
@@ -506,65 +576,10 @@ Description="subgroup" Organization=bavaria</screen>
      </listitem>
     </varlistentry>
     <varlistentry>
-     <term><command>sinfo</command></term>
-     <listitem>
-      <para>
-       Retrieves information about the state of the compute nodes, and can be
-       used for a fast overview of the cluster health. The following
-       command line switches are available:
-      </para>
-      <variablelist>
-       <varlistentry>
-        <term><command>--dead</command></term>
-        <listitem>
-         <para>
-          Displays information about unresponsive nodes.
-         </para>
-        </listitem>
-       </varlistentry>
-       <varlistentry>
-        <term><command>--long</command></term>
-        <listitem>
-         <para>
-          Shows more detailed information.
-         </para>
-        </listitem>
-       </varlistentry>
-       <varlistentry>
-        <term><command>--reservation</command></term>
-        <listitem>
-         <para>
-          Prints information about advanced reservations.
-         </para>
-        </listitem>
-       </varlistentry>
-       <varlistentry>
-        <term><command>-R</command></term>
-        <listitem>
-         <para>
-          Displays the reason a node is in the <literal>down</literal>,
-          <literal>drained</literal>, or <literal>failing</literal> state.
-         </para>
-        </listitem>
-       </varlistentry>
-       <varlistentry>
-        <term><command>--state=<replaceable>STATE</replaceable></command></term>
-        <listitem>
-         <para>
-          Limits the output only to nodes with the specified
-          <replaceable>STATE</replaceable>.
-         </para>
-        </listitem>
-       </varlistentry>
-      </variablelist>
-     </listitem>
-    </varlistentry>
-    <varlistentry>
      <term><command>sacct</command></term>
      <listitem>
       <para>
-       Displays the accounting data if accounting is enabled. The following
-       options are available:
+       Displays the accounting data if accounting is enabled.
       </para>
       <variablelist>
        <varlistentry>
@@ -622,135 +637,134 @@ Description="subgroup" Organization=bavaria</screen>
       </variablelist>
      </listitem>
     </varlistentry>
+   </variablelist>
+  </sect2>
+  <sect2 xml:id="sec-slurm-sbatch-salloc-srun">
+   <title>sbatch, salloc, and srun</title>
+   <para>
+    These commands are used to schedule <emphasis>compute jobs</emphasis>,
+    which means batch scripts for the <command>sbatch</command> command,
+    interactive sessions for the <command>salloc</command> command, or
+    binaries for the <command>srun</command> command. If the job cannot be
+    scheduled immediately, only <command>sbatch</command> places it into the queue.
+   </para>
+   <para>
+    For more information, see <command>man sbatch</command>,
+    <command>man salloc</command>, and <command>man srun</command>.
+   </para>
+   <variablelist>
     <varlistentry>
-     <term><command>sbatch</command>, <command>salloc</command> and <command>srun</command></term>
+     <term><command>-n <replaceable>COUNT_THREADS</replaceable></command></term>
      <listitem>
       <para>
-       These commands are used to schedule <emphasis>compute jobs</emphasis>,
-       which means batch scripts for the <command>sbatch</command> command,
-       interactive sessions for the <command>salloc</command> command, or
-       binaries for the <command>srun</command> command. If the job cannot be
-       scheduled immediately, only <command>sbatch</command> places it into the queue.
+       Specifies the number of threads needed by the job. The threads can be
+       allocated on different nodes.
       </para>
+     </listitem>
+    </varlistentry>
+    <varlistentry>
+     <term><command>-N <replaceable>MINCOUNT_NODES[-MAXCOUNT_NODES]</replaceable></command></term>
+     <listitem>
       <para>
-       Frequently-used options for these commands include:
+       Sets the number of compute nodes required for a job. The
+       <replaceable>MAXCOUNT_NODES</replaceable> number can be omitted.
       </para>
-      <variablelist>
-       <varlistentry>
-        <term><command>-n <replaceable>COUNT_THREADS</replaceable></command></term>
-        <listitem>
-         <para>
-          Specifies the number of threads needed by the job. The threads can be
-          allocated on different nodes.
-         </para>
-        </listitem>
-       </varlistentry>
-       <varlistentry>
-        <term><command>-N <replaceable>MINCOUNT_NODES[-MAXCOUNT_NODES]</replaceable></command></term>
-        <listitem>
-         <para>
-          Sets the number of compute nodes required for a job. The
-          <replaceable>MAXCOUNT_NODES</replaceable> number can be omitted.
-         </para>
-        </listitem>
-       </varlistentry>
-       <varlistentry>
-        <term><command>--time <replaceable>TIME</replaceable></command></term>
-        <listitem>
-         <para>
-          Specifies the maximum clock time (runtime) after which a job is
-          terminated. The format of <replaceable>TIME</replaceable> is either
-          seconds or <replaceable>[HH:]MM:SS</replaceable>. Not to be confused
-          with <command>walltime</command>, which is <literal>clocktime &times;
-          threads</literal>.
-         </para>
-        </listitem>
-       </varlistentry>
-       <varlistentry>
-        <term><command>--signal <replaceable>[B:]NUMBER[@TIME]</replaceable></command></term>
-        <listitem>
-         <para>
-          Sends the signal specified by <replaceable>NUMBER</replaceable>
-          60 seconds before the end of the job, unless
-          <replaceable>TIME</replaceable> is specified. The signal is
-          sent to every process on every node. If a signal should only be sent
-          to the controlling batch job, you must specify the
-          <command>B:</command> flag.
-         </para>
-        </listitem>
-       </varlistentry>
-       <varlistentry>
-        <term><command>--job-name <replaceable>NAME</replaceable></command></term>
-        <listitem>
-         <para>
-          Sets the name of the job to <replaceable>NAME</replaceable> in the
-          queue.
-         </para>
-        </listitem>
-       </varlistentry>
-       <varlistentry>
-        <term><command>--array=<replaceable>RANGEINDEX</replaceable></command></term>
-        <listitem>
-         <para>
-          Executes the given script via <command>sbatch</command> for indexes
-          given by <replaceable>RANGEINDEX</replaceable> with the same
-          parameters.
-         </para>
-        </listitem>
-       </varlistentry>
-       <varlistentry>
-        <term><command>--dependency=<replaceable>STATE:JOBID</replaceable></command></term>
-        <listitem>
-         <para>
-          Defers the job until the specified <replaceable>STATE</replaceable> of
-          the job <replaceable>JOBID</replaceable> is reached.
-         </para>
-        </listitem>
-       </varlistentry>
-       <varlistentry>
-        <term><command>--gres=<replaceable>GRES</replaceable></command></term>
-        <listitem>
-         <para>
-          Runs a job only on nodes with the specified <emphasis>generic
-          resource</emphasis> (GRes), for example a GPU, specified by the value
-          of <replaceable>GRES</replaceable>.
-         </para>
-        </listitem>
-       </varlistentry>
-       <varlistentry>
-        <term><command>--licenses=<replaceable>NAME[:COUNT]</replaceable></command></term>
-        <listitem>
-         <para>
-          The job must have the specified number (<replaceable>COUNT</replaceable>)
-          of licenses with the name <replaceable>NAME</replaceable>.
-          A license is the opposite of a generic resource: it is not tied to a
-          computer, but is a cluster-wide variable.
-         </para>
-        </listitem>
-       </varlistentry>
-       <varlistentry>
-        <term><command>--mem=<replaceable>MEMORY</replaceable></command></term>
-        <listitem>
-         <para>
-          Sets the real <replaceable>MEMORY</replaceable> required by a
-          job per node. To use this option, memory control must be enabled. The
-          default unit for the <replaceable>MEMORY</replaceable> value is
-          megabytes, but you can also use <literal>K</literal> for kilobyte,
-          <literal>M</literal> for megabyte, <literal>G</literal> for gigabyte,
-          or <literal>T</literal> for terabyte.
-         </para>
-        </listitem>
-       </varlistentry>
-       <varlistentry>
-        <term><command>--mem-per-cpu=<replaceable>MEMORY</replaceable></command></term>
-        <listitem>
-         <para>
-          This option takes the same values as <command>--mem</command>, but defines
-          memory on a per-CPU basis rather than a per-node basis.
-         </para>
-        </listitem>
-       </varlistentry>
-      </variablelist>
+     </listitem>
+    </varlistentry>
+    <varlistentry>
+     <term><command>--time <replaceable>TIME</replaceable></command></term>
+     <listitem>
+      <para>
+       Specifies the maximum clock time (runtime) after which a job is
+       terminated. The format of <replaceable>TIME</replaceable> is either
+       seconds or <replaceable>[HH:]MM:SS</replaceable>. Not to be confused
+       with <command>walltime</command>, which is <literal>clocktime &times;
+       threads</literal>.
+      </para>
+     </listitem>
+    </varlistentry>
+    <varlistentry>
+     <term><command>--signal <replaceable>[B:]NUMBER[@TIME]</replaceable></command></term>
+     <listitem>
+      <para>
+       Sends the signal specified by <replaceable>NUMBER</replaceable>
+       60 seconds before the end of the job, unless
+       <replaceable>TIME</replaceable> is specified. The signal is
+       sent to every process on every node. If a signal should only be sent
+       to the controlling batch job, you must specify the
+       <command>B:</command> flag.
+      </para>
+     </listitem>
+    </varlistentry>
+    <varlistentry>
+     <term><command>--job-name <replaceable>NAME</replaceable></command></term>
+     <listitem>
+      <para>
+       Sets the name of the job to <replaceable>NAME</replaceable> in the
+       queue.
+      </para>
+     </listitem>
+    </varlistentry>
+    <varlistentry>
+     <term><command>--array=<replaceable>RANGEINDEX</replaceable></command></term>
+     <listitem>
+      <para>
+       Executes the given script via <command>sbatch</command> for indexes
+       given by <replaceable>RANGEINDEX</replaceable> with the same
+       parameters.
+      </para>
+     </listitem>
+    </varlistentry>
+    <varlistentry>
+     <term><command>--dependency=<replaceable>STATE:JOBID</replaceable></command></term>
+     <listitem>
+      <para>
+       Defers the job until the specified <replaceable>STATE</replaceable> of
+       the job <replaceable>JOBID</replaceable> is reached.
+      </para>
+     </listitem>
+    </varlistentry>
+    <varlistentry>
+     <term><command>--gres=<replaceable>GRES</replaceable></command></term>
+     <listitem>
+      <para>
+       Runs a job only on nodes with the specified <emphasis>generic
+       resource</emphasis> (GRes), for example a GPU, specified by the value
+       of <replaceable>GRES</replaceable>.
+      </para>
+     </listitem>
+    </varlistentry>
+    <varlistentry>
+     <term><command>--licenses=<replaceable>NAME[:COUNT]</replaceable></command></term>
+     <listitem>
+      <para>
+       The job must have the specified number (<replaceable>COUNT</replaceable>)
+       of licenses with the name <replaceable>NAME</replaceable>.
+       A license is the opposite of a generic resource: it is not tied to a
+       computer, but is a cluster-wide variable.
+      </para>
+     </listitem>
+    </varlistentry>
+    <varlistentry>
+     <term><command>--mem=<replaceable>MEMORY</replaceable></command></term>
+     <listitem>
+      <para>
+       Sets the real <replaceable>MEMORY</replaceable> required by a
+       job per node. To use this option, memory control must be enabled. The
+       default unit for the <replaceable>MEMORY</replaceable> value is
+       megabytes, but you can also use <literal>K</literal> for kilobyte,
+       <literal>M</literal> for megabyte, <literal>G</literal> for gigabyte,
+       or <literal>T</literal> for terabyte.
+      </para>
+     </listitem>
+    </varlistentry>
+    <varlistentry>
+     <term><command>--mem-per-cpu=<replaceable>MEMORY</replaceable></command></term>
+     <listitem>
+      <para>
+       This option takes the same values as <command>--mem</command>, but defines
+       memory on a per-CPU basis rather than a per-node basis.
+      </para>
      </listitem>
     </varlistentry>
    </variablelist>
