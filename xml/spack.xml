@@ -50,19 +50,19 @@
       <para>
        For bash/zsh/sh:
       </para>
-<screen>&prompt;. spack/share/spack/setup-env.sh</screen>
+<screen>&prompt;. /usr/share/spack/setup-env.sh</screen>
      </step>
      <step>
       <para>
        For tcsh/csh:
       </para>
-<screen>&prompt;source spack/share/spack/setup-env.csh</screen>
+<screen>&prompt;source /usr/share/spack/setup-env.csh</screen>
      </step>
      <step>
       <para>
        For fish:
       </para>
-<screen>&prompt;. spack/share/spack/setup-env.fish</screen>
+<screen>&prompt;. /usr/share/spack/setup-env.fish</screen>
      </step>
     </stepalternatives>
    </step>
