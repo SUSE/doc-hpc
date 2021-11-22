@@ -56,7 +56,7 @@
 
   <xi:include href="compute.xml"/>
 
-  <!--xi:include href="spack.xml"/-->
+  <xi:include href="spack.xml"/>
 
   <xi:include href="dolly.xml"/>
  <!--
