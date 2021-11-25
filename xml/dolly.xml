@@ -319,7 +319,7 @@ endconfig<co xml:id="dolly-config-end"/></screen>
   <para>
    To use this configuration file, run the following command on the dolly server:
   </para>
-  <screen>&prompt; dolly -v -s -f /etc/dolly.cfg</screen>
+  <screen>&prompt;dolly -v -s -f /etc/dolly.cfg</screen>
  </sect1>
 
  <sect1 xml:id="dolly-support">
