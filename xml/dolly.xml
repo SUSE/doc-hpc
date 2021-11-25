@@ -258,7 +258,7 @@ Transmitted.</screen>
   </example>
  </sect1>
 
- <!--sect1 xml:id="dolly-configuration-file">
+ <sect1 xml:id="dolly-configuration-file">
   <title>Dolly configuration file</title>
   <para>
    You can use a dolly configuration file with the <option>-f</option> parameter instead of providing the information manually on the command line.
@@ -319,8 +319,8 @@ endconfig<co xml:id="dolly-config-end"/></screen>
   <para>
    To use this configuration file, run the following command on the dolly server:
   </para>
-  <screen>&prompt; dolly -v -s -f /etc/dolly.cfg</screen>
- </sect1-->
+  <screen>&prompt;dolly -v -s -f /etc/dolly.cfg</screen>
+ </sect1>
 
  <sect1 xml:id="dolly-support">
   <title>Dolly limitations</title>
