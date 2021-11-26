@@ -491,50 +491,6 @@
    </note>
   </sect2>
 
-  <sect2 xml:id="sec2-lib-mumps">
-   <title>MUMPS &mdash; MUltifrontal Massively Parallel sparse direct Solver</title>
-   <para>
-    MUMPS (not to be confused with the database programming language with the
-    same acronym) solves a sparse system of linear equations
-    (<emphasis>A x = b</emphasis>) using Gaussian elimination.
-   </para>
-   <para>
-    This library requires a compiler toolchain and an MPI flavor to be loaded
-    beforehand. To load this module, run the following command:
-   </para>
-<screen>&prompt.user;module load <replaceable>TOOLCHAIN</replaceable> <replaceable>MPI_FLAVOR</replaceable> mumps</screen>
-   <para>
-    For information about the toolchain to load, see <xref
-     linkend="sec-compiler"/>. For information on available MPI
-    flavors, see <xref linkend="sec1-MPI-libs"/>.
-   </para>
-   <para>
-    List of master packages:
-   </para>
-   <itemizedlist>
-    <listitem>
-     <para>
-      <literal>libmumps-gnu-<replaceable>MPI_FLAVOR</replaceable>-hpc</literal>
-     </para>
-    </listitem>
-    <listitem>
-     <para>
-      <literal>mumps-gnu-<replaceable>MPI_FLAVOR</replaceable>-hpc-devel</literal>
-     </para>
-    </listitem>
-    <listitem>
-     <para>
-      <literal>mumps-gnu-<replaceable>MPI_FLAVOR</replaceable>-hpc-doc</literal>
-     </para>
-    </listitem>
-    <listitem>
-     <para>
-      <literal>mumps-gnu-<replaceable>MPI_FLAVOR</replaceable>-hpc-examples</literal>
-     </para>
-    </listitem>
-   </itemizedlist>
-  </sect2>
-
   <sect2 xml:id="sec2-lib-pmix">
    <title>Support for PMIx in &slurm; and MPI libraries</title>
    <para>
