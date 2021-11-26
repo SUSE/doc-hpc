@@ -379,46 +379,6 @@
    </itemizedlist>
   </sect2>
 
-  <sect2 xml:id="sec2-lib-hypre">
-   <title>HYPRE &mdash; scalable linear solvers and multigrid methods</title>
-   <para>
-    HYPRE is a library of linear solvers that are designed to solve large and detailed
-    simulations faster than traditional methods at large scales.
-   </para>
-   <para>
-    The library offers a comprehensive suite of scalable solvers for
-    large-scale scientific simulation, featuring parallel multigrid methods for
-    both structured and unstructured grid problems. HYPRE is highly portable
-    and supports several languages. It is developed at Lawrence Livermore
-    National Laboratory.
-   </para>
-   <para>
-    For this library, a compiler toolchain and an MPI flavor needs to be loaded
-    beforehand. To load this module, run the following command:
-   </para>
-<screen>&prompt.user;module load <replaceable>TOOLCHAIN</replaceable> <replaceable>MPI_FLAVOR</replaceable> hypre</screen>
-   <para>
-    For information about the toolchain to load, see <xref
-     linkend="sec-compiler"/>. For information on available MPI
-    flavors, see <xref linkend="sec1-MPI-libs"/>.
-   </para>
-   <para>
-    List of master packages:
-   </para>
-   <itemizedlist>
-    <listitem>
-     <para>
-      <literal>hypre-gnu-<replaceable>MPI_FLAVOR</replaceable>-hpc-devel</literal>
-     </para>
-    </listitem>
-    <listitem>
-     <para>
-      <literal>libHYPRE-gnu-<replaceable>MPI_FLAVOR</replaceable>-hpc</literal>
-     </para>
-    </listitem>
-   </itemizedlist>
-  </sect2>
-
   <sect2 xml:id="sec-lib-metis">
    <title>METIS &mdash; serial graph partitioning and fill-reducing matrix ordering library</title>
    <para>
