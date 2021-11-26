@@ -523,61 +523,6 @@
    </itemizedlist>
   </sect2>
 
-  <sect2 xml:id="sec-lib-gsl">
-   <title>GSL &mdash; GNU Scientific Library</title>
-   <para>
-    The GNU Scientific Library (GSL) is a numerical library for C and C++
-    programmers.
-   </para>
-   <para>
-    The library provides a wide range of mathematical routines such as random
-    number generators, special functions, and least-squares fitting. There are
-    over 1000 functions in total with an extensive test suite.
-   </para>
-   <para>
-    It is free software under the GNU General Public License.
-   </para>
-   <para>
-    For this library, a compiler toolchain must be loaded beforehand. To
-    load GSL, run the following command:
-   </para>
-<screen>&prompt.user;module load <replaceable>TOOLCHAIN</replaceable> gsl</screen>
-   <para>
-    For information about the toolchain to load, see <xref
-     linkend="sec-compiler"/>.
-   </para>
-   <para>
-    List of master packages:
-   </para>
-   <itemizedlist>
-    <listitem>
-     <para>
-      <literal>gsl-gnu-hpc</literal>
-     </para>
-    </listitem>
-    <listitem>
-     <para>
-      <literal>gsl-gnu-hpc-devel</literal>
-     </para>
-    </listitem>
-    <listitem>
-     <para>
-      <literal>gsl-gnu-hpc-doc</literal>
-     </para>
-    </listitem>
-    <listitem>
-     <para>
-      <literal>libgsl-gnu-hpc</literal>
-     </para>
-    </listitem>
-    <listitem>
-     <para>
-      <literal>libgslcblas-gnu-hpc</literal>
-     </para>
-    </listitem>
-   </itemizedlist>
-  </sect2>
-
   <sect2 xml:id="sec-lib-ocr">
    <title>OCR &mdash; Open Community Runtime (OCR) for shared memory</title>
    <para>
