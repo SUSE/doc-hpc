@@ -620,56 +620,6 @@ go_gc_duration_seconds{quantile="0.5"} 8.1436e-05
    </para>
   </sect2>
  </sect1>
- <sect1 xml:id="sec-monitoring-ganglia">
-  <title>Ganglia &mdash; system monitoring</title>
-  <para>
-   Ganglia is a scalable, distributed monitoring system for high-performance
-   computing systems, such as clusters and grids. It is based on a
-   hierarchical design targeted at federations of clusters.
-  </para>
-  <sect2 xml:id="sec-using-ganglia">
-   <title>Using Ganglia</title>
-   <!-- trichardson, 2021-08-26: This and ganglia-web should be procedures,
-    but Ganglia (and therefore this section) will eventually be removed in
-    favour of Grafana (https://jira.suse.com/browse/PM-2566) -->
-   <para>
-    To use Ganglia, install <package>ganglia-gmetad</package>
-    on the management server, then start the Ganglia meta-daemon:
-    <command>rcgmead start</command>. To make sure the service is started
-    after a reboot, run: <command>systemctl enable gmetad</command>. On
-    each cluster node which you want to monitor, install
-    <package>ganglia-gmond</package>, start the service <command>rcgmond
-    start</command> and make sure it is enabled to start automatically
-    after a reboot: <command>systemctl enable gmond</command>. To test
-    whether the <systemitem class="daemon">gmond</systemitem> daemon has
-    connected to the
-    meta-daemon, run <command>gstat -a</command> and check that each node to
-    be monitored is present in the output.
-   </para>
-  </sect2>
-  <sect2 xml:id="sec-ganglia-btrfs">
-   <title>Ganglia on Btrfs</title>
-   <para>
-    When using the Btrfs file system, the monitoring data will be lost after
-    a rollback of the service <systemitem class="daemon">gmetad</systemitem>.
-    To fix this issue, either install the package
-    <package>ganglia-gmetad-skip-bcheck</package> or create the file
-    <filename>/etc/ganglia/no_btrfs_check</filename>.
-   </para>
-  </sect2>
-  <sect2 xml:id="sec-ganglia-web">
-   <title>Using the Ganglia Web interface</title>
-   <para>
-    Install <package>ganglia-web</package> on the management server.
-    Enable PHP in Apache2: <command>a2enmod php7</command>.
-    Then start Apache2 on this machine: <command>rcapache2
-    start</command> and make sure it is started automatically after a
-    reboot: <command>systemctl enable apache2</command>. The Ganglia Web
-    interface is accessible from
-    <literal>http://<replaceable>MANAGEMENT_SERVER</replaceable>/ganglia</literal>.
-   </para>
-  </sect2>
- </sect1>
  <sect1 xml:id="sec-monitoring-ras">
   <title>rasdaemon &mdash; utility to log RAS error tracings</title>
   <para>

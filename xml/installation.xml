@@ -159,13 +159,6 @@
     cluster. For more information, see <xref linkend="sec-remote-munge"/>.
    </para>
    <para>
-    For the Ganglia monitoring system, the data collector
-    <package>ganglia-gmond</package> is installed for every role, while the
-    data aggregator <package>ganglia-gmetad</package> needs to be installed
-    manually on the system which is expected to collect the data. For more
-    information, see <xref linkend="sec-monitoring-ganglia"/>.
-   </para>
-   <para>
     The system roles are only available for new installations of &productname;.
    </para>
   </sect1>
