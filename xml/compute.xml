@@ -608,41 +608,6 @@
     </listitem>
    </itemizedlist>
   </sect2>
-
-  <sect2 xml:id="sec2-lib-trilinos">
-   <title>Trilinos &mdash; object-oriented software framework</title>
-   <para>
-    The Trilinos Project is an effort to develop algorithms and enabling
-    technologies within an object-oriented software framework for the solution
-    of large-scale, complex multi-physics engineering and scientific problems.
-    A unique design feature of Trilinos is its focus on packages.
-   </para>
-   <para>
-    This library needs a compiler toolchain and MPI flavor to be loaded
-    beforehand. To load this module, run the following command:
-   </para>
-<screen>&prompt.user;module load <replaceable>TOOLCHAIN</replaceable> <replaceable>MPI_FLAVOR</replaceable> trilinos</screen>
-   <para>
-    For information about the toolchain to load, see <xref
-     linkend="sec-compiler"/>. For information on available MPI
-    flavors, see <xref linkend="sec1-MPI-libs"/>.
-   </para>
-   <para>
-    List of master packages:
-   </para>
-   <itemizedlist>
-    <listitem>
-     <para>
-      <literal>libtrilinos-gnu-<replaceable>MPI_FLAVOR</replaceable>-hpc</literal>
-     </para>
-    </listitem>
-    <listitem>
-     <para>
-      <literal>trilinos-gnu-<replaceable>MPI_FLAVOR</replaceable>-hpc-devel</literal>
-     </para>
-    </listitem>
-   </itemizedlist>
-  </sect2>
  </sect1>
  <sect1 xml:id="FileFormat">
   <title>File format libraries</title>
