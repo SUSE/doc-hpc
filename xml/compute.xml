@@ -527,44 +527,6 @@
    </itemizedlist>
   </sect2>
 
-  <sect2 xml:id="sec2-lib-petsc">
-   <title>PETSc &hpca; library &mdash; solver for partial differential equations</title>
-   <para>
-    PETSc is a suite of data structures and routines for the scalable
-    (parallel) solution of scientific applications modeled by partial
-    differential equations.
-   </para>
-   <para>
-    This module requires loading a compiler toolchain and an MPI library
-    flavor beforehand. To load this module, run the following command:
-   </para>
-<screen>&prompt.user;module load <replaceable>TOOLCHAIN</replaceable> <replaceable>MPI_FLAVOR</replaceable> petsc</screen>
-   <para>
-    For information about the toolchain to load, see <xref
-    linkend="sec-compiler"/>. For information about available MPI flavors, see
-    <xref linkend="sec1-MPI-libs"/>.
-   </para>
-   <para>
-    List of master packages:
-   </para>
-   <itemizedlist>
-    <listitem>
-     <para>
-      <literal>libpetsc-gnu-<replaceable>MPI_FLAVOR</replaceable>-hpc</literal>
-     </para>
-    </listitem>
-    <listitem>
-     <para>
-      <literal>petsc-gnu-<replaceable>MPI_FLAVOR</replaceable>-hpc-devel</literal>
-     </para>
-    </listitem>
-   </itemizedlist>
-   <para>
-    <replaceable>MPI_FLAVOR</replaceable> must be one of the supported MPI
-    flavors described in <xref linkend="sec1-MPI-libs"/>.
-   </para>
-  </sect2>
-
   <sect2 xml:id="sec2-lib-scal">
    <title>ScaLAPACK &hpca; library &mdash; LAPACK routines</title>
    <para>
