@@ -296,60 +296,6 @@
 
 <screen>&prompt.user;zypper search '*-compilers-hpc'</screen>
 
-  <sect2 xml:id="sec2-lib-fftw">
-   <title>FFTW &hpca; library &mdash; discrete Fourier transforms</title>
-   <para>
-    <literal>FFTW</literal> is a C subroutine library for computing the
-    Discrete Fourier Transform (DFT) in one or more dimensions, of both real
-    and complex data, and of arbitrary input size.
-   </para>
-   <para>
-    This library is available as both a serial and an MPI-enabled variant. This
-    module requires a compiler toolchain module loaded. To select an MPI
-    variant, the respective MPI module must be loaded beforehand. To load
-    this module, run the following command:
-   </para>
-<screen>&prompt.user;module load <replaceable>TOOLCHAIN</replaceable> fftw3</screen>
-   <para>
-    To load the MPI-enabled variant, run the following command:
-   </para>
-<screen>&prompt.user;module load <replaceable>TOOLCHAIN</replaceable> <replaceable>MPI_FLAVOR</replaceable> fftw3</screen>
-   <para>
-    For information about the toolchain to load, see <xref
-    linkend="sec-compiler"/>. For information about available MPI flavors, see
-    <xref linkend="sec1-MPI-libs"/>.
-   </para>
-   <para>
-    List of master packages:
-   </para>
-   <itemizedlist>
-    <listitem>
-     <para>
-      <literal>libfftw3-gnu-hpc</literal>
-     </para>
-    </listitem>
-    <listitem>
-     <para>
-      <literal>fftw3-gnu-hpc-devel</literal>
-     </para>
-    </listitem>
-    <listitem>
-     <para>
-      <literal>libfftw3-gnu-<replaceable>MPI_FLAVOR</replaceable>-hpc</literal>
-     </para>
-    </listitem>
-    <listitem>
-     <para>
-      <literal>fftw3-gnu-<replaceable>MPI_FLAVOR</replaceable>-hpc-devel</literal>
-     </para>
-    </listitem>
-   </itemizedlist>
-   <para>
-    <replaceable>MPI_FLAVOR</replaceable> must be one of the supported MPI
-    flavors described in <xref linkend="sec1-MPI-libs"/>.
-   </para>
-  </sect2>
-
   <sect2 xml:id="sec2-lib-numpy">
    <title>NumPy Python library</title>
    <para>
