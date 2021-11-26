@@ -379,56 +379,6 @@
    </itemizedlist>
   </sect2>
 
-  <sect2 xml:id="sec-lib-metis">
-   <title>METIS &mdash; serial graph partitioning and fill-reducing matrix ordering library</title>
-   <para>
-    METIS is a set of serial programs for partitioning graphs, partitioning
-    finite element meshes, and producing fill-reducing orderings for sparse
-    matrices. The algorithms implemented in METIS are based on the multilevel
-    recursive-bisection, multilevel k-way, and multi-constraint partitioning
-    schemes.
-   </para>
-   <para>
-    For this library, a compiler toolchain must be loaded beforehand. To
-    load METIS, run the following command:
-   </para>
-<screen>&prompt.user;module load <replaceable>TOOLCHAIN</replaceable> metis</screen>
-   <para>
-    For information about the toolchain to load, see <xref
-     linkend="sec-compiler"/>.
-   </para>
-   <para>
-    List of master packages:
-   </para>
-   <itemizedlist>
-    <listitem>
-     <para>
-      <literal>metis-gnu-hpc</literal>
-     </para>
-    </listitem>
-    <listitem>
-     <para>
-      <literal>metis-gnu-hpc-devel</literal>
-     </para>
-    </listitem>
-    <listitem>
-     <para>
-      <literal>metis-gnu-hpc-doc</literal>
-     </para>
-    </listitem>
-    <listitem>
-     <para>
-      <literal>metis-gnu-hpc-examples</literal>
-     </para>
-    </listitem>
-    <listitem>
-     <para>
-      <literal>libmetis-gnu-hpc</literal>
-     </para>
-    </listitem>
-   </itemizedlist>
-  </sect2>
-
   <sect2 xml:id="sec-lib-ocr">
    <title>OCR &mdash; Open Community Runtime (OCR) for shared memory</title>
    <para>
