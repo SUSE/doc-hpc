@@ -565,51 +565,6 @@
    </para>
   </sect2>
 
-  <sect2 xml:id="sec2-lib-scotch">
-   <title>SCOTCH &mdash; static mapping and sparse matrix reordering algorithms</title>
-   <para>
-    SCOTCH is a set of programs and libraries that implement the static
-    mapping and sparse matrix reordering algorithms developed in the SCOTCH
-    project.
-   </para>
-   <para>
-    SCOTCH applies graph theory to scientific computing problems such as graph and
-    mesh partitioning, static mapping, and sparse matrix ordering, in
-    application domains ranging from structural mechanics to operating systems
-    or bio-chemistry.
-   </para>
-   <para>
-    For this library a compiler toolchain and an MPI flavor must be loaded
-    beforehand. To load this module, run the following command:
-   </para>
-<screen>&prompt.user;module load <replaceable>TOOLCHAIN</replaceable> <replaceable>MPI_FLAVOR</replaceable> scotch</screen>
-   <para>
-    For information about the toolchain to load, see <xref
-    linkend="sec-compiler"/>. For information about available MPI flavors, see
-    <xref linkend="sec1-MPI-libs"/>.
-   </para>
-   <para>
-    List of master packages:
-   </para>
-   <itemizedlist>
-    <listitem>
-     <para>
-      <literal>libptscotch-gnu-<replaceable>MPI_FLAVOR</replaceable>-hpc</literal>
-     </para>
-    </listitem>
-    <listitem>
-     <para>
-      <literal>ptscotch-gnu-<replaceable>MPI_FLAVOR</replaceable>-hpc</literal>
-     </para>
-    </listitem>
-    <listitem>
-     <para>
-      <literal>ptscotch-gnu-<replaceable>MPI_FLAVOR</replaceable>-hpc-devel</literal>
-     </para>
-    </listitem>
-   </itemizedlist>
-  </sect2>
-
   <sect2 xml:id="sec2-lib-superlu">
    <title>SuperLU &mdash; supernodal LU decomposition of sparse matrices</title>
    <!-- https://portal.nersc.gov/project/sparse/superlu/ -->
