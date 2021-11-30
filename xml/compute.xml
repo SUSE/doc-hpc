@@ -527,44 +527,6 @@
    </itemizedlist>
   </sect2>
 
-  <sect2 xml:id="sec2-lib-scal">
-   <title>ScaLAPACK &hpca; library &mdash; LAPACK routines</title>
-   <para>
-    The library ScaLAPACK (short for <emphasis>Scalable LAPACK</emphasis>)
-    includes a subset of LAPACK routines designed for distributed memory
-    MIMD-parallel computers.
-   </para>
-   <para>
-    This library requires loading both a compiler toolchain and an MPI library
-    flavor beforehand. To load this module, run the following command:
-   </para>
-<screen>&prompt.user;module load <replaceable>TOOLCHAIN</replaceable> <replaceable>MPI_FLAVOR</replaceable> scalapack</screen>
-   <para>
-    For information about the toolchain to load, see <xref
-    linkend="sec-compiler"/>. For information about available MPI flavors, see
-    <xref linkend="sec1-MPI-libs"/>.
-   </para>
-   <para>
-    List of master packages:
-   </para>
-   <itemizedlist>
-    <listitem>
-     <para>
-      <literal>libscalapack2-gnu-<replaceable>MPI_FLAVOR</replaceable>-hpc</literal>
-     </para>
-    </listitem>
-    <listitem>
-     <para>
-      <literal>libscalapack2-gnu-<replaceable>MPI_FLAVOR</replaceable>-hpc-devel</literal>
-     </para>
-    </listitem>
-   </itemizedlist>
-   <para>
-    <replaceable>MPI_FLAVOR</replaceable> must be one of the supported MPI
-    flavors described in <xref linkend="sec1-MPI-libs"/>.
-   </para>
-  </sect2>
-
   <sect2 xml:id="sec2-lib-superlu">
    <title>SuperLU &mdash; supernodal LU decomposition of sparse matrices</title>
    <!-- https://portal.nersc.gov/project/sparse/superlu/ -->
