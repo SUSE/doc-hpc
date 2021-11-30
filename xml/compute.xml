@@ -236,45 +236,37 @@
   </para>
 
   <para>
-   As an example, these are the package names of the ScaLAPACK library version 2.0.2 built
-   with GCC for Open MPI v2:
+   As an example, these are the package names of the ADIOS library version 1.13.1,
+   built with GCC for Open MPI v4:
   </para>
 
   <itemizedlist>
    <listitem>
     <para>
-     library package: <package>libscalapack2_2_1_0-gnu-openmpi2-hpc</package>
+     library master package: <package>adios-gnu-openmpi4-hpc</package>
     </para>
    </listitem>
    <listitem>
     <para>
-     library master package: <package>libscalapack2-gnu-openmpi2-hpc</package>
+     development master package: <package>adios-gnu-openmpi4-hpc-devel</package>
     </para>
    </listitem>
    <listitem>
     <para>
-     development package:
-     <package>libscalapack2_2_1_0-gnu-openmpi2-hpc-devel</package>
+     library package: <package>adios_1_13_1-gnu-openmpi4-hpc</package>
     </para>
    </listitem>
    <listitem>
     <para>
-     development master package:
-     <package>libscalapack2-gnu-openmpi2-hpc-devel</package>
+     development package: <package>adios_1_13_1-gnu-openmpi4-hpc-devel</package>
     </para>
    </listitem>
    <listitem>
     <para>
-     static library package:
-     <package>libscalapack2_2_1_0-gnu-openmpi2-hpc-devel-static</package>
+     static library package: <package>adios_1_13_1-gnu-openmpi4-hpc-devel-static</package>
     </para>
    </listitem>
   </itemizedlist>
-
-  <para>
-   The digit <literal>2</literal> appended to the library name denotes the
-   <literal>.so</literal> version of the library.
-  </para>
 
   <para>
    To install a library package, run <command>zypper in
