@@ -124,11 +124,9 @@
       <step>
        <para>
         Configure the parameter
-        <literal>ControlMachine=<replaceable>CONTROL_MACHINE</replaceable></literal>
+        <literal>SlurmctldHost=<replaceable>SLURMCTLD_HOST</replaceable></literal>
         with the host name of the management server.
        </para>
-       <!-- REVISIT: The slurm.conf file I'm looking at says SlurmctldHost
-            instead of ControlMachine -->
        <para>
         To find the correct host name, run <command>hostname -s</command>
         on the management server.
