@@ -103,7 +103,7 @@
   </para>
  </sect1>
  <sect1 xml:id="sec-monitoring-clusters-prometheus">
-  <title>Monitoring &hpc; clusters</title>
+  <title>Monitoring &hpca; clusters with &prometheus; and &grafana;</title>
   <para>
    Monitor the performance of &hpca; clusters using &prometheus; and &grafana;.
   </para>
