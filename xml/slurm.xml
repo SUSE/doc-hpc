@@ -113,6 +113,13 @@
      </para>
     </step>
    </procedure>
+   <note>
+    <title>Automatically opened ports</title>
+    <para>
+     Installing the <package>slurm</package> package automatically opens the TCP
+     ports 6817, 6818, and 6819.
+    </para>
+   </note>
    <procedure xml:id="pro-configuring-slurm">
     <title>Configuring &slurm;</title>
     <step>

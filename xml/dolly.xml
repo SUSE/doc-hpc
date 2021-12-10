@@ -57,6 +57,13 @@
    Install dolly on the management server and all dolly client nodes:
   </para>
 <screen>&prompt;zypper in dolly</screen>
+<note>
+ <title>Automatically opened ports</title>
+ <para>
+  Installing the <package>dolly</package> package automatically opens the TCP
+  ports 9997 and 9998.
+ </para>
+</note>
   <para>
    The <command>dolly</command> command requires the following information,
    either directly on the command line or from a configuration file:
