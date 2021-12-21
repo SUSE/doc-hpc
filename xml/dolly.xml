@@ -42,10 +42,10 @@
    <title>Dolly cloning process</title>
    <mediaobject>
     <imageobject role="html">
-     <imagedata fileref="dolly_cloning_process.png" width="50%"/>
+     <imagedata fileref="dolly_cloning_process.png" width="90%"/>
     </imageobject>
     <imageobject role="fo">
-     <imagedata fileref="dolly_cloning_process.png" width="50%"/>
+     <imagedata fileref="dolly_cloning_process.png" width="90%"/>
     </imageobject>
    </mediaobject>
   </figure>
