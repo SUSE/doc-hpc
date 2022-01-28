@@ -41,10 +41,9 @@
 
 <!-- PROMPTS -->
 
-<!ENTITY prompt.root     "<prompt role='root' xmlns='http://docbook.org/ns/docbook'>root # </prompt>">
-<!ENTITY prompt.user     "<prompt xmlns='http://docbook.org/ns/docbook'>&exampleuser_plain; &gt; </prompt>">
-<!ENTITY prompt.user2    "<prompt xmlns='http://docbook.org/ns/docbook'>&exampleuserII_plain; &gt; </prompt>">
-<!ENTITY prompt.sudo     "<prompt xmlns='http://docbook.org/ns/docbook'>&exampleuser_plain; &gt; </prompt><command xmlns='http://docbook.org/ns/docbook'>sudo</command> ">
+<!ENTITY prompt.root     "<prompt role='root' xmlns='http://docbook.org/ns/docbook'># </prompt>">
+<!ENTITY prompt.user     "<prompt xmlns='http://docbook.org/ns/docbook'>&gt; </prompt>">
+<!ENTITY prompt.sudo     "<prompt xmlns='http://docbook.org/ns/docbook'>&gt; </prompt><command xmlns='http://docbook.org/ns/docbook'>sudo</command> ">
 
 
 
@@ -141,7 +140,7 @@
 <!ENTITY obs           "Open Build Service">
 <!ENTITY osbs          "openSUSE Build Service">
 <!ENTITY obsa          "OBS">
-<!ENTITY ph            "&suse; Package Hub">
+<!ENTITY ph            "PackageHub">
 <!ENTITY soliddriver   "SUSE SolidDriver">
 
 
