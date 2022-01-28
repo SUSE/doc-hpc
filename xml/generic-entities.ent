@@ -148,7 +148,7 @@
 <!ENTITY scc           "&suse; Customer Center">
 <!ENTITY sccreg        "&suse;&reg; Customer Center">
 <!ENTITY obs           "Open Build Service">
-<!ENTITY osbs          "&osu; Build Service">
+<!ENTITY osbs          "&os; Build Service">
 <!ENTITY obsa          "OBS">
 <!ENTITY ph            "&suse; Package Hub">
 <!ENTITY soliddriver   "&suse; SolidDriver">
