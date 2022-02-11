@@ -518,51 +518,8 @@
     </listitem>
    </itemizedlist>
   </sect2>
-
-  <sect2 xml:id="sec2-lib-superlu">
-   <title>SuperLU &mdash; supernodal LU decomposition of sparse matrices</title>
-   <!-- https://portal.nersc.gov/project/sparse/superlu/ -->
-   <para>
-    SuperLU is a general-purpose library for the direct solution of large,
-    sparse, nonsymmetric systems of linear equations. The library is written in
-    C and can be called from C and Fortran programs.
-   </para>
-   <para>
-    This library requires a compiler toolchain and an MPI flavor to be loaded
-    beforehand. To load this module, run the following command:
-   </para>
-<screen>&prompt.user;module load <replaceable>TOOLCHAIN</replaceable> superlu</screen>
-   <para>
-    For information about the toolchain to load, see <xref
-     linkend="sec-compiler"/>.
-   </para>
-   <para>
-    List of master packages:
-   </para>
-   <itemizedlist>
-    <listitem>
-     <para>
-      <literal>libsuperlu-gnu-hpc</literal>
-     </para>
-    </listitem>
-    <listitem>
-     <para>
-      <literal>superlu-gnu-hpc-devel</literal>
-     </para>
-    </listitem>
-    <listitem>
-     <para>
-      <literal>superlu-gnu-hpc-doc</literal>
-     </para>
-    </listitem>
-    <listitem>
-     <para>
-      <literal>superlu-gnu-hpc-examples</literal>
-     </para>
-    </listitem>
-   </itemizedlist>
-  </sect2>
  </sect1>
+
  <sect1 xml:id="FileFormat">
   <title>File format libraries</title>
 
