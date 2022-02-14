@@ -56,7 +56,7 @@
   <para>
    Install dolly on the management server and all dolly client nodes:
   </para>
-<screen>&prompt;zypper in dolly</screen>
+<screen>&prompt.root;zypper in dolly</screen>
 <note>
  <title>Automatically opened ports</title>
  <para>
@@ -99,7 +99,7 @@
     <para>
      On the dolly server, run the following command:
     </para>
-<screen>&prompt;dolly -s<co xml:id="dolly-server-parameter"/> -v<co xml:id="dolly-server-verbose"/> -o <replaceable>LOGFILE</replaceable><co xml:id="dolly-server-log"/> -I <replaceable>INPUT</replaceable><co xml:id="dolly-server-input"/> -O <replaceable>OUTPUT</replaceable><co xml:id="dolly-server-output"/> -H <replaceable>NODE1,NODE2,..</replaceable><co xml:id="dolly-server-nodes"/></screen>
+<screen>&prompt.root;dolly -s<co xml:id="dolly-server-parameter"/> -v<co xml:id="dolly-server-verbose"/> -o <replaceable>LOGFILE</replaceable><co xml:id="dolly-server-log"/> -I <replaceable>INPUT</replaceable><co xml:id="dolly-server-input"/> -O <replaceable>OUTPUT</replaceable><co xml:id="dolly-server-output"/> -H <replaceable>NODE1,NODE2,..</replaceable><co xml:id="dolly-server-nodes"/></screen>
     <calloutlist>
      <callout arearefs="dolly-server-parameter">
       <para>
@@ -137,13 +137,13 @@
      the nodes <literal>sle152</literal>, <literal>sle153</literal>,
      <literal>sle154</literal>, and <literal>sle155</literal>:
     </para>
-<screen>&prompt;dolly -s -v -o /tmp/dolly.log -I /dev/sdc1 -O /dev/sdc1 -H sle152,sle153,sle154,sle155</screen>
+<screen>&prompt.root;dolly -s -v -o /tmp/dolly.log -I /dev/sdc1 -O /dev/sdc1 -H sle152,sle153,sle154,sle155</screen>
    </step>
    <step>
     <para>
      On each dolly client, start <command>dolly</command>:
     </para>
-<screen>&prompt;dolly -v</screen>
+<screen>&prompt.root;dolly -v</screen>
     <para>
      You can run this command on multiple nodes at once using <command>pdsh</command>.
      See <xref linkend="sec-remote-pdsh"/>.
@@ -326,7 +326,7 @@ endconfig<co xml:id="dolly-config-end"/></screen>
   <para>
    To use this configuration file, run the following command on the dolly server:
   </para>
-  <screen>&prompt;dolly -v -s -f /etc/dolly.cfg</screen>
+  <screen>&prompt.root;dolly -v -s -f /etc/dolly.cfg</screen>
  </sect1>
 
  <sect1 xml:id="dolly-support">
