@@ -39,7 +39,7 @@
     <para>
      Install spack:
     </para>
-<screen>&prompt;zypper in spack</screen>
+<screen>&prompt.root;zypper in spack</screen>
    </step>
    <step>
     <para>
@@ -50,19 +50,19 @@
       <para>
        For bash/zsh/sh:
       </para>
-<screen>&prompt;. /usr/share/spack/setup-env.sh</screen>
+<screen>&prompt.root;. /usr/share/spack/setup-env.sh</screen>
      </step>
      <step>
       <para>
        For tcsh/csh:
       </para>
-<screen>&prompt;source /usr/share/spack/setup-env.csh</screen>
+<screen>&prompt.root;source /usr/share/spack/setup-env.csh</screen>
      </step>
      <step>
       <para>
        For fish:
       </para>
-<screen>&prompt;. /usr/share/spack/setup-env.fish</screen>
+<screen>&prompt.root;. /usr/share/spack/setup-env.fish</screen>
      </step>
     </stepalternatives>
    </step>
@@ -71,9 +71,9 @@
      It is recommended to install <literal>bash-completion</literal> so you can
      use <keycap>TAB</keycap> key auto-completion for spack commands:
     </para>
-<screen>&prompt;zypper in bash-completion</screen>
+<screen>&prompt.root;zypper in bash-completion</screen>
 <screen>
-&prompt;spack <emphasis>TAB</emphasis>
+&prompt.root;spack <emphasis>TAB</emphasis>
 activate      clone         dependencies  fetch         list          providers     solve         url
 add           commands      dependents    find          load          pydoc         spec          verify
 arch          compiler      deprecate     flake9        location      python        stage         versions
@@ -100,7 +100,7 @@ clean         debug         external      license       pkg           setup     
    <para>
     Show detailed information on <literal>netcdf-cxx4</literal>:
    </para>
-<screen>&prompt;spack info netcdf-cxx4
+<screen>&prompt.root;spack info netcdf-cxx4
 AutotoolsPackage:   netcdf-cxx4
 
 Description:
@@ -171,7 +171,7 @@ Virtual Packages:
     Build <literal>netcdf-cxx4</literal> with the variants <literal>static</literal>
     and <literal>doxygen</literal> disabled:
    </para>
-<screen>&prompt;spack install netcdf-cxx4 -static -doxygen
+<screen>&prompt.root;spack install netcdf-cxx4 -static -doxygen
 ==> netcdf-c: Executing phase: 'autoreconf'
 ==> netcdf-c: Executing phase: 'configure'
 ==> netcdf-c: Executing phase: 'build'
@@ -192,7 +192,7 @@ Virtual Packages:
     Rebuild <literal>netcdf-cxx4</literal> with the default variants, and
     specify the version:
    </para>
-<screen>&prompt;spack install netcdf-cxx4@4.3.1
+<screen>&prompt.root;spack install netcdf-cxx4@4.3.1
 ==> Warning: Missing a source id for python@3.6.13
 ==> Warning: Missing a source id for pkgconf@1.5.3
 [+] /usr (external autoconf-2.69-tatq2aqbhboxbyjt2fsraoapgqwf3y5x)
@@ -229,7 +229,7 @@ Virtual Packages:
    <para>
     Check which packages are now available with spack:
    </para>
-<screen>&prompt;spack find
+<screen>&prompt.root;spack find
 ==> 14 installed packages
 -- linux-sle_hpc15-skylake / gcc@7.5.0 --------------------------
 doxygen@1.8.20  hwloc@1.11.11  libpciaccess@0.16  netcdf-c@4.7.4     netcdf-cxx4@4.3.1  openmpi@3.1.6       xz@5.2.3
@@ -240,7 +240,7 @@ hdf5@1.10.7     libiconv@1.16  libxml2@2.9.10     netcdf-cxx4@4.3.1  numactl@2.0
     If you want to show dependency hashes as well as versions, use the
     <literal>-l</literal> option:
    </para>
-<screen>&prompt;spack find -l
+<screen>&prompt.root;spack find -l
 ==> 14 installed packages
 -- linux-sle_hpc15-skylake / gcc@7.5.0 --------------------------
 3griwie doxygen@1.8.20  y3w7dlk libpciaccess@0.16  tiyqyxb netcdf-cxx4@4.3.1   x3glm5y xz@5.2.3
@@ -257,7 +257,7 @@ itovpc5 libiconv@1.16   msiysdr netcdf-cxx4@4.3.1  rpnlbst util-macros@1.19.1</s
      <para>
       Find the paths to the <literal>netcdf-cxx4</literal> packages:
      </para>
-<screen>&prompt;spack find --paths
+<screen>&prompt.root;spack find --paths
 ==> 15 installed packages
 -- linux-sle_hpc15-skylake / gcc@7.5.0 --------------------------
 doxygen@1.8.20      /usr/opt/spack/linux-sle_hpc15-skylake/gcc-7.5.0/doxygen-1.8.20-3griwieblqgb6ykc5avzkzrxmtaw4s2g
@@ -280,14 +280,14 @@ zlib@1.2.11         /usr/opt/spack/linux-sle_hpc15-skylake/gcc-7.5.0/zlib-1.2.11
      <para>
       Move into the parent directory:
      </para>
-<screen>&prompt;cd /usr/opt/spack/linux-sle_hpc15-skylake/gcc-7.5.0</screen>
+<screen>&prompt.root;cd /usr/opt/spack/linux-sle_hpc15-skylake/gcc-7.5.0</screen>
     </step>
     <step>
      <para>
       Run a <command>diff</command> between each version's <filename>spec.yaml</filename>
       file. This file describes how the package was built.
      </para>
-<screen>&prompt;diff -ru netcdf-cxx4-4.3.1-msiysdrdua3vv6izluhaeos4nyo5gslq/.spack/spec.yaml netcdf-cxx4-4.3.1-tiyqyxb3eqpptrlcll6rlf27aisekluy/.spack/spec.yaml
+<screen>&prompt.root;diff -ru netcdf-cxx4-4.3.1-msiysdrdua3vv6izluhaeos4nyo5gslq/.spack/spec.yaml netcdf-cxx4-4.3.1-tiyqyxb3eqpptrlcll6rlf27aisekluy/.spack/spec.yaml
 --- netcdf-cxx4-4.3.1-msiysdrdua3vv6izluhaeos4nyo5gslq/.spack/spec.yaml 2021-10-04 11:42:23.444000000 +0200
 +++ netcdf-cxx4-4.3.1-tiyqyxb3eqpptrlcll6rlf27aisekluy/.spack/spec.yaml 2021-10-04 11:51:49.880000000 +0200
 @@ -38,10 +38,10 @@
@@ -338,7 +338,7 @@ arch: </screen>
     <para>
      List the available versions of <literal>mpich</literal>:
     </para>
-<screen>&prompt;spack versions mpich
+<screen>&prompt.root;spack versions mpich
 ==> Safe versions (already checksummed):
   develop  3.3.2  3.3.1  3.3  3.2.1  3.2  3.1.4  3.1.3  3.1.2  3.1.1  3.1  3.0.4
 ==> Remote versions (not yet checksummed):
@@ -348,7 +348,7 @@ arch: </screen>
     <para>
      Show detailed information on <literal>mpich</literal>:
     </para>
-<screen>&prompt;spack info mpich
+<screen>&prompt.root;spack info mpich
 AutotoolsPackage:   mpich
 
 Description:
@@ -431,7 +431,7 @@ Virtual Packages:
     <para>
      Build <literal>mpich</literal> with some variants disabled:
     </para>
-<screen>&prompt;spack install mpich@3.3.2 -romio -libxml2 -hydra -fortran
+<screen>&prompt.root;spack install mpich@3.3.2 -romio -libxml2 -hydra -fortran
 ==> mpich: Executing phase: 'autoreconf'
 ==> mpich: Executing phase: 'configure'
 ==> mpich: Executing phase: 'build'
@@ -442,7 +442,7 @@ Virtual Packages:
     <para>
      Rebuild <literal>mpich</literal> with the default variants:
     </para>
-<screen>&prompt;spack install mpich@3.3.2
+<screen>&prompt.root;spack install mpich@3.3.2
 .....
 [+] /usr/opt/spack/linux-sle_hpc15-skylake/gcc-7.5.0/mpich-3.3.2-sahjm2uhsoc3bi2cljtypwuqaflhamnx</screen>
    </step>
@@ -453,7 +453,7 @@ Virtual Packages:
      an x86_64 <literal>target</literal>, and a non-boolean <literal>netmod</literal>
      option:
     </para>
-<screen>&prompt;spack install mpich@3.3.2<co xml:id="spack-comples-at"/> -static<co xml:id="spack-complex-variants"/> cppflags="-O3 -fPIC"<co xml:id="spack-complex-compilerflag"/> target=x86_64<co xml:id="spack-complex-target"/> ^libxml2@2.9.4<co xml:id="spack-complex-hat"/> netmod=tcp<co xml:id="spack-complex-name"/></screen>
+<screen>&prompt.root;spack install mpich@3.3.2<co xml:id="spack-comples-at"/> -static<co xml:id="spack-complex-variants"/> cppflags="-O3 -fPIC"<co xml:id="spack-complex-compilerflag"/> target=x86_64<co xml:id="spack-complex-target"/> ^libxml2@2.9.4<co xml:id="spack-complex-hat"/> netmod=tcp<co xml:id="spack-complex-name"/></screen>
     <calloutlist>
      <callout arearefs="spack-comples-at">
       <para>
@@ -497,7 +497,7 @@ Virtual Packages:
     <para>
      List all of the available packages and their dependency hashes:
     </para>
-<screen>&prompt;spack find -l
+<screen>&prompt.root;spack find -l
 ==> 33 installed packages
 -- linux-sle_hpc15-skylake / gcc@7.5.0 --------------------------
 3griwie doxygen@1.8.20  y3w7dlk libpciaccess@0.16  vry3tfp netcdf-c@4.7.4      x3glm5y xz@5.2.3
@@ -517,7 +517,7 @@ mm7at5h libiconv@1.16  jrtvvdj libxml2@2.9.4      jjxbukq util-macros@1.19.1  jx
      Show the specifications and output dependencies of
      <literal>/6xjiutf</literal> (<literal>mpich</literal>):
     </para>
-<screen>&prompt;spack find --deps /6xjiutf
+<screen>&prompt.root;spack find --deps /6xjiutf
 ==> 1 installed package
 -- linux-sle_hpc15-x86_64 / gcc@7.5.0 ---------------------------
 mpich@3.3.2
@@ -543,7 +543,7 @@ mpich@3.3.2
     <para>
      Install <literal>gcc-10.2.0</literal>:
     </para>
-<screen>&prompt;spack install gcc@10.2.0
+<screen>&prompt.root;spack install gcc@10.2.0
 .....
 [+] /usr/opt/spack/linux-sle_hpc15-skylake/gcc-7.5.0/gcc-10.2.0-tkcq6d6xnyfgyqsnpzq36dlk2etylgp7</screen>
    </step>
@@ -554,10 +554,10 @@ mpich@3.3.2
      option to specify that you want to use <literal>gcc-10.2.0</literal>:
     </para>
 <screen>
-&prompt;module load gcc-10.2.0-gcc-7.5.0-tkcq6d6 <co xml:id="spack-module-load"/>
-&prompt;gcc --version
+&prompt.root;module load gcc-10.2.0-gcc-7.5.0-tkcq6d6 <co xml:id="spack-module-load"/>
+&prompt.root;gcc --version
 gcc (Spack GCC) 10.2.0
-&prompt;spack install mpich@3.2.1 %gcc@10.2.0
+&prompt.root;spack install mpich@3.2.1 %gcc@10.2.0
 ==> Error: No compilers with spec gcc@10.2.0 found for operating system sle_hpc15 and target skylake.
 Run 'spack compiler find' to add compilers or 'spack compilers' to see which compilers are already recognized by spack.</screen>
     <calloutlist>
@@ -576,7 +576,7 @@ Run 'spack compiler find' to add compilers or 'spack compilers' to see which com
     <para>
      Update the list of available compilers:
     </para>
-<screen>&prompt;spack compiler find
+<screen>&prompt.root;spack compiler find
 ==> Added 1 new compiler to /home/tux/.spack/linux/compilers.yaml
     gcc@10.2.0
 ==> Compilers are defined in the following files:
@@ -586,7 +586,7 @@ Run 'spack compiler find' to add compilers or 'spack compilers' to see which com
     <para>
      Rerun the command to build <literal>mpich</literal> with <literal>gcc-10.2.0</literal>:
     </para>
-<screen>&prompt;spack install mpich@3.2.1 %gcc@10.2.0
+<screen>&prompt.root;spack install mpich@3.2.1 %gcc@10.2.0
 .....
 [+] /usr/opt/spack/linux-sle_hpc15-skylake/gcc-10.2.0/mpich-3.2.1-e56rcwtqofh2xytep5pjgq6wrxwmsy25</screen>
    </step>

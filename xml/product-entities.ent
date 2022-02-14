@@ -33,7 +33,7 @@
 <!ENTITY prometheus "Prometheus">
 
 <!-- HPC PROMPTS -->
-<!ENTITY prompt        "<prompt role='root' xmlns='http://docbook.org/ns/docbook'># </prompt>">
+<!-- Plain prompts are also available from generic-entities.ent -->
 <!ENTITY prompt.mgmt   "<prompt role='root' xmlns='http://docbook.org/ns/docbook'>management # </prompt>">
 <!ENTITY prompt.backup "<prompt role='root' xmlns='http://docbook.org/ns/docbook'>backup # </prompt>">
 <!ENTITY prompt.node1  "<prompt role='root' xmlns='http://docbook.org/ns/docbook'>node1 # </prompt>">
