@@ -376,12 +376,6 @@ endconfig<co xml:id="dolly-config-end"/></screen>
    </listitem>
    <listitem>
     <para>
-     <option>-d</option>: Dummy mode should only be used for benchmarking and
-     is not supported.
-    </para>
-   </listitem>
-   <listitem>
-    <para>
      <option>-c</option>: Specifying the uncompressed size of a compressed file
      should only be used for performance statistics.
     </para>
