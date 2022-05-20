@@ -111,7 +111,7 @@
    &prometheus; collects metrics from exporters running on cluster nodes
    and stores the data in a time series database. &grafana; provides
    data visualization dashboards for the metrics collected by &prometheus;.
-   Pre-configured dashboards are available on the &grafana; website.
+   Preconfigured dashboards are available on the &grafana; website.
   </para>
   <para>
    The following &prometheus; exporters are useful for &hpc;:
@@ -472,7 +472,7 @@ go_gc_duration_seconds{quantile="0.5"} 7.8573e-05
   <sect2 xml:id="sec-monitoring-compute-node-performance">
    <title>Monitoring compute node performance</title>
    <para>
-    To monitor the performance and health of each individual compute node,
+    To monitor the performance and health of each compute node,
     install the &prometheus; node exporter to collect performance data, then
     import a custom node dashboard from the &grafana; website to visualize
     the data. For more information about this dashboard, see
