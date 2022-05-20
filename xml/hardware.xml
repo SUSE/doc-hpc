@@ -63,8 +63,8 @@
    <literal>lstopo</literal> allows the user to obtain the topology
    of a machine or convert topology information obtained on a remote
    machine into one of several output formats. In graphical mode (X11),
-   it displays the topology in a window. Several other output formats
-   are available as well, including plain text, PDF, PNG, SVG and FIG.
+   it displays the topology in a window. Other available formats include
+   plain text, PDF, PNG, SVG and FIG.
    For more information, see the man pages provided by
    <literal>hwloc</literal> and <literal>lstopo</literal>.
   </para>
