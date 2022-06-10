@@ -143,7 +143,7 @@
     32&nbsp;GB).
    </para>
    <para>
-    The Environment Module <literal>Lmod</literal> is installed for all
+    The environment module <literal>Lmod</literal> is installed for all
     roles. It is required at build time and runtime of the system. For more
     information, see <xref linkend="sec-compute-lmod"/>.
    </para>
