@@ -19,9 +19,9 @@
     each of which has its own very specific library dependencies. Multiple
     instances of the same libraries might exist, differing in version, build
     configuration, compiler, and MPI implementation. To manage these
-    dependencies, you can use an Environment Module system. Most &hpca;
+    dependencies, you can use an environment module system. Most &hpca;
     libraries provided with &slehpc; are built with support for environment
-    modules. This chapter describes the Environment Module system
+    modules. This chapter describes the environment module system
     <emphasis>Lmod</emphasis>, and a set of &hpca;
     compute libraries shipped with &slehpca;.
    </para>
@@ -39,7 +39,7 @@
    of multiple versions of a program or shared library, and helps configure the
    system environment for the use of a specific version. It supports
    hierarchical library dependencies and makes sure that the correct versions of
-   dependent libraries are selected. Environment Modules-enabled library
+   dependent libraries are selected. Environment module-enabled library
    packages supplied with the &hpca; module support parallel installation of
    different versions and flavors of the same library or binary and are
    supplied with appropriate <literal>lmod</literal> module files.
