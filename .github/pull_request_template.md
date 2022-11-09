@@ -9,6 +9,7 @@ Describe this pull request.
 
 ### Which product versions do the changes apply to?
 
+- [ ] SLE HPC 15 next *(current `main`, no backport necessary)*
 - [ ] SLE HPC 15 SP4
 - [ ] SLE HPC 15 SP3
 
