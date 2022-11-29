@@ -3,6 +3,7 @@
 
 <!-- PRODUCT NAME AND VERSIONS -->
 <!ENTITY productname   "&slehpc;">
+<!ENTITY productnameshort "SLE-HPC">
 <!ENTITY productnumber "&product-ga; SP&product-sp;">
 <!ENTITY productnumbershort "&product-ga;.&product-sp;">
 

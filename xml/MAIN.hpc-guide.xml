@@ -16,6 +16,7 @@
  <info>
   <title>Administration Guide</title>
   <productname>&productname;</productname>
+  <productname role="abbrev">&productnameshort;</productname>
   <productnumber>&productnumber;</productnumber>
   <date><?dbtimestamp format="B d, Y"?></date>
   <xi:include href="common_copyright_gfdl.xml"/>
