@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="urn:x-suse:xslt:profiling:docbook51-profile.xsl"
+ type="text/xml"
+ title="Profiling step"?>
+<!DOCTYPE sect1
+[
+  <!ENTITY % entities SYSTEM "generic-entities.ent">
+    %entities;
+]>
+
+<sect1 xml:id="sec-warewulf-deploy-nodes" xml:lang="en"
+ xmlns="http://docbook.org/ns/docbook" version="5.1"
+ xmlns:xi="http://www.w3.org/2001/XInclude"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+ <title>Deploying compute nodes with &warewulf;</title>
+ <info>
+  <dm:docmanager xmlns:dm="urn:x-suse:ns:docmanager">
+   <dm:bugtracker></dm:bugtracker>
+   <dm:translation>yes</dm:translation>
+  </dm:docmanager>
+ </info>
+
+ <para>
+  <remark>Add info on &warewulf;, profiles, overlays, etc.</remark>
+ </para>
+ <para>
+  For more information, see <link xlink:href="https://warewulf.org/docs/"/>.
+ </para>
+ <procedure xml:id="pro-warewulf-deploy-nodes">
+  <title>Deploying compute nodes with &warewulf;</title>
+  <step>
+   <para>
+    Install &warewulf;:
+   </para>
+<screen>&prompt.user;sudo zypper install warewulf4</screen>
+  </step>
+  <step>
+   <para>
+    Configure the controller host <remark>WIP</remark>
+   </para>
+  </step>
+  <step>
+   <para>
+    Start and enable the &warewulf; service:
+   </para>
+<screen>&prompt.user;sudo systemctl enable --now warewulfd</screen>
+  </step>
+  <step>
+   <para>
+    If the dhcpd service was not used before you will have to add the interface on which the cluster network is running to the DHCP_INTERFACE in the file /etc/sysconfig/dhcpd. <remark>WIP</remark>
+   </para>
+  </step>
+  <step>
+   <para>
+    Configure the services required by &warewulf;:
+   </para>
+<screen>&prompt.user;sudo wwctl configure --all</screen>
+   <para>
+    <remark>Add description of what this does.</remark>
+   </para>
+  </step>
+  <step>
+   <para>
+    Import a compute node container from the &suse; registry:
+   </para>
+<screen>&prompt.user;sudo wwctl container import \
+docker://registry.suse.com/suse/containers/<remark>TBD</remark> \
+<remark>TBD</remark> --setdefault</screen>
+   <para>
+    The <option>--setdefault</option> argument sets this as the default container
+    in the <literal>default</literal> node profile.
+   </para>
+  </step>
+  <step>
+   <para>
+    Configure the networking details for the <literal>default</literal> node profile:
+   </para>
+<screen>&prompt.user;sudo wwctl profile set -y default --netname default \
+--netmask &subnetmask; --gateway &subnetI;.1</screen>
+   <para>
+    To see the details of this profile, run the following command:
+   </para>
+<screen>&prompt.user;sudo wwctl profile list -a</screen>
+  </step>
+  <step>
+   <para>
+    Add compute nodes to &warewulf;. For example, to add ten discoverable nodes
+    with preconfigured IP addresses, run the following command:
+   </para>
+<screen>&prompt.user;sudo wwctl node add n[01-10] \ <co xml:id="co-warewulf-deploy-node-name"/>
+--netdev eth0 -I &subnetI;.11 \ <co xml:id="co-warewulf-deploy-node-network"/>
+--discoverable=true <co xml:id="co-warewulf-deploy-node-discover"/></screen>
+   <calloutlist>
+    <callout arearefs="co-warewulf-deploy-node-name">
+     <para>
+      One or more node names. Node names must be unique. If you have node groups
+      or multiple clusters, add descriptors to the node names, for example
+      <literal>n01.cluster01</literal>.
+     </para>
+    </callout>
+    <callout arearefs="co-warewulf-deploy-node-network">
+     <para>
+      The IP address for the first node. Subsequent nodes will be given incremental
+      IP addresses.
+     </para>
+    </callout>
+    <callout arearefs="co-warewulf-deploy-node-discover">
+     <para>
+      Allows &warewulf; to assign a MAC address to the nodes when they boot for
+      the first time.
+     </para>
+    </callout>
+   </calloutlist>
+   <para>
+    To view the settings for these nodes, run the following command:
+   </para>
+<screen>&prompt.user;sudo wwctl node list -a n[01-10]</screen>
+  </step>
+  <step>
+   <para>
+    <remark>Do we need an actual step for overlays? Do you have to run <command>wwctl overlay build</command> before you boot the nodes, or is that only if you edited any overlays?</remark>
+   </para>
+   <para>
+    <remark>Is it possible to use overlays to do things like install &slurm;?</remark>
+   </para>
+  </step>
+  <step>
+   <para>
+    Boot the compute nodes via PXE.
+   </para>
+  </step>
+ </procedure>
+</sect1>

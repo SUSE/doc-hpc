@@ -33,6 +33,7 @@
 <!ENTITY prometheus "Prometheus">
 <!ENTITY spack "Spack">
 <!ENTITY apptainer "Apptainer">
+<!ENTITY warewulf "Warewulf">
 
 <!-- HPC PROMPTS -->
 <!-- Plain prompts are also available from generic-entities.ent -->
