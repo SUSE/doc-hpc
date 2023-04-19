@@ -20,23 +20,56 @@
   </dm:docmanager>
  </info>
 
+<remark>Control node vs control server vs controller host vs warewulf server??
+ I've seen all these terms used... which one will we use?</remark>
+
  <para>
-  <remark>Add info on &warewulf;, profiles, overlays, etc.</remark>
+  &warewulf; is a node deployment system for &hpc; clusters. The compute nodes are booted
+  over the network using PXE. &warewulf; configures DHCP and TFTP on the &warewulf; server
+  (or control node), and configures the compute nodes using <emphasis>node profiles</emphasis>
+  and <emphasis>&warewulf; overlays</emphasis>.
  </para>
  <para>
-  For more information, see <link xlink:href="https://warewulf.org/docs/"/>.
+  <emphasis>Node profiles</emphasis> group shared node configurations together, such as
+  the container or kernel, overlays, and IPMI settings. New nodes automatically use the
+  <literal>default</literal> node profile. You can also create additional node profiles,
+  for example, if two groups of nodes require different containers.
  </para>
+ <para>
+  <emphasis>&warewulf; overlays</emphasis> are compiled for each individual compute node.
+  System overlays (or <literal>wwinit</literal> overlays) are applied during boot and are
+  used for configuration that is node-specific, such as networking and services. Runtime
+  overlays are applied periodically while the node is running, and are used for configuration
+  that changes, such as users and groups.
+ </para>
+
+ <itemizedlist>
+  <title>Requirements</title>
+  <listitem>
+   <para>
+    The &warewulf; control node has a static IP address.
+   </para>
+  </listitem>
+  <listitem>
+   <para>
+    The compute nodes are set to PXE boot.
+   </para>
+  </listitem>
+ </itemizedlist>
+
  <procedure xml:id="pro-warewulf-deploy-nodes">
   <title>Deploying compute nodes with &warewulf;</title>
   <step>
    <para>
-    Install &warewulf;:
+    On the control node, install &warewulf;:
    </para>
 <screen>&prompt.user;sudo zypper install warewulf4</screen>
   </step>
   <step>
    <para>
-    Configure the controller host <remark>WIP</remark>
+    &warewulf; creates a basic configuration for the control node in the file
+    <filename>/etc/warewulf/warewulf.conf</filename>. Check this file to make sure
+    the networking details are correct, or update the details if required.
    </para>
   </step>
   <step>
@@ -47,7 +80,9 @@
   </step>
   <step>
    <para>
-    If the dhcpd service was not used before you will have to add the interface on which the cluster network is running to the DHCP_INTERFACE in the file /etc/sysconfig/dhcpd. <remark>WIP</remark>
+    If DHCP is not already in use on this node, add the interface on which
+    the cluster network is running to <option>DHCP_INTERFACE</option> in the
+    file <filename>/etc/sysconfig/dhcpd</filename>.
    </para>
   </step>
   <step>
@@ -56,8 +91,35 @@
    </para>
 <screen>&prompt.user;sudo wwctl configure --all</screen>
    <para>
-    <remark>Add description of what this does.</remark>
+    This command performs the following tasks:
    </para>
+   <itemizedlist>
+    <listitem>
+     <para>
+      Configures DHCP and enables the DHCP service.
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      Updates the <filename>/etc/hosts</filename> file.
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      Configures an NFS server on the control node and enables the NFS service.
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      Creates host keys and user keys for passwordless SSH access to the nodes.
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      Writes the required PXE files to the TFTP root directory and enables the TFTP service.
+     </para>
+    </listitem>
+   </itemizedlist>
   </step>
   <step>
    <para>
@@ -103,6 +165,10 @@ docker://registry.suse.com/suse/containers/<remark>TBD</remark> \
       The IP address for the first node. Subsequent nodes will be given incremental
       IP addresses.
      </para>
+     <para>
+      <remark>Should this address be inside or outside the DHCP range? In the
+       internal doc it's inside the range but in the upstream doc it's outside the range.</remark>
+     </para>
     </callout>
     <callout arearefs="co-warewulf-deploy-node-discover">
      <para>
@@ -118,16 +184,45 @@ docker://registry.suse.com/suse/containers/<remark>TBD</remark> \
   </step>
   <step>
    <para>
-    <remark>Do we need an actual step for overlays? Do you have to run <command>wwctl overlay build</command> before you boot the nodes, or is that only if you edited any overlays?</remark>
+    Build the default system and runtime overlays for each node:
+   </para>
+<screen>&prompt.user;sudo wwctl overlay build</screen>
+   <para>
+    <remark>Do we need to do this, or is it automatic and you only need to run
+     the command if you edit any overlays?</remark>
    </para>
    <para>
-    <remark>Is it possible to use overlays to do things like install &slurm;?</remark>
+    <remark>Are there any HPC-specific things that we should direct people to
+     add to an overlay/create an overlay for?</remark>
    </para>
   </step>
   <step>
    <para>
-    Boot the compute nodes via PXE.
+    Boot the compute nodes with PXE. &warewulf; provides all of the required information.
    </para>
   </step>
  </procedure>
+ <itemizedlist>
+  <title>For more information</title>
+  <listitem>
+   <para>
+    &warewulf;: <link xlink:href="https://warewulf.org/docs/development/index.html"/>
+   </para>
+  </listitem>
+  <listitem>
+   <para>
+    Node profiles: <link xlink:href="https://warewulf.org/docs/development/contents/profiles.html"/>
+   </para>
+  </listitem>
+  <listitem>
+   <para>
+    &warewulf; overlays: <link xlink:href="https://warewulf.org/docs/development/contents/overlays.html"/>
+   </para>
+  </listitem>
+  <listitem>
+   <para>
+    The node provisioning process: <link xlink:href="https://warewulf.org/docs/development/contents/provisioning.html"/>
+   </para>
+  </listitem>
+ </itemizedlist>
 </sect1>

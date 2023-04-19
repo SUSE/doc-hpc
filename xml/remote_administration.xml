@@ -26,6 +26,9 @@
    <dm:translation>yes</dm:translation>
   </dm:docmanager>
  </info>
+
+ <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="warewulf.xml"/>
+
  <sect1 xml:id="sec-remote-genders">
   <title>Genders &mdash; static cluster configuration database</title>
   <para>
@@ -399,6 +402,4 @@ nodenames[A-B]          attr[=value],attr[=value],...</screen>
   <screen>&prompt.user;sudo echo "mrsh" &gt;&gt; /etc/securetty
 &prompt.user;sudo echo "mrlogin" &gt;&gt; /etc/securetty</screen>
  </sect1>
-
- <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="warewulf.xml"/>
 </chapter>
