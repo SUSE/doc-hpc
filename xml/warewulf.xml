@@ -20,9 +20,6 @@
   </dm:docmanager>
  </info>
 
-<remark>Control node vs control server vs controller host vs warewulf server??
- I've seen all these terms used... which one will we use?</remark>
-
  <para>
   &warewulf; is a node deployment system for &hpc; clusters. The compute nodes are booted
   over the network using PXE. &warewulf; configures DHCP and TFTP on the &warewulf; server
@@ -47,7 +44,7 @@
   <title>Requirements</title>
   <listitem>
    <para>
-    The &warewulf; control node has a static IP address.
+    The &warewulf; server has a static IP address.
    </para>
   </listitem>
   <listitem>
@@ -61,13 +58,13 @@
   <title>Deploying compute nodes with &warewulf;</title>
   <step>
    <para>
-    On the control node, install &warewulf;:
+    On the &warewulf; server, install &warewulf;:
    </para>
 <screen>&prompt.user;sudo zypper install warewulf4</screen>
   </step>
   <step>
    <para>
-    &warewulf; creates a basic configuration for the control node in the file
+    &warewulf; creates a basic configuration for the &warewulf; server in the file
     <filename>/etc/warewulf/warewulf.conf</filename>. Check this file to make sure
     the networking details are correct, or update the details if required.
    </para>
@@ -106,7 +103,7 @@
     </listitem>
     <listitem>
      <para>
-      Configures an NFS server on the control node and enables the NFS service.
+      Configures an NFS server on the &warewulf; server and enables the NFS service.
      </para>
     </listitem>
     <listitem>
@@ -150,7 +147,7 @@ docker://registry.suse.com/suse/containers/<remark>TBD</remark> \
     with preconfigured IP addresses, run the following command:
    </para>
 <screen>&prompt.user;sudo wwctl node add n[01-10] \ <co xml:id="co-warewulf-deploy-node-name"/>
---netdev eth0 -I &subnetI;.11 \ <co xml:id="co-warewulf-deploy-node-network"/>
+--netdev eth0 -I &subnetI;.100 \ <co xml:id="co-warewulf-deploy-node-network"/>
 --discoverable=true <co xml:id="co-warewulf-deploy-node-discover"/></screen>
    <calloutlist>
     <callout arearefs="co-warewulf-deploy-node-name">
@@ -164,10 +161,6 @@ docker://registry.suse.com/suse/containers/<remark>TBD</remark> \
      <para>
       The IP address for the first node. Subsequent nodes will be given incremental
       IP addresses.
-     </para>
-     <para>
-      <remark>Should this address be inside or outside the DHCP range? In the
-       internal doc it's inside the range but in the upstream doc it's outside the range.</remark>
      </para>
     </callout>
     <callout arearefs="co-warewulf-deploy-node-discover">
@@ -187,10 +180,6 @@ docker://registry.suse.com/suse/containers/<remark>TBD</remark> \
     Build the default system and runtime overlays for each node:
    </para>
 <screen>&prompt.user;sudo wwctl overlay build</screen>
-   <para>
-    <remark>Do we need to do this, or is it automatic and you only need to run
-     the command if you edit any overlays?</remark>
-   </para>
    <para>
     <remark>Are there any HPC-specific things that we should direct people to
      add to an overlay/create an overlay for?</remark>
