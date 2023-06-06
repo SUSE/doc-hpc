@@ -21,14 +21,14 @@
  </info>
 
  <para>
-  &warewulf; is a node deployment system for &hpc; clusters. The compute nodes are booted
-  over the network using PXE. &warewulf; configures DHCP and TFTP on the &warewulf; server
+  &warewulf; is a node deployment system for &hpc; clusters. Compute nodes are booted
+  over the network using a <emphasis>&warewulf; container</emphasis>, which is a node image
+  with a bootable kernel. &warewulf; configures DHCP and TFTP on the &warewulf; server
   (or control node), and configures the compute nodes using <emphasis>node profiles</emphasis>
   and <emphasis>&warewulf; overlays</emphasis>.
  </para>
  <para>
-  <emphasis>Node profiles</emphasis> group shared node configurations together, such as
-  the container or kernel, overlays, and IPMI settings. New nodes automatically use the
+  <emphasis>Node profiles</emphasis> are used to group configurations together so that they can be applied to multiple nodes. Node profiles can include settings such as the container to use, overlays to apply, and IPMI details. New nodes automatically use the
   <literal>default</literal> node profile. You can also create additional node profiles,
   for example, if two groups of nodes require different containers.
  </para>
@@ -36,7 +36,7 @@
   <emphasis>&warewulf; overlays</emphasis> are compiled for each individual compute node.
   System overlays (or <literal>wwinit</literal> overlays) are applied during boot and are
   used for configuration that is node-specific, such as networking and services. Runtime
-  overlays are applied periodically while the node is running, and are used for configuration
+  overlays are applied periodically while the node is running and are used for configuration
   that changes, such as users and groups.
  </para>
 
@@ -77,7 +77,7 @@
   </step>
   <step>
    <para>
-    If DHCP is not already in use on this node, add the interface on which
+    If DHCP is not already in use, add the interface on which
     the cluster network is running to <option>DHCP_INTERFACE</option> in the
     file <filename>/etc/sysconfig/dhcpd</filename>.
    </para>
@@ -159,7 +159,7 @@ docker://registry.suse.com/suse/containers/<remark>TBD</remark> \
     </callout>
     <callout arearefs="co-warewulf-deploy-node-network">
      <para>
-      The IP address for the first node. Subsequent nodes will be given incremental
+      The IP address for the first node. Subsequent nodes are given incremental
       IP addresses.
      </para>
     </callout>
@@ -177,17 +177,16 @@ docker://registry.suse.com/suse/containers/<remark>TBD</remark> \
   </step>
   <step>
    <para>
-    Build the default system and runtime overlays for each node:
+    Build the default system and runtime overlays:
    </para>
 <screen>&prompt.user;sudo wwctl overlay build</screen>
    <para>
-    <remark>Are there any HPC-specific things that we should direct people to
-     add to an overlay/create an overlay for?</remark>
+    This command compiles overlays for all the nodes added in the previous step.
    </para>
   </step>
   <step>
    <para>
-    Boot the compute nodes with PXE. &warewulf; provides all of the required information.
+    Boot the compute nodes with PXE. &warewulf; provides all the required information.
    </para>
   </step>
  </procedure>
