@@ -10,16 +10,16 @@
  xmlns:xi="http://www.w3.org/2001/XInclude"
  xmlns:xlink="http://www.w3.org/1999/xlink" xml:base="spack.xml"
  xml:id="cha-spack" xml:lang="en" version="5.1">
- <title>Spack package management tool</title>
+ <title>&spack; package management tool</title>
  <info>
   <abstract>
    <para>
-    Spack is a configurable Python-based package manager, automating
+    &spack; is a configurable Python-based package manager, automating
     the installation and fine-tuning of simulations and libraries.
-    Spack can install many variants of the same build
+    &spack; can install many variants of the same build
     using different compilers, options, and MPI implementations.
     For more information, see the
-    <link xlink:href="https://spack-tutorial.readthedocs.io/en/latest/">Spack Documentation</link>.
+    <link xlink:href="https://spack-tutorial.readthedocs.io/en/latest/">&spack; Documentation</link>.
    </para>
   </abstract>
   <dm:docmanager xmlns:dm="urn:x-suse:ns:docmanager">
@@ -29,15 +29,15 @@
  </info>
 
  <sect1 xml:id="spack-installation">
-  <title>Installing spack</title>
+  <title>Installing &spack;</title>
   <para>
-   Use this procedure to install spack on any node in the cluster.
+   Use this procedure to install &spack; on any node in the cluster.
   </para>
   <procedure xml:id="pro-spack-installation">
-   <title>Installing and configuring spack</title>
+   <title>Installing and configuring &spack;</title>
    <step>
     <para>
-     Install spack:
+     Install &spack;:
     </para>
 <screen>&prompt.root;zypper in spack</screen>
    </step>
@@ -69,7 +69,7 @@
    <step>
     <para>
      It is recommended to install <literal>bash-completion</literal> so you can
-     use <keycap>TAB</keycap> key auto-completion for spack commands:
+     use <keycap>TAB</keycap> key auto-completion for &spack; commands:
     </para>
 <screen>&prompt.root;zypper in bash-completion</screen>
 <screen>
@@ -89,13 +89,13 @@ clean         debug         external      license       pkg           setup     
 </sect1>
 
 <sect1 xml:id="spack-simple-example">
- <title>Using spack: simple example with netcdf-cxx4</title>
+ <title>Using &spack;: simple example with netcdf-cxx4</title>
  <para>
   This example procedure shows you different ways to build
-  <literal>netcdf-cxx4</literal> with spack.
+  <literal>netcdf-cxx4</literal> with &spack;.
  </para>
  <procedure xml:id="pro-spack-simple-example">
-  <title>Building <literal>netcdf-cxx4</literal> with spack</title>
+  <title>Building <literal>netcdf-cxx4</literal> with &spack;</title>
   <step>
    <para>
     Show detailed information on <literal>netcdf-cxx4</literal>:
@@ -148,7 +148,7 @@ Virtual Packages:
    <calloutlist>
     <callout arearefs="spack-info-version">
      <para>
-      Spack uses the latest version by default, unless you specify otherwise
+      &spack; uses the latest version by default, unless you specify otherwise
       with <literal>@<replaceable>VERSION</replaceable></literal>.
      </para>
     </callout>
@@ -227,7 +227,7 @@ Virtual Packages:
   </step>
   <step>
    <para>
-    Check which packages are now available with spack:
+    Check which packages are now available with &spack;:
    </para>
 <screen>&prompt.root;spack find
 ==> 14 installed packages
@@ -327,13 +327,13 @@ arch: </screen>
  </sect1>
 
  <sect1 xml:id="spack-complex-example">
-  <title>Using spack: complex example with mpich</title>
+  <title>Using &spack;: complex example with mpich</title>
   <para>
    This example procedure shows you different ways to build <literal>mpich</literal>
-   with spack.
+   with &spack;.
   </para>
   <procedure xml:id="pro-spack-complex-example">
-   <title>Building <literal>mpich</literal> with spack</title>
+   <title>Building <literal>mpich</literal> with &spack;</title>
    <step>
     <para>
      List the available versions of <literal>mpich</literal>:
@@ -538,7 +538,7 @@ mpich@3.3.2
    with <literal>gcc-10.2.0</literal>.
   </para>
   <procedure xml:id="pro-spack-compiler">
-   <title>Using a specific compiler with spack</title>
+   <title>Using a specific compiler with &spack;</title>
    <step>
     <para>
      Install <literal>gcc-10.2.0</literal>:
@@ -564,7 +564,7 @@ Run 'spack compiler find' to add compilers or 'spack compilers' to see which com
      <callout arearefs="spack-module-load">
       <para>
        <command>module load gcc-10.2.0</command> also works if you have only
-       one version of <literal>gcc-10.2.0</literal> available in spack.
+       one version of <literal>gcc-10.2.0</literal> available in &spack;.
       </para>
      </callout>
     </calloutlist>
