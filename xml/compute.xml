@@ -895,4 +895,8 @@
    </para>
   </sect2>
  </sect1>
+
+  <!-- Creating environment containers with &apptainer; -->
+ <xi:include href="environment-containers.xml"/>
+
 </chapter>
