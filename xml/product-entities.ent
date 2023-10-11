@@ -32,6 +32,8 @@
 <!ENTITY munge "MUNGE">
 <!ENTITY grafana "Grafana">
 <!ENTITY prometheus "Prometheus">
+<!ENTITY spack "Spack">
+<!ENTITY apptainer "Singularity">
 
 <!-- HPC PROMPTS -->
 <!ENTITY prompt        "<prompt role='root' xmlns='http://docbook.org/ns/docbook'># </prompt>">
