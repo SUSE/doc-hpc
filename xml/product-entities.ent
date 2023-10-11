@@ -32,6 +32,8 @@
 <!ENTITY munge "MUNGE">
 <!ENTITY grafana "Grafana">
 <!ENTITY prometheus "Prometheus">
+<!ENTITY spack "Spack">
+<!ENTITY apptainer "Singularity">
 
 <!-- HPC PROMPTS -->
 <!-- Plain prompts are also available from generic-entities.ent -->

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="urn:x-suse:xslt:profiling:docbook51-profile.xsl"
+ type="text/xml"
+ title="Profiling step"?>
+<!DOCTYPE sect1
+[
+  <!ENTITY % entities SYSTEM "generic-entities.ent">
+    %entities;
+]>
+
+<!-- trichardson 2023-09-07: Stub for now; can be expanded if apptainer is added to SLE later -->
+
+<sect1 xml:id="sec-environment-containers" xml:lang="en"
+ xmlns="http://docbook.org/ns/docbook" version="5.1"
+ xmlns:xi="http://www.w3.org/2001/XInclude"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+  <title>Creating environment containers with &apptainer;</title>
+  <info>
+    <dm:docmanager xmlns:dm="urn:x-suse:ns:docmanager">
+      <dm:bugtracker></dm:bugtracker>
+      <dm:translation>yes</dm:translation>
+    </dm:docmanager>
+  </info>
+
+  <para>
+    You can deploy environments with preconfigured environment variables by using
+    <emphasis>environment containers</emphasis>. Environment containers include only the
+    components that are part of the environment, plus any required user applications.
+    To create a container from the current &hpca; environment, use the container platform
+    &apptainer;. &apptainer; is available from &ph;.
+    You can also use &spack; to configure the environment to use with &apptainer;.
+  </para>
+  <para>
+    For more information, see the following documentation:
+  </para>
+  <itemizedlist>
+    <listitem>
+      <para>
+        Enabling the &ph; extension: <link xlink:href="https://packagehub.suse.com/how-to-use/"/>.
+      </para>
+    </listitem>
+    <listitem>
+      <para>
+        Using &spack; to configure the environment:
+        <link xlink:href="https://spack.readthedocs.io/en/latest/containers.html#"/>.
+      </para>
+    </listitem>
+    <listitem>
+      <para>
+        &apptainer; documentation: <link xlink:href="https://apptainer.org/docs-legacy"/>.
+      </para>
+    </listitem>
+  </itemizedlist>
+</sect1>
