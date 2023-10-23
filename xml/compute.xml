@@ -1177,7 +1177,7 @@
     When an MPI flavor is loaded, you can load the MPI version of this module
     by running the following command:
    </para>
-<screen>&prompt.user;module load <replaceable>TOOLCHAIN</replaceable> <replaceable>MPI_FLAVOR</replaceable> phpdf5</screen>
+<screen>&prompt.user;module load <replaceable>TOOLCHAIN</replaceable> <replaceable>MPI_FLAVOR</replaceable> phdf5</screen>
    <para>
     For information about the toolchain to load, see <xref
     linkend="sec-compiler"/>. For information about available MPI flavors, see
