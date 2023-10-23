@@ -1189,7 +1189,7 @@
    <itemizedlist>
     <listitem>
      <para>
-      <package>hdf5-examples</package>
+      <package>hdf5-hpc-examples</package>
      </para>
     </listitem>
     <listitem>
