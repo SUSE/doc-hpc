@@ -892,8 +892,8 @@ Description="subgroup" Organization=bavaria</screen>
      <para>
        On systems running &slurm;, updating packages with <command>zypper up</command>
        is not recommended. <command>zypper up</command> attempts to update all installed
-       packages to the latest version, so might install new versions of &slurm; outside of
-       planned &slurm; upgrades.
+       packages to the latest version, so might install a new major version of &slurm;
+       outside of planned &slurm; upgrades.
      </para>
      <para>
        Use <command>zypper patch</command> instead, which only updates packages to the
