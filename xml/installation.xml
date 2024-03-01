@@ -16,7 +16,7 @@
  <info>
   <abstract>
    <para>
-    &productname; comes with preconfigured system roles for &hpca;. These
+    The &hpca; Module for &sles; comes with preconfigured system roles. These
     roles provide a set of preselected packages typical for the specific role,
     and an installation workflow that configures the system to make
     the best use of system resources based on a typical use case for the role.
@@ -29,7 +29,7 @@
  </info>
 
   <sect1 xml:id="sec2-installation-systemrole">
-   <title>System roles for &productname; &productnumber;</title>
+   <title>System roles for &sles; &hpca; Module &productnumber;</title>
    <para>
     You can choose specific roles for the system based on modules selected
     during the installation process. When the &hpca; Module is enabled,
@@ -159,44 +159,16 @@
     cluster. For more information, see <xref linkend="sec-remote-munge"/>.
    </para>
    <para>
-    The system roles are only available for new installations of &productname;.
+    The system roles are only available for new installations of the &hpca; Module for &sles;.
    </para>
   </sect1>
   <sect1 xml:id="sec2-upgrade">
-   <title>Upgrading to &productname; &productnumber;</title>
+   <title>Upgrading to &sles; &hpca; Module &productnumber;</title>
    <para>
-    <!--
-        #if <= 15SP2
-    You can upgrade to &productname; &productnumber; from &slsa; 12 SP4 or SP5
-    as well as &slehpca; &prev-version; or &slehpca; 15. When upgrading from
-    &slsa; 12 SP4/SP5, the upgrade will only be performed if the HPC
-    module has been registered prior to upgrading.
-
+    In version &productnumber;, &slehpc; (&slehpca;) was removed as a separate product, and is now available as the &hpca; Module for &sles; (&slsa;).
    </para>
    <para>
-    To upgrade from &slsa; 12 to &slehpca; 15, make sure to deregister the
-    HPC module prior to upgrading. To do so, open a root shell and
-    execute:
-   </para>
-   <screen>SUSEConnect -d -p sle-module-hpc/12/<replaceable>ARCH</replaceable></screen>
-   <para>
-    Replace <replaceable>ARCH</replaceable> with the architecture used
-    (<literal>x86_64</literal>, <literal>aarch64</literal>).
-   </para>
-   <para>
-    When migrating to &productname; &productnumber;, all modules not supported by
-    the migration target need to be deregistered. This can be done by
-    executing:
-   </para>
-   <screen>SUSEConnect -d -p sle-module-<replaceable>MODULE_NAME</replaceable>/12/<replaceable>ARCH</replaceable></screen>
-   <para>
-    Replace <replaceable>MODULE_NAME</replaceable> by the name of the module
-    and <replaceable>ARCH</replaceable> with the architecture used
-    (<literal>x86_64</literal>, <literal>aarch64</literal>).
-    #else
-    -->
-    You can upgrade to &slehpca; &productnumber; from &slehpca; &prev-version;.
- <!-- #endif -->
+     You can upgrade from &slehpca; &prev-version; to &slsa; &productnumber; plus the &hpca; Module.
    </para>
   </sect1>
 </chapter>
