@@ -132,8 +132,8 @@ nodenames[A-B]          attr[=value],attr[=value],...</screen>
    <command>zypper in pdsh</command>.
   </para>
   <para>
-   In &slehpc;, the back-ends <literal>ssh</literal>,
-   <literal>&mrsh;</literal>, and <literal>exec</literal> are supported. The
+   The &hpca; Module for &sles; supports the back-ends <literal>ssh</literal>,
+   <literal>&mrsh;</literal>, and <literal>exec</literal>. The
    <literal>ssh</literal> back-end is the default. Non-default login methods
    can be used by setting the <literal>PDSH_RCMD_TYPE</literal>
    environment variable, or by using the <literal>-R</literal> command
