@@ -16,7 +16,7 @@
  <info>
   <abstract>
    <para>
-    The &hpca; Module for &sles; comes with preconfigured system roles. These
+    The &hpca; module for &sles; comes with preconfigured system roles. These
     roles provide a set of preselected packages typical for the specific role,
     and an installation workflow that configures the system to make
     the best use of system resources based on a typical use case for the role.
@@ -29,10 +29,10 @@
  </info>
 
   <sect1 xml:id="sec2-installation-systemrole">
-   <title>System roles for &sles; &hpca; Module &productnumber;</title>
+   <title>System roles for &sles; &hpca; module &productnumber;</title>
    <para>
     You can choose specific roles for the system based on modules selected
-    during the installation process. When the &hpca; Module is enabled,
+    during the installation process. When the &hpca; module is enabled,
     the following roles are available:
    </para>
    <variablelist>
@@ -159,16 +159,16 @@
     cluster. For more information, see <xref linkend="sec-remote-munge"/>.
    </para>
    <para>
-    The system roles are only available for new installations of the &hpca; Module for &sles;.
+    The system roles are only available for new installations of the &hpca; module for &sles;.
    </para>
   </sect1>
   <sect1 xml:id="sec2-upgrade">
-   <title>Upgrading to &sles; &hpca; Module &productnumber;</title>
+   <title>Upgrading to &sles; &hpca; module &productnumber;</title>
    <para>
-    In version &productnumber;, &slehpc; (&slehpca;) was removed as a separate product, and is now available as the &hpca; Module for &sles; (&slsa;).
+    In version 15 SP6, &slehpc; (&slehpca;) was removed as a separate product, and is now available as the &hpca; module for &sles; (&slsa;).
    </para>
    <para>
-     You can upgrade from &slehpca; &prev-version; to &slsa; &productnumber; plus the &hpca; Module.
+     You can upgrade from &slehpca; &prev-version; to &slsa; &productnumber; plus the &hpca; module.
    </para>
   </sect1>
 </chapter>
