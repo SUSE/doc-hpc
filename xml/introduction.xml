@@ -16,7 +16,7 @@
  <info>
   <abstract>
    <para>
-    &productname; is a highly scalable, high-performance parallel computing platform
+    The &hpca; module for &sles; is a highly scalable, high-performance parallel computing platform
     for modeling, simulation, and advanced analytics workloads.
    </para>
   </abstract>
@@ -24,7 +24,7 @@
  <sect1 xml:id="sec-intro-provides">
   <title>Components provided</title>
   <para>
-   &productname; &productnumber; provides tools and libraries related to &hpc;.
+   The &hpca; module for &sles; &productnumber; provides tools and libraries related to &hpc;.
    This includes:
   </para>
   <itemizedlist>
@@ -100,17 +100,17 @@
  <sect1 xml:id="sec-introduction-hw">
   <title>Hardware platform support</title>
   <para>
-   &productname; &productnumber; is available for the
+   The &hpca; module is available for &sles; &productnumber; on the
    Intel 64/AMD64 (x86-64) and AArch64 platforms.
   </para>
  </sect1>
  <sect1 xml:id="sec-introduction-life">
   <title>Support and lifecycle</title>
   <para>
-   &productname; &productnumber; is supported throughout the lifecycle of
-   &sle; &productnumber;. Two lifecycle extensions, <emphasis>Extended Service
+   The &hpca; module is supported throughout the lifecycle of
+   &sles; &productnumber;, including the two lifecycle extensions, <emphasis>Extended Service
    Overlap Support</emphasis> (ESPOS) and <emphasis>Long Term Support
-   Service</emphasis> (LTSS), are also available for this product. Any released
+   Service</emphasis> (LTSS). Any released
    package is fully maintained and supported until the availability of the next
    release.
   </para>

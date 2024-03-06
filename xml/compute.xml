@@ -20,10 +20,10 @@
     instances of the same libraries might exist, differing in version, build
     configuration, compiler, and MPI implementation. To manage these
     dependencies, you can use an environment module system. Most &hpca;
-    libraries provided with &slehpc; are built with support for environment
+    libraries provided with the &hpca; module for &sles; are built with support for environment
     modules. This chapter describes the environment module system
     <emphasis>Lmod</emphasis>, and a set of &hpca;
-    compute libraries shipped with &slehpca;.
+    compute libraries shipped with the &hpca; module.
    </para>
   </abstract>
   <dm:docmanager xmlns:dm="urn:x-suse:ns:docmanager">
@@ -152,7 +152,7 @@
   <title>GNU Compiler Toolchain Collection for &hpca;</title>
 
   <para>
-   In &slehpc;, the GNU compiler collection version 7 is provided as the base
+   In the &hpca; module for &sles;, the GNU compiler collection version 7 is provided as the base
    compiler toolchain. The <package>gnu-compilers-hpc</package> package provides the
    environment module for the base version of the GNU compiler suite. This
    package must be installed when using any of the &hpca; libraries enabled for
@@ -196,7 +196,7 @@
   <sect2 xml:id="sec-compiler-later-versions">
    <title>Later versions</title>
    <para>
-    The Development Tools Module might provide later versions of the GNU compiler
+    The Development Tools module might provide later versions of the GNU compiler
     suite. To determine the available compiler suites, run the following command:
    </para>
 <screen>&prompt.user;zypper search '*-compilers-hpc'</screen>
@@ -276,13 +276,13 @@
   </para>
 
   <para>
-   The GNU compiler collection version 7 as provided with &slehpca;
+   The GNU compiler collection version 7 as provided with the &hpca; module
    and the MPI flavors Open MPI v.3, Open MPI v.4, MPICH, and MVAPICH2 are
    currently supported.
   </para>
 
   <para>
-   The Development Tools Module might provide later versions of the GNU compiler
+   The Development Tools module might provide later versions of the GNU compiler
    suite. To view available compilers, run the following command:
   </para>
 
@@ -776,7 +776,7 @@
   <title>Profiling and benchmarking libraries and tools</title>
 
   <para>
-   &slehpc; provides tools for profiling MPI applications and benchmarking
+   The &hpca; module for &sles; provides tools for profiling MPI applications and benchmarking
    MPI performance.
   </para>
 

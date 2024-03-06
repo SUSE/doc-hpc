@@ -15,7 +15,7 @@
 <!ENTITY product-sp    "6">
 
 <!ENTITY prev-version     "&product-ga; SP&prev-sp;">
-<!ENTITY prev-sp "4">
+<!ENTITY prev-sp "5">
 
 <!-- PROJECT REPOSITORY URL -->
 <!ENTITY repo-url "https://github.com/SUSE/doc-hpc">
