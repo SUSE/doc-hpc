@@ -20,10 +20,10 @@
     instances of the same libraries might exist, differing in version, build
     configuration, compiler, and MPI implementation. To manage these
     dependencies, you can use an environment module system. Most &hpca;
-    libraries provided with the &hpca; module for &sles; are built with support for environment
+    libraries provided with the &hpcm; for &sles; are built with support for environment
     modules. This chapter describes the environment module system
     <emphasis>Lmod</emphasis>, and a set of &hpca;
-    compute libraries shipped with the &hpca; module.
+    compute libraries shipped with the &hpcm;.
    </para>
   </abstract>
   <dm:docmanager xmlns:dm="urn:x-suse:ns:docmanager">
@@ -40,7 +40,7 @@
    system environment for the use of a specific version. It supports
    hierarchical library dependencies and makes sure that the correct versions of
    dependent libraries are selected. Environment module-enabled library
-   packages supplied with the &hpca; module support parallel installation of
+   packages supplied with the &hpcm; support parallel installation of
    different versions and flavors of the same library or binary and are
    supplied with appropriate <literal>lmod</literal> module files.
   </para>
@@ -152,7 +152,7 @@
   <title>GNU Compiler Toolchain Collection for &hpca;</title>
 
   <para>
-   In the &hpca; module for &sles;, the GNU compiler collection version 7 is provided as the base
+   In the &hpcm; for &sles;, the GNU compiler collection version 7 is provided as the base
    compiler toolchain. The <package>gnu-compilers-hpc</package> package provides the
    environment module for the base version of the GNU compiler suite. This
    package must be installed when using any of the &hpca; libraries enabled for
@@ -276,7 +276,7 @@
   </para>
 
   <para>
-   The GNU compiler collection version 7 as provided with the &hpca; module
+   The GNU compiler collection version 7 as provided with the &hpcm;
    and the MPI flavors Open MPI v.3, Open MPI v.4, MPICH, and MVAPICH2 are
    currently supported.
   </para>
@@ -628,7 +628,7 @@
 
   <para>
    Three different implementation of the Message Passing Interface (MPI)
-   standard are provided standard with the &hpca; module:
+   standard are provided standard with the &hpcm;:
   </para>
 
   <itemizedlist>
@@ -776,7 +776,7 @@
   <title>Profiling and benchmarking libraries and tools</title>
 
   <para>
-   The &hpca; module for &sles; provides tools for profiling MPI applications and benchmarking
+   The &hpcm; for &sles; provides tools for profiling MPI applications and benchmarking
    MPI performance.
   </para>
 
