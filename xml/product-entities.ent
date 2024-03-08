@@ -2,14 +2,15 @@
 <!-- This file can be edited downstream. -->
 
 <!-- PRODUCT NAME AND VERSIONS -->
-<!ENTITY productname   "&slehpc;">
-<!ENTITY productnameshort "SLE-HPC">
+<!ENTITY productname   "&sles;">
+<!ENTITY productnameshort "&slsa;">
 <!ENTITY productnumber "&product-ga; SP&product-sp;">
 <!ENTITY productnumbershort "&product-ga;.&product-sp;">
 
 <!ENTITY hpc "High Performance Computing">
 <!ENTITY hpca "HPC">
 <!ENTITY slehpca "&slea; &hpca;">
+<!ENTITY hpcm "HPC module">
 
 <!ENTITY product-ga    "15">
 <!ENTITY product-sp    "6">

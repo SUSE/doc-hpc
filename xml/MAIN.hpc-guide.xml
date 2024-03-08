@@ -14,7 +14,7 @@
  xmlns:xlink="http://www.w3.org/1999/xlink">
 
  <info>
-  <title>Administration Guide</title>
+  <title>High Performance Computing Guide</title>
   <productname>&productname;</productname>
   <productname role="abbrev">&productnameshort;</productname>
   <productnumber>&productnumber;</productnumber>
@@ -22,7 +22,7 @@
   <xi:include href="common_copyright_gfdl.xml"/>
   <abstract>
    <para>
-    This guide covers system administration tasks such as remote administration,
+    This guide covers &hpca; system administration tasks such as remote administration,
     workload management, and monitoring.
    </para>
   </abstract>
