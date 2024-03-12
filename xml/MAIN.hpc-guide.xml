@@ -14,7 +14,7 @@
  xmlns:xlink="http://www.w3.org/1999/xlink">
 
  <info>
-  <title>Administration Guide</title>
+  <title>&hpc; Guide</title>
   <productname>&productname;</productname>
   <productname role="abbrev">&productnameshort;</productname>
   <productnumber>&productnumber;</productnumber>
@@ -22,8 +22,10 @@
   <xi:include href="common_copyright_gfdl.xml"/>
   <abstract>
    <para>
-    This guide covers system administration tasks such as remote administration,
-    workload management, and monitoring.
+    The &hpcm; for &sles; is a highly scalable, high-performance, open-source parallel computing
+    platform for modeling, simulation and advanced analytics workloads. It provides tools and
+    libraries related to &hpc;, including a workload manager, remote and parallel shells,
+    monitoring and measuring tools, and libraries to accomplish &hpca; tasks.
    </para>
   </abstract>
   <dm:docmanager xmlns:dm="urn:x-suse:ns:docmanager">
