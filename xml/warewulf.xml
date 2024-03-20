@@ -119,12 +119,20 @@
    </itemizedlist>
   </step>
   <step>
+    <para>
+      Importing the &warewulf; container from the &suse; registry requires &scc; credentials.
+      Set your credentials as environment variables before you import the container:
+    </para>
+<screen>&prompt.user;export WAREWULF_OCI_USERNAME=<replaceable>USER@EXAMPLE.COM</replaceable>
+&prompt.user;export WAREWULF_OCI_PASSWORD=<replaceable>REGISTRATION_CODE</replaceable></screen>
+  </step>
+  <step>
    <para>
-    Import a compute node container from the &suse; registry:
+    Import the &warewulf; container from the &suse; registry:
    </para>
 <screen>&prompt.user;sudo wwctl container import \
-docker://registry.suse.com/suse/containers/<remark>TBD</remark> \
-<remark>TBD</remark> --setdefault</screen>
+docker://registry.suse.com/suse/hpc/warewulf4-x86_64/sle-hpc-node:&product-ga;.&product-sp; \
+hpcnode&product-ga;.&product-sp; --setdefault</screen>
    <para>
     The <option>--setdefault</option> argument sets this as the default container
     in the <literal>default</literal> node profile.
