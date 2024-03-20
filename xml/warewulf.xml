@@ -23,12 +23,14 @@
  <para>
   &warewulf; is a node deployment system for &hpc; clusters. Compute nodes are booted
   over the network using a <emphasis>&warewulf; container</emphasis>, which is a node image
-  with a bootable kernel. &warewulf; configures DHCP and TFTP on the &warewulf; server
-  (or control node), and configures the compute nodes using <emphasis>node profiles</emphasis>
+  with a bootable kernel. &warewulf; configures DHCP and TFTP on the &warewulf; server,
+  and configures the compute nodes using <emphasis>node profiles</emphasis>
   and <emphasis>&warewulf; overlays</emphasis>.
  </para>
  <para>
-  <emphasis>Node profiles</emphasis> are used to group configurations together so that they can be applied to multiple nodes. Node profiles can include settings such as the container to use, overlays to apply, and IPMI details. New nodes automatically use the
+  <emphasis>Node profiles</emphasis> are used to group configurations together so that they
+  can be applied to multiple nodes. Node profiles can include settings such as the container
+  to use, overlays to apply, and IPMI details. New nodes automatically use the
   <literal>default</literal> node profile. You can also create additional node profiles,
   for example, if two groups of nodes require different containers.
  </para>
@@ -71,16 +73,16 @@
   </step>
   <step>
    <para>
-    Start and enable the &warewulf; service:
+    In the file <filename>/etc/sysconfig/dhcpd</filename>, check that
+    <option>DHCPD_INTERFACE</option> has the correct value. This must be
+    the interface on which the cluster network is running.
    </para>
-<screen>&prompt.user;sudo systemctl enable --now warewulfd</screen>
   </step>
   <step>
    <para>
-    If DHCP is not already in use, add the interface on which
-    the cluster network is running to <option>DHCP_INTERFACE</option> in the
-    file <filename>/etc/sysconfig/dhcpd</filename>.
+    Start and enable the &warewulf; service:
    </para>
+<screen>&prompt.user;sudo systemctl enable --now warewulfd</screen>
   </step>
   <step>
    <para>
@@ -119,10 +121,10 @@
    </itemizedlist>
   </step>
   <step>
-    <para>
-      Importing the &warewulf; container from the &suse; registry requires &scc; credentials.
-      Set your credentials as environment variables before you import the container:
-    </para>
+   <para>
+    Importing the &warewulf; container from the &suse; registry requires &scc; credentials.
+    Set your credentials as environment variables before you import the container:
+   </para>
 <screen>&prompt.user;export WAREWULF_OCI_USERNAME=<replaceable>USER@EXAMPLE.COM</replaceable>
 &prompt.user;export WAREWULF_OCI_PASSWORD=<replaceable>REGISTRATION_CODE</replaceable></screen>
   </step>
@@ -147,22 +149,22 @@ hpcnode&product-ga;.&product-sp; --setdefault</screen>
    <para>
     To see the details of this profile, run the following command:
    </para>
-<screen>&prompt.user;sudo wwctl profile list -a</screen>
+<screen>&prompt.user;sudo wwctl profile list -a default</screen>
   </step>
   <step>
    <para>
     Add compute nodes to &warewulf;. For example, to add ten discoverable nodes
     with preconfigured IP addresses, run the following command:
    </para>
-<screen>&prompt.user;sudo wwctl node add n[01-10] \ <co xml:id="co-warewulf-deploy-node-name"/>
+<screen>&prompt.user;sudo wwctl node add node[01-10] \ <co xml:id="co-warewulf-deploy-node-name"/>
 --netdev eth0 -I &subnetI;.100 \ <co xml:id="co-warewulf-deploy-node-network"/>
---discoverable=true <co xml:id="co-warewulf-deploy-node-discover"/></screen>
+--discoverable true <co xml:id="co-warewulf-deploy-node-discover"/></screen>
    <calloutlist>
     <callout arearefs="co-warewulf-deploy-node-name">
      <para>
       One or more node names. Node names must be unique. If you have node groups
       or multiple clusters, add descriptors to the node names, for example
-      <literal>n01.cluster01</literal>.
+      <literal>node01.cluster01</literal>.
      </para>
     </callout>
     <callout arearefs="co-warewulf-deploy-node-network">
@@ -181,7 +183,19 @@ hpcnode&product-ga;.&product-sp; --setdefault</screen>
    <para>
     To view the settings for these nodes, run the following command:
    </para>
-<screen>&prompt.user;sudo wwctl node list -a n[01-10]</screen>
+<screen>&prompt.user;sudo wwctl node list -a node[01-10]</screen>
+  </step>
+  <step>
+   <para>
+    Add the nodes to the <filename>/etc/hosts</filename> file:
+   </para>
+<screen>&prompt.user;sudo wwctl configure hostfile</screen>
+  </step>
+  <step>
+   <para>
+    Rebuild the container image to make sure it is ready to use:
+   </para>
+<screen>&prompt.user;sudo wwctl container build hpcnode&product-ga;.&product-sp;</screen>
   </step>
   <step>
    <para>
@@ -189,15 +203,13 @@ hpcnode&product-ga;.&product-sp; --setdefault</screen>
    </para>
 <screen>&prompt.user;sudo wwctl overlay build</screen>
    <para>
-    This command compiles overlays for all the nodes added in the previous step.
-   </para>
-  </step>
-  <step>
-   <para>
-    Boot the compute nodes with PXE. &warewulf; provides all the required information.
+    This command compiles overlays for all the nodes.
    </para>
   </step>
  </procedure>
+ <para>
+   You can now boot the compute nodes with PXE. &warewulf; provides all the required information.
+ </para>
  <itemizedlist>
   <title>For more information</title>
   <listitem>
