@@ -16,10 +16,7 @@
  <info>
   <abstract>
    <para>
-    The &hpcm; for &sles; comes with preconfigured system roles. These
-    roles provide a set of preselected packages typical for the specific role,
-    and an installation workflow that configures the system to make
-    the best use of system resources based on a typical use case for the role.
+    This chapter contains basic information about installing and upgrading the &hpcm; for &sles;.
    </para>
   </abstract>
   <dm:docmanager xmlns:dm="urn:x-suse:ns:docmanager">
@@ -29,143 +26,31 @@
  </info>
 
   <sect1 xml:id="sec2-installation-systemrole">
-   <title>System roles for &sles; &hpcm; &productnumber;</title>
+   <title>Installing &sles; &hpcm; &productnumber;</title>
    <para>
-    You can choose specific roles for the system based on modules selected
-    during the installation process. When the &hpcm; is enabled,
-    the following roles are available:
+    In addition to the default &sles; modules, make sure the following modules are also enabled:
    </para>
-   <variablelist>
-    <varlistentry>
-     <term>&hpca; management server (head node)</term>
-     <listitem>
-      <para>
-       This role includes the following features:
-      </para>
-      <itemizedlist>
-       <listitem>
-        <para>
-         Uses Btrfs as the default root file system
-        </para>
-       </listitem>
-       <listitem>
-        <para>
-         Includes &hpca;-enabled libraries
-        </para>
-       </listitem>
-       <listitem>
-        <para>
-         Disables the firewall and Kdump services
-        </para>
-       </listitem>
-       <listitem>
-        <para>
-         Installs a controller for the &slurm; workload manager
-        </para>
-       </listitem>
-       <listitem>
-        <para>
-         Mounts a large scratch partition to <filename>/var/tmp</filename>
-        </para>
-       </listitem>
-      </itemizedlist>
-     </listitem>
-    </varlistentry>
-    <varlistentry>
-     <term>&hpca; compute node</term>
-     <listitem>
-      <para>
-       This role includes the following features:
-      </para>
-      <itemizedlist>
-       <listitem>
-        <para>
-         Based on the minimal setup configuration
-        </para>
-       </listitem>
-       <listitem>
-        <para>
-         Uses XFS as the default root file system
-        </para>
-       </listitem>
-       <listitem>
-        <para>
-         Includes &hpca;-enabled libraries
-        </para>
-       </listitem>
-       <listitem>
-        <para>
-         Disables firewall and Kdump services
-        </para>
-       </listitem>
-       <listitem>
-        <para>
-         Installs a client for the &slurm; workload manager
-        </para>
-       </listitem>
-       <listitem>
-        <para>
-         Does not create a separate <literal>/home</literal> partition
-        </para>
-       </listitem>
-       <listitem>
-        <para>
-         Mounts a large scratch partition to <filename>/var/tmp</filename>
-        </para>
-       </listitem>
-      </itemizedlist>
-     </listitem>
-    </varlistentry>
-    <varlistentry>
-     <term>&hpca; development node</term>
-     <listitem>
-      <para>
-       This role includes the following features:
-      </para>
-      <itemizedlist>
-       <listitem>
-        <para>
-         Includes &hpca;-enabled libraries
-        </para>
-       </listitem>
-       <listitem>
-        <para>
-         Adds compilers and development toolchains
-        </para>
-       </listitem>
-      </itemizedlist>
-     </listitem>
-    </varlistentry>
-   </variablelist>
+   <itemizedlist>
+    <listitem>
+     <para>
+      <literal>Development Tools Module</literal>
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      <literal>HPC Module</literal>
+     </para>
+    </listitem>
+   </itemizedlist>
    <para>
-    The scratch partition <literal>/var/tmp/</literal> is only created if
-    there is sufficient space available on the installation medium (minimum
-    32&nbsp;GB).
-   </para>
-   <para>
-    The environment module <literal>Lmod</literal> is installed for all
-    roles. It is required at build time and runtime of the system. For more
-    information, see <xref linkend="sec-compute-lmod"/>.
-   </para>
-   <para>
-    All libraries specifically built for &hpca; are installed under
-    <literal>/usr/lib/hpc</literal>. They are not part of the standard search
-    path, so the <literal>Lmod</literal> environment module system is
-    required.
-   </para>
-   <para>
-    <literal>&munge;</literal> authentication is installed for all roles. &munge;
-    keys are generated and must be copied to all nodes in the
-    cluster. For more information, see <xref linkend="sec-remote-munge"/>.
-   </para>
-   <para>
-    The system roles are only available for new installations of the &hpcm; for &sles;.
+    Use either the <literal>Text Mode</literal> or <literal>Minimal</literal> system role.
    </para>
   </sect1>
   <sect1 xml:id="sec2-upgrade">
    <title>Upgrading to &sles; &hpcm; &productnumber;</title>
    <para>
-    In version 15 SP6, &slehpc; (&slehpca;) was removed as a separate product, and is now available as the &hpcm; for &sles; (&slsa;).
+    In version 15 SP6, &slehpc; (&slehpca;) was removed as a separate product, and is
+    now available as the &hpcm; for &sles; (&slsa;).
    </para>
    <para>
      You can upgrade from &slehpca; &prev-version; to &slsa; &productnumber; plus the &hpcm;.
