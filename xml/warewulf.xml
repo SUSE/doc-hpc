@@ -21,25 +21,52 @@
  </info>
 
  <para>
-  &warewulf; is a node deployment system for &hpc; clusters. Compute nodes are booted
-  over the network using a <emphasis>&warewulf; container</emphasis>, which is a node image
-  with a bootable kernel. &warewulf; configures DHCP and TFTP on the &warewulf; server,
-  and configures the compute nodes using <emphasis>node profiles</emphasis>
-  and <emphasis>&warewulf; overlays</emphasis>.
+  &warewulf; is a deployment system for compute nodes in &hpc; clusters. Compute nodes
+  are booted and deployed over the network with a kernel and node image provided by &warewulf;.
+  To generate the node image, &warewulf; uses a <emphasis>&warewulf; container</emphasis>,
+  which is a base operating system container with a kernel and an <literal>init</literal>
+  implementation installed. &warewulf; configures images for the individual compute nodes using
+  <emphasis>node profiles</emphasis> and <emphasis>&warewulf; overlays</emphasis>.
  </para>
  <para>
-  <emphasis>Node profiles</emphasis> are used to group configurations together so that they
-  can be applied to multiple nodes. Node profiles can include settings such as the container
+  <emphasis>Node profiles</emphasis> are used to apply the same configuration
+  to multiple nodes. Node profiles can include settings such as the container
   to use, overlays to apply, and IPMI details. New nodes automatically use the
   <literal>default</literal> node profile. You can also create additional node profiles,
   for example, if two groups of nodes require different containers.
  </para>
  <para>
-  <emphasis>&warewulf; overlays</emphasis> are compiled for each individual compute node.
-  System overlays (or <literal>wwinit</literal> overlays) are applied during boot and are
-  used for configuration that is node-specific, such as networking and services. Runtime
-  overlays are applied periodically while the node is running and are used for configuration
-  that changes, such as users and groups.
+  <emphasis>&warewulf; overlays</emphasis> are compiled for each individual compute node:
+ </para>
+ <itemizedlist>
+   <listitem>
+     <para>
+       System (or <literal>wwinit</literal>) overlays are applied to nodes at boot time
+       by the <literal>wwinit</literal> process, before &systemd; starts. These overlays
+       are required to start the compute nodes, and contain basic node-specific configuration
+       to start the first network interface. System overlays are not updated during runtime.
+     </para>
+   </listitem>
+   <listitem>
+     <para>
+       Runtime (or generic) overlays are updated periodically at runtime by the
+       <literal>wwclient</literal> service. The default is once per minute. These overlays
+       are used to apply configuration changes to the nodes.
+     </para>
+   </listitem>
+   <listitem>
+     <para>
+       The Host overlay is used for configuration that applies to the &warewulf; server
+       itself, such as adding entries to <filename>/etc/hosts</filename> or setting up the
+       DHCP service and NFS exports.
+     </para>
+   </listitem>
+ </itemizedlist>
+ <para>
+  System and runtime overlays can be overlayed on top of each other. For example, instead of
+  altering a configuration setting in an overlay, you can override it with a new overlay.
+  You can set a list of system and runtime overlays to apply to individual nodes, or to
+  multiple nodes via profiles.
  </para>
 
  <itemizedlist>
@@ -54,6 +81,14 @@
     The compute nodes are set to PXE boot.
    </para>
   </listitem>
+  <listitem>
+   <para>
+    The &warewulf; server is accessible from an external network, but is connected to
+    the compute nodes via an internal cluster network used for deployment. This is
+    important because &warewulf; configures DHCP and TFTP on the &warewulf; server,
+    which might conflict with DHCP on the external network.
+   </para>
+  </listitem>
  </itemizedlist>
 
  <procedure xml:id="pro-warewulf-deploy-nodes">
@@ -66,10 +101,24 @@
   </step>
   <step>
    <para>
-    &warewulf; creates a basic configuration for the &warewulf; server in the file
-    <filename>/etc/warewulf/warewulf.conf</filename>. Check this file to make sure
-    the networking details are correct, or update the details if required.
+    The installation creates a basic configuration for the &warewulf; server in the file
+    <filename>/etc/warewulf/warewulf.conf</filename>. Review this file to make sure
+    the details are correct. In particular, check the following settings:
    </para>
+<screen>ipaddr: &subnetI;.250
+netmask: &subnetmask;
+network: &subnetI;.0</screen>
+   <para>
+    <literal>ipaddr</literal> is the IP address of the &warewulf; server on the internal
+    cluster network to be used for node deployment. <literal>netmask</literal> and
+    <literal>network</literal> must match this network.
+   </para>
+   <para>
+    Additionally, check that the DHCP range is in the cluster network:
+   </para>
+<screen>dhcp:
+  range start: &subnetI;.21
+  range end: &subnetI;.50</screen>
   </step>
   <step>
    <para>
@@ -100,6 +149,11 @@
     </listitem>
     <listitem>
      <para>
+      Writes the required PXE files to the TFTP root directory and enables the TFTP service.
+     </para>
+    </listitem>
+    <listitem>
+     <para>
       Updates the <filename>/etc/hosts</filename> file.
      </para>
     </listitem>
@@ -113,17 +167,20 @@
       Creates host keys and user keys for passwordless SSH access to the nodes.
      </para>
     </listitem>
-    <listitem>
-     <para>
-      Writes the required PXE files to the TFTP root directory and enables the TFTP service.
-     </para>
-    </listitem>
    </itemizedlist>
   </step>
   <step>
    <para>
+    When the configuration is finished, log out of the &warewulf; server and back into it.
+    This creates an SSH key pair to allow passwordless login to the deployed compute nodes.
+    If you require a password to secure the private key, set it now:
+   </para>
+<screen>&prompt.user;ssh-keygen -p -f $HOME/.ssh/cluster</screen>
+  </step>
+  <step>
+   <para>
     Importing the &warewulf; container from the &suse; registry requires &scc; credentials.
-    Set your credentials as environment variables before you import the container:
+    Set your SCC credentials as environment variables before you import the container:
    </para>
 <screen>&prompt.user;export WAREWULF_OCI_USERNAME=<replaceable>USER@EXAMPLE.COM</replaceable>
 &prompt.user;export WAREWULF_OCI_PASSWORD=<replaceable>REGISTRATION_CODE</replaceable></screen>
@@ -142,10 +199,10 @@ hpcnode&product-ga;.&product-sp; --setdefault</screen>
   </step>
   <step>
    <para>
-    Configure the networking details for the <literal>default</literal> node profile:
+    Configure the networking details for the <literal>default</literal> profile:
    </para>
 <screen>&prompt.user;sudo wwctl profile set -y default --netname default \
---netmask &subnetmask; --gateway &subnetI;.1</screen>
+--netmask &subnetmask; --gateway &subnetI;.250</screen>
    <para>
     To see the details of this profile, run the following command:
    </para>
@@ -158,7 +215,7 @@ hpcnode&product-ga;.&product-sp; --setdefault</screen>
    </para>
 <screen>&prompt.user;sudo wwctl node add node[01-10] \ <co xml:id="co-warewulf-deploy-node-name"/>
 --netdev eth0 -I &subnetI;.100 \ <co xml:id="co-warewulf-deploy-node-network"/>
---discoverable true <co xml:id="co-warewulf-deploy-node-discover"/></screen>
+--discoverable=true <co xml:id="co-warewulf-deploy-node-discover"/></screen>
    <calloutlist>
     <callout arearefs="co-warewulf-deploy-node-name">
      <para>
