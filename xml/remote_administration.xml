@@ -27,8 +27,6 @@
   </dm:docmanager>
  </info>
 
- <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="warewulf.xml"/>
-
  <sect1 xml:id="sec-remote-genders">
   <title>Genders &mdash; static cluster configuration database</title>
   <para>
