@@ -17,8 +17,8 @@
   <abstract>
    <para>
     In version 15 SP6, &slehpc; (&slehpca;) was removed as a separate product. The &hpcm; is
-    now available with &sles; (&slsa;). This chapter contains basic information about installing
-    &slsa; for &hpca; use cases, and upgrading from &slehpca; to &slsa;.
+    now available with &sles; (&slsa;). This chapter contains information about installing &slsa;
+    for &hpca; use cases, and upgrading to &slsa; 15 SP6 from &slehpca; 15 SP5, SP4, or SP3.
    </para>
   </abstract>
   <dm:docmanager xmlns:dm="urn:x-suse:ns:docmanager">
@@ -45,10 +45,43 @@
     </listitem>
    </itemizedlist>
    <para>
+    Selecting these modules during installation ensures that all required modules and
+    their dependencies are enabled.
+   </para>
+   <note>
+     <title>Enabling modules after installation</title>
+     <para>
+       If you need to enable these modules with <command>SUSEConnect</command> after installing
+       &slsa;, you must enable them individually and in the following order:
+     </para>
+     <orderedlist>
+       <listitem>
+         <para>
+           <literal>Desktop Applications Module</literal>
+         </para>
+       </listitem>
+       <listitem>
+         <para>
+           <literal>Development Tools Module</literal>
+         </para>
+       </listitem>
+       <listitem>
+         <para>
+           <literal>Web and Scripting Module</literal>
+         </para>
+       </listitem>
+       <listitem>
+         <para>
+           <literal>HPC Module</literal>
+         </para>
+       </listitem>
+     </orderedlist>
+   </note>
+   <para>
     In &hpc;, systems take on different roles and individual installations vary widely. Therefore,
-    &suse; does not provide predefined system roles with the &hpcm;. We recommend using either the
-    <literal>Text Mode</literal> or <literal>Minimal</literal> system role and adding components
-    according to your needs.
+    from 15 SP6 onwards &suse; no longer provides predefined system roles with the &hpcm;.
+    We recommend using either the <literal>Text Mode</literal> or <literal>Minimal</literal>
+    system role and adding components according to your needs.
    </para>
   </sect1>
   <sect1 xml:id="sec2-upgrade">
@@ -57,9 +90,9 @@
     In version 15 SP6, the &slehpca; product was removed. The &hpcm; is now available with &sles;.
    </para>
    <para>
-     You can migrate to &slsa; &productnumber; when upgrading from &slehpca; 15 SP5. This migration
-     retains all the software modules and packages that were enabled on &slehpca;. After the
-     migration, the same software selection will be available as on &slehpca;.
+     Upgrading to 15 SP6 from &slehpca; 15 SP5, SP4, or SP3 migrates the system to &sles;.
+     This migration retains all the software modules and packages that were enabled on &slehpca;.
+     After the migration, the same software selection will be available as on &slehpca;.
    </para>
   </sect1>
 </chapter>
