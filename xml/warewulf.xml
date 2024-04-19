@@ -281,21 +281,92 @@ hpcnode&product-ga;.&product-sp; --setdefault</screen>
 
  <sect1 xml:id="sec-warewulf-advanced-tasks">
   <title>Advanced &warewulf; tasks</title>
-  <sect2>
-   <title>Creating, modifying, and specifying profiles</title>
-   <para></para>
+  <sect2 xml:id="sec-warewulf-secure-boot">
+   <title>Using &warewulf; with &uefisecboot;</title>
+   <para>
+    To boot compute nodes with &uefisecboot; enabled, the packages <package>shim</package>
+    and <package>grub2-x86_64-efi</package> must be installed in the &warewulf; container.
+    For the container you imported in <xref linkend="pro-warewulf-deploy-nodes"/>, this should
+    already be the default. Use the following procedure to verify that the packages are installed:
+   </para>
+   <procedure xml:id="pro-warewulf-secure-boot-packages">
+     <title>Verifying packages in a &warewulf; container</title>
+     <step>
+       <para>
+         Open a shell in the &warewulf; container:
+       </para>
+<screen>&prompt.user;sudo wwctl container shell hpcnode&productnumbershort;</screen>
+     </step>
+     <step>
+       <para>
+         Search for the packages and check their installation status in the
+         <literal>S</literal> column:
+       </para>
+<screen>&prompt.wwcon;zypper search shim grub2</screen>
+       <para>
+         If <package>shim</package> and <package>grub2-x86_64-efi</package> are not installed,
+         install them now:
+       </para>
+<screen>&prompt.wwcon;zypper install shim grub2-x86_64-efi</screen>
+     </step>
+     <step>
+       <para>
+        Exit the container's shell:
+       </para>
+<screen>&prompt.wwcon;exit</screen>
+       <para>
+        If any changes were made, &warewulf; automatically rebuilds the container.
+       </para>
+     </step>
+     <step>
+       <para>
+         We recommend rebuilding the container again manually to make sure the changes are applied:
+       </para>
+<screen>&prompt.user;sudo wwctl container build hpcnode&productnumbershort;</screen>
+     </step>
+   </procedure>
+   <para>
+    By default, &warewulf; boots nodes via iPXE, which cannot be used when &uefisecboot;
+    is enabled. Use the following procedure to switch to &grub; as the boot method:
+   </para>
+   <procedure xml:id="pro-warewulf-secure-boot-grub">
+     <title>Configuring &warewulf; to boot via &grub;</title>
+     <step>
+       <para>
+        Open the file <filename>/etc/warewulf/warewulf.conf</filename> and change the value of
+        <literal>grubboot</literal> to <literal>true</literal>:
+       </para>
+<screen>warewulf:
+  [...]
+  grubboot: true</screen>
+     </step>
+     <step>
+       <para>
+        Reconfigure DHCP and TFTP to recognize the configuration change:
+       </para>
+<screen>&prompt.user;sudo wwctl configure dhcp
+&prompt.user;sudo wwctl configure tftp</screen>
+     </step>
+     <step>
+       <para>
+        Rebuild the system and runtime overlays:
+       </para>
+<screen>&prompt.user;sudo wwctl overlay build</screen>
+     </step>
+   </procedure>
   </sect2>
-  <sect2>
-   <title>Creating and specifying overlays</title>
-   <para></para>
-  </sect2>
-  <sect2>
-   <title>Using &warewulf; with Secure Boot</title>
-   <para></para>
-  </sect2>
-  <sect2>
+  <sect2 xml:id="sec-warewulf-storage">
    <title>Configuring local node storage</title>
    <para></para>
+   <important role="compact">
+     <para>
+       I attempted to test this procedure but got <literal>No provider found</literal> for
+       <package>ignition</package>.
+     </para>
+     <para>
+       Searched SCC; ignition is only in Package Hub for 15 SP4 and earlier.
+     </para>
+   </important>
   </sect2>
  </sect1>
 

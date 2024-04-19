@@ -43,3 +43,4 @@
 <!ENTITY prompt.mntr   "<prompt role='root' xmlns='http://docbook.org/ns/docbook'>monitor # </prompt>">
 <!ENTITY prompt.db     "<prompt xmlns='http://docbook.org/ns/docbook'>sql &gt; </prompt>">
 <!ENTITY prompt.DBnode "<prompt role='root' xmlns='http://docbook.org/ns/docbook'>DBnode # </prompt>">
+<!ENTITY prompt.wwcon  "<prompt xmlns='http://docbook.org/ns/docbook'>[hpcnode&productnumbershort;] &warewulf;&gt; </prompt>">
