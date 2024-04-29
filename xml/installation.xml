@@ -87,7 +87,7 @@
   <sect1 xml:id="sec2-upgrade">
    <title>Upgrading from &slehpca; to &sles;</title>
    <para>
-    In version 15 SP6, the &slehpca; product was removed. The &hpcm; is now available with &sles;.
+    With the removal of the &slehpca; product in 15 SP6, the &hpcm; is now available with &sles;.
    </para>
    <para>
      Upgrading to 15 SP6 from &slehpca; 15 SP5, SP4, or SP3 migrates the system to &sles;.
