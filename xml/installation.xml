@@ -18,7 +18,7 @@
    <para>
     In version 15 SP6, &slehpc; (&slehpca;) was removed as a separate product. The &hpcm; is
     now available with &sles; (&slsa;). This chapter contains information about installing &slsa;
-    for &hpca; use cases, and upgrading to &slsa; 15 SP6 from &slehpca; 15 SP5, SP4, or SP3.
+    for &hpca; use cases, and upgrading to &slsa; 15 SP6 from &slehpca; 15 SP5, SP4 or SP3.
    </para>
   </abstract>
   <dm:docmanager xmlns:dm="urn:x-suse:ns:docmanager">
@@ -78,8 +78,8 @@
      </orderedlist>
    </note>
    <para>
-    In &hpc;, systems take on different roles and individual installations vary widely. Therefore,
-    from 15 SP6 onwards &suse; no longer provides predefined system roles with the &hpcm;.
+    In &hpc;, systems take on different roles, and individual installations vary widely. Therefore,
+    from 15 SP6 onwards, &suse; no longer provides predefined system roles with the &hpcm;.
     We recommend using either the <literal>Text Mode</literal> or <literal>Minimal</literal>
     system role and adding components according to your needs.
    </para>
@@ -90,7 +90,7 @@
     With the removal of the &slehpca; product in 15 SP6, the &hpcm; is now available with &sles;.
    </para>
    <para>
-     Upgrading to 15 SP6 from &slehpca; 15 SP5, SP4, or SP3 migrates the system to &sles;.
+     Upgrading to 15 SP6 from &slehpca; 15 SP5, SP4 or SP3 migrates the system to &sles;.
      This migration retains all the software modules and packages that were enabled on &slehpca;.
      After the migration, the same software selection will be available as on &slehpca;.
    </para>
