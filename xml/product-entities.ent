@@ -7,10 +7,8 @@
 <!ENTITY productnumber "&product-ga; SP&product-sp;">
 <!ENTITY productnumbershort "&product-ga;.&product-sp;">
 
-<!ENTITY hpc "High Performance Computing">
 <!ENTITY hpca "HPC">
 <!ENTITY slehpca "&slea; &hpca;">
-<!ENTITY hpcm "HPC module">
 
 <!ENTITY product-ga    "15">
 <!ENTITY product-sp    "6">

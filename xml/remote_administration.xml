@@ -43,7 +43,7 @@
   <sect2 xml:id="sec-genders-db">
     <title>Genders database format</title>
   <para>
-   The Genders database in &slehpc; is a plain-text file called
+   The Genders database is a plain-text file called
    <filename>/etc/genders</filename>. It contains a list of node names with
    their attributes. Each line of the database can have one of the following
    formats.
