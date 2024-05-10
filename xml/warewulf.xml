@@ -16,7 +16,9 @@
  <info>
   <abstract>
    <para>
-    &hpc; clusters consist of one or more sets of identical compute nodes. In large clusters, each set could contain thousands of machines. To help deploy so many compute nodes as clusters scale up, the &hpcm; provides the deployment tool <emphasis>&warewulf;</emphasis>.
+    &hpc; clusters consist of one or more sets of identical compute nodes. In large clusters,
+    each set could contain thousands of machines. To help deploy so many compute nodes as
+    clusters scale up, the &hpcm; provides the deployment tool <emphasis>&warewulf;</emphasis>.
    </para>
   </abstract>
   <dm:docmanager xmlns:dm="urn:x-suse:ns:docmanager">
@@ -357,16 +359,116 @@ hpcnode&product-ga;.&product-sp; --setdefault</screen>
   </sect2>
   <sect2 xml:id="sec-warewulf-storage">
    <title>Configuring local node storage</title>
-   <para></para>
-   <important role="compact">
-     <para>
-       I attempted to test this procedure but got <literal>No provider found</literal> for
-       <package>ignition</package>.
-     </para>
-     <para>
-       Searched SCC; ignition is only in Package Hub for 15 SP4 and earlier.
-     </para>
-   </important>
+   <para>
+    Nodes provisioned by &warewulf; are ephemeral, so local disk storage is not required.
+    However, local storage can still be useful, for example, as scratch storage for
+    computational tasks.
+   </para>
+   <para>
+    &warewulf; can set up and manage local storage for compute nodes via the disk provisioning
+    tool &ignition;. Before booting the compute nodes, you must install &ignition; in the
+    &warewulf; container and add the disk details to either a node profile or individual nodes.
+    A node or profile can have multiple disks.
+   </para>
+   <para>
+    Use the following procedure to install &ignition; in the &warewulf; container:
+   </para>
+   <procedure xml:id="pro-warewulf-storage-prep-container">
+     <title>Preparing a &warewulf; container for local storage</title>
+     <step>
+       <para>
+         Open a shell in the &warewulf; container:
+       </para>
+<screen>&prompt.user;sudo wwctl container shell hpcnode&productnumbershort;</screen>
+     </step>
+     <step>
+       <para>
+         Install the <package>ignition</package> and <package>gptfdisk</package> packages:
+       </para>
+<screen>&prompt.wwcon;zypper install ignition gptfdisk</screen>
+     </step>
+     <step>
+       <para>
+        Exit the container's shell:
+       </para>
+<screen>&prompt.wwcon;exit</screen>
+       <para>
+        &warewulf; automatically rebuilds the container.
+       </para>
+     </step>
+     <step>
+       <para>
+         We recommend rebuilding the container again manually to make sure the changes are applied:
+       </para>
+<screen>&prompt.user;sudo wwctl container build hpcnode&productnumbershort;</screen>
+     </step>
+   </procedure>
+   <para>
+    The following examples demonstrate how to add a disk to a compute node's configuration file.
+    To set up the disk, &ignition; requires details about the physical storage device,
+    the partitions on the disk, and the file system to use.
+   </para>
+   <para>
+    To add disks to a profile instead of an individual node, use the same commands but
+    replace <command>wwctl node set <replaceable>NODENAME</replaceable></command> with
+    <command>wwctl profile set <replaceable>PROFILENAME</replaceable></command>.
+   </para>
+   <example xml:id="ex-warewulf-storage-add-scratch-partition">
+     <title>Adding disk configuration to a node: scratch partition</title>
+<screen>&prompt.user;sudo wwctl node set node01 \
+--diskname /dev/vda<co xml:id="co-warewulf-storage-diskname"/> --diskwipe \
+--partname scratch<co xml:id="co-warewulf-storage-partname"/> --partcreate \
+--fsname scratch<co xml:id="co-warewulf-storage-fsname"/> --fsformat btrfs<co xml:id="co-warewulf-storage-fsformat"/> --fspath /scratch<co xml:id="co-warewulf-storage-fspath"/> --fswipe</screen>
+    <para>
+      This is the last partition, so does not require a partition size or number;
+      it will be extended to the maximum possible size.
+    </para>
+   </example>
+
+   <example xml:id="ex-warewulf-storage-add-swap-partition">
+     <title>Adding disk configuration to a node: swap partition</title>
+<screen>&prompt.user;sudo wwctl node set node01 \
+--diskname /dev/vda<xref linkend="co-warewulf-storage-diskname"/> \
+--partname swap<xref linkend="co-warewulf-storage-partname"/> --partsize=1024 --partnumber 1 \
+--fsname swap<xref linkend="co-warewulf-storage-fsname"/> --fsformat swap<xref linkend="co-warewulf-storage-fsformat"/> --fspath swap<xref linkend="co-warewulf-storage-fspath"/></screen>
+    <para>
+     Set a <literal>partsize</literal> and <literal>partnumber</literal> for all partitions
+     except the last one (<literal>scratch</literal>).
+    </para>
+   </example>
+   <calloutlist>
+     <callout arearefs="co-warewulf-storage-diskname">
+       <para>
+         The path to the physical storage device.
+       </para>
+    </callout>
+    <callout arearefs="co-warewulf-storage-partname">
+       <para>
+         The name of the partition. This is used as the partition label, for example, in
+        <filename>/dev/disk/by-partlabel/<replaceable>PARTNAME</replaceable></filename>.
+       </para>
+     </callout>
+     <callout arearefs="co-warewulf-storage-fsname">
+       <para>
+         The path to the partition that will contain the file system, using the
+         <literal>/dev/disk/by-partlabel/</literal> format.
+       </para>
+     </callout>
+     <callout arearefs="co-warewulf-storage-fsformat">
+       <para>
+         The type of file system to use. &ignition; fails if no type is defined.
+       </para>
+     </callout>
+     <callout arearefs="co-warewulf-storage-fspath">
+       <para>
+        The absolute path for the mount point. This is mandatory if you intend to mount
+        the file system.
+       </para>
+     </callout>
+   </calloutlist>
+   <para>
+    For more information about the available options, run <command>wwctl node set --help</command>.
+   </para>
   </sect2>
  </sect1>
 
