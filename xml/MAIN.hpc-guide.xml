@@ -45,9 +45,7 @@
 
   <xi:include href="installation.xml"/>
 
- <!--
-  <xi:include href="deployment.xml"/>
- -->
+  <xi:include href="warewulf.xml"/>
 
   <xi:include href="remote_administration.xml"/>
 
