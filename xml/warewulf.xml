@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="urn:x-suse:xslt:profiling:docbook51-profile.xsl"
+ type="text/xml"
+ title="Profiling step"?>
+<!DOCTYPE chapter
+[
+  <!ENTITY % entities SYSTEM "generic-entities.ent">
+    %entities;
+]>
+
+<chapter xml:id="cha-warewulf-deploy-nodes" xml:lang="en"
+ xmlns="http://docbook.org/ns/docbook" version="5.1"
+ xmlns:xi="http://www.w3.org/2001/XInclude"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+ <title>Deploying compute nodes</title>
+ <info>
+  <abstract>
+   <para>
+    &hpc; clusters consist of one or more sets of identical compute nodes. In large clusters,
+    each set could contain thousands of machines. To help deploy so many compute nodes as
+    clusters scale up, the &hpcm; provides the deployment tool <emphasis>&warewulf;</emphasis>.
+   </para>
+  </abstract>
+  <dm:docmanager xmlns:dm="urn:x-suse:ns:docmanager">
+   <dm:bugtracker></dm:bugtracker>
+   <dm:translation>yes</dm:translation>
+  </dm:docmanager>
+ </info>
+
+ <sect1 xml:id="sec-about-warewulf">
+  <title>About &warewulf;</title>
+  <para>
+    &warewulf; is a deployment system for compute nodes in &hpc; clusters. Compute nodes
+    are booted and deployed over the network with a kernel and node image provided by &warewulf;.
+    To generate the node image, &warewulf; uses a <emphasis>&warewulf; container</emphasis>,
+    which is a base operating system container with a kernel and an <literal>init</literal>
+    implementation installed. &warewulf; configures images for the individual compute nodes using
+    <emphasis>node profiles</emphasis> and <emphasis>&warewulf; overlays</emphasis>.
+  </para>
+  <para>
+    <emphasis>Node profiles</emphasis> are used to apply the same configuration
+    to multiple nodes. Node profiles can include settings such as the container
+    to use, overlays to apply, and IPMI details. New nodes automatically use the
+    <literal>default</literal> node profile. You can also create additional node profiles,
+    for example, if two groups of nodes require different containers.
+  </para>
+  <para>
+    <emphasis>&warewulf; overlays</emphasis> are compiled for each individual compute node:
+  </para>
+  <itemizedlist>
+    <listitem>
+      <para>
+        System (or <literal>wwinit</literal>) overlays are applied to nodes at boot time
+        by the <literal>wwinit</literal> process, before &systemd; starts. These overlays
+        are required to start the compute nodes, and contain basic node-specific configuration
+        to start the first network interface. System overlays are not updated during runtime.
+      </para>
+    </listitem>
+    <listitem>
+      <para>
+        Runtime (or generic) overlays are updated periodically at runtime by the
+        <literal>wwclient</literal> service. The default is once per minute. These overlays
+        are used to apply configuration changes to the nodes.
+      </para>
+    </listitem>
+    <listitem>
+      <para>
+        The Host overlay is used for configuration that applies to the &warewulf; server
+        itself, such as adding entries to <filename>/etc/hosts</filename> or setting up the
+        DHCP service and NFS exports.
+      </para>
+    </listitem>
+  </itemizedlist>
+  <para>
+    System and runtime overlays can be overlayed on top of each other. For example, instead of
+    altering a configuration setting in an overlay, you can override it with a new overlay.
+    You can set a list of system and runtime overlays to apply to individual nodes, or to
+    multiple nodes via profiles.
+  </para>
+ </sect1>
+
+ <sect1 xml:id="sec-warewulf-deploy-nodes">
+  <title>Deploying compute nodes with &warewulf;</title>
+  <itemizedlist>
+    <title>Requirements</title>
+    <listitem>
+    <para>
+      The &warewulf; server has a static IP address.
+    </para>
+    </listitem>
+    <listitem>
+    <para>
+      The compute nodes are set to PXE boot.
+    </para>
+    </listitem>
+    <listitem>
+    <para>
+      The &warewulf; server is accessible from an external network, but is connected to
+      the compute nodes via an internal cluster network used for deployment. This is
+      important because &warewulf; configures DHCP and TFTP on the &warewulf; server,
+      which might conflict with DHCP on the external network.
+    </para>
+    </listitem>
+  </itemizedlist>
+
+  <procedure xml:id="pro-warewulf-deploy-nodes">
+    <title>Deploying compute nodes with &warewulf;</title>
+    <step>
+    <para>
+      On the &warewulf; server, install &warewulf;:
+    </para>
+<screen>&prompt.user;sudo zypper install warewulf4</screen>
+    </step>
+    <step>
+    <para>
+      The installation creates a basic configuration for the &warewulf; server in the file
+      <filename>/etc/warewulf/warewulf.conf</filename>. Review this file to make sure
+      the details are correct. In particular, check the following settings:
+    </para>
+<screen>ipaddr: &subnetI;.250
+netmask: &subnetmask;
+network: &subnetI;.0</screen>
+    <para>
+      <literal>ipaddr</literal> is the IP address of the &warewulf; server on the internal
+      cluster network to be used for node deployment. <literal>netmask</literal> and
+      <literal>network</literal> must match this network.
+    </para>
+    <para>
+      Additionally, check that the DHCP range is in the cluster network:
+    </para>
+<screen>dhcp:
+  range start: &subnetI;.21
+  range end: &subnetI;.50</screen>
+    </step>
+    <step>
+    <para>
+      In the file <filename>/etc/sysconfig/dhcpd</filename>, check that
+      <option>DHCPD_INTERFACE</option> has the correct value. This must be
+      the interface on which the cluster network is running.
+    </para>
+    </step>
+    <step>
+    <para>
+      Start and enable the &warewulf; service:
+    </para>
+<screen>&prompt.user;sudo systemctl enable --now warewulfd</screen>
+    </step>
+    <step>
+    <para>
+      Configure the services required by &warewulf;:
+    </para>
+<screen>&prompt.user;sudo wwctl configure --all</screen>
+    <para>
+      This command performs the following tasks:
+    </para>
+    <itemizedlist>
+      <listitem>
+      <para>
+        Configures DHCP and enables the DHCP service.
+      </para>
+      </listitem>
+      <listitem>
+      <para>
+        Writes the required PXE files to the TFTP root directory and enables the TFTP service.
+      </para>
+      </listitem>
+      <listitem>
+      <para>
+        Updates the <filename>/etc/hosts</filename> file.
+      </para>
+      </listitem>
+      <listitem>
+      <para>
+        Configures an NFS server on the &warewulf; server and enables the NFS service.
+      </para>
+      </listitem>
+      <listitem>
+      <para>
+        Creates host keys and user keys for passwordless SSH access to the nodes.
+      </para>
+      </listitem>
+    </itemizedlist>
+    </step>
+    <step>
+    <para>
+      When the configuration is finished, log out of the &warewulf; server and back into it.
+      This creates an SSH key pair to allow passwordless login to the deployed compute nodes.
+      If you require a password to secure the private key, set it now:
+    </para>
+<screen>&prompt.user;ssh-keygen -p -f $HOME/.ssh/cluster</screen>
+    </step>
+    <step>
+    <para>
+      Importing the &warewulf; container from the &suse; registry requires &scc; credentials.
+      Set your SCC credentials as environment variables before you import the container:
+    </para>
+<screen>&prompt.user;export WAREWULF_OCI_USERNAME=<replaceable>USER@EXAMPLE.COM</replaceable>
+&prompt.user;export WAREWULF_OCI_PASSWORD=<replaceable>REGISTRATION_CODE</replaceable></screen>
+    </step>
+    <step>
+    <para>
+      Import the &warewulf; container from the &suse; registry:
+    </para>
+<screen>&prompt.user;sudo wwctl container import \
+docker://registry.suse.com/suse/hpc/warewulf4-x86_64/sle-hpc-node:&product-ga;.&product-sp; \
+hpcnode&product-ga;.&product-sp; --setdefault</screen>
+    <para>
+      The <option>--setdefault</option> argument sets this as the default container
+      in the <literal>default</literal> node profile.
+    </para>
+    </step>
+    <step>
+    <para>
+      Configure the networking details for the <literal>default</literal> profile:
+    </para>
+<screen>&prompt.user;sudo wwctl profile set -y default --netname default \
+--netmask &subnetmask; --gateway &subnetI;.250</screen>
+    <para>
+      To see the details of this profile, run the following command:
+    </para>
+<screen>&prompt.user;sudo wwctl profile list -a default</screen>
+    </step>
+    <step>
+    <para>
+      Add compute nodes to &warewulf;. For example, to add ten discoverable nodes
+      with preconfigured IP addresses, run the following command:
+    </para>
+<screen>&prompt.user;sudo wwctl node add node[01-10] \ <co xml:id="co-warewulf-deploy-node-name"/>
+--netdev eth0 -I &subnetI;.100 \ <co xml:id="co-warewulf-deploy-node-network"/>
+--discoverable=true <co xml:id="co-warewulf-deploy-node-discover"/></screen>
+    <calloutlist>
+      <callout arearefs="co-warewulf-deploy-node-name">
+      <para>
+        One or more node names. Node names must be unique. If you have node groups
+        or multiple clusters, add descriptors to the node names, for example
+        <literal>node01.cluster01</literal>.
+      </para>
+      </callout>
+      <callout arearefs="co-warewulf-deploy-node-network">
+      <para>
+        The IP address for the first node. Subsequent nodes are given incremental
+        IP addresses.
+      </para>
+      </callout>
+      <callout arearefs="co-warewulf-deploy-node-discover">
+      <para>
+        Allows &warewulf; to assign a MAC address to the nodes when they boot for
+        the first time.
+      </para>
+      </callout>
+    </calloutlist>
+    <para>
+      To view the settings for these nodes, run the following command:
+    </para>
+<screen>&prompt.user;sudo wwctl node list -a node[01-10]</screen>
+    </step>
+    <step>
+    <para>
+      Add the nodes to the <filename>/etc/hosts</filename> file:
+    </para>
+<screen>&prompt.user;sudo wwctl configure hostfile</screen>
+    </step>
+    <step>
+    <para>
+      Rebuild the container image to make sure it is ready to use:
+    </para>
+<screen>&prompt.user;sudo wwctl container build hpcnode&product-ga;.&product-sp;</screen>
+    </step>
+    <step>
+    <para>
+      Build the default system and runtime overlays:
+    </para>
+<screen>&prompt.user;sudo wwctl overlay build</screen>
+    <para>
+      This command compiles overlays for all the nodes.
+    </para>
+    </step>
+  </procedure>
+  <para>
+    You can now boot the compute nodes with PXE. &warewulf; provides all the required information.
+  </para>
+ </sect1>
+
+ <sect1 xml:id="sec-warewulf-advanced-tasks">
+  <title>Advanced &warewulf; tasks</title>
+  <sect2 xml:id="sec-warewulf-secure-boot">
+   <title>Using &warewulf; with &uefisecboot;</title>
+   <para>
+    To boot compute nodes with &uefisecboot; enabled, the packages <package>shim</package>
+    and <package>grub2-x86_64-efi</package> must be installed in the &warewulf; container.
+    For the container you imported in <xref linkend="pro-warewulf-deploy-nodes"/>, this should
+    already be the default. Use the following procedure to verify that the packages are installed:
+   </para>
+   <procedure xml:id="pro-warewulf-secure-boot-packages">
+     <title>Verifying packages in a &warewulf; container</title>
+     <step>
+       <para>
+         Open a shell in the &warewulf; container:
+       </para>
+<screen>&prompt.user;sudo wwctl container shell hpcnode&productnumbershort;</screen>
+     </step>
+     <step>
+       <para>
+         Search for the packages and check their installation status in the
+         <literal>S</literal> column:
+       </para>
+<screen>&prompt.wwcon;zypper search shim grub2</screen>
+       <para>
+         If <package>shim</package> and <package>grub2-x86_64-efi</package> are not installed,
+         install them now:
+       </para>
+<screen>&prompt.wwcon;zypper install shim grub2-x86_64-efi</screen>
+     </step>
+     <step>
+       <para>
+        Exit the container's shell:
+       </para>
+<screen>&prompt.wwcon;exit</screen>
+       <para>
+        If any changes were made, &warewulf; automatically rebuilds the container.
+       </para>
+     </step>
+     <step>
+       <para>
+         We recommend rebuilding the container again manually to make sure the changes are applied:
+       </para>
+<screen>&prompt.user;sudo wwctl container build hpcnode&productnumbershort;</screen>
+     </step>
+   </procedure>
+   <para>
+    By default, &warewulf; boots nodes via iPXE, which cannot be used when &uefisecboot;
+    is enabled. Use the following procedure to switch to &grub; as the boot method:
+   </para>
+   <procedure xml:id="pro-warewulf-secure-boot-grub">
+     <title>Configuring &warewulf; to boot via &grub;</title>
+     <step>
+       <para>
+        Open the file <filename>/etc/warewulf/warewulf.conf</filename> and change the value of
+        <literal>grubboot</literal> to <literal>true</literal>:
+       </para>
+<screen>warewulf:
+  [...]
+  grubboot: true</screen>
+     </step>
+     <step>
+       <para>
+        Reconfigure DHCP and TFTP to recognize the configuration change:
+       </para>
+<screen>&prompt.user;sudo wwctl configure dhcp
+&prompt.user;sudo wwctl configure tftp</screen>
+     </step>
+     <step>
+       <para>
+        Rebuild the system and runtime overlays:
+       </para>
+<screen>&prompt.user;sudo wwctl overlay build</screen>
+     </step>
+   </procedure>
+  </sect2>
+ </sect1>
+
+ <sect1 xml:id="sec-warewulf-more-info">
+ <title>For more information</title>
+  <itemizedlist>
+    <listitem>
+    <para>
+      &warewulf;: <link xlink:href="https://warewulf.org/docs/development/index.html"/>
+    </para>
+    </listitem>
+    <listitem>
+    <para>
+      Node profiles: <link xlink:href="https://warewulf.org/docs/development/contents/profiles.html"/>
+    </para>
+    </listitem>
+    <listitem>
+    <para>
+      &warewulf; overlays: <link xlink:href="https://warewulf.org/docs/development/contents/overlays.html"/>
+    </para>
+    </listitem>
+    <listitem>
+    <para>
+      The node provisioning process: <link xlink:href="https://warewulf.org/docs/development/contents/provisioning.html"/>
+    </para>
+    </listitem>
+  </itemizedlist>
+ </sect1>
+
+</chapter>
