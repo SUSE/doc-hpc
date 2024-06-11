@@ -32,7 +32,7 @@
   <meta name="title" its:translate="yes">&hpc; Guide</meta>
   <meta name="series" its:translate="no">Products &amp; Solutions</meta>
   <meta name="description" its:translate="yes">How to master system administration tasks such as remote administration, workload management and monitoring</meta>
-  <meta name="social-descr" its:translate="yes">Set up High Performance Computing with &slsa;</meta>
+  <meta name="social-descr" its:translate="yes">Set up &hpc; with &slsa;</meta>
   <meta name="task" its:translate="yes">
     <phrase>Administration</phrase>
   </meta>
