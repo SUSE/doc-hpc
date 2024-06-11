@@ -10,6 +10,7 @@
 
 <book xml:id="book-hpc" xml:lang="en"
  xmlns="http://docbook.org/ns/docbook" version="5.1"
+ xmlns:its="http://www.w3.org/2005/11/its"
  xmlns:xi="http://www.w3.org/2001/XInclude"
  xmlns:xlink="http://www.w3.org/1999/xlink">
 
@@ -28,6 +29,23 @@
     monitoring and measuring tools, and libraries to accomplish &hpca; tasks.
    </para>
   </abstract>
+  <meta name="title" its:translate="yes">&hpc; Guide</meta>
+  <meta name="series" its:translate="no">Products &amp; Solutions</meta>
+  <meta name="description" its:translate="yes">How to master system administration tasks such as remote administration, workload management and monitoring</meta>
+  <meta name="social-descr" its:translate="yes">Set up &hpc; with &slsa;</meta>
+  <meta name="task" its:translate="yes">
+    <phrase>Administration</phrase>
+  </meta>
+  <revhistory xml:id="rh-book-hpc">
+    <revision>
+     <date>2024-06-24</date>
+      <revdescription>
+        <para>
+          Updated for the initial release of &productname; &productnumber;.
+        </para>
+      </revdescription>
+    </revision>
+   </revhistory>
   <dm:docmanager xmlns:dm="urn:x-suse:ns:docmanager">
    <dm:editurl>https://github.com/SUSE/doc-hpc/edit/main/xml/</dm:editurl>
    <dm:bugtracker>
