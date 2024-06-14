@@ -37,10 +37,10 @@
 
 <!-- HPC PROMPTS -->
 <!-- Plain prompts are also available from generic-entities.ent -->
-<!ENTITY prompt.mgmt   "<prompt role='root' xmlns='http://docbook.org/ns/docbook'>management # </prompt>">
-<!ENTITY prompt.backup "<prompt role='root' xmlns='http://docbook.org/ns/docbook'>backup # </prompt>">
-<!ENTITY prompt.node1  "<prompt role='root' xmlns='http://docbook.org/ns/docbook'>node1 # </prompt>">
-<!ENTITY prompt.mntr   "<prompt role='root' xmlns='http://docbook.org/ns/docbook'>monitor # </prompt>">
-<!ENTITY prompt.db     "<prompt xmlns='http://docbook.org/ns/docbook'>sql &gt; </prompt>">
-<!ENTITY prompt.DBnode "<prompt role='root' xmlns='http://docbook.org/ns/docbook'>DBnode # </prompt>">
+<!ENTITY prompt.mgmt   "<prompt role='root' xmlns='http://docbook.org/ns/docbook'>management# </prompt>">
+<!ENTITY prompt.backup "<prompt role='root' xmlns='http://docbook.org/ns/docbook'>backup# </prompt>">
+<!ENTITY prompt.node1  "<prompt role='root' xmlns='http://docbook.org/ns/docbook'>node1# </prompt>">
+<!ENTITY prompt.mntr   "<prompt role='root' xmlns='http://docbook.org/ns/docbook'>monitor# </prompt>">
+<!ENTITY prompt.db     "<prompt xmlns='http://docbook.org/ns/docbook'>sql&gt; </prompt>">
+<!ENTITY prompt.DBnode "<prompt role='root' xmlns='http://docbook.org/ns/docbook'>DBnode# </prompt>">
 <!ENTITY prompt.wwcon  "<prompt xmlns='http://docbook.org/ns/docbook'>[hpcnode&productnumbershort;] &warewulf;&gt; </prompt>">
