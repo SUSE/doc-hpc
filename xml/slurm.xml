@@ -938,8 +938,10 @@ Description="subgroup" Organization=bavaria</screen>
     Upgrade packages (that is, packages that were not initially supplied with
     the module or service pack) have their major version encoded in the package
     name (with periods <literal>.</literal> replaced by underscores
-    <literal>_</literal>). For example, for version 18.08, this would be
-    <literal>slurm_18_08-*.rpm</literal>.
+    <literal>_</literal>). For example, for version 23.02, this would be
+    <literal>slurm_23_02-*.rpm</literal>. To find out the latest version of &slurm;,
+    you can check <menuchoice><guimenu>My Tools</guimenu><guimenu>Packages</guimenu></menuchoice>
+    in the &scc;, or run <command>zypper search -v slurm</command> on a node.
    </para>
    <para>
     With each version, configuration options for
