@@ -391,7 +391,7 @@ AccountingStorageHost=localhost</screen>
      </para>
 <screen>&prompt.mgmt;systemctl restart slurmctld</screen>
      <para>
-      This creates the &slurm; database, and adds the cluster to the database (using the
+      This creates the &slurm; database and adds the cluster to the database (using the
       <literal>ClusterName</literal> from <filename>/etc/slurm/slurm.conf</filename>).
      </para>
     </step>
