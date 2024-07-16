@@ -257,6 +257,10 @@ echo "finished at $(date)"
     or on a separate node. For a minimal setup, all these services run on the
     management server.
    </para>
+   <para>
+    Before you begin, make sure &slurm; is installed as described in
+    <xref linkend="sec-slurm-minimal"/>.
+   </para>
    <procedure>
     <title>Install <package>slurmdbd</package></title>
     <note>
@@ -269,9 +273,9 @@ echo "finished at $(date)"
     </note>
     <step xml:id="st-install-mariadb">
      <para>
-      Install the &mariadb; SQL database with <command>zypper in
-      mariadb</command>.
+      Install the &mariadb; SQL database:
      </para>
+<screen>&prompt.mgmt;zypper install mariadb</screen>
     </step>
     <step xml:id="st-start-mariadb">
      <para>
@@ -281,27 +285,35 @@ echo "finished at $(date)"
     </step>
     <step>
      <para>
-      Secure the database with the command
-      <command>mysql_secure_installation</command>.
+      Secure the database:
      </para>
+<screen>&prompt.mgmt;mysql_secure_installation</screen>
     </step>
     <step>
      <para>
-      Connect to the SQL database, for example with the command
-      <command>mysql -u root -p</command>.
+      Connect to the SQL database:
      </para>
+<screen>&prompt.mgmt;mysql -u root -p</screen>
     </step>
     <step xml:id="sec-sum-sqldb">
      <para>
-      Create the &slurm; user and the database with the following commands:
+      Create the &slurm; database user and grant it permissions for the &slurm; database,
+      which will be created later:
      </para>
 <screen>
 &prompt.db;create user 'slurm'@'localhost' identified by '<replaceable>PASSWORD</replaceable>';
-&prompt.db;grant all on slurm_acct_db.* TO 'slurm'@'localhost';
-&prompt.db;create database slurm_acct_db;</screen>
+&prompt.db;grant all on slurm_acct_db.* TO 'slurm'@'localhost';</screen>
      <para>
-      After these steps are complete, exit the database.
+      You can choose to use a different user name or database name.
+      In this case, you must also change the corresponding values in
+      the <filename>/etc/slurm/slurmdbd.conf</filename> file later.
      </para>
+    </step>
+    <step>
+      <para>
+        Exit the database:
+      </para>
+<screen>&prompt.db;exit</screen>
     </step>
     <step>
      <para>
@@ -319,10 +331,11 @@ echo "finished at $(date)"
 <!-- FIME: It doesn't seem like a good idea to direct people to store a plain text
      password. Maybe this should recommend a passfile instead? -->
      <para>
-       If you chose another location or user for the SQL database, you must also
-      modify the following lines:
+       If the database is on a different node, or if you chose a different user name or
+       database name, you must also modify the following lines:
      </para>
 <screen>StorageUser=slurm
+StorageLoc=slurm_acct_db
 DbdAddr=localhost
 DbdHost=localhost</screen>
     </step>
@@ -332,7 +345,7 @@ DbdHost=localhost</screen>
      </para>
 <screen>&prompt.mgmt;systemctl enable --now slurmdbd</screen>
      <para>
-      The first start of <literal>slurmdbd</literal> will take some time.
+      The first start of <literal>slurmdbd</literal> might take some time.
      </para>
     </step>
     <step>
@@ -356,26 +369,32 @@ AccountingStorageHost=localhost</screen>
      </note>
     </step>
     <step>
-     <para>
-      Ensure that a table for the cluster is added to the database.
-      Otherwise, no accounting information can be written to the database.
-      To add a cluster table, run
-      <command>sacctmgr -i add cluster <replaceable>CLUSTERNAME</replaceable></command>.
-     </para>
+      <para>
+        Make sure <literal>slurmdbd</literal> is running before you continue:
+      </para>
+<screen>&prompt.mgmt;systemctl status slurmdbd</screen>
+      <para>
+       If you restart <literal>slurmctld</literal> before <literal>slurmdbd</literal>
+       is running, <literal>slurmctld</literal> fails because it cannot connect to the database.
+      </para>
     </step>
     <step>
      <para>
       Restart <literal>slurmctld</literal>:
      </para>
 <screen>&prompt.mgmt;systemctl restart slurmctld</screen>
+     <para>
+      This creates the &slurm; database and adds the cluster to the database (using the
+      <literal>ClusterName</literal> from <filename>/etc/slurm/slurm.conf</filename>).
+     </para>
     </step>
     <step performance="optional">
      <para>
       By default, &slurm; does not take any group membership into account, and
-      the system groups cannot be mapped to &slurm;. Group creation and
-      membership must be managed via the command line tool
-      <command>sacctmgr</command>. You can have a group
-      hierarchy, and users can be part of several groups.
+      the system groups cannot be mapped to &slurm;. However, you can mimic system groups
+      with <emphasis>accounts</emphasis>. In &slurm;, accounts are usually entities billed
+      for cluster usage, while <emphasis>users</emphasis> identify individual cluster users.
+      Multiple users can be associated with a single account.
      </para>
      <para>
       The following example creates an umbrella group <literal>bavaria</literal>
