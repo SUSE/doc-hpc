@@ -11,14 +11,14 @@
 <!ENTITY slehpca "&slea; &hpca;">
 
 <!ENTITY product-ga    "15">
-<!ENTITY product-sp    "6">
+<!ENTITY product-sp    "7">
 
 <!ENTITY prev-version     "&product-ga; SP&prev-sp;">
 <!ENTITY prev-sp "5">
 
 <!-- PROJECT REPOSITORY URL -->
 <!ENTITY repo-url "https://github.com/SUSE/doc-hpc">
-<!ENTITY rn-url "https://www.suse.com/releasenotes/x86_64/SLE-HPC/15-SP6">
+<!ENTITY rn-url "https://www.suse.com/releasenotes/x86_64/SLE-HPC/15-SP7">
 
 <!-- START YEAR OF COPYRIGHT -->
 <!ENTITY copyrightstart "2020">
