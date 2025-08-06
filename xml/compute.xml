@@ -1,18 +1,14 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0"?>
+<!DOCTYPE chapter [
+  <!ENTITY % entities SYSTEM "generic-entities.ent">
+  %entities;
+]>
+
 <?xml-stylesheet href="urn:x-suse:xslt:profiling:docbook51-profile.xsl"
  type="text/xml"
- title="Profiling step"?>
-<!DOCTYPE chapter
-[
-  <!ENTITY % entities SYSTEM "generic-entities.ent">
-    %entities;
-]>
-<chapter xml:id="cha-compute" xml:lang="en"
- xmlns="http://docbook.org/ns/docbook" version="5.1"
- xmlns:xi="http://www.w3.org/2001/XInclude"
- xmlns:xlink="http://www.w3.org/1999/xlink">
+ title="Profiling step"?><chapter xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="cha-compute" xml:lang="en" version="5.1">
  <title>&hpca; user libraries</title>
- <info>
+ <info xmlns:d="http://docbook.org/ns/docbook">
   <abstract>
    <para>
     Many &hpca; clusters need to accommodate multiple compute applications,
@@ -30,7 +26,15 @@
    <dm:bugtracker/>
    <dm:translation>yes</dm:translation>
   </dm:docmanager>
- </info>
+ <revhistory xml:id="rh-cha-compute">
+   <revision>
+     <date>2023-10-23</date>
+     <revdescription>
+       <para/>
+     </revdescription>
+   </revision>
+ </revhistory>
+</info>
  <sect1 xml:id="sec-compute-lmod">
   <title>Lmod &mdash; Lua-based environment modules</title>
 
@@ -143,8 +147,7 @@
    <title>For more information</title>
    <para>
     For more information on Lmod, see
-    <link
-     xlink:href="https://lmod.readthedocs.org"/>.
+    <link xlink:href="https://lmod.readthedocs.org"/>.
    </para>
   </sect2>
  </sect1>
@@ -302,8 +305,7 @@
     <literal>Boost</literal> is a set of portable C++ libraries that provide a
     reference implementation of "existing practices". See the full release
     notes for Boost 1.71 at
-    <link
-     xlink:href="https://www.boost.org/users/history/version_1_71_0.html"/>.
+    <link xlink:href="https://www.boost.org/users/history/version_1_71_0.html"/>.
    </para>
    <para>
     To load the highest available serial version of this module, run the following
@@ -315,8 +317,7 @@
    </para>
 <screen>&prompt.user;module load <replaceable>TOOLCHAIN</replaceable> <replaceable>MPI_FLAVOR</replaceable> boost</screen>
    <para>
-    For information about the toolchain to load, see <xref
-    linkend="sec-compiler"/>. For information about available MPI flavors, see
+    For information about the toolchain to load, see <xref linkend="sec-compiler"/>. For information about available MPI flavors, see
     <xref linkend="sec1-MPI-libs"/>.
    </para>
    <para>
@@ -384,8 +385,7 @@
    </para>
 <screen>&prompt.user;module load <replaceable>TOOLCHAIN</replaceable> <replaceable>MPI_FLAVOR</replaceable> fftw3</screen>
    <para>
-    For information about the toolchain to load, see <xref
-    linkend="sec-compiler"/>. For information about available MPI flavors, see
+    For information about the toolchain to load, see <xref linkend="sec-compiler"/>. For information about available MPI flavors, see
     <xref linkend="sec1-MPI-libs"/>.
    </para>
    <para>
@@ -444,8 +444,7 @@
    </para>
 <screen>&prompt.user;module load <replaceable>TOOLCHAIN</replaceable> python<replaceable>VERSION</replaceable>-numpy</screen>
    <para>
-    For information about the toolchain to load see: <xref
-     linkend="sec-compiler"/>.
+    For information about the toolchain to load see: <xref linkend="sec-compiler"/>.
    </para>
    <para>
     List of master packages:
@@ -482,8 +481,7 @@
    </para>
 <screen>&prompt.user;module load <replaceable>TOOLCHAIN</replaceable> python<replaceable>VERSION</replaceable>-scipy</screen>
    <para>
-    For information about the toolchain to load, see <xref
-     linkend="sec-compiler"/>.
+    For information about the toolchain to load, see <xref linkend="sec-compiler"/>.
    </para>
    <para>
     List of master packages:
@@ -521,8 +519,7 @@
    </para>
 <screen>&prompt.user;module load <replaceable>TOOLCHAIN</replaceable> <replaceable>MPI_FLAVOR</replaceable> hypre</screen>
    <para>
-    For information about the toolchain to load, see <xref
-     linkend="sec-compiler"/>. For information on available MPI
+    For information about the toolchain to load, see <xref linkend="sec-compiler"/>. For information on available MPI
     flavors, see <xref linkend="sec1-MPI-libs"/>.
    </para>
    <para>
@@ -557,8 +554,7 @@
    </para>
 <screen>&prompt.user;module load <replaceable>TOOLCHAIN</replaceable> metis</screen>
    <para>
-    For information about the toolchain to load, see <xref
-     linkend="sec-compiler"/>.
+    For information about the toolchain to load, see <xref linkend="sec-compiler"/>.
    </para>
    <para>
     List of master packages:
@@ -612,8 +608,7 @@
    </para>
 <screen>&prompt.user;module load <replaceable>TOOLCHAIN</replaceable> gsl</screen>
    <para>
-    For information about the toolchain to load, see <xref
-     linkend="sec-compiler"/>.
+    For information about the toolchain to load, see <xref linkend="sec-compiler"/>.
    </para>
    <para>
     List of master packages:
@@ -670,8 +665,7 @@
    </para>
 <screen>&prompt.user;module load <replaceable>TOOLCHAIN</replaceable> <replaceable>MPI_FLAVOR</replaceable> ocr</screen>
    <para>
-    For information about the toolchain to load, see <xref
-    linkend="sec-compiler"/>. For information on available MPI flavors, see
+    For information about the toolchain to load, see <xref linkend="sec-compiler"/>. For information on available MPI flavors, see
     <xref linkend="sec1-MPI-libs"/>.
    </para>
    <para>
@@ -772,8 +766,7 @@
    </para>
 <screen>&prompt.user;module load <replaceable>TOOLCHAIN</replaceable> <replaceable>MPI_FLAVOR</replaceable> mumps</screen>
    <para>
-    For information about the toolchain to load, see <xref
-     linkend="sec-compiler"/>. For information on available MPI
+    For information about the toolchain to load, see <xref linkend="sec-compiler"/>. For information on available MPI
     flavors, see <xref linkend="sec1-MPI-libs"/>.
    </para>
    <para>
@@ -883,8 +876,7 @@
     </listitem>
    </itemizedlist>
    <para>
-    For information about the toolchain to load, see <xref
-     linkend="sec-compiler"/>.
+    For information about the toolchain to load, see <xref linkend="sec-compiler"/>.
    </para>
    <para>
     List of master packages:
@@ -926,8 +918,7 @@
    </para>
 <screen>&prompt.user;module load <replaceable>TOOLCHAIN</replaceable> <replaceable>MPI_FLAVOR</replaceable> petsc</screen>
    <para>
-    For information about the toolchain to load, see <xref
-    linkend="sec-compiler"/>. For information about available MPI flavors, see
+    For information about the toolchain to load, see <xref linkend="sec-compiler"/>. For information about available MPI flavors, see
     <xref linkend="sec1-MPI-libs"/>.
    </para>
    <para>
@@ -964,8 +955,7 @@
    </para>
 <screen>&prompt.user;module load <replaceable>TOOLCHAIN</replaceable> <replaceable>MPI_FLAVOR</replaceable> scalapack</screen>
    <para>
-    For information about the toolchain to load, see <xref
-    linkend="sec-compiler"/>. For information about available MPI flavors, see
+    For information about the toolchain to load, see <xref linkend="sec-compiler"/>. For information about available MPI flavors, see
     <xref linkend="sec1-MPI-libs"/>.
    </para>
    <para>
@@ -1008,8 +998,7 @@
    </para>
 <screen>&prompt.user;module load <replaceable>TOOLCHAIN</replaceable> <replaceable>MPI_FLAVOR</replaceable> scotch</screen>
    <para>
-    For information about the toolchain to load, see <xref
-    linkend="sec-compiler"/>. For information about available MPI flavors, see
+    For information about the toolchain to load, see <xref linkend="sec-compiler"/>. For information about available MPI flavors, see
     <xref linkend="sec1-MPI-libs"/>.
    </para>
    <para>
@@ -1048,8 +1037,7 @@
    </para>
 <screen>&prompt.user;module load <replaceable>TOOLCHAIN</replaceable> superlu</screen>
    <para>
-    For information about the toolchain to load, see <xref
-     linkend="sec-compiler"/>.
+    For information about the toolchain to load, see <xref linkend="sec-compiler"/>.
    </para>
    <para>
     List of master packages:
@@ -1092,8 +1080,7 @@
    </para>
 <screen>&prompt.user;module load <replaceable>TOOLCHAIN</replaceable> <replaceable>MPI_FLAVOR</replaceable> trilinos</screen>
    <para>
-    For information about the toolchain to load, see <xref
-     linkend="sec-compiler"/>. For information on available MPI
+    For information about the toolchain to load, see <xref linkend="sec-compiler"/>. For information on available MPI
     flavors, see <xref linkend="sec1-MPI-libs"/>.
    </para>
    <para>
@@ -1129,8 +1116,7 @@
    </para>
 <screen>&prompt.user;module load <replaceable>TOOLCHAIN</replaceable> <replaceable>MPI_FLAVOR</replaceable> adios</screen>
    <para>
-    For information about the toolchain to load, see <xref
-    linkend="sec-compiler"/>. For information about available MPI flavors, see
+    For information about the toolchain to load, see <xref linkend="sec-compiler"/>. For information about available MPI flavors, see
     <xref linkend="sec1-MPI-libs"/>.
    </para>
    <para>
@@ -1179,8 +1165,7 @@
    </para>
 <screen>&prompt.user;module load <replaceable>TOOLCHAIN</replaceable> <replaceable>MPI_FLAVOR</replaceable> phdf5</screen>
    <para>
-    For information about the toolchain to load, see <xref
-    linkend="sec-compiler"/>. For information about available MPI flavors, see
+    For information about the toolchain to load, see <xref linkend="sec-compiler"/>. For information about available MPI flavors, see
     <xref linkend="sec1-MPI-libs"/>.
    </para>
    <para>
@@ -1249,8 +1234,7 @@
    </para>
    <para>
     For general information about Lmod and modules, see
-    <xref
-     linkend="sec-compute-lmod"/>.
+    <xref linkend="sec-compute-lmod"/>.
    </para>
   </sect2>
 
@@ -1281,8 +1265,7 @@
    </para>
 <screen>&prompt.user;module load <replaceable>TOOLCHAIN</replaceable> <replaceable>MPI_FLAVOR</replaceable> netcdf</screen>
    <para>
-    For information about the toolchain to load, see <xref
-     linkend="sec-compiler"/>. For information on available MPI
+    For information about the toolchain to load, see <xref linkend="sec-compiler"/>. For information on available MPI
     flavors, see <xref linkend="sec1-MPI-libs"/>.
    </para>
    <para>
@@ -1340,8 +1323,7 @@
    </para>
 <screen>&prompt.user;module load <replaceable>TOOLCHAIN</replaceable> netcdf-cxx4</screen>
    <para>
-    For information about the toolchain to load, see: <xref
-     linkend="sec-compiler"/>.
+    For information about the toolchain to load, see: <xref linkend="sec-compiler"/>.
    </para>
    <para>
     List of master packages:
@@ -1386,8 +1368,7 @@
    </para>
 <screen>&prompt.user;module load <replaceable>TOOLCHAIN</replaceable> <replaceable>MPI_FLAVOR</replaceable> netcdf-fortran</screen>
    <para>
-    For information about the toolchain to load, see <xref
-     linkend="sec-compiler"/>, For information on available MPI
+    For information about the toolchain to load, see <xref linkend="sec-compiler"/>, For information on available MPI
     flavors, see <xref linkend="sec1-MPI-libs"/>.
    </para>
    <para>
@@ -1449,8 +1430,7 @@
    </para>
 <screen>&prompt.user;module load <replaceable>TOOLCHAIN</replaceable> <replaceable>MPI_FLAVOR</replaceable> pnetcdf</screen>
    <para>
-    For information about the toolchain to load, see <xref
-     linkend="sec-compiler"/>. For information on available MPI
+    For information about the toolchain to load, see <xref linkend="sec-compiler"/>. For information on available MPI
     flavors, see <xref linkend="sec1-MPI-libs"/>.
    </para>
    <para>
@@ -1624,8 +1604,7 @@
   </itemizedlist>
 
   <para>
-   For information about the toolchain to load, see <xref
-    linkend="sec-compiler"/>.
+   For information about the toolchain to load, see <xref linkend="sec-compiler"/>.
   </para>
  </sect1>
  <sect1 xml:id="sec1-packages-profiling-benchmark">
@@ -1654,8 +1633,7 @@
    </para>
 <screen>&prompt.user;module load <replaceable>TOOLCHAIN</replaceable> <replaceable>MPI_FLAVOR</replaceable> imb</screen>
    <para>
-    For information about the toolchain to load, see <xref
-     linkend="sec-compiler"/>. For information on available MPI
+    For information about the toolchain to load, see <xref linkend="sec-compiler"/>. For information on available MPI
     flavors, see <xref linkend="sec1-MPI-libs"/>.
    </para>
    <itemizedlist>
@@ -1681,8 +1659,7 @@
    </para>
 <screen>&prompt.user;module load <replaceable>TOOLCHAIN</replaceable> papi</screen>
    <para>
-    For information about the toolchain to load, see <xref
-     linkend="sec-compiler"/>.
+    For information about the toolchain to load, see <xref linkend="sec-compiler"/>.
    </para>
    <para>
     List of master packages:
@@ -1700,8 +1677,7 @@
     </listitem>
    </itemizedlist>
    <para>
-    For general information about Lmod and modules, see <xref
-     linkend="sec-compute-lmod"/>.
+    For general information about Lmod and modules, see <xref linkend="sec-compute-lmod"/>.
    </para>
   </sect2>
 
@@ -1721,8 +1697,7 @@
    </para>
 <screen>&prompt.user;module load <replaceable>TOOLCHAIN</replaceable> <replaceable>MPI_FLAVOR</replaceable> mpip</screen>
    <para>
-    For information about the toolchain to load, see <xref
-     linkend="sec-compiler"/>. For information on available MPI
+    For information about the toolchain to load, see <xref linkend="sec-compiler"/>. For information on available MPI
     flavors, see <xref linkend="sec1-MPI-libs"/>.
    </para>
    <para>
