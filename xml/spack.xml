@@ -1,17 +1,14 @@
+<?xml version="1.0"?>
+<!DOCTYPE chapter [
+  <!ENTITY % entities SYSTEM "generic-entities.ent">
+  %entities;
+]>
+
 <?xml-stylesheet href="urn:x-suse:xslt:profiling:docbook51-profile.xsl"
  type="text/xml"
- title="Profiling step"?>
-<!DOCTYPE chapter
-[
-  <!ENTITY % entities SYSTEM "generic-entities.ent">
-    %entities;
-]>
-<chapter xmlns="http://docbook.org/ns/docbook"
- xmlns:xi="http://www.w3.org/2001/XInclude"
- xmlns:xlink="http://www.w3.org/1999/xlink" xml:base="spack.xml"
- xml:id="cha-spack" xml:lang="en" version="5.1">
+ title="Profiling step"?><chapter xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xlink="http://www.w3.org/1999/xlink" xml:base="spack.xml" xml:id="cha-spack" xml:lang="en" version="5.1">
  <title>&spack; package management tool</title>
- <info>
+ <info xmlns:d="http://docbook.org/ns/docbook">
   <abstract>
    <para>
     &spack; is a configurable Python-based package manager, automating
@@ -26,7 +23,15 @@
    <dm:bugtracker/>
    <dm:translation>yes</dm:translation>
   </dm:docmanager>
- </info>
+ <revhistory xml:id="rh-cha-spack">
+   <revision>
+     <date>2023-10-11</date>
+     <revdescription>
+       <para/>
+     </revdescription>
+   </revision>
+ </revhistory>
+</info>
 
  <sect1 xml:id="spack-installation">
   <title>Installing &spack;</title>
@@ -172,19 +177,19 @@ Virtual Packages:
     and <literal>doxygen</literal> disabled:
    </para>
 <screen>&prompt.root;spack install netcdf-cxx4 -static -doxygen
-==> netcdf-c: Executing phase: 'autoreconf'
-==> netcdf-c: Executing phase: 'configure'
-==> netcdf-c: Executing phase: 'build'
-==> netcdf-c: Executing phase: 'install'
+==&gt; netcdf-c: Executing phase: 'autoreconf'
+==&gt; netcdf-c: Executing phase: 'configure'
+==&gt; netcdf-c: Executing phase: 'build'
+==&gt; netcdf-c: Executing phase: 'install'
 [+] /usr/opt/spack/linux-sle_hpc15-skylake/gcc-7.5.0/netcdf-c-4.7.4-vry3tfp6kpq364gyxrj6fali4kqhirx7
-==> Installing netcdf-cxx4-4.3.1-msiysdrdua3vv6izluhaeos4nyo5gslq
-==> No binary for netcdf-cxx4-4.3.1-msiysdrdua3vv6izluhaeos4nyo5gslq found: installing from source
-==> Fetching https://spack-llnl-mirror.s3-us-west-2.amazonaws.com/_source-cache/archive/6a/6a1189a181eed043b5859e15d5c080c30d0e107406fbb212c8fb9814e90f3445.tar.gz
+==&gt; Installing netcdf-cxx4-4.3.1-msiysdrdua3vv6izluhaeos4nyo5gslq
+==&gt; No binary for netcdf-cxx4-4.3.1-msiysdrdua3vv6izluhaeos4nyo5gslq found: installing from source
+==&gt; Fetching https://spack-llnl-mirror.s3-us-west-2.amazonaws.com/_source-cache/archive/6a/6a1189a181eed043b5859e15d5c080c30d0e107406fbb212c8fb9814e90f3445.tar.gz
 #################################################################################################################### 100.0%
-==> netcdf-cxx4: Executing phase: 'autoreconf'
-==> netcdf-cxx4: Executing phase: 'configure'
-==> netcdf-cxx4: Executing phase: 'build'
-==> netcdf-cxx4: Executing phase: 'install'
+==&gt; netcdf-cxx4: Executing phase: 'autoreconf'
+==&gt; netcdf-cxx4: Executing phase: 'configure'
+==&gt; netcdf-cxx4: Executing phase: 'build'
+==&gt; netcdf-cxx4: Executing phase: 'install'
 [+] /usr/opt/spack/linux-sle_hpc15-skylake/gcc-7.5.0/netcdf-cxx4-4.3.1-msiysdrdua3vv6izluhaeos4nyo5gslq</screen>
   </step>
   <step>
@@ -193,8 +198,8 @@ Virtual Packages:
     specify the version:
    </para>
 <screen>&prompt.root;spack install netcdf-cxx4@4.3.1
-==> Warning: Missing a source id for python@3.6.13
-==> Warning: Missing a source id for pkgconf@1.5.3
+==&gt; Warning: Missing a source id for python@3.6.13
+==&gt; Warning: Missing a source id for pkgconf@1.5.3
 [+] /usr (external autoconf-2.69-tatq2aqbhboxbyjt2fsraoapgqwf3y5x)
 [+] /usr (external automake-1.15.1-3d7wkh42v52c6n77t4p7l2i7nguryisl)
 [+] /usr (external bison-3.0.4-y6ckc7e7mqnnkgmkbgcfbw5vgqzg5b6m)
@@ -216,13 +221,13 @@ Virtual Packages:
 [+] /usr/opt/spack/linux-sle_hpc15-skylake/gcc-7.5.0/openmpi-3.1.6-ks5elgg25bbnzwa7fmv7lewbkrcp2qsx
 [+] /usr/opt/spack/linux-sle_hpc15-skylake/gcc-7.5.0/hdf5-1.10.7-3cyidn4yvikyyuxehak7ftey2l57ku37
 [+] /usr/opt/spack/linux-sle_hpc15-skylake/gcc-7.5.0/netcdf-c-4.7.4-vry3tfp6kpq364gyxrj6fali4kqhirx7
-==> Installing netcdf-cxx4-4.3.1-tiyqyxb3eqpptrlcll6rlf27aisekluy
-==> No binary for netcdf-cxx4-4.3.1-tiyqyxb3eqpptrlcll6rlf27aisekluy found: installing from source
-==> Using cached archive: /var/spack/cache/_source-cache/archive/6a/6a1189a181eed043b5859e15d5c080c30d0e107406fbb212c8fb9814e90f3445.tar.gz
-==> netcdf-cxx4: Executing phase: 'autoreconf'
-==> netcdf-cxx4: Executing phase: 'configure'
-==> netcdf-cxx4: Executing phase: 'build'
-==> netcdf-cxx4: Executing phase: 'install'
+==&gt; Installing netcdf-cxx4-4.3.1-tiyqyxb3eqpptrlcll6rlf27aisekluy
+==&gt; No binary for netcdf-cxx4-4.3.1-tiyqyxb3eqpptrlcll6rlf27aisekluy found: installing from source
+==&gt; Using cached archive: /var/spack/cache/_source-cache/archive/6a/6a1189a181eed043b5859e15d5c080c30d0e107406fbb212c8fb9814e90f3445.tar.gz
+==&gt; netcdf-cxx4: Executing phase: 'autoreconf'
+==&gt; netcdf-cxx4: Executing phase: 'configure'
+==&gt; netcdf-cxx4: Executing phase: 'build'
+==&gt; netcdf-cxx4: Executing phase: 'install'
 [+] /usr/opt/spack/linux-sle_hpc15-skylake/gcc-7.5.0/netcdf-cxx4-4.3.1-tiyqyxb3eqpptrlcll6rlf27aisekluy</screen>
   </step>
   <step>
@@ -230,7 +235,7 @@ Virtual Packages:
     Check which packages are now available with &spack;:
    </para>
 <screen>&prompt.root;spack find
-==> 14 installed packages
+==&gt; 14 installed packages
 -- linux-sle_hpc15-skylake / gcc@7.5.0 --------------------------
 doxygen@1.8.20  hwloc@1.11.11  libpciaccess@0.16  netcdf-c@4.7.4     netcdf-cxx4@4.3.1  openmpi@3.1.6       xz@5.2.3
 hdf5@1.10.7     libiconv@1.16  libxml2@2.9.10     netcdf-cxx4@4.3.1  numactl@2.0.14     util-macros@1.19.1  zlib@1.2.11</screen>
@@ -241,7 +246,7 @@ hdf5@1.10.7     libiconv@1.16  libxml2@2.9.10     netcdf-cxx4@4.3.1  numactl@2.0
     <literal>-l</literal> option:
    </para>
 <screen>&prompt.root;spack find -l
-==> 14 installed packages
+==&gt; 14 installed packages
 -- linux-sle_hpc15-skylake / gcc@7.5.0 --------------------------
 3griwie doxygen@1.8.20  y3w7dlk libpciaccess@0.16  tiyqyxb netcdf-cxx4@4.3.1   x3glm5y xz@5.2.3
 3cyidn4 hdf5@1.10.7     d4c7csk libxml2@2.9.10     tcuvjjt numactl@2.0.14      z6y74kg zlib@1.2.11
@@ -258,7 +263,7 @@ itovpc5 libiconv@1.16   msiysdr netcdf-cxx4@4.3.1  rpnlbst util-macros@1.19.1</s
       Find the paths to the <literal>netcdf-cxx4</literal> packages:
      </para>
 <screen>&prompt.root;spack find --paths
-==> 15 installed packages
+==&gt; 15 installed packages
 -- linux-sle_hpc15-skylake / gcc@7.5.0 --------------------------
 doxygen@1.8.20      /usr/opt/spack/linux-sle_hpc15-skylake/gcc-7.5.0/doxygen-1.8.20-3griwieblqgb6ykc5avzkzrxmtaw4s2g
 hdf5@1.10.7         /usr/opt/spack/linux-sle_hpc15-skylake/gcc-7.5.0/hdf5-1.10.7-3cyidn4yvikyyuxehak7ftey2l57ku37
@@ -339,10 +344,10 @@ arch: </screen>
      List the available versions of <literal>mpich</literal>:
     </para>
 <screen>&prompt.root;spack versions mpich
-==> Safe versions (already checksummed):
+==&gt; Safe versions (already checksummed):
   develop  3.3.2  3.3.1  3.3  3.2.1  3.2  3.1.4  3.1.3  3.1.2  3.1.1  3.1  3.0.4
-==> Remote versions (not yet checksummed):
-==> Warning: Found no unchecksummed versions for mpich</screen>
+==&gt; Remote versions (not yet checksummed):
+==&gt; Warning: Found no unchecksummed versions for mpich</screen>
    </step>
    <step>
     <para>
@@ -432,10 +437,10 @@ Virtual Packages:
      Build <literal>mpich</literal> with some variants disabled:
     </para>
 <screen>&prompt.root;spack install mpich@3.3.2 -romio -libxml2 -hydra -fortran
-==> mpich: Executing phase: 'autoreconf'
-==> mpich: Executing phase: 'configure'
-==> mpich: Executing phase: 'build'
-==> mpich: Executing phase: 'install'
+==&gt; mpich: Executing phase: 'autoreconf'
+==&gt; mpich: Executing phase: 'configure'
+==&gt; mpich: Executing phase: 'build'
+==&gt; mpich: Executing phase: 'install'
 [+] /usr/opt/spack/linux-sle_hpc15-skylake/gcc-7.5.0/mpich-3.3.2-3nexqqx2r4m7p2y7lmovuwvvobi2bygw</screen>
    </step>
    <step>
@@ -498,7 +503,7 @@ Virtual Packages:
      List all of the available packages and their dependency hashes:
     </para>
 <screen>&prompt.root;spack find -l
-==> 33 installed packages
+==&gt; 33 installed packages
 -- linux-sle_hpc15-skylake / gcc@7.5.0 --------------------------
 3griwie doxygen@1.8.20  y3w7dlk libpciaccess@0.16  vry3tfp netcdf-c@4.7.4      x3glm5y xz@5.2.3
 3cyidn4 hdf5@1.10.7     to2atk6 libpciaccess@0.16  msiysdr netcdf-cxx4@4.3.1   bzeebyp xz@5.2.3
@@ -518,7 +523,7 @@ mm7at5h libiconv@1.16  jrtvvdj libxml2@2.9.4      jjxbukq util-macros@1.19.1  jx
      <literal>/6xjiutf</literal> (<literal>mpich</literal>):
     </para>
 <screen>&prompt.root;spack find --deps /6xjiutf
-==> 1 installed package
+==&gt; 1 installed package
 -- linux-sle_hpc15-x86_64 / gcc@7.5.0 ---------------------------
 mpich@3.3.2
     hwloc@2.2.0
@@ -558,7 +563,7 @@ mpich@3.3.2
 &prompt.root;gcc --version
 gcc (Spack GCC) 10.2.0
 &prompt.root;spack install mpich@3.2.1 %gcc@10.2.0
-==> Error: No compilers with spec gcc@10.2.0 found for operating system sle_hpc15 and target skylake.
+==&gt; Error: No compilers with spec gcc@10.2.0 found for operating system sle_hpc15 and target skylake.
 Run 'spack compiler find' to add compilers or 'spack compilers' to see which compilers are already recognized by spack.</screen>
     <calloutlist>
      <callout arearefs="spack-module-load">
@@ -577,9 +582,9 @@ Run 'spack compiler find' to add compilers or 'spack compilers' to see which com
      Update the list of available compilers:
     </para>
 <screen>&prompt.root;spack compiler find
-==> Added 1 new compiler to /home/tux/.spack/linux/compilers.yaml
+==&gt; Added 1 new compiler to /home/tux/.spack/linux/compilers.yaml
     gcc@10.2.0
-==> Compilers are defined in the following files:
+==&gt; Compilers are defined in the following files:
     /home/tux/.spack/linux/compilers.yaml</screen>
    </step>
    <step>

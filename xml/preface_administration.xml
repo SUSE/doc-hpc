@@ -1,18 +1,23 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml-stylesheet href="urn:x-suse:xslt:profiling:docbook51-profile.xsl"
- type="text/xml"
- title="Profiling step"?>
-<!DOCTYPE preface
-[
+<?xml version="1.0"?>
+<!DOCTYPE preface [
   <!ENTITY % entities SYSTEM "generic-entities.ent">
-    %entities;
+  %entities;
 ]>
 
-<preface xml:id="preface-administration" xml:lang="en"
- xmlns="http://docbook.org/ns/docbook" version="5.1"
- xmlns:xi="http://www.w3.org/2001/XInclude"
- xmlns:xlink="http://www.w3.org/1999/xlink">
+<?xml-stylesheet href="urn:x-suse:xslt:profiling:docbook51-profile.xsl"
+ type="text/xml"
+ title="Profiling step"?><preface xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="preface-administration" xml:lang="en" version="5.1">
  <title>Preface</title>
+ <info>
+  <revhistory xml:id="rh-preface-administration">
+   <revision>
+    <date>2024-05-29</date>
+    <revdescription>
+     <para/>
+    </revdescription>
+   </revision>
+  </revhistory>
+ </info>
 
  <xi:include href="common_intro_available_doc.xml"/>
  <xi:include href="common_intro_feedback.xml"/>
