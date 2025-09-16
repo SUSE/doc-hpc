@@ -3,7 +3,6 @@
   <!ENTITY % entities SYSTEM "generic-entities.ent">
   %entities;
 ]>
-
 <?xml-stylesheet href="urn:x-suse:xslt:profiling:docbook51-profile.xsl"
  type="text/xml"
  title="Profiling step"?><book xmlns="http://docbook.org/ns/docbook" xmlns:its="http://www.w3.org/2005/11/its" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="book-hpc" xml:lang="en" version="5.1">
