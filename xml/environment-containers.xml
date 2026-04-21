@@ -8,7 +8,7 @@
     %entities;
 ]>
 
-<!-- trichardson 2023-09-07: Stub for now; can be expanded if apptainer is added to SLE later -->
+<!-- trichardson 2026-04-21: Stub for now; task to expand it is PED-7125 -->
 
 <sect1 xml:id="sec-environment-containers" xml:lang="en"
  xmlns="http://docbook.org/ns/docbook" version="5.1"
@@ -27,18 +27,13 @@
     <emphasis>environment containers</emphasis>. Environment containers include only the
     components that are part of the environment, plus any required user applications.
     To create a container from the current &hpca; environment, use the container platform
-    &apptainer; (formerly called Singularity). &apptainer; is available from &ph;.
-    You can also use &spack; to configure the environment to use with &apptainer;.
+    &apptainer; (formerly called Singularity). You can also use &spack; to configure the
+    environment to use with &apptainer;.
   </para>
   <para>
     For more information, see the following documentation:
   </para>
   <itemizedlist>
-    <listitem>
-      <para>
-        Enabling the &ph; extension: <link xlink:href="https://packagehub.suse.com/how-to-use/"/>.
-      </para>
-    </listitem>
     <listitem>
       <para>
         Using &spack; to configure the environment:
