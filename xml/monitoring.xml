@@ -8,9 +8,10 @@
 
 <?xml-stylesheet href="urn:x-suse:xslt:profiling:docbook51-profile.xsl"
  type="text/xml"
- title="Profiling step"?><chapter xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="cha-monitoring" xml:lang="en" version="5.1">
+ title="Profiling step"?><chapter xmlns:its="http://www.w3.org/2005/11/its" xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="cha-monitoring" xml:lang="en" version="5.1">
  <title>Monitoring and logging</title>
- <info xmlns:d="http://docbook.org/ns/docbook">
+ <info>
+    <meta name="description" its:translate="yes">Monitor cluster status, collect system logs, and identify failure conditions using tools designed for cluster health and administration</meta>
   <abstract>
    <para>
     Obtaining and maintaining an overview over the status and health
