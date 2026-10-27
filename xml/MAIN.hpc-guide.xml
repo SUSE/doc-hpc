@@ -28,6 +28,12 @@
     <phrase>Administration</phrase>
   </meta>
   <revhistory xml:id="rh-book-hpc">
+     <revision>
+     <date>2026-10-28</date>
+      <revdescription>
+        <para/>
+      </revdescription>
+    </revision>
     <revision>
      <date>2023-06-20</date>
       <revdescription>
