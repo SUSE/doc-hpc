@@ -6,9 +6,11 @@
 
 <?xml-stylesheet href="urn:x-suse:xslt:profiling:docbook51-profile.xsl"
  type="text/xml"
- title="Profiling step"?><chapter xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="cha-nodes" xml:lang="en" version="5.1">
+ title="Profiling step"?>
+ <chapter xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:its="http://www.w3.org/2005/11/its" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="cha-nodes" xml:lang="en" version="5.1">
  <title>Hardware</title>
  <info xmlns:d="http://docbook.org/ns/docbook">
+  <meta name="description" its:translate="yes">Discover tools like cpuid and hwloc to obtain hardware infrastructure information and analyze compute node topologies for High Performance Computing clusters</meta>
   <abstract>
    <para>
     This chapter describes tools that can be used to obtain hardware
