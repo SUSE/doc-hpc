@@ -6,9 +6,10 @@
 
 <?xml-stylesheet href="urn:x-suse:xslt:profiling:docbook51-profile.xsl"
  type="text/xml"
- title="Profiling step"?><chapter xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xlink="http://www.w3.org/1999/xlink" xml:base="dolly.xml" xml:id="cha-dolly" xml:lang="en" version="5.1">
+ title="Profiling step"?><chapter xmlns="http://docbook.org/ns/docbook" xmlns:its="http://www.w3.org/2005/11/its" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xlink="http://www.w3.org/1999/xlink" xml:base="dolly.xml" xml:id="cha-dolly" xml:lang="en" version="5.1">
  <title>Dolly clone tool</title>
  <info xmlns:d="http://docbook.org/ns/docbook">
+  <meta name="description" its:translate="yes">Learn how to clone and deploy disk images simultaneously to multiple nodes using dolly in SUSE Linux Enterprise High Performance Computing</meta>
   <abstract>
    <para>
     Dolly is used to send data from a management server to many other nodes.
