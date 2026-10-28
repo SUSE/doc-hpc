@@ -6,9 +6,10 @@
 
 <?xml-stylesheet href="urn:x-suse:xslt:profiling:docbook51-profile.xsl"
  type="text/xml"
- title="Profiling step"?><chapter xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="installation" xml:lang="en" version="5.1">
+ title="Profiling step"?><chapter xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:its="http://www.w3.org/2005/11/its" xml:id="installation" xml:lang="en" version="5.1">
  <title>Installation and upgrade</title>
- <info xmlns:d="http://docbook.org/ns/docbook">
+ <info>
+  <meta name="description" its:translate="yes">Learn how to install SUSE Linux Enterprise Server for High Performance Computing environments and upgrade existing systems with the required modules</meta>
   <abstract>
    <para>
     In version 15 SP6, &slehpc; (&slehpca;) was removed as a separate product. The &hpcm; is
@@ -22,7 +23,7 @@
   </dm:docmanager>
  <revhistory xml:id="rh-installation">
    <revision>
-     <date>2024-04-30</date>
+     <date>2026-10-28</date>
      <revdescription>
        <para/>
      </revdescription>
