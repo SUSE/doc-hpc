@@ -9,7 +9,7 @@
  title="Profiling step"?><chapter xmlns:its="http://www.w3.org/2005/11/its" xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xlink="http://www.w3.org/1999/xlink" xml:base="spack.xml" xml:id="cha-spack" xml:lang="en" version="5.1">
  <title>&spack; package management tool</title>
  <info>
-    <meta name="description" its:translate="yes">Automate installation and fine-tuning of simulations and libraries with Spack's configurable Python-based package management tool that supports multiple variants</meta>
+    <meta name="description" its:translate="yes">Automate simulation and library installation with Spack, a configurable Python-based package manager that supports fine-tuning and multiple variants</meta>
   <abstract>
    <para>
     &spack; is a configurable Python-based package manager, automating
@@ -26,7 +26,7 @@
   </dm:docmanager>
  <revhistory xml:id="rh-cha-spack">
    <revision>
-     <date>2023-10-11</date>
+     <date>2026-10-28</date>
      <revdescription>
        <para/>
      </revdescription>

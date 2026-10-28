@@ -9,7 +9,7 @@
  title="Profiling step"?><chapter xmlns:its="http://www.w3.org/2005/11/its" xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="cha-compute" xml:lang="en" version="5.1">
  <title>&hpca; user libraries</title>
  <info>
-    <meta name="description" its:translate="yes">Explore how to manage complex library dependencies in HPC clusters using the environment module system Lmod, which enables efficient handling of multiple versions or configurations</meta>
+    <meta name="description" its:translate="yes">Explore managing complex library dependencies in HPC clusters with Lmod, the environment module system for handling multiple software versions and configurations</meta>
   <abstract>
    <para>
     Many &hpca; clusters need to accommodate multiple compute applications,
@@ -29,7 +29,7 @@
   </dm:docmanager>
  <revhistory xml:id="rh-cha-compute">
    <revision>
-     <date>2026-04-21</date>
+     <date>2026-10-28</date>
      <revdescription>
        <para/>
      </revdescription>

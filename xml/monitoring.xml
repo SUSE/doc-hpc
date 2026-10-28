@@ -11,7 +11,7 @@
  title="Profiling step"?><chapter xmlns:its="http://www.w3.org/2005/11/its" xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="cha-monitoring" xml:lang="en" version="5.1">
  <title>Monitoring and logging</title>
  <info>
-    <meta name="description" its:translate="yes">Monitor cluster status, collect system logs, and identify failure conditions using tools designed for cluster health and administration</meta>
+    <meta name="description" its:translate="yes">Monitor cluster status, collect system logs and identify failure conditions using tools designed for cluster health and administration</meta>
   <abstract>
    <para>
     Obtaining and maintaining an overview over the status and health
@@ -27,7 +27,7 @@
   </dm:docmanager>
  <revhistory xml:id="rh-cha-monitoring">
    <revision>
-     <date>2022-05-20</date>
+     <date>2026-10-28</date>
      <revdescription>
        <para/>
      </revdescription>

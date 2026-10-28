@@ -9,7 +9,7 @@
  title="Profiling step"?><chapter xmlns:its="http://www.w3.org/2005/11/its" xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="cha-introduction" xml:lang="en" version="5.1">
  <title>Introduction</title>
  <info>
-    <meta name="description" its:translate="yes">Discover the HPC module for SUSE Linux Enterprise Server, a scalable platform for modeling, simulation, and advanced analytics workloads</meta>
+    <meta name="description" its:translate="yes">Discover the HPC module for SUSE Linux Enterprise Server, a scalable platform for modeling, simulation and advanced analytics workloads</meta>
   <abstract>
    <para>
     The &hpcm; for &sles; is a highly scalable, high-performance parallel computing platform
@@ -18,7 +18,7 @@
   </abstract>
  <revhistory xml:id="rh-cha-introduction">
    <revision>
-     <date>2024-03-12</date>
+     <date>2026-10-28</date>
      <revdescription>
        <para/>
      </revdescription>
