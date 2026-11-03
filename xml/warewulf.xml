@@ -23,7 +23,7 @@
   </dm:docmanager>
  <revhistory xml:id="rh-cha-warewulf-deploy-nodes">
    <revision>
-     <date>2026-10-28</date>
+     <date>2026-11-03</date>
      <revdescription>
        <para/>
      </revdescription>
@@ -195,11 +195,20 @@ network: &subnetI;.0</screen>
     </step>
     <step>
     <para>
-      Importing the &warewulf; container from the &suse; registry requires &scc; credentials.
-      Set your SCC credentials as environment variables before you import the container:
+      Importing the &warewulf; container from the &suse; registry requires login credentials.
+      Set your organization's mirroring credentials as environment variables before you
+      import the container:
     </para>
-<screen>&prompt.user;export WAREWULF_OCI_USERNAME=<replaceable>USER@EXAMPLE.COM</replaceable>
-&prompt.user;export WAREWULF_OCI_PASSWORD=<replaceable>REGISTRATION_CODE</replaceable></screen>
+<screen>&prompt.user;export WAREWULF_OCI_USERNAME=<replaceable>USER_NAME</replaceable>
+&prompt.user;export WAREWULF_OCI_PASSWORD=<replaceable>PASSWORD</replaceable></screen>
+      <tip role="compact">
+        <para>
+          To find the mirroring credentials, log in to the
+          <link xlink:href="https://scc.suse.com">&scc;</link>, select your organization from
+          <guimenu>My Organizations</guimenu>, and click <guimenu>Registration Proxies</guimenu>.
+          Your organization's <guimenu>Mirroring credentials</guimenu> are in the top right corner.
+        </para>
+      </tip>
     </step>
     <step>
     <para>
